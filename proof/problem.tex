@@ -1,0 +1,783 @@
+\documentclass[a4paper]{amsart}
+\usepackage{amssymb, mathtools, amsthm}
+% \usepackage{a4wide}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage[font=small]{caption}
+\usetikzlibrary{decorations.markings}
+
+\newcommand{\authornote}[1]{\ignorespaces\marginpar{
+\tiny #1}\ignorespaces}
+\newcommand{\CP}{\mathbf{CP}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\FS}{\text{FS}}
+\newcommand{\uS}{\mathbb{S}}
+\newcommand{\sph}{{\uS^2}}
+\newcommand{\laplace}{\Delta}
+\newcommand{\Hess}{\nabla^2}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\trace}{\operatorname{tr}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\ii}{{\rm i}}
+\newcommand{\dd}{{\rm d}}
+\newcommand{\pv}{\operatorname{P.V.}}
+
+%%%%%%%%% Theorem-like environment %%%%%%%%%%%
+\theoremstyle{plain} %text of this environment is typesetted in italics
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{problem}{Problem}
+%
+\theoremstyle{definition} %text of this environment is typesetted in roman letters
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
+
+\begin{document}
+
+\title[D and P locally minimize Gauss variance]{The Primitive and Diamond surfaces locally minimize\\ the variance of Gauss curvature}
+
+\author{Hao Chen}
+\email{chenhao5@shanghaitech.edu.cn}
+\address{ShanghaiTech University, Shanghai, China}
+
+\keywords{minimal surfaces}
+\subjclass[2010]{Primary 53A10}
+
+\date{\today}
+
+\begin{abstract}
+	We prove that Schwarz' Primitive and Diamond surfaces are local minimizers
+	for the variance of Gauss curvature among local deformations within the space
+	of Triply Periodic Minimal Surfaces of genus 3.  This is done by viewing the
+	branched values of the Gauss map as a point configuration on the sphere, and
+	rewriting the variance of Gauss curvature as a product of two integrals
+	involving exponentials of Green functions.
+\end{abstract}
+
+\maketitle
+
+Triply Periodic Minimal Surfaces (TPMSs) are minimal surfaces in flat 3-tori.
+The genus of a TPMS is at least three.  A TPMS of genus three (TPMSg3) has a
+Weierstrass parameterization defined on a branched double cover of the sphere
+with eight branch points.  The branched covering map is provided by the Gauss
+map, so the branch points correspond to eight \emph{flat points} on the TPMS
+(where the Gauss curvature vanishes).  We refer the readers to~\cite{meeks1990}
+for general reference.
+
+TPMSs find applications in natural sciences as a model for periodic
+bicontinuous structures~\cite{hyde1996}.  In nature and in laboratories, the
+chance to observe Schwarz' Primitive (P), Diamond (D) and Schoen's Gyroid (G)
+surfaces is much higher than finding other TPMSs.  Note that these surfaces
+belong to the same Bonnet family.  They are therefore locally isometric, have
+the same branch points, and the same variance of Gauss curvature.  For all the
+three surfaces, the branch points are vertices of a cube.  Based on numerical
+evidence~\cite{schroderturk2006}, it was conjectured that
+
+\begin{conjecture}
+	Schwarz' Primitive, Diamond, and Schoen's Gyroid surfaces have the minimal
+	variance of Gauss curvature among all Triply Periodic Minimal Surfaces of
+	genus 3.
+\end{conjecture}
+
+In this short note, we prove that the Primitive and Diamond are indeed local
+minimizers.
+
+\begin{theorem} \label{thm:main}
+	Schwarz' Primitive and Diamond surfaces are local minimizers for the variance
+	of Gauss curvature among local deformations within the space of Triply
+	Periodic Minimal Surfaces of genus 3.
+\end{theorem}
+
+We will relax the problem to study the variance for the Gauss curvature defined
+on the $13$-dimensional space $V$ of configurations of eight points on the
+sphere up to global rotations.  They correspond to the normal vectors at the
+eight flat points on a TPMSg3.  For Diamond, Primitive, and Gyroid surfaces,
+the eight points are at the vertices of a cube.  However, only a 5-dimensional
+variety in $V$ correspond to TPMSg3s.  In particular, the 5-dimensional
+subspace of antipodal configurations correspond to embedded TPMSg3s known as
+the \emph{Meeks family}.
+
+In~\cite{koiso2018}, it was proved that, up to homotheties, the Primitive,
+Diamond, and Gyroid all belong to a unique locally rigid 5-parameter smooth
+family of pairwise non-homothetic triply periodic minimal surfaces.  In
+particular, the family that contains the Diamond and the Primitive surfaces is
+the Meeks family.  Schoen's Gyroid, however, does not belong to Meeks family.
+
+At the cubic configuration, we compute the Hessian of the variance for the
+Gauss curvature on $V$ and find, unfortunately, a $2$-dimensional negative
+eigenspace generated by ``twists''.  So the Hessian is indefinite, and the
+cubic configuration is not a local minimizer in $V$.  Nevertheless, we are able
+to prove positive definiteness for the deformations preserving antipodality, so
+the cubic configuration is a local minimizer among antipodal deformations,
+thereby proving the Theorem.
+
+The $5$-parameter family of local deformations of the Gyroid is not fully
+understood.  Among the known deformations of the Gyroid, it is indeed a local
+minimizer.  But in the presence of the negative eigenspace, we can not rule out
+a possibility that it might not be a local minimizer along other deformations.
+
+\subsection*{Acknowledgement}
+
+The author thanks Chengjian Yao and Thierry De Pauw for very helpful and
+inspiring discussions.
+
+\section{Reformulation}
+
+\subsection{Weierstrass parameterization}
+
+Given a TPMSg3, let $p_1, \cdots, p_8$ be (the stereographic projection of) the
+Gauss map at the eight flat points.  Consider the hyperelliptic Riemann surface
+$\Sigma$ of genus three defined by
+\[
+	w^2 = P(z) = \prod_{i=1}^8 (z-p_i).
+\]
+It can be seen as a branched double cover of the Riemann sphere $\uS^2 \simeq
+\CP^1$ with eight branch points.  Then we have the following \emph{Weierstrass
+parameterization} for the TPMS (up to translations)
+\begin{equation}\label{eq:weierstrass}
+	\Sigma \ni (z, w) \mapsto \re \int^{(z, w)} \frac{(1-z^2, \ii(1+z^2), 2z)}{w}
+	e^{i \vartheta}\, dz.
+\end{equation}
+Switching the two branches by $(z,w) \mapsto (z,-w)$ correspond to the
+inversion with respect to any of the eight flat points.  The parameter
+$\vartheta$ is the \emph{Bonnet angle}; changing $\vartheta$ gives a locally
+isometric deformation of the surface known as \emph{Bonnet rotation}.  Two
+surfaces whose $\vartheta$ differ by $\pi/2$ are called \emph{conjugate pairs}.
+
+For the minimal surface to be triply periodic and globally well-defined, one
+needs to solve the period problem (aka, \emph{close the periods}).  More
+precisely, one finds $p_i$'s and $\vartheta$ so that the real parts of the
+integrals over closed cycles on $\Sigma$ form a three dimensional lattice.  The
+period problem involves three real equations for each of the three coordinates,
+hence nine real equations in total.  Since we have $17$ real parameters
+($p_i$'s and $\vartheta$), the set of TPMSg3s form a $8$-dimensional variety up
+to translations, or $5$-dimensional variety up to homotheties.
+
+Closing the periods is usually very difficult.  But Meeks proved
+in~\cite{meeks1990} that, when the branch points form four antipodal pairs,
+there exists a conjugate pair embedded TPMSg3s.  Up to homotheties, these
+TPMSg3s form a $5$-dimensional manifold termed \emph{Meeks family}.
+
+In this paper, we will not insist on closing the periods.  The variance of
+Gauss curvature is invariant under local isometries such as Bonnet rotations.
+So it is a function defined on a $13$-dimensional space of configurations of
+eight points on the sphere up to rotations.  The Meeks surfaces correspond to
+the 5-dimensional subspace of antipodal configurations, for which we know the
+existence of $\vartheta$ that closes the periods.  Our main Theorem is
+equivalent to that the cubic configuration is a local minimizer of the Gauss
+variance on this $5$-dimensional subspace.
+
+\subsection{Variance of Gauss curvature}
+
+More precisely, we want to minimize the (dimensionless) variance of Gauss
+curvature, defined by
+\[
+	\sigma(K)
+	= \frac{\langle K^2 \rangle - \langle K \rangle^2}{\langle K \rangle^2}
+	= \Bigg[\frac{\int_\Sigma K^2 \, dA}{\int_\Sigma dA} - \Bigg( \frac{\int_\Sigma K \, dA}{\int_\Sigma dA} \Bigg)^2\Bigg] / \Bigg( \frac{\int_\Sigma K \, dA}{\int_\Sigma dA} \Bigg)^2.
+\]
+By Gauss-Bonnet, $\int_\Sigma K \, dA$ is a topological invariant.  It is then
+equivalent to minimize
+\begin{equation}\label{eq:form1}
+	\int_\Sigma K^2 dA \times \int_\Sigma dA.
+\end{equation}
+
+From the Weierstrass parameterization, we compute
+\[
+	dA = \frac{(1+|z|^2)^2}{|w|^2} \, dx \wedge dy, \qquad K = -4 \frac{|w|^2}{(1+|z|^2)^4},
+\]
+where $z = x + y \ii$.  Indeed, one verifies that
+\[
+	\int_\Sigma K dA = -4 \int_\Sigma \frac{dx \wedge dy}{(1+|z|^2)^2} = - 8 \pi
+\]
+as expected.  The area element and the Gauss curvature are invariant after
+switching the branches.  It then suffices to compute the invariance on one of
+the branch.  So \eqref{eq:form1} becomes (up to a constant factor)
+\begin{equation}\label{eq:form2}
+	\int_{\CP^1} \frac{|P(z)|}{(1+|z|^2)^6} \, dx \wedge dy \times
+	\int_{\CP^1} \frac{(1+|z|^2)^2}{|P(z)|} \, dx \wedge dy.
+\end{equation}
+Note that the second integral is improper: The integrand is not defined at the
+zeros of $P(z)$.  So the integral is defined as the limit
+\[
+	\int_{\CP^1} \frac{(1+|z|^2)^2}{|P(z)|} \, dx \wedge dy
+	= \lim_{\varepsilon \to 0}
+	\int_{\CP^1 \setminus \cup_i D^i_\varepsilon} \frac{(1+|z|^2)^2}{|P(z)|} \, dx \wedge dy,
+\]
+where $D^i_\varepsilon$ denote the $\varepsilon$-disks around $p_i$ under the
+Fubini--Study metric.  Fortunately, the limit converges.
+
+\subsection{Fubini--Study metric}
+
+Note that
+\[
+	\dd A_\FS = \frac{4 \, dx \wedge dy}{(1+|z|^2)^2}
+\]
+is the area element for the Fubini--Study metric on $\CP^1$, which is
+(normalized to) exactly the standard metric on the unit sphere $\uS^2$.
+Moreover, we can identify $P(z)$ to a global section $s$ of the holomorphic
+line bundle $\cO(8) = \cO(1)^{\otimes 8}$ over $\CP^1$, and
+\[
+	\|s\|_\FS = \frac{|P(z)|}{(1+|z|^2)^4}
+\]
+is its point-wise Fubini--Study norm.  See, for instance,
+\cite{huybrechts2005}.  Then \eqref{eq:form2} becomes (up to a constant factor)
+\begin{equation}\label{eq:form3}
+	J_8 := 
+	\int_{\CP^1} \| s \|_\FS \, \dd A_\FS \times
+	\int_{\CP^1} \| s \|_\FS^{-1} \, \dd A_\FS. 
+\end{equation}
+Note again that the second integral is improper.  It is defined as the
+convergent limit of the integral over $\CP^1 \setminus \cup_i D^i_\varepsilon$
+as $\varepsilon \to 0$.
+
+\subsection{Lelong--Poincar\'e Equation}
+
+Define
+\[
+	u = \log \| s \|_\FS.
+\]
+Note that the Fubini--Study metric on $\cO(8)$ is Hermitian.  One then easily verifies the
+Lelong--Poincar\'e Equation
+\[
+	\laplace u = 2\pi \sum_{i=1}^8 \delta(z-p_i) - 4\frac{4}{(1+|z|^2)^2},
+\]
+or, using the Laplacian under the Fubini--Study metric,
+\[
+	\laplace_\FS u = \frac{(1+|z|^2)^2}{4} \laplace u
+	= 2\pi \sum_{i=1}^8 \delta_i(z) - 4,
+\]
+where
+\[
+	\delta_i(z) = \frac{(1+|z|^2)^2}{4} \delta(z-p_i)
+\]
+denote the Dirac delta function under the Fubini--Study metric centered at
+$p_i$.
+
+The solution is given by
+\[
+	u = 2\pi \sum_{i = 1}^8 G_i(z),
+\]
+where $G_i(z)$ is the Green function solving
+\begin{equation}\label{eq:laplaceG}
+	\laplace_\FS G_i(z) = \delta_i(z) - \frac{1}{4\pi}.
+\end{equation}
+On the unit sphere $\uS^2 \simeq \CP^1$, we have
+\[
+	G_i(z) = -\frac{1}{2\pi} \log \sin \frac{\dist(z, p_i)}{2} + C
+\]
+where $\dist(z, p_i)$ is the spherical distance between $z$ and $p_i$.  Then
+\eqref{eq:form3} becomes
+\begin{equation}\label{eq:form4}
+	J_8 =
+	\int_{\uS^2} \exp(u) \, \dd A_\sph \times
+	\int_{\uS^2} \exp(-u) \, \dd A_\sph,
+\end{equation}
+where $\dd A_\sph$ is the standard spherical area element on the unit sphere.
+Note that \eqref{eq:form4} does not depend on the constant $C$ in $G_i$, so we
+assume $C=0$ from now on.  Note again that the second integral is improper and
+is defined as the convergent limit
+\[
+	\int_{\uS^2} \exp(-u) \, \dd A_\sph = \lim_{\varepsilon \to 0}
+	\int_{\Omega_\varepsilon} \exp(-u) \, \dd A_\sph,
+\]
+where
+\[
+	\Omega_\varepsilon = \uS^2 \setminus \cup_{i=1}^n D^i_\varepsilon.
+\]
+
+The Conjecture would be proved if $J_8$ is minimized when $p_i \in \uS^2$ are
+the vertices of a cube.
+
+\begin{remark}
+	With this reformulation, we actually expand our consideration beyond TPMSg3s.
+	We are now considering all minimal surfaces with the Weierstrass
+	parameterization~\eqref{eq:weierstrass}.  In particular, we do not need the
+	period problems to be solved, not to mention the embeddedness.
+\end{remark}
+
+\subsection{Generalization}
+
+The analysis above can be generalized as follows.  Fix $n$ points $p_1, \cdots, p_n$, and define the polynomial
+\[
+	P(z) = \prod_{i=1}^n (z-p_i).
+\]
+Consider the product of integrals
+\[
+	\int_{\CP^1} \frac{|P(z)|}{(1+|z|^2)^{\frac{n}{2}+2}} \, dx \wedge dy \times
+	\int_{\CP^1} \frac{(1+|z|^2)^{\frac{n}{2}-2}}{|P(z)|} \, dx \wedge dy.
+\]
+Note that
+\[
+	\|s\|_\FS = \frac{|P(z)|}{(1+|z|^2)^{n/2}}
+\]
+is the point-wise Fubini--Study norm of $P(z)$ as a global section $s$ of
+$\cO(n)$ over $\CP^1$. Then the product can be rewritten (up to a constant
+factor) into the form
+\[
+	J_n :=
+	\int_{\CP^1} \| s \|_\FS \, \dd A_\FS \times
+	\int_{\CP^1} \| s \|_\FS^{-1} \, \dd A_\FS. 
+\]
+Now the Lelong--Poincar\'e Equation is
+\[
+	\laplace_\FS u = 2\pi \sum_{i=1}^n \delta_i(z) - n/2,
+\]
+which is solved by
+\[
+	u = 2\pi \sum_{i=1}^n G_i(z).
+\]
+So
+\[
+	J_n = 
+	\int_{\uS^2} \exp(u) \, \dd A_\sph \times
+	\int_{\uS^2} \exp(-u) \, \dd A_\sph.
+\]
+And we could ask the following problem
+\begin{problem}
+	What are the positions of $p_1, \cdots, p_n$ that minimize $J_n$?
+\end{problem}
+When $n = 8$, this is exactly the problem of finding branch values to minimize
+the variance of the Gauss curvature.
+
+\section{Gradient and Hessian}
+
+\subsection{The gradient}
+
+Recall that
+\[
+	\Omega_\varepsilon = \uS^2 \setminus \cup_{i=1}^n D^i_\varepsilon,
+\]
+where $D^i_\varepsilon$ denote the $\varepsilon$-disks around $p_i$ under the
+spherical metric.  Define
+\[
+	I^\pm_\varepsilon = \int_{\Omega_\varepsilon} \exp(\pm u) \, \dd A_\sph,
+\]
+and two probability measure $\dd\mu^\pm_\varepsilon = \rho^\pm_\varepsilon \dd
+A_\sph$ on $\Omega_\varepsilon$, where
+\[
+	\rho_\varepsilon^\pm
+	= \frac{\exp(\pm u)}{\int_{\Omega_\varepsilon} \exp(\pm u) \, \dd A_\sph}
+	= \frac{\exp(\pm u)}{I^\pm_\varepsilon}.
+\]
+
+We compute
+\begin{align*}
+	\langle \nabla_{\! p_i} \log I^\pm_\varepsilon, v_i\rangle &=
+	\frac{\langle \nabla_{\! p_i} I^\pm_\varepsilon, v_i\rangle}{I^\pm_\varepsilon}
+	\\ &=
+	\frac{1}{I^\pm_\varepsilon}
+	\Big(
+		\int_{\Omega_\varepsilon} \langle \pm 2\pi \nabla_{\! p_i} G_i, v_i \rangle \exp(\pm u) \, \dd A_\sph
+		+ \oint_{\partial D^i_\varepsilon} \exp(\pm u) \langle n_i, \tilde v_i \rangle \dd s
+	\Big)
+	\\ &=
+	\int_{\Omega_\varepsilon} \langle \pm 2\pi \nabla_{\! p_i} G_i, v_i \rangle \rho_\varepsilon^\pm \, \dd A_\sph
+	+ \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \rho_\varepsilon^\pm \dd s
+\end{align*}
+where $v_i \in T_{p_i} \uS^2$, $n_i$ is the unit normal vectors on the boundary
+of $D^i_\varepsilon$ pointing to the interiors of the disks, and $\tilde v_i$
+is a Killing field such that $\tilde v_i (p_i) = v_i$. So for
+\[
+	v = (v_1, \cdots, v_8) \in \bigoplus_{i=1}^8 T_{p_i} \uS^2,
+\]
+we have
+\begin{equation}\label{eq:grad}
+	\langle \nabla_{\! p} \log I^\pm_\varepsilon, v\rangle 
+	= \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \dd\mu_\varepsilon^\pm
+	+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \rho_\varepsilon^\pm \dd s
+\end{equation}
+
+Note that the formula does not depend on the choice of the Killing fields
+$\tilde v_i$.  To see this, assume another choice $\tilde v'_i$.  Then $\tilde
+w_i = \tilde v'_i - \tilde v_i$ is a Killing field that vanishes at $p_i$,
+which is given as a rotation around $p_i$.  Consequently, we have $\langle \mp
+2\pi \nabla_{\! z} G_i, \tilde w_i \rangle = 0$ and $\langle n_i, \tilde w_i
+\rangle = 0$.
+
+Note also that, when $\tilde v_i = \tilde v_*$ is the same Killing field for all
+$i$, then
+\begin{align*}
+	\langle \nabla_{\! p} \log I^\pm_\varepsilon, v\rangle 
+	&= \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_* \rangle \dd\mu_\varepsilon^\pm
+	+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_* \rangle \rho_\varepsilon^\pm \dd s\\
+	&= \int_{\Omega_\varepsilon} \langle \mp \nabla_{\! z} u, \tilde v_* \rangle \dd\mu_\varepsilon^\pm
+	+ \int_{\Omega_\varepsilon} \langle \pm \nabla_{\! z} u, \tilde v_* \rangle \dd \mu_\varepsilon^\pm = 0
+\end{align*}
+So a deformation along a Killing field does not change $I^\pm_\varepsilon$.
+
+\medskip
+
+Recall that $2\pi G_i = \log \sin (\frac{1}{2} \dist(z, p_i))$, so
+\[
+	2\pi \nabla_{\! z} G_i \sim \frac{\hat w_i}{\dist(z, p_i)}, \qquad
+	\rho^\pm_\varepsilon \sim \dist(z, p_i)^{\pm 1} \qquad
+\]
+as $z \to p_i$, where $\hat w_i = \nabla_z \dist(z, p_i)$.  It is then
+obvious that~\eqref{eq:grad} converges as $\varepsilon \to 0$ for
+$\mu^+_\varepsilon$.  As for $\mu^-_\varepsilon$, in the standard spherical
+coordinate with the pole $p_i$, polar angle $\theta$ and azimuth angle $\phi$,
+the integrands
+\begin{align*}
+	\langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \dd\mu_\varepsilon^-
+	&\sim \frac{2}{\theta I^-} \langle \hat w_i(\theta, \phi), \tilde v_i(\theta, \phi) \rangle \dd \theta \dd \phi,\\
+	\langle n_i, \tilde v_i \rangle \rho_\varepsilon^- \dd s
+	&\sim \frac{-2}{I^-} \langle \hat w_i(\varepsilon, \phi), \tilde v_i(\varepsilon, \phi) \rangle \dd \phi
+\end{align*}
+as $\theta, \varepsilon \to 0$.  The integrals in~\eqref{eq:grad} then converge
+as $\varepsilon \to 0$ because
+\[
+	\lim_{\theta \to 0} \int_0^{2\pi} \langle \hat w_i(\theta, \phi), \tilde v_i(\theta, \phi) \rangle \dd \phi \to 0.
+\]
+More specifically, we have
+\[
+	\langle \nabla_{\! p} \log I^\pm, v\rangle :=
+	\lim_{\varepsilon\to 0}\langle \nabla_{\! p} \log I^\pm_\varepsilon, v\rangle 
+	= \int_{\uS^2} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \dd\mu^\pm.
+\]
+As a sanity check, one easily verifies that this vanishes when $\tilde v_i =
+\tilde v_*$ is the same Killing field for all $i$.
+
+\medskip
+
+Finally, by symmetry, one easily verifies that $\langle \nabla_{\! p} \log
+I^\pm_\varepsilon, v\rangle = 0$ for any $v$ when $p_1,\cdots,p_8$ are the
+vertices of the cube. So the cube is indeed a critical point of $J_8$.
+
+\subsection{The Hessian}
+
+We compute,
+\begin{align*}
+	\langle \nabla_{\! p_i} \rho^\pm_\varepsilon, v_i\rangle
+	&=
+	\frac{\langle \pm 2\pi \nabla_{\! p_i} G_i, v_i \rangle \exp(\pm u)}{I_\varepsilon^\pm}
+	-
+	\frac{\exp(\pm u) \langle \nabla_{\! p_i} I_\varepsilon^\pm, v_i\rangle}{(I_\varepsilon^\pm)^2}
+	\\
+	&= \rho_\varepsilon^\pm \Big(
+		\langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle
+		- \int_{\Omega_\varepsilon} \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \dd\mu_\varepsilon^\pm
+		- \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \rho_\varepsilon^\pm \dd s
+	\Big)
+\end{align*}
+
+The Hessian
+\begin{align}
+	\Hess_{\! p} \log I^\pm_\varepsilon (v , v)
+	=&
+	\langle \nabla_{\! p} \langle \nabla_{\! p} \log I^\pm_\varepsilon, v\rangle, v \rangle \nonumber \\
+	=&\phantom{+}
+	\int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \nabla_{\! p_i} \langle \pm 2\pi \nabla_{\! p_i} G_i, v_i \rangle, v_i \rangle \rho_\varepsilon^\pm \, \dd A_\sph \label{eq:l1}\\
+	&+ \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \pm 2\pi \nabla_{\! p_i} G_i, v_i \rangle \sum_{j=1}^n \langle \nabla_{\! p_j} \rho_\varepsilon^\pm, v_j \rangle \, \dd A_\sph \label{eq:l2}\\
+	&+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \sum_{j=1}^n \langle \nabla_{\! p_j} \rho_\varepsilon^\pm, v_j \rangle \dd s \label{eq:l3}\\
+	&+ \sum_{j=1}^n \oint_{\partial D^j_\varepsilon} \langle n_j, \tilde v_j \rangle \sum_{i=1}^n \langle \pm 2\pi \nabla_{\! p_i} G_i, v_i \rangle \rho_\varepsilon^\pm \, \dd s \label{eq:l4}\\
+	&+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \langle \nabla_{\! z} \rho_\varepsilon^\pm, \tilde v_i \rangle \dd s \nonumber
+\end{align}
+
+We expand each term
+\begin{flalign*}
+	\text{\eqref{eq:l1}}
+	=& \int_{\Omega_\varepsilon} \sum_{i=1}^n \pm 2\pi \Hess_{\! z} G_i (\tilde v_i, \tilde v_i) \dd\mu_\varepsilon^\pm &&
+\end{flalign*}
+\begin{flalign*}
+	\text{\eqref{eq:l2}}
+	=& \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \sum_{j=1}^n \langle \nabla_{\! p_j} \rho_\varepsilon^\pm, v_j \rangle \, \dd A_\sph &&\\
+	=& \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \sum_{j=1}^n \langle \mp 2\pi \nabla_{\! z} G_j, \tilde v_j \rangle \dd\mu_\varepsilon^\pm &&\\
+	&- \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \dd\mu_\varepsilon^\pm
+	\int_{\Omega_\varepsilon} \sum_{j=1}^n \langle \mp 2\pi \nabla_{\! z} G_j, \tilde v_j \rangle \dd\mu_\varepsilon^\pm &&\\
+	&- \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \dd\mu_\varepsilon^\pm 
+	\sum_{j=1}^n \oint_{\partial D^j_\varepsilon} \langle n_j, \tilde v_j \rangle \rho_\varepsilon^\pm \, \dd s &&
+\end{flalign*}
+\begin{flalign*}
+	\text{\eqref{eq:l3}}
+	=& \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \sum_{j=1}^n \langle \mp 2\pi \nabla_{\! z} G_j, \tilde v_j \rangle \rho_\varepsilon^\pm \, \dd s &&\\
+	&- \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle\rho_\varepsilon^\pm \, \dd s
+	\int_{\Omega_\varepsilon} \sum_{j=1}^n \langle \mp 2\pi \nabla_{\! z} G_j, \tilde v_j \rangle \dd\mu_\varepsilon^\pm &&\\
+	&- \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle\rho_\varepsilon^\pm \, \dd s
+	\sum_{j=1}^n \oint_{\partial D^j_\varepsilon} \langle n_j, \tilde v_j \rangle \rho_\varepsilon^\pm \, \dd s, &&
+\end{flalign*}
+and
+\begin{flalign*}
+	\text{\eqref{eq:l4}}
+	=& \sum_{j=1}^n \int_{\partial D^j_\varepsilon} \langle n_j, \tilde v_j \rangle \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \rho_\varepsilon^\pm \, \dd s. &&
+\end{flalign*}
+
+Putting them together gives
+\begin{align}
+	\Hess_{\! p} \log I^\pm_\varepsilon (v, v)
+	=& \int_{\Omega_\varepsilon} \Big( \sum_{i=1}^n \langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \Big)^2 \dd\mu_\varepsilon^\pm \label{eq:h1}\\
+&+ \int_{\Omega_\varepsilon} \sum_{i=1}^n \pm 2\pi \Hess_{\! z} G_i (\tilde v_i, \tilde v_i) \dd\mu_\varepsilon^\pm  \label{eq:h2}\\
+	&- \Big(
+		\int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \dd\mu_\varepsilon^\pm
+		+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \rho_\varepsilon^\pm \dd s
+	\Big)^2 \label{eq:h3}\\
+	&+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \sum_{j=1}^n \langle \mp 2\pi \nabla_{\! z} G_j, \tilde v_j \rangle \rho_\varepsilon^\pm \, \dd s  \label{eq:h4}\\
+	&+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \sum_{j=1}^n \langle \mp 2\pi \nabla_{\! z} G_j, \tilde v_j - \tilde v_i \rangle \rho_\varepsilon^\pm \, \dd s \label{eq:h5}
+\end{align}
+
+Note again the independence to the choice of the Killing fields $\tilde v_i$
+(by the same argument as before) and, when $\tilde v_i = \tilde v_*$ is the
+same Killing field for all $i$,
+\begin{multline*}
+	\Hess_{\! p} \log I^\pm_\varepsilon (v, v)
+	= \int_{\Omega_\varepsilon} \langle \nabla_{\! z} u, \tilde v_* \rangle^2 \dd\mu_\varepsilon^\pm
+	+ \int_{\Omega_\varepsilon} \pm \Hess_{\! z} u (\tilde v_*, \tilde v_*) \dd\mu_\varepsilon^\pm\\
+	+ \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_* \rangle \langle \mp \nabla_{\! z} u, \tilde v_* \rangle \rho_\varepsilon^\pm \, \dd s = 0.
+\end{multline*}
+
+The boundary term~\eqref{eq:h5} converges to $0$ because
+$D^i_\varepsilon$ only contains the singularity of $G_j$ when $j=i$.  For the
+same reason, in the limit $\varepsilon \to 0$, we may rewrite the ``coupling''
+boundary term \eqref{eq:h4} into the form
+\begin{align*}
+	&\lim_{\varepsilon \to 0} \sum_{i=1}^n \oint_{\partial D^i_\varepsilon} \langle n_i, \tilde v_i \rangle \langle \mp 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \rho_\varepsilon^\pm \, \dd s\\
+	=&\lim_{\varepsilon \to 0} \sum_{i=1}^n \Big[
+		- \int_{\Omega_\varepsilon} \langle \nabla_{\! z} u, \tilde v_i \rangle \langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \, \dd \mu_\varepsilon^\pm
+		\mp \int_{\Omega_\varepsilon} 2\pi \Hess_{\! z} G_i (\tilde v_i, \tilde v_i) \, \dd \mu_\varepsilon^\pm
+	\Big],
+\end{align*}
+where the second term cancels with~\eqref{eq:h2}.
+
+We have seen that the second term in~\eqref{eq:h3} converges to $0$ as
+$\varepsilon \to 0$.  At a critical point, its first term~\eqref{eq:h3}
+vanishes.  If this is the case, we have
+\begin{align*}
+	&\lim_{\varepsilon \to 0} \Hess_{\! p} \log I^\pm_\varepsilon (v, v) \\
+	=&\lim_{\varepsilon \to 0}
+	\int_{\Omega_\varepsilon} \Big( \sum_{i=1}^n \langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \Big)^2 \dd\mu_\varepsilon^\pm
+	- \int_{\Omega_\varepsilon} \sum_{i=1}^n \langle \nabla_{\! z} u, \tilde v_i \rangle \langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \, \dd \mu_\varepsilon^\pm\\
+	=&\lim_{\varepsilon \to 0}
+	\int_{\Omega_\varepsilon} \sum_{i=1}^n \sum_{j=1}^n \langle 2\pi \nabla_{\! z} G_j, \tilde v_j - \tilde v_i \rangle \langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \, \dd \mu_\varepsilon^\pm.
+\end{align*}
+When $i \ne j$, the convergence follows from the same argument for the
+convergence of the gradience~\eqref{eq:grad}.  The possible divergence with $i
+= j$ is ruled out by $\tilde v_j - \tilde v_i$.  In the following, we will
+simply write
+\[
+	\Hess_{\! p} \log I^\pm (v, v)
+	=
+	\int_{\uS^2} \sum_{i=1}^n \sum_{j=1}^n \langle 2\pi \nabla_{\! z} G_j, \tilde v_j - \tilde v_i \rangle \langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \, \dd \mu^\pm.
+\]
+
+\section{Local minimizer}
+
+Without loss of generality, we assume that the vertices of the cube, in the
+standard coordinates $(\theta, \phi)$ of the sphere, are as follows:
+\begin{align*}
+	p_1 &= (\theta_0, 0),&
+	p_5 &= (\pi - \theta_0, 0),\\
+	p_2 &= (\theta_0, \pi/2),&
+	p_6 &= (\pi - \theta_0, \pi/2),\\
+	p_3 &= (\theta_0, \pi),&
+	p_7 &= (\pi - \theta_0, \pi),\\
+	p_4 &= (\theta_0, 3\pi/2),&
+	p_8 &= (\pi - \theta_0, 3\pi/2).
+\end{align*}
+where $\theta_0 = \arccos(1/\sqrt{3})$.
+
+\subsection{Decomposition into irreducible representations}
+
+We have seen that the Hessian vanishes on Killing fields, compatible with the
+fact the $J$ is invariant under global rotations.  So we study the Hessian on
+the $13$-dimensional space
+\[
+	V = \Big(\bigoplus_{i=1}^8 T_{p_i} \uS^2\Big) / \mathrm{SO}(3)
+\]
+at the cubic configuration.  For this purpose, we decompose $V$ into
+irreducible representations (irreps) of the symmetry group of the cube, as
+follows:
+
+\begin{itemize}
+	% \item The $3$-dimensional space $T_{1g}$ generated by rotations.  One
+	% 	generator is given by
+	% 	\[
+	% 		v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \quad 1 \le i \le 8.
+	% 	\]
+	\item The $3$-dimensional space $T_{1u}$ generated by slides (that moves the
+		center of mass).  One generator is given by
+		\[
+			% v_i = \partial_\theta|_{p_i}, \quad 1 \le i \le 8.
+			v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{1, 2, 5, 6\},\qquad
+			v_i =-\frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{3, 4, 7, 8\}.
+		\]
+	\item The $2$-dimensional space $E_g$ generated by orbit of
+		\[
+			v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{1, 3, 5, 7\},\qquad
+			v_i =-\frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{2, 4, 6, 8\}.
+		\]
+		Every face remain rectangular under these deformations.
+	\item The $2$-dimensional space $E_u$ generated by orbit of
+		\[
+			v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{1, 2, 3, 4\},\qquad
+			v_i =-\frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{5, 6, 7, 8\}.
+		\]
+		The face centers of the cube remain symmetry centers under these deformations.
+	\item The $3$-dimensional space $T_{2g}$ generated by the orbit of
+		\[
+			% v_i = \partial_\theta|_{p_i}, & \text{ for } i \in \{1, 3, 6, 8\},\qquad
+			% v_i =-\partial_\theta|_{p_i}, & \text{ for } i \in \{2, 4, 5, 7\}.
+			v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{1, 2, 7, 8\},\qquad
+			v_i =-\frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{3, 4, 5, 6\}.
+		\]
+	\item The $3$-dimensional space $T_{2u}$ generated by orbit of
+		\[
+			v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{1, 3, 6, 8\},\qquad
+			v_i =-\frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{2, 4, 5, 7\}.
+		\]
+\end{itemize}
+
+The Hessian is invariant under the action of $G$.  By Schur's lemma, it must be
+a multiple of identity on each of the irreps.  So we only need to verify that
+the Hessian is non-negative on one generator for each of the irreps.
+
+\subsection{The definiteness on \texorpdfstring{$T_{1u}$}{T1u}, \texorpdfstring{$E_u$}{Eu} and \texorpdfstring{$E_g$}{Eg}}
+
+We have chosen the generator vectors, intentionally, with the following
+property.  The eight vertices are partitioned into two subsets $A$ and $B$,
+with four vertices each, such that vertices in $A$ extend to the Killing field
+$\partial_\phi$, while vertices in $B$ extend to $-\partial_\phi$.  In this
+case, we have
+\begin{align*}
+	&\Hess_{\! p} \log I^\pm (v, v)
+	=
+	\int_{\uS^2} \sum_{i=1}^n \sum_{j=1}^n \langle 2\pi \nabla_{\! z} G_j, \tilde v_j - \tilde v_i \rangle \langle 2\pi \nabla_{\! z} G_i, \tilde v_i \rangle \, \dd \mu^\pm\\
+	=& -4
+	\int_{\uS^2} \sum_{i \in A} \sum_{j \in B} (2\pi \partial_\phi G_j)(2\pi \partial_\phi G_i) \, \dd \mu^\pm
+	= -16\pi^2 \int_{\uS^2} \partial_\phi G_A \partial_\phi G_B \, \dd \mu^\pm,
+\end{align*}
+where
+\[
+	G_A = \sum_{i \in A} G_i, \qquad G_B = \sum_{i \in B} G_i.
+\]
+
+To study the definiteness of the Hessian, we need to first study the sign of
+\[
+	H^\pm_{ij} = \int_{\uS^2} \partial_\phi G_i \partial_\phi G_j \,
+	\dd \mu^\pm.
+\]
+When $p_i$ and $p_j$ are antipodal (e.g. $(i,j) = (1,7)$) or on a horizontal
+face diagonal (e.g. $(i,j) = (1,3)$), one easily sees that the integrand
+$\partial_\phi G_i \partial_\phi G_j \le 0$ everywhere on the sphere, so
+$H^\pm_{ij}$ is negative.  When $p_i$ and $p_j$ are vertical neighbors (e.g.
+$(i,j) = (1,5)$), one easily sees that the integrand $\partial_\phi G_i
+\partial_\phi G_j \ge 0$ everywhere on the sphere, so $H^\pm_{ij}$ is positive.
+Otherwise, the following lemma would be useful:
+
+\begin{lemma}
+	Let $f(\theta, \phi)$ be a function defined on $\uS^2$ that is odd in $\phi$,
+	and $\rho$ be a positive function on $\uS^2$ with
+	\[
+		\rho(\theta, \phi) = \rho(\theta, \phi+\tfrac{\pi}{2}) = \rho(\pi - \theta, \phi).
+	\]
+	Assume that $f(\theta, \phi)$ is negative and strictly monotonically
+	increasing in $\phi$ on the interval $(0, \pi)$.  Then the integrals
+	\begin{align*}
+		K_1 =& \int_{\uS^2} f(\theta, \phi) f(\theta, \phi - \tfrac{\pi}{2}) \rho \, dA_\sph < 0,\\
+		K_2 =& \int_{\uS^2} f(\theta, \phi) f(\pi - \theta, \phi - \tfrac{\pi}{2}) \rho \, dA_\sph < 0.
+	\end{align*}
+	Moreover, if $f(\theta, \phi) - f(\pi - \theta, \phi)$ is negative and
+	monotonically increasing in $\phi$ on the interval $(0, \pi)$ for $0 < \theta
+	< \tfrac{\pi}{2}$, then $K_1 < K_2 < 0$.
+\end{lemma}
+
+\begin{proof}
+	We decompose the sphere into four quadrants.  Then
+	\begin{align*}
+		K_1 = \int_0^\pi \sin\theta \, d\theta \int_{0}^{\tfrac{\pi}{2}} & \rho \, d\phi
+		\big(f(\theta, \phi) f(\theta, \phi-\tfrac{\pi}{2}) + f(\theta, \phi+\tfrac{\pi}{2}) f(\theta, \phi)\\
+		&+ f(\theta, \phi+\pi) f(\theta, \phi+\tfrac{\pi}{2}) + f(\theta, \phi-\tfrac{\pi}{2}) f(\theta, \phi+\pi) \big)\\
+		= \int_0^\pi \sin\theta \, d\theta \int_{0}^{\tfrac{\pi}{2}} \rho \, d\phi
+		& \big( f(\theta, \phi) + f(\theta, \phi + \pi) \big) \big( f(\theta, \phi - \tfrac{\pi}{2}) + f(\theta, \phi + \tfrac{\pi}{2}) \big)\\
+		= \int_0^\pi \sin\theta \, d\theta \int_{0}^{\tfrac{\pi}{2}} \rho \, d\phi
+		& \big( f(\theta, \phi) - f(\theta, \pi - \phi) \big) \big(-f(\theta, \tfrac{\pi}{2} - \phi) + f(\theta, \tfrac{\pi}{2} + \phi) \big)
+	\end{align*}
+	For $0 < \phi < \tfrac{\pi}{2}$, by the assumed monotonicity, we have $f(\phi) < f(\pi
+	- \phi) < 0$ and $g(\tfrac{\pi}{2}-\phi) < g(\tfrac{\pi}{2} + \phi) < 0$.  So $K_1$ is
+	negative.  On the other hand,
+	\begin{align*}
+		K_2 = \int_0^{\tfrac{\pi}{2}} & \sin\theta \, d\theta \int_{0}^{\tfrac{\pi}{2}} \rho \, d\phi \big(
+			f(\theta, \phi) f(\pi - \theta, \phi-\tfrac{\pi}{2}) + f(\pi - \theta, \phi) f(\theta, \phi-\tfrac{\pi}{2})\\
+			&+f(\theta, \phi+\tfrac{\pi}{2}) f(\pi - \theta, \phi) + f(\pi - \theta, \phi+\tfrac{\pi}{2}) f(\theta, \phi)\\
+			&+f(\theta, \phi+\pi) f(\pi - \theta, \phi+\tfrac{\pi}{2}) + f(\pi - \theta, \phi+\pi) f(\theta, \phi+\tfrac{\pi}{2})\\
+			&+f(\theta, \phi-\tfrac{\pi}{2}) f(\pi - \theta, \phi+\pi) + f(\pi - \theta, \phi-\tfrac{\pi}{2}) f(\theta, \phi+\pi)
+		\big)\\
+		= \int_0^{\tfrac{\pi}{2}} & \sin\theta \, d\theta \int_{0}^{\tfrac{\pi}{2}} \rho \, d\phi \\ & \Big[
+			\big(f(\pi - \theta, \phi) + f(\pi - \theta, \phi + \pi) \big) \big( f(\theta, \phi - \tfrac{\pi}{2}) + f(\theta, \phi + \tfrac{\pi}{2}) \big) \\
+			&+\big(f(\theta, \phi) + f(\theta, \phi + \pi) \big) \big( f(\pi - \theta, \phi - \tfrac{\pi}{2}) + f(\pi - \theta, \phi + \tfrac{\pi}{2}) \big) 
+		\Big] \\
+		= \int_0^{\tfrac{\pi}{2}} & \sin\theta \, d\theta \int_{0}^{\tfrac{\pi}{2}}\rho \, d\phi \\ & \Big[
+			\big(f(\pi - \theta, \phi) - f(\pi - \theta, \pi - \phi) \big) \big( -f(\theta, \tfrac{\pi}{2} - \phi) + f(\theta, \phi + \tfrac{\pi}{2}) \big) \\
+			&+\big(f(\theta, \phi) - f(\theta, \pi - \phi) \big) \big( -f(\pi - \theta, \tfrac{\pi}{2} - \phi) + f(\pi - \theta, \phi + \tfrac{\pi}{2}) \big) 
+		\Big]
+	\end{align*}
+	and the integrand is negative by the same argument as above.
+
+	Moreover,
+	\begin{align*}
+		K_1 - K_2 & = \int_0^{\tfrac{\pi}{2}} \sin\theta \, d\theta \int_{0}^{\tfrac{\pi}{2}} \rho \, d\phi \\ &
+		\big(
+			f(\theta,\phi) - f(\pi - \theta, \phi) - f(\theta, \pi - \phi) + f(\pi - \theta, \pi - \phi)
+		\big) \\ &
+		\big(
+			-f(\theta,\tfrac{\pi}{2}-\phi) + f(\pi - \theta, \tfrac{\pi}{2} - \phi) + f(\theta, \tfrac{\pi}{2} + \phi) - f(\pi - \theta, \tfrac{\pi}{2} + \phi)
+		\big).
+	\end{align*}
+	Again the integrand is negative if $f(\theta, \phi) - f(\pi - \theta, \phi)$
+	is negative and monotonically increasing in $\phi$ on the interval $(0,
+	\pi)$.  So $K_1 < K_2$.
+\end{proof}
+
+Using this lemma, one easily proves that if $p_i$ and $p_j$ are horizontal
+neighbors (e.g. $(i,j) = (1,2)$) or on a vertical face diagonal (e.g. $(i,j) =
+(1,6)$), we have $H^\pm_{ij} < 0$.  Consequently, by
+\[
+	\Hess_{\! p} \log I^\pm (v, v) = -16 \pi^2 \sum_{i \in A} \sum_{j \in B} H^\pm_{ij}
+\]
+we can already conclude that the Hessian is positive definite on
+the irreps $T_{1u}$, $E_g$, but negative definite on $E_u$.
+
+\subsection{The definiteness on \texorpdfstring{$T_{2u}$}{T2u}}
+
+For $T_{2u}$ we place the cube so that a pair of antipodal vertices are at the
+north and the south pole.  So
+\begin{align*}
+	p_1 &= (0, 0),&
+	p_5 &= (\pi, 0),\\
+	p_2 &= (\theta_0, 0),&
+	p_6 &= (\pi - \theta_0, \pi/3),\\
+	p_3 &= (\theta_0, 2\pi/3),&
+	p_7 &= (\pi - \theta_0, \pi),\\
+	p_4 &= (\theta_0, 4\pi/3),&
+	p_8 &= (\pi - \theta_0, 5\pi/3).
+\end{align*}
+where $\theta_0 = \arccos(-1/3)$.  Then a generator for $T_{2u}$ is given by
+\[
+	v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{1, 2, 3, 4\},\qquad
+	v_i =-\frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{5, 6, 7, 8\}.
+\]
+Note that the vertices $p_1$ and $p_5$ (at the poles) are actually fixed under
+this generator.  The Hessian becomes
+\[
+	\Hess_{\! p} \log I^\pm (v, v)
+	= -16\pi^2 \int_{\uS^2} \partial_\phi G_A \partial_\phi G_B \, \dd \mu^\pm,
+\]
+where $A=\{2,3,4\}$ and $B=\{6,7,8\}$.  One easily notices that the integrand
+$\partial_\phi G_A \partial_\phi G_B \le 0$ everywhere on the sphere.  So the
+Hessian is positive definite on $T_{2u}$.
+
+\bibliography{References}
+\bibliographystyle{plain}
+
+\end{document}

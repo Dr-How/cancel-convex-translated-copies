@@ -1,0 +1,144 @@
+% Section: Positive definiteness of the Hessian on T_{2g}
+%
+% CONTEXT: This is the missing piece of the proof of the main theorem in the paper
+% "D and P locally minimize Gauss variance." We need to show positive definiteness
+% of the Hessian of J_8 on the irreducible representation T_{2g}.
+%
+% ============================================================
+% SETUP (from the paper, fully self-contained)
+% ============================================================
+%
+% Let p_1,...,p_8 be the vertices of a cube on S^2, in standard spherical
+% coordinates (theta, phi):
+%   p_1 = (theta_0, 0),       p_5 = (pi - theta_0, 0),
+%   p_2 = (theta_0, pi/2),    p_6 = (pi - theta_0, pi/2),
+%   p_3 = (theta_0, pi),      p_7 = (pi - theta_0, pi),
+%   p_4 = (theta_0, 3*pi/2),  p_8 = (pi - theta_0, 3*pi/2),
+% where theta_0 = arccos(1/sqrt(3)).
+%
+% Define the functional:
+%   J_8 = I^+ * I^-,
+% where
+%   I^+ = integral_{S^2} exp(u) dA_{sph},
+%   I^- = integral_{S^2} exp(-u) dA_{sph}  (improper integral, convergent),
+% and
+%   u = 2*pi * sum_{i=1}^{8} G_i(z),
+%   G_i(z) = -(1/(2*pi)) * log(sin(dist(z, p_i)/2))
+% is the Green function on S^2 satisfying
+%   Delta_{FS} G_i = delta_{p_i} - 1/(4*pi).
+%
+% The symmetry group G of the cube acts on the 13-dimensional space
+%   V = (direct sum_{i=1}^{8} T_{p_i} S^2) / SO(3).
+% The Hessian of log J_8 at the cubic configuration decomposes under G into
+% irreducible representations T_{1u} (+), E_g (+), E_u (-), T_{2u} (+), T_{2g} (?).
+%
+% For any deformation v = (v_1,...,v_8) with v_i in T_{p_i} S^2, at a critical point:
+%
+%   Hess_p log I^pm (v, v)
+%   = integral_{S^2} (sum_i <2*pi nabla_z G_i, tilde{v}_i>)^2 d mu^pm
+%     - integral_{S^2} sum_i <nabla_z u, tilde{v}_i> <2*pi nabla_z G_i, tilde{v}_i> d mu^pm,
+%
+% where mu^pm are the probability measures with densities exp(+/-u)/I^pm, and
+% tilde{v}_i is any Killing field with tilde{v}_i(p_i) = v_i.
+%
+% For deformations of the "partitioned Killing field" type where each v_i equals
+% either +partial_phi|_{p_i} or -partial_phi|_{p_i}, this simplifies to:
+%
+%   Hess_p log I^pm (v, v) = -16 pi^2 * integral_{S^2} (partial_phi G_A)(partial_phi G_B) d mu^pm,
+%
+% where A and B are the two index sets (with v_i = +partial_phi/sin(theta) for i in A,
+% v_i = -partial_phi/sin(theta) for i in B), and G_A = sum_{i in A} G_i, G_B = sum_{i in B} G_i.
+%
+% Therefore:
+%   Hess_p log J_8 (v, v) = -16 pi^2 * integral_{S^2} (partial_phi G_A)(partial_phi G_B) d(mu^+ + mu^-).
+%
+% The Hessian is positive definite on a deformation v iff this integral is NEGATIVE.
+%
+% ============================================================
+% THE T_{2g} REPRESENTATION
+% ============================================================
+%
+% The 3-dimensional irrep T_{2g} is generated (in the above coordinate system)
+% by the orbit of the deformation:
+%
+%   v_i = +partial_phi/sin(theta)|_{p_i}  for i in A = {1, 2, 7, 8},
+%   v_i = -partial_phi/sin(theta)|_{p_i}  for i in B = {3, 4, 5, 6}.
+%
+% Explicitly:
+%   A = {p_1=(theta_0,0), p_2=(theta_0,pi/2), p_7=(pi-theta_0,pi), p_8=(pi-theta_0,3pi/2)},
+%   B = {p_3=(theta_0,pi), p_4=(theta_0,3pi/2), p_5=(pi-theta_0,0), p_6=(pi-theta_0,pi/2)}.
+%
+% KEY OBSERVATION: B = R_pi(A), where R_pi: (theta,phi) |-> (theta, phi+pi)
+% is the rotation by pi about the z-axis. Therefore:
+%   G_B(theta,phi) = G_A(theta, phi+pi),
+%   partial_phi G_B(theta,phi) = partial_phi G_A(theta, phi+pi).
+%
+% The measure mu^pm is invariant under R_pi (since the full cube is R_pi-symmetric).
+%
+% Hence the integral to be shown negative is:
+%
+%   I = integral_{S^2} (partial_phi G_A)(theta,phi) * (partial_phi G_A)(theta, phi+pi)
+%         d(mu^+ + mu^-)(theta,phi).
+%
+% ============================================================
+% PROBLEM TO PROVE
+% ============================================================
+%
+% Prove that:
+%
+%   integral_{S^2} (partial_phi G_A)(theta,phi) * (partial_phi G_A)(theta, phi+pi)
+%       d(mu^+ + mu^-)(theta,phi)  <  0,
+%
+% where:
+%   - G_A = G_1 + G_2 + G_7 + G_8 is the sum of Green functions at
+%     A = {(theta_0,0), (theta_0,pi/2), (pi-theta_0,pi), (pi-theta_0,3pi/2)},
+%     with theta_0 = arccos(1/sqrt(3)).
+%   - The probability measures mu^pm have densities exp(+/- u) / I^pm with
+%     u = 2*pi*(G_1 + ... + G_8).
+%   - partial_phi G_A is the derivative of G_A with respect to phi.
+%
+% Equivalently (using Fourier decomposition in phi): Writing
+%   partial_phi G_A(theta, phi) = sum_m c_m(theta) e^{i m phi},
+% the integral I equals
+%   sum_m (-1)^m * integral_0^pi |c_m(theta)|^2 d nu(theta)
+% for some positive measure nu (coming from the phi-integration of mu^+/- and
+% the orthogonality). Since the cube has 4-fold symmetry, only m = 0, +-4, +-8,...
+% and m = +-2, +-6,... and m = +-1, +-3, +-5, +-7,... modes can potentially survive,
+% but the R_pi invariance of mu^pm means only modes with m even contribute.
+% Actually: by the C_4 symmetry of the full configuration, only m = 0, +-4, +-8,...
+% contribute to the average over phi. The (-1)^m factor is +1 for m divisible by 4
+% and -1 for m = +-2, +-6, +-10, ... The question is whether the negative modes
+% (m = 2 mod 4) dominate.
+%
+% HINTS FROM THE PAPER (for other irreps):
+%
+% For T_{2u} (different split A={2,3,4}, B={6,7,8} in different coordinates):
+%   The integrand partial_phi G_A * partial_phi G_B was pointwise <= 0 on S^2,
+%   giving positivity immediately.
+%
+% For T_{1u}, E_g (A/B are each a union of an upper ring half and lower ring half):
+%   Used the Lemma about functions odd in phi with specific monotonicity to conclude
+%   all cross-terms H_{ij}^pm = integral partial_phi G_i * partial_phi G_j d mu^pm
+%   are negative.
+%
+% For T_{2g}: Direct sign argument fails because the 4 "vertical neighbor" pairs
+%   (i,j) = (1,5), (2,6), (7,3), (8,4) give H_{ij}^pm > 0.  We need a combined
+%   argument showing the total integral is still negative.
+%
+% SUGGESTED APPROACH (to try first):
+%   1. Use the Fourier decomposition in phi. G_A(theta,phi) depends on the 4 points
+%      {(theta_0,0),(theta_0,pi/2),(pi-theta_0,pi),(pi-theta_0,3pi/2)}.
+%      By the symmetry phi -> phi + pi/2 sending A -> {(theta_0,pi/2),(theta_0,pi),
+%      (pi-theta_0,3pi/2),(pi-theta_0,0)} (not A), G_A does not have 4-fold symmetry.
+%      However, compute the Fourier modes explicitly and show the m=2 modes dominate.
+%
+%   2. Alternatively, use a comparison/monotonicity argument analogous to the Lemma
+%      in the paper but adapted to the T_{2g} geometry.
+%
+%   3. Or: express the integral as a sum involving the full 8x8 matrix H_{ij}^pm
+%      and use the explicit values (from the Lemma and direct computations) to
+%      show the negative terms outweigh the positive ones.
+%
+% Please produce a complete, rigorous proof (in LaTeX) that the Hessian of log J_8
+% is positive definite on T_{2g}, to be inserted into the paper.
+\end{document}
