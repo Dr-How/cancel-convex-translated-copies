@@ -1,0 +1,30 @@
+**Verdict:** **Not fully valid as written**, though the overall strategy is close.
+
+The high-level case split is good:  
+Subproblem 1 gives the lower bound, Subproblem 2 extracts an equality-case structure, Subproblem 3 reduces to \(n\le 4\), Subproblem 4 rules out \(n=3\), and Subproblem 5 classifies the \(n=4\) case. So there is **no major missing case** in the global decomposition.
+
+But there are a few structural issues:
+
+1. **Subproblem 2 overstates what Subproblem 1 gives.**  
+   From Subproblem 1 plus the hypothesis \(|\operatorname{supp}(\sigma)|=n\), you can conclude that the support is exactly the \(n\) lonely points produced there, hence each nonzero value is \(\pm 1\), and therefore
+   \[
+   \sum_p \sigma(p)^2 = n.
+   \]
+   However, the stronger claim that the support is **exactly all extreme points of \(\operatorname{conv}(S+T)\)** does not follow from Subproblem 1 alone. That would require an additional lemma showing that every extreme point is uniquely represented (or at least must be nonzero).
+
+2. **Subproblem 5 uses more than Subproblem 3 formally provides.**  
+   Subproblem 3, as stated, only concludes \(n\le 4\). But Subproblem 5’s approach uses a sharper equality-case consequence from the same \(L^2\)-analysis—namely that some nonzero \(v\) must actually achieve
+   \[
+   |S\cap (S+v)|=2.
+   \]
+   That extra conclusion is not explicitly available from earlier subproblems. It should be made into its own lemma, or included explicitly in Subproblem 3.
+
+3. **Part of Subproblem 2 is unnecessary.**  
+   For the final theorem, you do **not** need to identify the support with the extreme points. What you actually need later is only:
+   - equality forces the support to consist of uniquely formed points,
+   - hence each nonzero \(\sigma(p)\) is \(\pm 1\),
+   - hence \(\sum_p \sigma(p)^2 = n\).
+   
+   So the “support = extreme points” part is stronger than needed and introduces avoidable dependency issues.
+
+**Bottom line:** the proof plan is **almost** sound, but as written it has a dependency gap around Subproblem 2 and an unstated equality-case lemma needed for Subproblem 5. With those fixed, the structure would be valid.

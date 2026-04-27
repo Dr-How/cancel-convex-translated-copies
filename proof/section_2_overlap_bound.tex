@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 2 --- Two distinct translates meet in at most two points.}
+
+\medskip
+\textbf{Statement.}
+Let $S\subset\mathbb{R}^2$ be a finite set of points in convex position, and let $v\in\mathbb{R}^2$, $v\neq 0$.
+Prove:
+\begin{enumerate}
+  \item $|S\cap(S+v)| \le 2$.
+  \item If $|S\cap(S+v)|=2$, say $S\cap(S+v)=\{p,q\}$, then the four points $p,\, q,\, p-v,\, q-v$ are distinct vertices of $S$ and form a parallelogram (i.e.\ $p-v$ and $q-v$ are also in $S$, and these four points satisfy $(p)+(q-v)=(q)+(p-v)$).
+\end{enumerate}
+(Equivalently: for distinct $t,t'\in\mathbb{R}^2$, two translated copies $S+t$ and $S+t'$ share at most two points.)
+
+\medskip
+\textbf{Hint.}
+Order the points of $S$ cyclically along the boundary of $\operatorname{conv}(S)$.  A point $p\in S\cap(S+v)$ means both $p\in S$ and $p-v\in S$, so $v = p-(p-v)$ is the difference of two distinct points of $S$.  If three points $p_1,p_2,p_3\in S\cap(S+v)$ all satisfy $p_i - v\in S$, then $S$ contains three distinct pairs $(p_1, p_1-v)$, $(p_2,p_2-v)$, $(p_3,p_3-v)$ with the same difference $v$.  Use convex position to derive a contradiction.
+
+\end{document}

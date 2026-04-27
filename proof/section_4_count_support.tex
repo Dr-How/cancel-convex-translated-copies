@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 4 --- Counting the support in the two-translate case.}
+
+\medskip
+\textbf{Statement.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 3$ points in convex position.
+Let $v\in\mathbb{R}^2$, $v\neq 0$.  Define
+\[
+  F(p) = \mathbf{1}_S(p) - \mathbf{1}_{S+v}(p), \qquad p\in\mathbb{R}^2.
+\]
+Prove:
+\begin{enumerate}
+  \item $\{p\in\mathbb{R}^2 : F(p)\neq 0\} = S\,\triangle\,(S+v)$ (the symmetric difference).
+  \item $|\{p : F(p)\neq 0\}| = 2n - 2|S\cap(S+v)|$.
+  \item Using the fact that $|S\cap(S+v)|\le 2$ for any $v\neq 0$ (proved separately), conclude $|\{p:F(p)\neq 0\}|\ge 2n-4$.
+  \item If $|\{p:F(p)\neq 0\}| = n$, then $n = 2n-2|S\cap(S+v)|$, so $|S\cap(S+v)|=n/2$, which combined with $|S\cap(S+v)|\le 2$ gives $n\le 4$.
+\end{enumerate}
+
+\end{document}

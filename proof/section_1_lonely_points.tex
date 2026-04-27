@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 1 --- Lonely-points lower bound.}
+
+\medskip
+\textbf{Statement.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n$ points in convex position (every point is a vertex of $\operatorname{conv}(S)$).
+Let $T\subset\mathbb{R}^2$ be a finite set of translation vectors and let $\varepsilon:T\to\{+1,-1\}$ be a sign function.
+Define
+\[
+  F(p) \;=\; \sum_{\substack{t\in T\\ p-t\in S}} \varepsilon(t),\qquad p\in\mathbb{R}^2.
+\]
+Prove:
+\begin{enumerate}
+  \item For every $s\in S$ there exists $t_s\in T$ such that the point $\ell_s := s+t_s$ has a \emph{unique} representation in $S+T$, i.e.\ $\ell_s - t = s$ for every $t\in T$ with $\ell_s - t \in S$ implies $t = t_s$.  (Such a point is called \emph{lonely}.)
+  \item The $n$ lonely points $\ell_{s_1},\ldots,\ell_{s_n}$ are pairwise distinct.
+  \item $F(\ell_s) = \varepsilon(t_s)\neq 0$ for every $s\in S$.
+  \item Consequently $|\{p\in\mathbb{R}^2 : F(p)\neq 0\}| \ge n$.
+  \item If moreover $|\{p : F(p)\neq 0\}| = n$, then $\{p : F(p)\neq 0\} = \{\ell_s : s\in S\}$ and every point in $S+T$ that is \emph{not} of the form $\ell_s$ satisfies $F(p)=0$.
+\end{enumerate}
+
+\end{document}

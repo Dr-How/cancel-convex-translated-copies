@@ -1,0 +1,35 @@
+**The proof structure is not fully valid as written.**
+
+At a high level, the case split is sensible: if you can prove **(i)** \(n\le 4\), **(ii)** rule out \(n=3\), and **(iii)** classify the \(n=4\) case, then the conjecture follows. So the *overall shape* is close. But there are structural gaps in the outlined route.
+
+### Issues
+
+1. **Missing bridge from support size to the polynomial \(L_2\)-identity.**  
+   The polynomial/constant-term method naturally gives an identity involving  
+   \[
+   \sum_p \sigma(p)^2,
+   \]
+   not directly \(|\{p:\sigma(p)\neq 0\}|\).  
+   The outline treats the hypothesis \(|\operatorname{supp}(\sigma)|=n\) as if it directly gave the constant-term value \(n\). That requires an extra lemma (or a reformulation using inequalities). Without that bridge, Subproblems 2–4 do not have the stated algebraic foundation.
+
+2. **Subproblem 2 needs an additional lemma to remove dependence on \(T\).**  
+   The proposed estimate leads to an inequality of the form
+   \[
+   n(|T|-1)\le 4|T^+||T^-|.
+   \]
+   As stated, that still depends on the size/sign split of \(T\). The outline does not include a separate argument showing why this forces an absolute bound \(n\le 4\) for all admissible \(T\). So the decomposition is missing a step here.
+
+3. **Subproblem 4 depends on more than just “\(n=4\)”.**  
+   The planned argument for the quadrilateral case uses the idea that the bound in Subproblem 2 is *tight*, forcing some difference vector to occur twice. But Subproblem 2 is only stated as a bound \(n\le 4\); it does not package any equality-case information.  
+   So there is a dependency gap: either Subproblem 2 must be strengthened to include its equality case, or an extra lemma must be inserted before Subproblem 4.
+
+4. **Subproblem 1 is auxiliary, not logically necessary for the implication of the conjecture.**  
+   Since the conjecture already assumes \(|\operatorname{supp}(\sigma)|=n\), the lower bound is not needed to deduce “\(n=4\) and \(S\) is a parallelogram.” It is still relevant because the problem explicitly asks to re-prove/cite it, but it is not essential to the core implication.
+
+5. **The outline overstates what equality in Subproblem 1 gives.**  
+   The claim that equality means the nonzero points are “exactly the \(n\) strictly extremal points of \(S+T\)” is stronger than what the lonely-points argument alone supplies. If that stronger characterization is meant to be used later, it needs its own justification.
+
+### Bottom line
+
+- **Top-level decomposition:** mostly appropriate.  
+- **As a proof plan:** **not fully sound**, because the algebraic route needs at least one additional intermediate lemma, and the quadrilateral classification needs a tighter equality-case analysis than the earlier subproblems currently provide.

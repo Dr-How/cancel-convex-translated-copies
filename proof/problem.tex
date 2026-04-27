@@ -23,7 +23,7 @@ A finite set $S$ of points in the plane is in \emph{convex position} if every po
 
 \begin{definition}[Setup]
 Let $S$ be a finite set of $n \geq 1$ points in $\mathbb{R}^2$ in convex position.
-Let $T$ be a finite multiset of translating vectors in $\mathbb{R}^2$, each assigned a sign
+Let $T$ be a finite \emph{set} of translating vectors in $\mathbb{R}^2$ (each vector appears at most once), each assigned a sign
 $\sigma(t) \in \{+1, -1\}$.
 
 For every point $p \in \mathbb{R}^2$, define
@@ -36,16 +36,33 @@ For every point $p \in \mathbb{R}^2$, define
 Under the above setup, there are at least $n$ points $p \in \mathbb{R}^2$ for which $\sigma(p) \neq 0$.
 \end{theorem}
 
-\begin{conjecture}[Main -- To Be Proved]
-If there are exactly $n$ points $p \in \mathbb{R}^2$ for which $\sigma(p) \neq 0$, then $S$ is the set of vertices of a parallelogram (in particular, $n = 4$).
+\begin{conjecture}[Main -- To Be Proved]\label{conj:main}
+Assume:
+\begin{itemize}
+  \item $|S| \geq 3$ (at least three points in convex position), and
+  \item $|T| \geq 2$, with $T$ containing at least one vector with $\sigma(t) = +1$ and at least one with $\sigma(t) = -1$.
+\end{itemize}
+If $|\{p \in \mathbb{R}^2 : \sigma(p) \neq 0\}| = n$, then $n = 4$ and $S$ is the set of vertices of a parallelogram.
 \end{conjecture}
+
+\begin{remark}[Nontriviality]
+The hypothesis $|T|\geq 2$ with both signs is necessary: a single translate gives $|\text{supp}(\sigma)|=n$ for any $S$.
+The hypothesis $|S|\geq 3$ excludes degenerate one- and two-point sets.
+The conjecture says: once genuine cancellation occurs (both signs present) but equality $|\text{supp}(\sigma)|=n$ still holds, $S$ must be a parallelogram --- and in particular $n=4$.  For $n=3$ the equality condition turns out to be unachievable, so the conjecture holds vacuously in that case (proving this is part of the proof).
+\end{remark}
 
 \section*{Goal}
 
-Prove the conjecture from scratch.  That is, assuming the lower bound holds (or re-proving it as part of the argument), show that equality $|\{p : \sigma(p) \neq 0\}| = n$ forces $S$ to be a parallelogram (and hence $n = 4$).
+Prove Conjecture~\ref{conj:main} from scratch.  Concretely:
+\begin{enumerate}
+  \item Re-prove (or cite) the lower bound $|\text{supp}(\sigma)| \geq n$ via the Lonely Points Lemma.
+  \item Show that if $T$ has both signs and $|\text{supp}(\sigma)| = n$, then $n \leq 4$.
+  \item Show that $n < 4$ is impossible under equality, so $n = 4$.
+  \item Show that a convex quadrilateral achieving equality must be a parallelogram.
+\end{enumerate}
 
 \begin{remark}
-The lower bound follows from convex geometry: the vertices of the convex hull of $S + T := \{t + s : t \in T, s \in S\}$ (counted with signed multiplicity) cannot all cancel.  The content of the conjecture is that the extremal case forces $S$ to be a parallelogram.
+The lower bound follows from the Lonely Points Lemma (Blokhuis--Chen 2018): for each $s \in S$ there is a \emph{lonely} point $\ell_s = s + t_s \in S + T$ whose unique preimage is $s$, hence $\sigma(\ell_s) = \sigma(t_s) \neq 0$; these $n$ points are distinct.  The content of the conjecture is that the extremal case $|\text{supp}(\sigma)| = n$ forces $S$ to be a parallelogram.
 \end{remark}
 
 \end{document}
