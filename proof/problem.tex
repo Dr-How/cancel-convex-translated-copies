@@ -777,6 +777,134 @@ where $A=\{2,3,4\}$ and $B=\{6,7,8\}$.  One easily notices that the integrand
 $\partial_\phi G_A \partial_\phi G_B \le 0$ everywhere on the sphere.  So the
 Hessian is positive definite on $T_{2u}$.
 
+\subsection{The definiteness on \texorpdfstring{$T_{2g}$}{T2g}}
+
+For $T_{2g}$ we use a different orientation of the cube.  Let
+$\Theta_0 = \arccos\sqrt{2/3}$, $a = \sqrt{2/3}$, $b = 1/\sqrt{3}$, and
+place the eight vertices so that
+\begin{align*}
+	A &= \{(\pm b,\, 0,\, \pm a)\} \subset \mathbb{R}^3 \quad \text{(the $xz$-plane)},\\
+	B &= \{(\pm b,\, \pm a,\, 0)\} \subset \mathbb{R}^3 \quad \text{(the equatorial plane)}.
+\end{align*}
+In spherical coordinates these are
+\begin{align*}
+	p_1 &= (\Theta_0, 0),&
+	p_2 &= (\Theta_0, \pi),&
+	p_3 &= (\pi-\Theta_0, 0),&
+	p_4 &= (\pi-\Theta_0, \pi),\\
+	p_5 &= \bigl(\tfrac\pi2, \tfrac\pi2 - \Theta_0\bigr),&
+	p_6 &= \bigl(\tfrac\pi2, \tfrac\pi2 + \Theta_0\bigr),&
+	p_7 &= \bigl(\tfrac\pi2, -\tfrac\pi2 - \Theta_0\bigr),&
+	p_8 &= \bigl(\tfrac\pi2, -\tfrac\pi2 + \Theta_0\bigr).
+\end{align*}
+A generator for $T_{2g}$ is
+\[
+	v_i = \frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{1,2,3,4\}
+	= A,\qquad
+	v_i = -\frac{\partial_\phi}{\sin\theta}\Big|_{p_i} \text{ for } i \in \{5,6,7,8\}
+	= B.
+\]
+The Hessian becomes
+\[
+	\Hess_{\! p}\log J_8(v,v) = -16\pi^2 \int_{\uS^2} \partial_\phi G_A\, \partial_\phi G_B \, \dd(\mu^+ + \mu^-).
+\]
+
+\paragraph{Explicit formulas for $\partial_\phi G_A$ and $\partial_\phi G_B$.}
+Setting $P_A(X,Z) = \bigl((1-aZ)^2 - b^2X^2\bigr)\bigl((1+aZ)^2 - b^2X^2\bigr)$ and
+$P_B(X,Y) = P_A(X,Y)$, we have
+\[
+	G_A = -\tfrac{1}{4\pi}\log P_A(X,Z) + C_A, \qquad
+	G_B = -\tfrac{1}{4\pi}\log P_B(X,Y) + C_B.
+\]
+The Killing vector $\partial_\phi = X\partial_Y - Y\partial_X$ acts trivially on $Z$,
+so $\partial_\phi G_A = -Y\,\partial_X G_A$.  Using $a^2 = 2/3$ and $b^2 = 1/3$,
+\[
+	\partial_X P_A = -4b^2 X\bigl[(1+aZ)^2+(1-aZ)^2 - 2b^2X^2\bigr]
+	= -\tfrac{4X(3+2Z^2-X^2)}{9},
+\]
+so
+\[
+	\partial_\phi G_A = -\frac{XY(3+2Z^2-X^2)}{9\pi P_A(X,Z)}.
+\]
+Similarly, $\partial_Y P_B = -8Y(3+X^2-2Y^2)/9$ and
+$\partial_X P_B = -4X(3+2Y^2-X^2)/9$, giving
+\[
+	\partial_\phi G_B
+	= \frac{X\,\partial_Y P_B - Y\,\partial_X P_B}{-4\pi P_B}
+	= \frac{XY(1+X^2-2Y^2)}{3\pi P_B(X,Y)}.
+\]
+Hence the integrand equals
+\[
+	\partial_\phi G_A\cdot \partial_\phi G_B
+	= \frac{N(X,Y,Z)}{27\pi^2 P_A(X,Z)\,P_B(X,Y)},
+	\qquad N = -X^2Y^2(3+2Z^2-X^2)(1+X^2-2Y^2).
+\]
+Note that $3+2Z^2-X^2 = 2+Y^2+3Z^2 > 0$ on $\uS^2$, and $N$ vanishes at every
+branch point: at $A$-vertices $Y=0$, and at $B$-vertices
+$1+b^2-2a^2 = 0$, so $P_A P_B/N$ remains bounded there.
+
+\paragraph{Symmetrization over the octahedral group.}
+Let $O_h$ be the 48-element symmetry group of the cube.  Any $g\in O_h$
+permutes the 8 vertices, so the product $P_A(X,Z)P_B(X,Y)$, which equals the
+product of the 8 squared half-chord-distance factors $(1-p\cdot p_i)$, is
+$O_h$-invariant.  The function $u = 2\pi\sum_i G_i$ is likewise $O_h$-invariant,
+so the weight $w\,\dd A = \dd(\mu^++\mu^-)$ is $O_h$-invariant.  For each
+$g\in O_h$, a change of variables gives
+\[
+	\int_{\uS^2}\frac{N(X,Y,Z)}{P_AP_B}\,w\,\dd A
+	= \int_{\uS^2}\frac{N(g^{-1}(X,Y,Z))}{P_AP_B}\,w\,\dd A.
+\]
+Averaging over all $g\in O_h$ yields
+\[
+	\int_{\uS^2}\frac{N}{P_AP_B}\,w\,\dd A
+	= \int_{\uS^2}\frac{\bar N}{P_AP_B}\,w\,\dd A,
+	\qquad
+	\bar N = \frac{1}{|O_h|}\sum_{g\in O_h}N\circ g^{-1}.
+\]
+Since $N$ is even in each coordinate, the 8 sign-change elements act trivially,
+and the average reduces to the average over the 6 permutations of $(X,Y,Z)$.
+
+\paragraph{Evaluating the symmetrized numerator.}
+Set $p = X^2$, $q = Y^2$, $r = Z^2$ (so $p+q+r=1$, $p,q,r\ge 0$).
+Each permuted term is $T(i,j,k) = -ij(3+2k-i)(1+i-2j)$.  Expanding,
+\[
+	T(i,j,k) = -3ij - 2i^2j + 6ij^2 - 2ijk - 2i^2jk + 4ij^2k + i^3j - 2i^2j^2.
+\]
+Summing over the 6 permutations of $(i,j,k)$ from $(p,q,r)$ and applying
+the symmetric-polynomial identities
+\begin{align*}
+	\textstyle\sum ij &= 2e_2, &
+	\textstyle\sum i^2j = \sum ij^2 &= e_2 - 3e_3, &
+	\textstyle\sum ijk &= 6e_3,\\
+	\textstyle\sum i^2jk = \sum ij^2k &= 2e_3, &
+	\textstyle\sum i^3j &= e_2 - 2e_2^2 - e_3, &
+	\textstyle\sum i^2j^2 &= 2(e_2^2-2e_3),
+\end{align*}
+where $e_2 = pq+qr+rp$ and $e_3 = pqr$, we obtain
+\begin{align*}
+	6\bar N = \sum_{\sigma\in S_3} T \;=&\; {-3(2e_2)} - 2(e_2-3e_3) + 6(e_2-3e_3)\\
+	&- 2(6e_3) - 2(2e_3) + 4(2e_3) + (e_2-2e_2^2-e_3) - 4(e_2^2-2e_3)\\
+	=&\; -(e_2 + 6e_2^2 + 13e_3).
+\end{align*}
+Hence
+\[
+	\bar N = -\frac{e_2 + 6e_2^2 + 13e_3}{6}.
+\]
+
+\paragraph{Conclusion.}
+Since $p,q,r \ge 0$, we have $e_2, e_3 \ge 0$, so $\bar N \le 0$ everywhere
+on $\uS^2$.  Moreover $\bar N = 0$ only when $e_2 = 0$, i.e.\ at most one of
+$X,Y,Z$ is nonzero, which on $\uS^2$ occurs only at the six coordinate-axis
+poles $(\pm 1,0,0)$, $(0,\pm 1,0)$, $(0,0,\pm 1)$.  These six points are not
+cube vertices, so $P_A P_B > 0$ and $w > 0$ there.  Therefore
+$\bar N/(P_A P_B) \le 0$ with equality only on a set of measure zero, and
+\[
+	\int_{\uS^2}\partial_\phi G_A\,\partial_\phi G_B\,\dd(\mu^++\mu^-)
+	= \frac{1}{27\pi^2}\int_{\uS^2}\frac{\bar N}{P_A P_B}\,w\,\dd A < 0.
+\]
+Hence $\Hess_{\! p}\log J_8(v,v) > 0$, and the Hessian is positive definite on
+$T_{2g}$.
+
 \bibliography{References}
 \bibliographystyle{plain}
 
