@@ -810,29 +810,95 @@ The Hessian becomes
 \]
 
 \paragraph{Explicit formulas for $\partial_\phi G_A$ and $\partial_\phi G_B$.}
-Setting $P_A(X,Z) = \bigl((1-aZ)^2 - b^2X^2\bigr)\bigl((1+aZ)^2 - b^2X^2\bigr)$ and
-$P_B(X,Y) = P_A(X,Y)$, we have
+We work in Cartesian coordinates $(X,Y,Z)$ on $\uS^2$.  Recall that
+$G_i(p) = -\tfrac{1}{2\pi}\log\sin\tfrac{\dist(p,p_i)}{2}$.  For
+unit vectors $p$ and $p_i$ one has $\cos(\dist(p,p_i))=p\cdot p_i$, so
 \[
-	G_A = -\tfrac{1}{4\pi}\log P_A(X,Z) + C_A, \qquad
-	G_B = -\tfrac{1}{4\pi}\log P_B(X,Y) + C_B.
+	\sin\frac{\dist(p,p_i)}{2} = \sqrt{\frac{1-p\cdot p_i}{2}},
+	\qquad
+	G_i = -\frac{1}{4\pi}\log(1-p\cdot p_i)+C.
 \]
-The Killing vector $\partial_\phi = X\partial_Y - Y\partial_X$ acts trivially on $Z$,
-so $\partial_\phi G_A = -Y\,\partial_X G_A$.  Using $a^2 = 2/3$ and $b^2 = 1/3$,
+
+\textit{Derivation of $G_A$.}
+The four $A$-vertices in Cartesian coordinates are $(\pm b, 0, \pm a)$, giving
+inner products $p\cdot p_i = \pm bX \pm aZ$ in all four sign combinations.
+Their sum yields
+\begin{align*}
+	G_A = \sum_{i\in A}G_i &= -\frac{1}{4\pi}\bigl[\log(1-bX-aZ)+\log(1+bX-aZ)\\
+	&\qquad\qquad+\log(1-bX+aZ)+\log(1+bX+aZ)\bigr]+C_A.
+\end{align*}
+Grouping in pairs,
 \[
-	\partial_X P_A = -4b^2 X\bigl[(1+aZ)^2+(1-aZ)^2 - 2b^2X^2\bigr]
-	= -\tfrac{4X(3+2Z^2-X^2)}{9},
+	(1\mp bX - aZ)(1\pm bX-aZ) = (1-aZ)^2 - b^2X^2,\quad
+	(1\mp bX + aZ)(1\pm bX+aZ) = (1+aZ)^2 - b^2X^2,
 \]
-so
+so the product of all four factors is
+$P_A(X,Z):=\bigl((1-aZ)^2-b^2X^2\bigr)\bigl((1+aZ)^2-b^2X^2\bigr)$, and
 \[
-	\partial_\phi G_A = -\frac{XY(3+2Z^2-X^2)}{9\pi P_A(X,Z)}.
+	G_A = -\frac{1}{4\pi}\log P_A(X,Z) + C_A.
 \]
-Similarly, $\partial_Y P_B = -8Y(3+X^2-2Y^2)/9$ and
-$\partial_X P_B = -4X(3+2Y^2-X^2)/9$, giving
+In particular, $G_A$ depends only on $X$ and $Z$.  An identical argument with
+$Z\to Y$ applies to the four $B$-vertices $(\pm b,\pm a,0)$, giving
+$P_B(X,Y):=P_A(X,Y)$ and
 \[
+	G_B = -\frac{1}{4\pi}\log P_B(X,Y) + C_B.
+\]
+
+\textit{Derivation of $\partial_\phi G_A$.}
+The Killing field for rotation about the $Z$-axis is
+$\partial_\phi = X\partial_Y - Y\partial_X$ on $\uS^2$.
+Since $G_A$ is independent of $Y$, we have $\partial_Y G_A = 0$ and
+$\partial_\phi G_A = -Y\,\partial_X G_A = \tfrac{Y}{4\pi}\tfrac{\partial_X P_A}{P_A}$.
+Writing $P_A = fg$ with $f=(1-aZ)^2-b^2X^2$ and $g=(1+aZ)^2-b^2X^2$,
+we get $\partial_X f = \partial_X g = -2b^2X$, so
+\[
+	\partial_X P_A = -2b^2X(f+g)
+	= -2b^2X\bigl[2+2a^2Z^2-2b^2X^2\bigr]
+	= -4b^2X(1+a^2Z^2-b^2X^2).
+\]
+On $\uS^2$ with $a^2=2/3$, $b^2=1/3$,
+\[
+	1+a^2Z^2-b^2X^2 = 1+\tfrac{2}{3}Z^2-\tfrac{1}{3}X^2 = \frac{3+2Z^2-X^2}{3},
+\]
+so $\partial_X P_A = -\tfrac{4X(3+2Z^2-X^2)}{9}$, and
+\[
+	\partial_\phi G_A = \frac{Y}{4\pi}\cdot\frac{-4X(3+2Z^2-X^2)/9}{P_A}
+	= -\frac{XY(3+2Z^2-X^2)}{9\pi P_A(X,Z)}.
+\]
+
+\textit{Derivation of $\partial_\phi G_B$.}
+Now $G_B$ depends on both $X$ and $Y$, so both terms of $\partial_\phi$ contribute:
+\[
+	\partial_\phi G_B = X\,\partial_Y G_B - Y\,\partial_X G_B
+	= \frac{1}{4\pi P_B}\bigl(-X\,\partial_Y P_B + Y\,\partial_X P_B\bigr).
+\]
+Writing $P_B=f_Bg_B$ with $f_B=(1-aY)^2-b^2X^2$ and $g_B=(1+aY)^2-b^2X^2$,
+an identical argument gives
+\[
+	\partial_X P_B = -4b^2X(1+a^2Y^2-b^2X^2) = -\frac{4X(3+2Y^2-X^2)}{9}.
+\]
+For $\partial_Y P_B$, we compute $\partial_Y f_B = -2a(1-aY)$ and
+$\partial_Y g_B = 2a(1+aY)$, so
+\[
+	\partial_Y P_B = 2a\bigl[(1+aY)f_B-(1-aY)g_B\bigr].
+\]
+The bracket equals
+$(1\!+\!aY)(1\!-\!aY)\bigl[(1\!-\!aY)\!-\!(1\!+\!aY)\bigr] - b^2X^2\bigl[(1\!+\!aY)\!-\!(1\!-\!aY)\bigr]
+= (1\!-\!a^2Y^2)(-2aY) - 2ab^2X^2Y = -2aY(1-a^2Y^2+b^2X^2)$,
+and since $1-a^2Y^2+b^2X^2 = (3+X^2-2Y^2)/3$,
+\[
+	\partial_Y P_B = 2a\cdot(-2aY)\cdot\frac{3+X^2-2Y^2}{3}
+	= -\frac{8Y(3+X^2-2Y^2)}{9}.
+\]
+Substituting both into $\partial_\phi G_B$:
+\begin{align*}
 	\partial_\phi G_B
-	= \frac{X\,\partial_Y P_B - Y\,\partial_X P_B}{-4\pi P_B}
+	&= \frac{1}{4\pi P_B}\left[\frac{8XY(3+X^2-2Y^2)}{9} - \frac{4XY(3+2Y^2-X^2)}{9}\right]\\
+	&= \frac{XY}{36\pi P_B}\bigl[8(3+X^2-2Y^2)-4(3+2Y^2-X^2)\bigr]\\
+	&= \frac{XY}{36\pi P_B}\cdot 12(1+X^2-2Y^2)
 	= \frac{XY(1+X^2-2Y^2)}{3\pi P_B(X,Y)}.
-\]
+\end{align*}
+
 Hence the integrand equals
 \[
 	\partial_\phi G_A\cdot \partial_\phi G_B
@@ -841,7 +907,7 @@ Hence the integrand equals
 \]
 Note that $3+2Z^2-X^2 = 2+Y^2+3Z^2 > 0$ on $\uS^2$, and $N$ vanishes at every
 branch point: at $A$-vertices $Y=0$, and at $B$-vertices
-$1+b^2-2a^2 = 0$, so $P_A P_B/N$ remains bounded there.
+$1+b^2-2a^2 = 1+\tfrac13-\tfrac43=0$, so $P_A P_B/N$ remains bounded there.
 
 \paragraph{Symmetrization over the octahedral group.}
 Let $O_h$ be the 48-element symmetry group of the cube.  Any $g\in O_h$
