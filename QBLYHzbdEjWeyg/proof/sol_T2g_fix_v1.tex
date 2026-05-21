@@ -1,0 +1,116 @@
+\subsection{The definiteness on \texorpdfstring{$T_{2g}$}{T2g}}
+
+With the standard cube orientation fixed above, let
+\[
+A:=\{1,2,7,8\},\qquad B:=\{3,4,5,6\},
+\qquad
+G_A:=\sum_{i\in A}G_{p_i},\qquad G_B:=\sum_{i\in B}G_{p_i}.
+\]
+The \(T_{2g}\)-generator from the decomposition section is
+\[
+v_{T_{2g}}
+=
+\sum_{i\in A}\frac{\partial_\phi|_{p_i}}{\sin\theta_0}
+-
+\sum_{i\in B}\frac{\partial_\phi|_{p_i}}{\sin\theta_0}.
+\]
+Since \(\Hess\) is invariant under the cube symmetries and \(T_{2g}\) is irreducible, it is enough to determine the sign of \(\Hess(v_{T_{2g}},v_{T_{2g}})\). By the general Hessian formula obtained earlier, this sign is opposite to the sign of
+\[
+I_{T_{2g}}
+:=
+\int_{\uS^2}\partial_\phi G_A\,\partial_\phi G_B\,\dd(\mu^++\mu^-).
+\]
+Thus it remains to prove that \(I_{T_{2g}}<0\).
+
+Let \(R_{-\pi/2}\) be the rotation \(\phi\mapsto\phi-\pi/2\) about the \(Z\)-axis. This is a symmetry of the cube, and for the two four-point configurations defining \(G_A\) and \(G_B\) one checks that
+\[
+G_B(q)=G_A(R_{-\pi/2}(q)).
+\]
+Because \(R_{-\pi/2}\) only shifts the azimuthal angle, it commutes with \(\partial_\phi\).
+
+Now parametrize \(\uS^2\) by
+\[
+q(x,\psi):=\bigl(r\cos\psi,r\sin\psi,x\bigr),
+\qquad
+r:=\sqrt{1-x^2},
+\qquad
+-1<x<1,\quad 0\leq \psi<2\pi,
+\]
+so that \(x=\cos\theta\) and \(\psi=\phi\). Set
+\[
+h(x,\psi):=(\partial_\phi G_A)(q(x,\psi)).
+\]
+With
+\[
+a:=\sqrt{\frac23},
+\qquad
+b:=\frac1{\sqrt3},
+\]
+the explicit formula from \texttt{sol\_v2\_1\_formulas.tex} is
+\[
+h(x,\psi)
+=
+-\frac{x\,r\,\sin\psi\bigl(3+2r^2\cos^2\psi-x^2\bigr)}
+{9\pi\,P_A(x,r\cos\psi)},
+\]
+where
+\[
+P_A(x,z):=
+\bigl((z-a)^2+b^2(1-x^2-z^2)\bigr)
+\bigl((z+a)^2+b^2(1-x^2-z^2)\bigr).
+\]
+Since \(R_{-\pi/2}(q(x,\psi))=q(x,\psi-\pi/2)\), we obtain
+\[
+\partial_\phi G_B(q(x,\psi))
+=
+\frac{\partial}{\partial\psi}\Bigl(G_A\bigl(q(x,\psi-\pi/2)\bigr)\Bigr)
+=
+h(x,\psi-\pi/2).
+\]
+
+Let \(w\) be the density of \(\mu^++\mu^-\) in these coordinates:
+\[
+\dd(\mu^++\mu^-)=w(x,\psi)\,\dd\psi\,\dd x.
+\]
+Therefore
+\[
+I_{T_{2g}}
+=
+\int_{-1}^{1}\int_{0}^{2\pi}
+h(x,\psi)\,h(x,\psi-\pi/2)\,w(x,\psi)\,\dd\psi\,\dd x
+=:K_1.
+\]
+This is exactly the quantity \(K_1\) from the lemma of the previous subsection, with \(f=h\) and \(\rho=w\). We now verify its hypotheses.
+
+\begin{enumerate}
+\item The function \(h\) is odd in \(\psi\):
+\[
+h(x,-\psi)=-h(x,\psi).
+\]
+Indeed, \(\sin(-\psi)=-\sin\psi\), while \(P_A(x,z)\) is even in \(z\), hence \(P_A(x,r\cos(-\psi))=P_A(x,r\cos\psi)\).
+
+\item The strict sign condition
+\[
+h(x,\psi)<0
+\qquad
+\text{for all }x\in(0,1)\text{ and }\psi\in(0,\pi)
+\]
+is proved in \texttt{sol\_v2\_5\_sign.tex}.
+
+\item For each fixed \(x\in(0,1)\), the map \(\psi\mapsto h(x,\psi)\) is strictly increasing on \((0,\pi)\). This is proved in \texttt{sol\_v2\_3\_monotonicity.tex}.
+
+\item Since \(\mu^++\mu^-\) is a positive measure, \(w\geq 0\). Moreover, the \(C_4\)-symmetry of the cube about the \(Z\)-axis gives
+\[
+w(x,\psi+\pi/2)=w(x,\psi),
+\]
+and the equatorial symmetry \((X,Y,Z)\mapsto(X,Y,-Z)\) gives
+\[
+w(-x,\psi)=w(x,\psi).
+\]
+\end{enumerate}
+
+Hence the lemma yields \(K_1<0\). Consequently,
+\[
+\int_{\uS^2}\partial_\phi G_A\,\partial_\phi G_B\,\dd(\mu^++\mu^-)<0.
+\]
+Therefore \(\Hess(v_{T_{2g}},v_{T_{2g}})>0\), and since \(\Hess|_{T_{2g}}\) is a scalar on the irreducible \(T_{2g}\)-block, the Hessian is positive definite on \(T_{2g}\).
