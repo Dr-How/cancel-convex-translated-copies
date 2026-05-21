@@ -1,0 +1,34 @@
+**Verdict:** The proof structure is **essentially valid**.
+
+If Subproblems 1–6 are all established as stated, they do collectively prove the conjecture. The case split is exhaustive, the dependency chain is logically forward, and the main hard step is isolated cleanly in Subproblem 5.
+
+### Minor issues / cleanup notes
+1. **Unused side claim in Subproblem 1.**  
+   The bound
+   \[
+   \bigl||T_+|-|T_-|\bigr|\le 1
+   \]
+   does not appear to be used later. It is not harmful, but it is structurally redundant.
+
+2. **Dependency labeling for Subproblem 5 is slightly understated.**  
+   Its proof sketch clearly uses the alternating-face-chain structure from **Subproblem 4** (and hence also **2–3**), so its dependency should be recorded as relying on those earlier subproblems, not just on Subproblem 1.
+
+### Why the structure works
+- **Completeness:**  
+  - Subproblem 1 gives the lower bound and rigidifies the equality case.  
+  - Subproblems 2–4 convert equality into precise boundary/combinatorial structure on \(P+Q\).  
+  - Subproblem 5 excludes all cases where \(P\) has at least three edge-direction classes.  
+  - Subproblem 6 handles the remaining two-direction case, forcing a 4-vertex parallelogram.  
+  This covers all \(n\ge 3\) convex-position sets.
+
+- **Dependencies:**  
+  The intended flow
+  \[
+  1 \to 2 \to 3 \to 4 \to 5,\qquad 6 \to \text{final classification}
+  \]
+  is logically sound and non-circular.
+
+- **Relevance:**  
+  Every major subproblem is doing real work; there is no redundant lemma at the level of the overall proof, only the extra count-balance remark in Subproblem 1.
+
+So: **the overall proof plan is structurally sound, with only minor bookkeeping/redundancy issues.**

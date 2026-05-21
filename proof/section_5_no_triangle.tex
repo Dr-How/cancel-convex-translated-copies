@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 5 --- Triangles cannot attain equality.}
+
+\medskip
+\textbf{Statement.}
+Let $S = \{A, B, C\}\subset\mathbb{R}^2$ be the vertices of a non-degenerate triangle (three non-collinear points), and let $v\in\mathbb{R}^2$, $v\neq 0$.
+Prove: $|S\cap(S+v)|\le 1$.
+
+Conclude that for $F(p) = \mathbf{1}_S(p) - \mathbf{1}_{S+v}(p)$ one has
+\[
+  |\{p : F(p)\neq 0\}| = 2\cdot 3 - 2|S\cap(S+v)| \ge 4 > 3,
+\]
+so it is \emph{impossible} to have $|\{p:F(p)\neq 0\}|=3=|S|$ in the two-translate case.
+
+\medskip
+\textbf{Hint.}
+Suppose for contradiction that $|S\cap(S+v)|\ge 2$, say $p_1,p_2\in S\cap(S+v)$ with $p_1\neq p_2$.
+Then both $p_1,p_2\in S$ and both $p_1-v,p_2-v\in S$.  So $S$ contains the four points $p_1,p_2,p_1-v,p_2-v$.  Since $|S|=3$, at least two of these four coincide.
+\begin{itemize}
+  \item $p_1 = p_1 - v$ or $p_2 = p_2-v$ is impossible since $v\neq 0$.
+  \item $p_1 = p_2-v$ implies $v = p_2-p_1$; then $p_2-v = p_1$, so $S$ contains $p_1,p_2,p_1-v$ and $p_2-v = p_1$, giving only two distinct values from $\{p_1,p_2,p_1-v\}$.  But $|S|=3$ and $p_1,p_2,p_1-v$ must be the three vertices $A,B,C$.  Check all cases and derive a contradiction using the non-collinearity of $A,B,C$.
+  \item Similarly if $p_1-v = p_2$ or $p_1-v=p_2-v$.
+\end{itemize}
+
+\end{document}

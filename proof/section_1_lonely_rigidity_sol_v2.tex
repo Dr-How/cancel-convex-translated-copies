@@ -1,0 +1,296 @@
+Here is a corrected and fully justified proof.
+
+First, one point in the bug report needs to be corrected: the extra assumption \(T\neq\varnothing\) is **necessary**, not optional.  
+Indeed, if \(T=\varnothing\), then by definition
+\[
+\sigma(p)=0\qquad\text{for every }p\in\mathbb R^2,
+\]
+so
+\[
+\bigl|\{p\in\mathbb R^2:\sigma(p)\neq 0\}\bigr|=0<n.
+\]
+Thus part \((1)\) of the statement is false as written. So the theorem that can actually be proved is the same statement with the added hypothesis
+\[
+T\neq\varnothing.
+\]
+
+I will prove that corrected statement.
+
+---
+
+Let
+\[
+A:=\{p\in\mathbb R^2:\sigma(p)\neq 0\},
+\qquad
+S+T:=\{s+t:s\in S,\ t\in T\}.
+\]
+Clearly \(A\subseteq S+T\), so \(A\) is finite.
+
+Call \(p\in S+T\) **lonely** if there is a unique pair \((s,t)\in S\times T\) such that \(p=s+t\).
+
+A basic observation that will be used repeatedly is:
+
+> If \(p=s+t\) is lonely, then the defining sum for \(\sigma(p)\) has exactly one term, so
+> \[
+> \sigma(p)=\sigma(t)\in\{\pm1\}.
+> \]
+> In particular, every lonely point belongs to \(A\).
+
+## Case \(n=1\)
+
+Let \(S=\{s\}\).
+
+For each \(t\in T\), the point \(s+t\) has the unique representation \((s,t)\), because the map
+\[
+t\mapsto s+t
+\]
+is injective. Hence every point of \(S+T\) is lonely, and
+\[
+\sigma(s+t)=\sigma(t)\in\{\pm1\}.
+\]
+Therefore
+\[
+A=S+T=\{s+t:t\in T\},
+\]
+so
+\[
+|A|=|T|\ge 1=n.
+\]
+This proves part \((1)\) when \(n=1\).
+
+Now assume the extremal case \(|A|=n=1\). Then \(|T|=1\). Write
+\[
+T=\{t_0\}.
+\]
+Then:
+
+- for the unique \(s\in S\), the point
+  \[
+  \ell_s:=s+t_0
+  \]
+  is lonely, and it is the only lonely point attached to \(s\);
+- the set of nonzero points is
+  \[
+  A=\{\ell_s\};
+  \]
+- its value is
+  \[
+  \sigma(\ell_s)=\sigma(t_0)\in\{\pm1\};
+  \]
+- either \(T_+=\{t_0\}\) and \(T_-=\varnothing\), or \(T_-=\{t_0\}\) and \(T_+=\varnothing\), hence
+  \[
+  \bigl||T_+|-|T_-|\bigr|=1\le 1.
+  \]
+
+So all parts of \((2)\) hold when \(n=1\).
+
+---
+
+## From now on assume \(n\ge 2\)
+
+Fix \(s\in S\), and set
+\[
+K_s:=\operatorname{conv}(S\setminus\{s\}).
+\]
+
+Because \(s\) is a vertex of \(\operatorname{conv}(S)\), it is an extreme point of \(\operatorname{conv}(S)\). Hence
+\[
+s\notin K_s.
+\]
+Indeed, if \(s\in K_s\), then \(s\) is a convex combination of points of \(S\setminus\{s\}\). Grouping one term against the convex combination of the remaining terms would write \(s\) as a nontrivial convex combination of two points of \(\operatorname{conv}(S)\), contradicting that \(s\) is an extreme point.
+
+Since \(K_s\) is the convex hull of a finite set, it is compact. Therefore the continuous function
+\[
+y\mapsto \|s-y\|
+\]
+attains its minimum on \(K_s\). Choose \(y_s\in K_s\) such that
+\[
+\|s-y_s\|=\min_{y\in K_s}\|s-y\|.
+\]
+
+Now define the linear functional
+\[
+f_s(x):=(s-y_s)\cdot x.
+\]
+
+I claim that
+\[
+f_s(s)>f_s(x)\qquad\text{for every }x\in K_s.
+\]
+
+To prove this, fix \(x\in K_s\). For \(0<\lambda\le 1\), convexity of \(K_s\) gives
+\[
+y_s+\lambda(x-y_s)\in K_s.
+\]
+By minimality of \(y_s\),
+\[
+\|s-y_s\|^2
+\le
+\bigl\|s-\bigl(y_s+\lambda(x-y_s)\bigr)\bigr\|^2.
+\]
+Expanding the right-hand side,
+\[
+\|s-y_s\|^2
+\le
+\|s-y_s\|^2-2\lambda (s-y_s)\cdot(x-y_s)+\lambda^2\|x-y_s\|^2.
+\]
+Subtract \(\|s-y_s\|^2\), divide by \(\lambda>0\), and let \(\lambda\downarrow 0\). This yields
+\[
+(s-y_s)\cdot(x-y_s)\le 0.
+\]
+Equivalently,
+\[
+f_s(x)\le f_s(y_s).
+\]
+On the other hand,
+\[
+f_s(s)-f_s(y_s)
+=
+(s-y_s)\cdot(s-y_s)
+=
+\|s-y_s\|^2
+>0,
+\]
+because \(s\notin K_s\), so \(s\neq y_s\). Therefore
+\[
+f_s(s)>f_s(y_s)\ge f_s(x)
+\qquad\text{for every }x\in K_s.
+\]
+In particular,
+\[
+f_s(s)>f_s(u)\qquad\text{for every }u\in S\setminus\{s\}.
+\]
+
+Since \(T\) is finite and nonempty, \(f_s\) attains a maximum on \(T\). Choose \(t_s\in T\) such that
+\[
+f_s(t_s)=\max_{t\in T} f_s(t),
+\]
+and define
+\[
+\ell_s:=s+t_s.
+\]
+
+### Claim: \(\ell_s\) is lonely
+
+Suppose
+\[
+\ell_s=u+t
+\]
+for some \(u\in S\), \(t\in T\). Applying \(f_s\),
+\[
+f_s(s)+f_s(t_s)=f_s(\ell_s)=f_s(u)+f_s(t).
+\]
+If \(u\neq s\), then \(u\in S\setminus\{s\}\subseteq K_s\), so \(f_s(u)<f_s(s)\). Hence
+\[
+f_s(t)=f_s(s)+f_s(t_s)-f_s(u)>f_s(t_s),
+\]
+contradicting the choice of \(t_s\). Therefore \(u=s\). Then
+\[
+s+t=s+t_s,
+\]
+so \(t=t_s\). Thus the representation is unique, and \(\ell_s\) is lonely.
+
+By the observation at the beginning,
+\[
+\sigma(\ell_s)=\sigma(t_s)\in\{\pm1\},
+\]
+so \(\ell_s\in A\).
+
+If \(s\neq s'\) and \(\ell_s=\ell_{s'}\), then that common point would have two distinct representations, namely \((s,t_s)\) and \((s',t_{s'})\), contradicting loneliness. Hence the points \(\ell_s\) are pairwise distinct.
+
+Therefore \(A\) contains at least the \(n\) distinct points \(\ell_s\), so
+\[
+|A|\ge n.
+\]
+This proves part \((1)\).
+
+---
+
+## Extremal case: assume \(|A|=n\)
+
+We already know that the \(n\) points \(\ell_s\) are distinct and all lie in \(A\). Since \(|A|=n\), it follows that
+\[
+A=\{\ell_s:s\in S\}.
+\]
+This proves part \((2)(b)\).
+
+Also, every lonely point belongs to \(A\), so in the extremal case there are no lonely points other than these \(\ell_s\).
+
+### Proof of \((2)(a)\)
+
+Fix \(s\in S\), and suppose \(s+t\) is lonely for some \(t\in T\). Since \(s+t\) is lonely, it lies in \(A\). Hence
+\[
+s+t=\ell_u
+\]
+for some \(u\in S\).
+
+If \(u\neq s\), then \(\ell_u\) has two distinct representations:
+\[
+\ell_u=u+t_u=s+t,
+\]
+contradicting that \(\ell_u\) is lonely. Therefore \(u=s\). So
+\[
+s+t=\ell_s=s+t_s,
+\]
+and hence \(t=t_s\).
+
+Thus for each \(s\in S\), there is exactly one \(t_s\in T\) such that \(s+t_s\) is lonely. This is exactly part \((2)(a)\).
+
+### Proof of \((2)(c)\)
+
+This was already shown:
+\[
+\sigma(\ell_s)=\sigma(t_s)\in\{\pm1\}
+\qquad\text{for every }s\in S.
+\]
+
+### Proof of \((2)(d)\)
+
+Because \(\sigma(p)=0\) for \(p\notin S+T\), all relevant sums are finite. We compute
+\[
+\sum_{p\in S+T}\sigma(p)
+=
+\sum_{p\in S+T}\ \sum_{\substack{t\in T\\ p-t\in S}}\sigma(t)
+=
+\sum_{(s,t)\in S\times T}\sigma(t)
+=
+n\sum_{t\in T}\sigma(t).
+\]
+Since \(\sigma(t)=+1\) on \(T_+\) and \(\sigma(t)=-1\) on \(T_-\),
+\[
+\sum_{t\in T}\sigma(t)=|T_+|-|T_-|.
+\]
+So
+\[
+\sum_{p\in S+T}\sigma(p)=n\bigl(|T_+|-|T_-|\bigr).
+\]
+
+In the extremal case, \(A=\{\ell_s:s\in S\}\), and \(\sigma(p)=0\) for \(p\in (S+T)\setminus A\). Hence
+\[
+\sum_{p\in S+T}\sigma(p)=\sum_{s\in S}\sigma(\ell_s).
+\]
+Using \(\sigma(\ell_s)\in\{\pm1\}\),
+\[
+\left|\sum_{p\in S+T}\sigma(p)\right|
+=
+\left|\sum_{s\in S}\sigma(\ell_s)\right|
+\le
+\sum_{s\in S}|\sigma(\ell_s)|
+=
+n.
+\]
+Combining the last two displays,
+\[
+n\,\bigl||T_+|-|T_-|\bigr|\le n.
+\]
+Since \(n\ge 1\),
+\[
+\bigl||T_+|-|T_-|\bigr|\le 1.
+\]
+
+This proves part \((2)(d)\).
+
+---
+
+So, after the necessary correction \(T\neq\varnothing\), all conclusions follow.  
+Without that correction, part \((1)\) is false, so no proof of the original wording can exist.

@@ -1,0 +1,192 @@
+CONSOLIDATED BUG REPORT
+Solution: proof/section_5_three_directions_sol_v16.tex
+Problem:  proof/section_5_three_directions.tex
+Mode:     pessimistic (3 independent verifier runs)
+Verdict:  ISSUES_FOUND — all three runs flag the proof as incorrect
+
+===========================================================================
+ISSUE LIST (run that flagged each issue shown in brackets)
+===========================================================================
+
+[Run1, Run2, Run3] CRITICAL — Wrong theorem is proved: The proof assumes T itself
+  is an n-vertex convex polygon / support of a signed measure sigma_T, and that the
+  relevant edge directions belong to T. The stated problem has edge directions belonging
+  to P=conv(S), with T an arbitrary finite translate set. No argument is given that the
+  edge-direction classes of any structure built from T coincide with those of P. The
+  argument therefore proves a different statement from the one required.
+
+[Run2, Run3] CRITICAL — Direction-class notion changed: The proof uses equivalence
+  under nonzero scalar multiples for direction classes, but the problem uses equivalence
+  under positive scalar multiples only. These differ: a_3 could be a negative multiple
+  of a_1, giving [a_3]!=[a_1] under the problem's definition yet beta(a_3)=0 under the
+  proof's linear functional. The key inference "Since [a_3]!=[a_1], mu:=beta(a_3)!=0"
+  is therefore invalid.
+
+[Run1, Run2, Run3] CRITICAL — Sub-case B2 argument is logically false: The proof
+  claims "All delta_j=0 for j in J_0 => D_2=D_1=0: identical to Case A." But D_2 is
+  defined as sum of delta_j, while D_1 is defined as sum of delta'_j where
+  delta'_j = sigma_T(t'-s_j) != delta_j = sigma_T(t'+s_2-s_j). Vanishing of all
+  delta_j does not imply vanishing of all delta'_j. Sub-case B2 is therefore not proved,
+  and the claim "identical to Case A" does not hold when J_0 is nonempty.
+
+[Run1, Run2, Run3] CRITICAL — False inference about chain lengths: The proof asserts
+  "by sum m_i=n>=4 and m_i>=0: some m_j>=1 for j!=1." This is false: all of the total
+  sum could be concentrated in m_1, i.e., m_1=n, m_j=0 for all j!=1. No argument
+  excludes this case.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP — Foundational identities (NL) and (S0) not
+  derived: The proof uses throughout a new object sigma_T and identities labelled (NL)
+  and (S0). These are neither among the facts allowed from Subproblems 1-4 nor proved in
+  this solution. The entire chain argument rests on unestablished foundations.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP — Existence of height functional beta and
+  positivity of c_j not proved: The proof asserts the existence of a linear functional
+  beta with beta(a_1)=0, beta(a_2)=1, h(p)=beta(p-t_1)>=0 for all p in T (citing t_1
+  as a vertex of conv(T)), and then claims c_j=h(x_j)>0 for j>=3. Neither the vertex
+  property of t_1 nor the strict positivity of c_j is established from the given
+  hypotheses. These claims underlie every subsequent height argument.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP — T=union of chains F_i not proved: The proof
+  repeatedly concludes membership and non-membership in T by checking only the chains
+  F_i, treating T=F_1 cup ... cup F_n as a given. This covering property is never
+  established and is not among the allowed facts. As a consequence, the contradiction
+  for n=3 (deducing t_1+a_2 not in T) does not follow.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP — Iteration of (S0) along a_1-line not
+  justified: The proof claims "for all k in Z, sigma_T(q+k*a_1)=(-1)^k sigma_T(q)!=0"
+  by repeating (S0). Each step requires that the current point is not equal to the
+  exceptional points t_k. The proof dismisses obstacle cases with "use k=1 instead; by
+  symmetry the same argument applies" and "identical argument by symmetry," without
+  writing out the substitute recurrence or checking the required side conditions. These
+  are genuine gaps in the propagation argument.
+
+[Run1] JUSTIFICATION GAP — Identity sum m_i=n used but not proved: The relation
+  sum_{i=1}^n m_i = n is used crucially (e.g., for n=3 to conclude m=1), but it is not
+  one of the allowed results from Subproblems 1-4 and is not proved here.
+
+[Run3] CRITICAL — Three-direction hypothesis unused in n>=4 case: In Section 2
+  (n>=4), the quantity mu=beta(a_3)!=0 is introduced to represent a third direction, but
+  mu is never used in the argument that follows. The reasoning therefore applies equally
+  in the two-direction case, meaning it does not establish an obstruction specific to
+  three or more directions. The proof fails to use the hypothesis it is supposed to
+  contradict.
+
+===========================================================================
+SUMMARY OF MOST CRITICAL ISSUE
+===========================================================================
+
+The most critical issue: Sub-case B2 ("All delta_j=0") is handled by asserting
+"D_2=D_1=0: identical to Case A," but this is a direct logical error — D_1 and D_2
+involve different quantities (delta'_j vs. delta_j), so D_2=0 does not entail D_1=0.
+This gap means one entire branch of the case analysis is unproved regardless of whether
+the surrounding framework were otherwise sound.
+
+===========================================================================
+APPENDIX A: Full output of Run 1 (proof/verify_v16_run1.txt)
+===========================================================================
+
+The solution is **not correct**. Bug report:
+
+1. **Location:** "Assume for contradiction that \(T\) has \(\geq 3\) edge-direction classes and both signs."
+   **Description:** **Critical Error.** The problem's hypothesis is about \(P=\operatorname{conv}(S)\) having at least three edge-direction classes. The proof replaces this with a different hypothesis about \(T\) itself. No argument is given that the edge-direction classes of \(T\) (or of any polygon built from \(T\)) coincide with those of \(P\).
+
+2. **Location:** "For all \(n \geq 3\): a finite signed measure supported on the \(n\) vertices of a convex polygon, satisfying the nonlonely condition..."
+   **Description:** **Critical Error.** This is not the original statement. The proof has shifted to a different problem about a signed measure supported on polygon vertices, rather than the original convolution attached to \(S\) and the translate set \(T\).
+
+3. **Location:** Any use of \(\sigma_T\) and \(\eqref{eq:S0}\).
+   **Description:** **Critical Error.** The proof relies on a new object \(\sigma_T\) and identities such as \(\eqref{eq:S0}\), but these are neither among the permitted facts nor derived from the original definition. The argument also repeatedly uses "\(\sigma_T(p)\neq 0\)" as if it meant "\(p\in T\)."
+
+4. **Location:** "Fix \(\beta\) with \(\beta(a_1)=0\), \(\beta(a_2)=1\), and \(h(p)=\beta(p-t_1)\ge 0\) for all \(p\in T\)."
+   **Description:** **Justification Gap.** Existence of such \(\beta\) is asserted without proof. The proof does not establish that \(t_1\) is a vertex of \(\operatorname{conv}(T)\).
+
+5. **Location:** "Since \(|\{[a_1],\ldots,[a_n]\}| \geq 3\), we may relabel so that \([a_3]\neq [a_1]\), giving \(\mu:=\beta(a_3)\neq 0\)."
+   **Description:** **Critical Error.** Direction classes are modulo positive scalars only, so \(a_3\) could be a negative multiple of \(a_1\); then \([a_3]\neq[a_1]\) holds but \(\beta(a_3)=0\).
+
+6. **Location:** "For \(j \geq 3\): \(c_j = h(x_j) > 0\)..."
+   **Description:** **Justification Gap.** The positivity claim \(c_j>0\) is not established from the permitted facts.
+
+7. **Location:** Iteration "for all \(k\in\mathbb Z\), \(\sigma_T(q+ka_1)=(-1)^k\sigma_T(q)\neq 0\)..."
+   **Description:** **Justification Gap.** The induction does not show that the side condition \(t\neq t_k\) continues to hold at each step.
+
+8. **Location:** "Since \(\sum m_i = n = 3\) and all \(m_i=m\): \(m=1\)."
+   **Description:** **Justification Gap.** The identity \(\sum_i m_i=n\) is used crucially but is neither an allowed fact nor proved here.
+
+9. **Location:** "Is \(t' - a_1 \in T\)? \(T = F_1 \cup F_2 \cup F_3\)."
+   **Description:** **Justification Gap.** The covering \(T=\bigcup F_i\) is assumed but never proved.
+
+10. **Location:** "by \(\sum m_i = n \geq 4\) and \(m_i \geq 0\): some \(m_j \geq 1\) for \(j \neq 1\)."
+    **Description:** **Critical Error.** This inference is false; all weight could be in \(m_1\).
+
+11. **Location:** "Sub-case B2: All \(\delta_j = 0\). Then \(D_2 = D_1 = 0\): identical to Case A."
+    **Description:** **Critical Error.** \(D_1\) and \(D_2\) involve different summands; \(\delta_j=0\) does not imply \(\delta'_j=0\).
+
+12. **Location:** "Similarly (applying \(k=1\) at \(t''\)): \(\sigma_T(t''-a_1)=-\sigma_T(t'')\neq 0\)."
+    **Description:** **Justification Gap.** Application invalid if \(t''=t_1\); this case is not excluded.
+
+===========================================================================
+APPENDIX B: Full output of Run 2 (proof/verify_v16_run2.txt)
+===========================================================================
+
+The solution is **not correct**.
+
+## Bug report
+
+1. **Location:** "Assume for contradiction that T has >= 3 edge-direction classes" and
+   "T={x_1,...,x_n}=supp(sigma_T)", "[u] = equivalence class under nonzero scalar multiples."
+   **Description — Critical Error:** Changes the problem. The proof treats T itself as
+   the n-gon and changes direction classes from positive to nonzero scalar multiples.
+
+2. **Location:** "Closure: sum m_i a_i=0, sum m_i=n." "(NL)..." "(S0)..."
+   **Description — Justification Gap:** Foundational assertions not derived from setup
+   and not among allowed facts.
+
+3. **Location:** "Fix beta..." and "For j>=3: c_j=h(x_j)>0..."
+   **Description — Justification Gap:** Existence of beta and strict positivity of c_j
+   not proved from given hypotheses.
+
+4. **Location:** "T=F_1 cup ... cup F_n..." used for membership conclusions.
+   **Description — Justification Gap:** Covering property never proved.
+
+5. **Location:** "by sum m_i=n>=4 and m_i>=0: some m_j>=1 for j!=1."
+   **Description — Critical Error:** False inference; m_1=n, all others 0 is possible.
+
+6. **Location:** Iteration "for all k in Z..." and appeals to "by symmetry."
+   **Description — Justification Gap:** Exceptional cases not verified; "symmetry"
+   appeals are unproved.
+
+7. **Location:** "Sub-case B2: All delta_j=0. Then D_2=D_1=0: identical to Case A."
+   **Description — Critical Error:** D_1 uses delta'_j != delta_j; direct logical error.
+
+===========================================================================
+APPENDIX C: Full output of Run 3 (proof/verify_v16_run3.txt)
+===========================================================================
+
+The solution is **not correct**. Bug report:
+
+1. **Critical Error** — "x_1,...,x_n: vertices of a convex n-gon... T={x_1,...,x_n}=supp(sigma_T)."
+   and "Assume for contradiction that T has >=3 edge-direction classes."
+   Proves a different statement; in the original problem edge directions belong to
+   P=conv(S) and T is an arbitrary translate set.
+
+2. **Critical Error** — Same symbol a_i used both as edge vector of (x_i) and as step
+   size of F_i, conflating two different roles without justification.
+
+3. **Justification Gap** — (NL) and (S0) used throughout but neither proved nor among
+   allowed facts.
+
+4. **Critical Error** — "Since [a_3]!=[a_1], mu:=beta(a_3)!=0" is false when a_3 is a
+   negative multiple of a_1 (positive-scalar-multiple definition of direction class).
+
+5. **Justification Gap** — Existence of beta and c_j>0 not proved.
+
+6. **Justification Gap** — T=union of F_i used for non-membership conclusions but never
+   established.
+
+7. **Critical Error** — Sub-case B2: "D_2=D_1=0: identical to Case A" is a direct
+   logical error; D_1 involves delta'_j, D_2 involves delta_j, these differ.
+
+8. **Justification Gap** — Exceptional cases in iteration dismissed with "by symmetry"
+   without writing out the substitute recurrence.
+
+9. **Critical Error** — Three-direction hypothesis unused in n>=4 case; mu is introduced
+   but never used, so the argument does not contradict the three-direction assumption.

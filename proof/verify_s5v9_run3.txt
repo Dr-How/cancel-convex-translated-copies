@@ -1,0 +1,140 @@
+The solution is **not correct**. Here is a bug report.
+
+## Preliminaries
+
+1. **Location:** “For \(p\notin T\) we set \(\sigma_T(p)=0\).”  
+   **Description:** **Justification Gap.** The proof never defines \(\sigma_T\) on points of \(T\), yet later uses \(\sigma_T(t)\) for \(t\in T\). The argument implicitly needs \(\sigma_T(t)=\sigma(t)\) for \(t\in T\), but that definition is missing.
+
+2. **Location:** “since \(u_j\) is in the interior of \(\mathcal N(s_j)\) and \(s_k\ne s_j\), we have \(\langle s_k,u_j\rangle<\langle s_j,u_j\rangle\), so \(\langle s_k+t,u_j\rangle<\langle s_j+t_j,u_j\rangle\)”  
+   **Description:** **Justification Gap.** To deduce the inequality for \(s_k+t\), the proof must also use \(\langle t,u_j\rangle\le \langle t_j,u_j\rangle\) because \(t_j\) maximizes over \(T\). That step is not written. This affects the derivation of \(\eqref{eq:sigma0}\) and several later “non-lonely” checks.
+
+---
+
+## Section 1: \(n=3\)
+
+3. **Location:** “Since \(m_k=0\), the face chain \(F_k=\{t_k\}=\{t_0\}\), so \(t_0\) maximises \(\langle\cdot,u\rangle\) over \(T\) (the maximiser is achieved by \(F_k\)).”  
+   **Description:** **Justification Gap.** No prior allowed fact states that for an arbitrary \(u\) in a **closed** normal cone, the maximizers of \(T\) are exactly the corresponding face chain \(F_k\). The given setup only guarantees unique maximizers for the special interior directions \(u_i\), plus the arithmetic description of edge chains.
+
+4. **Location:** In Lemma “Staircase step”:  
+   “Apply \(\eqref{eq:nonlonely}\) to \(p=s_3+t\):  
+   \[
+   \sigma_T(t+a_1+a_2)+\sigma_T(t+a_2)+\sigma(t)+\sigma_T(t+a_3)=0.
+   \]”
+   **Description:** **Critical Error.** For \(n=3\), \(\sigma(p)=\sum_{j=1}^3 \sigma_T(p-s_j)\) has exactly **three** terms. The extra term \(\sigma_T(t+a_3)\) does not come from any \(p-s_j\). So Lemma \(\ref{lem:step}\) is invalid, and Proposition \(\ref{prop:n3}\) does not follow.
+
+---
+
+## Section 2: the “No-Gaps” machinery
+
+5. **Location:**  
+   “The face-chain height set is
+   \[
+   \mathcal H:=\{0,1,\dots,m_2\}\cup\{m_2+k\mu\}\cup\{(m_4-k)(1+\mu)\},
+   \]
+   ... By the \(\beta\)-closure: \(m_2+m_3\mu=m_4(1+\mu)\) ... \(\beta(a_4)=\beta(-(a_1+a_2+a_3))=-(1+\mu)\).”
+   
+   **Description:** **Critical Error.** This uses \(a_4=-(a_1+a_2+a_3)\), which is true only when \(n=4\). Section 2 is stated for general \(n\ge4\), so the definition of \(\mathcal H\) and the closure equation are invalid for \(n\ge5\).
+
+6. **Location:** “By induction on \(h\) (base case \(h\in(0,1)\) handled below) ...”  
+   **Description:** **Critical Error.** \(h\) is a real-valued height. The proof gives no valid well-founded induction scheme on real numbers, nor a minimal-counterexample reformulation on the finite set of attained heights. As written, the induction is not logically valid. Also, for \(\mu<0\), the stated base interval is empty, so the claimed induction is not even started in that case.
+
+7. **Location:**  
+   “for \(h\notin\mathcal H\) and \(c_j\ge 1\), we have \(h-c_j\notin\mathcal H\) by the structure of \(\mathcal H\).”
+   
+   **Description:** **Critical Error.** This is neither proved nor true in general. A non-\(\mathcal H\) height can become an \(\mathcal H\)-height after subtracting \(1\). Example: if \(m_2=1\) and \(\mu=\tfrac12\), then \(2\notin\mathcal H\) but \(2-1=1\in\mathcal H\). Also, earlier only \(c_j>0\) was established, not \(c_j\ge1\). The vanishing argument in Lemma \(\ref{lem:nogaps}\) therefore fails.
+
+8. **Location:**  
+   “for \(\mu\in\mathbb Q_{>0}\setminus\mathbb Z\): one checks that the resulting \(k\) exceeds \(m_4\) or is negative ... and we omit the arithmetic details. Therefore:
+   \[
+   \eqref{eq:a3vanish}.
+   \]”
+   
+   **Description:** **Justification Gap.** The proof explicitly omits the arithmetic needed to justify \(\eqref{eq:a3vanish}\), yet later treats \(\eqref{eq:a3vanish}\) as established.
+
+---
+
+## Section 3: \(n=4\), \(\mu>0\) non-integer
+
+9. **Location:**  
+   “For \(\mu\notin\mathbb Z_{>0}\): \(m_2+1\) is not a face-chain height ... By the No-Gaps Lemma, no \(T\)-element at height \(m_2+1\).”
+   
+   **Description:** **Critical Error.** This claim is false. For example, if \(\mu=\tfrac12\) and \(m_3\ge2\), then
+   \[
+   m_2+1 = m_2 + 2\mu,
+   \]
+   which is an \(F_3\)-height. The proof only rules out the case \(k=1\), not general \(k\).
+
+10. **Location:**  
+    “Heights: \(2,2,1,1-\mu<0\) (since \(\mu>0\), last term \(=0\)).”
+    
+    **Description:** **Critical Error.** \(1-\mu<0\) does **not** follow from \(\mu>0\); it is false for every \(0<\mu<1\). So the contradiction in the case \(m_1=0,\ m_2\ge2\) is invalid on that entire range.
+
+11. **Location:**  
+    “The height \(\mu>0\) is not in \(\mathcal H\) for \(\mu<1\) ... By the No-Gaps Lemma: \(\sigma_T(t_3+a_3-a_2)=0\).”
+    
+    **Description:** **Justification Gap.** This only treats the subcase \(0<\mu<1\), but Proposition \(\ref{prop:n4mu}\) claims all positive non-integer \(\mu\). No argument is given for \(\mu>1\).
+
+12. **Location:**  
+    “Case \(m_1=0,\ m_2=0\). All face chains \(F_1=\{t_1\},F_2=\{t_2\},F_3=\{t_3\},F_4=\{t_4\}\) with \(t_1=t_2=t_3=t_4=:t_0\).”
+    
+    **Description:** **Critical Error.** From \(m_1=0\) and \(m_2=0\), one gets \(t_1=t_2=t_3\), but there is no reason \(m_3=0\) or \(t_4=t_3\). This is a false deduction.
+
+---
+
+## Section 3: \(n=4\), \(\mu=0\)
+
+13. **Location:**  
+    “Consider \(x^*:=s_1+t_3\notin\{x_j\}\) (same non-lonely check as Lemma~\ref{lem:cross}).”
+    
+    **Description:** **Justification Gap.** Lemma \(\ref{lem:cross}\) does not exist in the submitted proof, and no actual argument is provided that \(x^*\notin\{x_j\}\). The use of \(\eqref{eq:nonlonely}\) is therefore unsupported.
+
+14. **Location:**  
+    “suppose \(\sigma_T(t_1+|\lambda|a_1)=0\) (... or more carefully by the No-Gaps Lemma applied at height~0).”
+    
+    **Description:** **Critical Error.** The No-Gaps Lemma does not exclude height \(0\); in fact \(0\in\mathcal H\). It cannot be used to deduce vanishing at height \(0\).
+
+15. **Location:**  
+    “The argument in full generality follows the same case split as Proposition~\ref{prop:n4mu} with \(\mu=0\); we omit the repetition.”
+    
+    **Description:** **Justification Gap.** This leaves the general \(\mu=0\) case unproved.
+
+---
+
+## Section 3: \(n=4\), \(-1<\mu<0\)
+
+16. **Location:**  
+    “the same argument as Lemma~\ref{lem:betamax} adapted to positive \(a_3\)-direction shows ...”  
+    and  
+    “The general case \(m_2\ge2\) follows by the same argument inductively ... We omit the repetition.”
+    
+    **Description:** **Justification Gap.** Proposition \(\ref{prop:n4muneg}\) is not actually proved. The key steps are only asserted: uniqueness of the height maximum, the inductive mechanism, and the final contradiction.
+
+---
+
+## Section 4: \(n\ge5\)
+
+17. **Location:** “For \(j\ge4\): \(c_j=\beta(s_j-s_1)\ge2\).”  
+    **Description:** **Critical Error.** This is false in general. The proof itself later identifies \(c_4=1+\mu\), which is \(<2\) whenever \(0<\mu<1\).
+
+18. **Location:**  
+    “the terms \(j\ge4\) have heights ... \(\le h(t)-\mu<0\) (using ... \(h(t)-\mu<0\) since \(h(t)<m_2\))”
+    
+    **Description:** **Critical Error.** \(h(t)-\mu<0\) does not follow from \(h(t)<m_2\). So the claimed vanishing of the \(j\ge4\) terms is not established.
+
+19. **Location:**  
+    “The \(s_3\)-equation then has exactly three nonzero terms (as in \(n=3\)), and Proposition~\ref{prop:n3} applies verbatim.”
+    
+    **Description:** **Critical Error.** Even if the extra terms vanished, the proof never shows that the first three vertices inside an \(n\ge5\) polygon satisfy the hypotheses of Proposition \(\ref{prop:n3}\) (especially the triangle-specific closure relations and support condition). The reduction is invalid.
+
+---
+
+## Conclusion
+
+20. **Location:**  
+    “\(n=4\), \(\mu\in\mathbb Z_{>0}\): ... the direct cross-point or chain argument ... applies with minor modifications ...”
+    
+    **Description:** **Justification Gap.** This entire subcase is merely asserted in the conclusion. No proof is provided.
+
+---
+
+Because the proof contains multiple **Critical Errors** and many **Justification Gaps**, the solution is **not verified**.

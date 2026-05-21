@@ -1,0 +1,134 @@
+% SP4 solution v2.
+% Key fixes:
+%   (1) Triangle case: unchanged from v1 (trinomial lemma).
+%   (2) Quadrilateral case: add reducible/irreducible split for A.
+%       - A reducible => S is parallelogram immediately (Newton polytope factorization).
+%       - A irreducible => Schinzel gives G binomial => S is parallelogram => contradiction.
+%   The Cases +/-n for n=4 ARE achievable (when S is already a parallelogram / A reducible)
+%   and do NOT lead to contradiction; they simply confirm S is a parallelogram.
+
+\subsection*{Triangle case: \(|\operatorname{supp}(F)|=3\) is impossible}
+
+Let \(L:=\langle S-S\rangle_{\mathbb{Z}}\).  Since \(S\) is a triangle, \(L\) has rank~2.
+
+Decompose \(T\) into cosets of \(L\): \(T=\bigsqcup_\alpha T_\alpha\).  The supports of the
+corresponding partial sums \(F_\alpha\) are pairwise disjoint, and each non-empty \(T_\alpha\)
+contributes at least~3 surviving points (by the lonely-point lower bound applied to
+\(S\cup T_\alpha\)).  For \(|\operatorname{supp}(F)|=3\) there can therefore be only one
+non-empty coset, so \(T\subset L\).
+
+Choose a \(\mathbb{Z}\)-basis \(u,v\) of \(L\) and translate so that \(S=\{0,u,v\}\).
+Set \(X=z^u\), \(Y=z^v\). Then
+\[
+A=1+X+Y,\qquad G=\sum_{t\in T}\varepsilon(t)X^{a_t}Y^{b_t},\qquad H:=AG.
+\]
+The assumption \(|\operatorname{supp}(F)|=3\) means \(H\) is a trinomial divisible by \(1+X+Y\).
+
+\begin{lemma}[Trinomial Lemma]
+If \(H\in\mathbb{Q}[X^{\pm1},Y^{\pm1}]\) has exactly three nonzero terms and \((1+X+Y)\mid H\),
+then \(H\) is a monomial multiple of \(1+X+Y\).
+\end{lemma}
+
+\begin{proof}
+Factor out a monomial so \(H=a+bX^pY^q+cX^rY^s\) with \(a,b,c\neq0\).
+Substituting \(Y=-1-X\) gives \(a+bX^p(-1-X)^q+cX^r(-1-X)^s\equiv0\).
+
+\emph{Order at \(X=0\):} the first term has order~0, so \(\min(p,r)=0\); relabeling, \(p=0\).
+
+\emph{Order at \(X=-1\):} substituting \(X=-1\) gives order~0, so \(\min(q,s)=0\); relabeling,
+\(s=0\), giving \(H=a+bY^q+cX^r\) (\(q,r>0\)).
+
+Substituting \(Y=-1-X\): \(a+b(-1-X)^q+cX^r\equiv0\).
+Comparing leading degree forces \(q=r=:d\) and \(b(-1)^d=-c\).
+Evaluating at \(X=0\): \(a+b(-1)^d=0\), so \(a=b\).
+Evaluating at \(X=-1\): \(a+b(-1)^d=0\), giving \(a(1+(-1)^d)=0\), so \(d\) is odd.
+The coefficient of \(X^{d-1}\) in \(1+X^d+(-1-X)^d\) is \(-d\neq0\) for \(d>1\),
+forcing \(d=1\).  Hence \(H=a(1+X+Y)\) and \(G=a\) is a monomial.
+\end{proof}
+
+By the lemma, \(G\) is a monomial.  But \(G\) has both signs (\(k_2\ge1\)), contradiction.
+Therefore \(|\operatorname{supp}(F)|=3\) is impossible for \(n=3\).
+
+\subsection*{Quadrilateral case: \(n=4\) and \(|\operatorname{supp}(F)|=4\) implies \(S\) is a parallelogram}
+
+Encode \(S\cup T\) in a rank-2 lattice; set \(A:=\sum_{s\in S}z^s\), \(G:=\sum_{t\in T}\varepsilon(t)z^t\),
+\(H:=AG\).  We have \(|S|=4\), all coefficients of \(A\) are \(+1\), and
+\(|\operatorname{supp}(H)|=4\).
+
+\begin{lemma}[Binomial Lemma]
+Let \(A=\sum_{s\in S}z^s\) with \(|S|=4\), all coefficients~\(+1\).
+If \(B=\alpha z^u+\beta z^v\) is a binomial and \(|{\operatorname{supp}}(AB)|=4\), then
+\(\alpha+\beta=0\), \(|S\cap(S+d)|=2\) where \(d=v-u\),
+and \(S\) is the vertex set of a parallelogram.
+\end{lemma}
+
+\begin{proof}
+If \(\alpha+\beta\neq0\) then no monomial cancels and
+\(|\operatorname{supp}(AB)|=|S\cup(S+d)|\ge5\) (since \(d\neq0\)).  Contradiction.
+
+So \(\alpha+\beta=0\) and \(|\operatorname{supp}(AB)|=8-2|S\cap(S+d)|=4\), giving
+\(|S\cap(S+d)|=2\).
+
+Let \(S\cap(S+d)=\{p_3,p_4\}\); then \(p_3=p_1+d\) and \(p_4=p_2+d\) for distinct
+\(p_1,p_2\in S\).  Hence \(p_1-p_2=p_3-p_4\), i.e.\ \(p_1+p_4=p_2+p_3\):
+two pairs of points with equal midpoint.  A four-point set in convex position with this
+property is exactly a parallelogram.
+\end{proof}
+
+We now split according to whether \(A\) is reducible over~\(\mathbb{Q}\).
+
+\medskip
+\textbf{Case~(a): \(A\) is reducible.}
+
+Write \(A=B_1\cdot B_2\) with \(B_1,B_2\) non-monomial polynomials.
+By the Newton-polytope additivity theorem,
+\[
+\operatorname{Newton}(A)=\operatorname{Newton}(B_1)+\operatorname{Newton}(B_2)
+\]
+(Minkowski sum).  Since \(\operatorname{Newton}(A)=\operatorname{conv}(S)\) is a quadrilateral
+(a 2-dimensional convex polygon), and the Minkowski sum of two positive-dimensional
+convex polygons in \(\mathbb{R}^2\) has at least as many edges as either summand,
+each \(\operatorname{Newton}(B_i)\) must be one-dimensional, i.e.\ a segment.
+Hence each \(B_i\) is a (Laurent) binomial, and
+\[
+\operatorname{conv}(S)=\operatorname{Newton}(B_1)+\operatorname{Newton}(B_2)
+\]
+is the Minkowski sum of two segments.  The Minkowski sum of two segments is a
+parallelogram (or a segment, but \(\operatorname{conv}(S)\) is 2-dimensional).
+Therefore \(S\) is the vertex set of a parallelogram.
+
+\medskip
+\textbf{Case~(b): \(A\) is irreducible.}
+
+Since \(G\) is not a monomial, \(H=AG\) is reducible.  By Schinzel's classification of
+reducible quadrinomials (Schinzel, \emph{Polynomials with Special Regard to Reducibility},
+CUP~2000, Ch.~1), a reducible quadrinomial \(H\) of exponent-rank~2 that is not in one
+of three exceptional families (which require the non-monomial irreducible factor to have
+3, 6, or 4 terms with coefficient pattern \(\{1,\pm1,-2,\pm2\}\)) has a binomial factor.
+Our polynomial \(A\) has 4 terms with all coefficients~\(+1\), so \(A\) is not one of the
+exceptional factors.  Hence \(H=DR\) where \(D\) is a binomial.
+
+Since \(A\) is irreducible and \(A\mid H=DR\):
+
+\emph{\(A\nmid D\):}  \(D\) is a binomial, so \(\operatorname{Newton}(D)\) is a segment; every
+factor of \(D\) over \(\overline{\mathbb{Q}}\) has collinear support.  But
+\(\operatorname{Newton}(A)=\operatorname{conv}(S)\) is 2-dimensional.  Hence \(A\nmid D\).
+
+Therefore \(A\mid R\).  Since \(A\) is irreducible and \(A\mid R\), we have
+\(R=c\cdot z^w\cdot A\) for some scalar \(c\neq0\) and lattice vector \(w\).
+Consequently \(G=H/A=c\cdot z^w\cdot D\), so \(G\) is (up to a monomial factor) a
+binomial.
+
+Applying the Binomial Lemma with this binomial \(G\): since \(|\operatorname{supp}(H)|=4\),
+the lemma gives \(S\) is a parallelogram.  But a parallelogram \(S\) means
+\(A=(1+z^{d_1})(1+z^{d_2})\) is \emph{reducible} over~\(\mathbb{Q}\), contradicting our
+assumption in Case~(b).
+
+Hence Case~(b) leads to a contradiction: no irreducible \(A\) can satisfy the equality
+\(|\operatorname{supp}(F)|=4\).
+
+\medskip
+\textbf{Conclusion.}
+
+In both cases where the equality \(|\operatorname{supp}(F)|=4\) is achievable, \(A\) is
+reducible and \(S\) is a parallelogram.  This completes the proof of claim~(2).

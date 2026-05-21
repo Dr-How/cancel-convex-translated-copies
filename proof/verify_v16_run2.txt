@@ -1,0 +1,313 @@
+CONSOLIDATED ADVERSARIAL VERIFICATION REPORT
+Solution: proof/section_5_three_directions_sol_v16.tex
+Problem:  proof/section_5_three_directions.tex
+Mode:     pessimistic (3 independent verifier runs)
+Verdict:  ISSUES_FOUND
+
+All three runs independently flagged multiple critical errors and justification gaps.
+No run produced a CLEAN result.
+
+===========================================================================
+CONSOLIDATED ISSUE LIST (issues flagged by at least one run)
+===========================================================================
+
+[Run1, Run2, Run3] CRITICAL ERROR -- Wrong problem solved (core setup mismatch)
+  The problem states that P = conv(S) has >= 3 edge-direction classes, where S is
+  the given convex set and T is an arbitrary finite signed translate set. The
+  solution instead redeclares T as an n-vertex convex polygon (T = {x_1,...,x_n}),
+  redefines a_i as edge vectors of that polygon, and proves a statement about T's
+  geometry. No equivalence between the geometry of P=conv(S) and the geometry of T
+  is established from the allowed facts. The proof addresses a different theorem.
+
+[Run1, Run2, Run3] CRITICAL ERROR -- Direction-class definition altered (sign of scalar)
+  The problem defines direction classes up to positive scalar multiples only
+  (a_i and a_j are equivalent iff a_j = lambda*a_i for some lambda > 0). The
+  solution comments state "[u] = equivalence class of u under nonzero scalar
+  multiples," which also identifies opposite directions. This changes the hypothesis.
+  The inference "[a_3] != [a_1] => beta(a_3) != 0" exploits this conflation: under
+  the correct positive-only definition, [a_3] != [a_1] still allows a_3 = -lambda*a_1
+  (lambda > 0), i.e., a_3 anti-parallel to a_1, giving beta(a_3) = 0.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP -- Equation (S0) used but never established
+  The proof's entire mechanism rests on the identity
+    (S0): For t in T, t != t_k: sum_{j=1}^n sigma_T(t + s_k - s_j) = 0.
+  This is not one of the two facts the problem permits from Subproblems 1-4, and it
+  is never derived from the original definition of sigma and the extremal equality.
+  Every contradiction argument is built on an unproved equation.
+
+[Run1, Run2, Run3] CRITICAL ERROR -- Closure identity sum m_i = n unestablished
+  The identity sum_i m_i = n is stated under "KEY EQUATIONS / Closure" but never
+  proved from the allowed facts. It is then used critically in two places:
+    - n=3 case: "Since sum m_i = n = 3 and all m_i = m: m = 1."
+    - n>=4 case, Step 2: "by sum m_i = n >= 4 and m_i >= 0."
+  Both uses are therefore unsupported.
+
+[Run1, Run2, Run3] CRITICAL ERROR -- Step 2 (n>=4): false inference from sum m_i = n
+  Location: "by sum m_i = n >= 4 and m_i >= 0: some m_j >= 1 for j != 1."
+  This is mathematically false. Setting m_1 = n and m_2 = ... = m_n = 0 satisfies
+  sum_i m_i = n with all m_j = 0 for j >= 2. The stated conclusion does not follow.
+
+[Run1, Run2, Run3] CRITICAL ERROR -- Sub-case B2: D_1 = 0 not justified from delta_j = 0
+  Location: "Sub-case B2: All delta_j = 0 for j in J_0. Then D_2 = D_1 = 0:
+  identical to Case A."
+  D_2 = sum_{j in J_0} delta_j  where  delta_j  = sigma_T(t' + s_2 - s_j).
+  D_1 = sum_{j in J_0} delta'_j where  delta'_j = sigma_T(t' + s_1 - s_j)
+                                                 = sigma_T(t' - s_j).
+  These are sums of values at different points. delta_j = 0 for all j says nothing
+  about delta'_j. There is no argument that D_1 = 0. Sub-case B2 is therefore
+  unproved, and the case split at the end of Step 5 is not exhaustive.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP -- T = union F_i not established
+  The solution uses T = F_1 cup ... cup F_n repeatedly (e.g., to check membership
+  of t'-a_1 in the n=3 case, and in Step 2). The allowed facts state only that
+  F_i = T cap [t_i, t_{i+1}] is an arithmetic progression. They do not assert that
+  every element of T lies on one of these chains. Without this covering, every
+  "t not in T because t not in F_1, ..., F_n" argument is a gap.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP -- c_j > 0 for j >= 3 not rigorously proved
+  Location: "For j >= 3: c_j = h(x_j) > 0 since x_j lies strictly above..."
+  The strict positivity is asserted by appealing to "convexity of the polygon and
+  the choice of beta," but no proof is given that the polygon built from T has the
+  required convexity geometry, that beta is a supporting functional at t_1, or that
+  the supporting line through x_1 in direction a_1 leaves all x_j (j >= 3) strictly
+  above it. This claim is load-bearing: it is used to force sigma_T = 0 for all
+  j >= 3 terms throughout Lemma hzero and Steps 3-5.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP -- Supporting functional beta existence not proved
+  Location: "Fix beta with beta(a_1)=0, beta(a_2)=1, and h(p) = beta(p-t_1) >= 0
+  for all p in T (possible since t_1 is a vertex of conv(T))."
+  Even granting that t_1 is a vertex of conv(T), a supporting hyperplane at a vertex
+  need not also satisfy beta(a_1) = 0 unless a_1 is tangent to conv(T) at t_1.
+  This additional geometric fact is not established.
+
+[Run1, Run2, Run3] JUSTIFICATION GAP -- Infinite iteration steps not closed
+  The proof repeatedly invokes "iterating" and "by induction" to produce infinite
+  arithmetic progressions in T. At each step, re-application of (S0) requires
+  verifying that the current point is != t_k. The proof handles the exceptional
+  case t'' = t_2 only with "use k=1 instead; by symmetry the same argument applies,"
+  without carrying out that symmetric argument. Both Lemma hzero and Sub-case B1
+  contain this unverified exception.
+
+[Run1] JUSTIFICATION GAP -- n=3 case: t' = t_2 branch not executed
+  Location: Step 1, "Apply (S0) k=2 at t' (valid since t' != t_2 -- if t' = t_2 ...
+  use k=1 instead; by symmetry the same argument applies)."
+  The proof only displays the k=2 branch. The case t' = t_2 (which can happen when
+  m_1 is odd) is left to "symmetry" without executing the k=1 computation.
+
+===========================================================================
+SPECIFIC CHECKS REQUESTED BY LEAD
+===========================================================================
+
+(1) n=3: equation at t' = t_2 + a_2 (three terms, right heights, right signs)?
+
+    The equation at lines 105-106 (applying (S0) k=1 at t' = t_2+a_2) is:
+      sigma_T(t') + sigma_T(t'-a_1) + sigma_T(t'-a_1-a_2) = 0.
+    Term-by-term with s_1=0, s_2=a_1, s_3=a_1+a_2:
+      j=1: t' + s_1 - s_1 = t'            height h(t') = 1       -- correct
+      j=2: t' + s_1 - s_2 = t' - a_1      height = 1-0 = 1...
+           Actually h(t'-a_1) = h(t_2+a_2-a_1) = beta(a_2) = 1   -- correct (height 1)
+      j=3: t' + s_1 - s_3 = t'-a_1-a_2   height = 1-1 = 0
+           t'-a_1-a_2 = t_2+a_2-a_1-a_2 = t_2-a_1 = t_1+a_1-a_1 = t_1 -- correct
+           sigma_T(t_1) = eps_1                                   -- correct
+    The three-term structure, heights, and signs are internally consistent IF
+    (S0) is accepted and the covering T = F_1 cup F_2 cup F_3 is accepted.
+    The middle term sigma_T(t'-a_1) = sigma_T(t_1+a_2) is shown to be 0 by
+    checking t_1+a_2 not in F_1, F_2, F_3, but that check relies on the unproved
+    covering. Conditional on those two assumptions: eps_1 + 0 + eps_1 = 2*eps_1 !=0
+    is correct arithmetic.
+
+(2) Is c_j > 0 for all j >= 3 rigorously justified?
+
+    NO. This is asserted by "convexity of the polygon and the choice of beta" with
+    no proof. It is load-bearing throughout Lemma hzero and Steps 3-5.
+
+(3) Are all sub-cases in Steps 4-5 exhaustive?
+
+    The outer split J_0 = empty (Case A) vs J_0 nonempty (Case B), and within B:
+    some delta_j != 0 (B1) vs all delta_j = 0 (B2), are logically exhaustive.
+    However:
+    - Case B2 is not proved (see bug on D_1 vs D_2 above).
+    - The exclusion of c_j = 0 from J_0 rests on the unproved c_j > 0 for j >= 3.
+    So the case split is formally complete but contains a broken branch.
+
+(4) Sub-case B2 "identical to Case A" when J_0 is nonempty -- correct?
+
+    NO. This is a critical error. When J_0 is nonempty:
+      D_2 = sum_{j in J_0} delta_j  (sigma_T evaluated at t' + s_2 - s_j)
+      D_1 = sum_{j in J_0} delta'_j (sigma_T evaluated at t' + s_1 - s_j)
+    Setting all delta_j = 0 gives D_2 = 0, but says nothing about delta'_j or D_1.
+    The two sets of points {t'+s_2-s_j} and {t'+s_1-s_j} are different (they differ
+    by a_1 for each j). No argument is provided that delta'_j = 0. The claim
+    "D_2 = D_1 = 0" is therefore unjustified, and Case B2 is left unproved.
+
+(5) Chain argument at height 0 -- complete?
+
+    NO. The iteration in Sub-case B1 producing {t''+k*a_1 : k in Z} subset T
+    defers the case t''+k*a_1 = t_2 to "use k=1 instead (identical argument by
+    symmetry)" without executing it. Furthermore the finiteness contradiction
+    T cap {h=0} = F_1 relies on both (S0) being established and T = cup F_i.
+
+===========================================================================
+SUMMARY
+===========================================================================
+
+Total distinct issues across three runs: 11
+Critical errors: 6
+Justification gaps: 5
+
+Most critical issue: Sub-case B2 ("All delta_j = 0") concludes D_1 = 0 from
+D_2 = 0, but D_1 and D_2 are sums over sigma_T evaluated at entirely different
+points (t'-s_j vs t'+s_2-s_j). This is a direct logical error that leaves the
+case split in Step 5 incomplete. The proof as a whole does not verify the stated
+result.
+
+===========================================================================
+APPENDIX A: Full verifier output, Run 1
+===========================================================================
+
+The solution is **not correct**. Here is a bug report.
+
+1. Location: "T = {x_1,...,x_n} = supp(sigma_T)." and "Assume for contradiction
+   that T has >= 3 edge-direction classes and both signs."
+   Critical Error. The proof changes the problem. In the statement, n is the number
+   of points of S, the polygon is P=conv(S), and T is an arbitrary finite signed
+   translate set. The solution instead treats T itself as an n-vertex convex polygon
+   and argues about its edge directions. That is a different claim from the one asked.
+
+2. Location: "[u] = equivalence class of u under nonzero scalar multiples."
+   Critical Error. This redefines the notion of direction class. The problem defines
+   direction classes up to positive scalar multiples only; the solution uses all
+   nonzero scalar multiples, which identifies opposite directions. This changes the
+   hypothesis "at least three edge-direction classes" and affects later deductions.
+
+3. Location: KEY EQUATIONS (NL) and (S0); Closure sum m_i = n.
+   Justification Gap. These are taken as given but are not proved in the solution,
+   and they are not among the two facts from Subproblems 1-4 that the problem
+   explicitly allows without proof.
+
+4. Location: "Fix beta with beta(a_1)=0, beta(a_2)=1, and h(p) = beta(p-t_1) >= 0
+   for all p in T (possible since t_1 is a vertex of conv(T))."
+   Justification Gap. The claim that t_1 is a vertex of conv(T), and that this gives
+   the required supporting functional beta, is not established from the permitted
+   assumptions.
+
+5. Location: "Since |{[a_1],...,[a_n]}| >= 3, we may relabel so that [a_3] != [a_1],
+   giving mu := beta(a_3) != 0."
+   Critical Error. Under the problem's actual definition (positive multiples only),
+   [a_3] != [a_1] does NOT imply beta(a_3) != 0; a_3 could be a negative multiple
+   of a_1 with beta(a_3) = 0.
+
+6. Location: "For j >= 3: c_j = h(x_j) > 0 since x_j lies strictly above..."
+   Justification Gap. This strict positivity is asserted, not proved. It is used to
+   force many terms to vanish in Lemma hzero and later steps.
+
+7. Location: Lemma hzero: "Repeating: for all k in Z, sigma_T(q+k*a_1) = (-1)^k
+   sigma_T(q) != 0."
+   Justification Gap. Depends on unproved equation (S0). The indefinite iteration
+   is not justified: hypotheses for reapplying (S0) are not verified at each step.
+
+8. Location: "For n = 3: Since sum m_i = n = 3 and all m_i = m: m = 1."
+   Justification Gap. Uses the unproved identity sum_i m_i = n.
+
+9. Location: Step 1: "Apply (S0) k=2 at t' (valid since t' != t_2 -- if t' = t_2
+   ... use k=1 instead; by symmetry the same argument applies)."
+   Justification Gap. The t'=t_2 case is not carried out; only "by symmetry" is
+   claimed.
+
+10. Location: Step 2: "by sum m_i = n >= 4 and m_i >= 0: some m_j >= 1 for j != 1."
+    Critical Error. False. m_1 = n and all other m_j = 0 is a counterexample.
+
+11. Location: "The elements are T = F_1 cup ... cup F_n" and "T = F_1 cup F_2 cup F_3."
+    Justification Gap. The union T = union_i F_i is used several times but never
+    proved and not among the permitted facts.
+
+12. Location: Step 5, Case B1: "use k=1 if t'' = t_2, by symmetry" and "The exception
+    is if t''+k*a_1 = t_2 ... use k=1 instead (identical argument by symmetry)."
+    Justification Gap. Exceptional cases not proved; only asserted by "symmetry."
+
+13. Location: Step 5, Case B2: "All delta_j = 0 ... Then D_2 = D_1 = 0."
+    Critical Error. D_2 = sum delta_j, D_1 = sum delta'_j (different points).
+    From delta_j = 0 one gets D_2 = 0 but nothing about delta'_j or D_1.
+
+===========================================================================
+APPENDIX B: Full verifier output, Run 2
+===========================================================================
+
+The solution is **not correct**. Bug report (table form):
+
+Issue 1 | Critical Error | The stated problem is about edge directions of P=conv(S).
+The proof switches to a statement about T itself being an n-gon. That is a different
+theorem.
+
+Issue 2 | Critical Error | The proof redefines core objects: a_i as edge vectors of
+a polygon built from T, and T as exactly n points. The given facts about F_i are no
+longer applied to the original objects.
+
+Issue 3 | Justification Gap | The proof's main engine is equation (S0), not among
+the two allowed facts from Subproblems 1-4 and never derived.
+
+Issue 4 | Critical Error | Identity sum_i m_i = n is never established. Used
+essentially in both n=3 and n>=4 arguments.
+
+Issue 5 | Justification Gap | T = union F_i is used but not one of the stated facts
+and not proved. Several membership/non-membership claims depend on it.
+
+Issue 6 | Justification Gap | Neither "t_1 is a vertex of conv(T)" nor existence of
+a supporting functional with all required properties is proved from the allowed facts.
+Claims c_j>0, Lemma hzero, and minimal-height argument all depend on this.
+
+Issue 7 | Justification Gap | Infinite-progression arguments reapply (S0) without
+checking hypotheses at each new point. "By symmetry" and "use k=1 instead" replace
+needed case analysis.
+
+Issue 8 | Critical Error | Inference "by sum m_i = n >= 4: some m_j >= 1 for j != 1"
+is false. m_1 = n and all others = 0 is a valid counterexample.
+
+Issue 9 | Justification Gap | n=3 case: excluding t'-a_1 from T by checking F_1, F_2,
+F_3 requires the unproved covering T = F_1 cup F_2 cup F_3.
+
+Issue 10 | Critical Error | Sub-case B2: D_2 = sum delta_j but D_1 = sum delta'_j
+with delta'_j = sigma_T(t'-s_j) != delta_j = sigma_T(t'+s_2-s_j). D_2=0 does not
+imply D_1=0. Entire B2 branch is invalid.
+
+===========================================================================
+APPENDIX C: Full verifier output, Run 3
+===========================================================================
+
+The solution is **not correct**. Bug report:
+
+1. Critical Error. "Assume for contradiction that T has >= 3 edge-direction classes."
+   Problem's hypothesis is about P=conv(S), not T. Proof addresses a different statement.
+
+2. Critical Error. "Fix beta with beta(a_1)=0, beta(a_2)=1, ... (possible since t_1
+   is a vertex of conv(T))." From "t_1 is a vertex" one does not automatically get
+   beta(a_1)=0; the tangency of a_1 at t_1 is never established.
+
+3. Critical Error. "[a_3] != [a_1] => beta(a_3) != 0" is false under positive-scalar
+   direction classes: a_3 = -lambda*a_1 gives [a_3] != [a_1] yet beta(a_3) = 0.
+
+4. Justification Gap. Equation (S0) neither in the allowed facts nor derived here.
+   The entire argument depends on an unestablished identity.
+
+5. Justification Gap. "c_j = h(x_j) > 0" uses unproved geometry of a polygon built
+   from T. Claim is load-bearing for forcing all j>=3 terms to vanish.
+
+6. Justification Gap. "Since sum m_i = n = 3 and all m_i = m: m = 1" /
+   "T = F_1 cup ... cup F_n" / "T = F_1 cup F_2 cup F_3" -- substantial structural
+   claims not among allowed facts and not proved.
+
+7. Justification Gap. Infinite propagation "for all k in Z" not rigorously established;
+   exceptional points (iterates hitting t_1 or t_2) not handled.
+
+8. Justification Gap. "t' = t_2 => use k=1 by symmetry" and similar exceptions: not
+   carried out; k=1 and k=2 equations are not literally the same.
+
+9. Critical Error. "some m_j >= 1 for j != 1" does not follow from sum_i m_i = n
+   with m_i >= 0. Counterexample: m_1 = n, all other m_j = 0.
+
+10. Justification Gap. n=3 membership check "T = F_1 cup F_2 cup F_3" not proved;
+    without it the exclusion of t'-a_1 from T is incomplete.
+
+11. Critical Error. Sub-case B2: "D_2 = D_1 = 0." D_2 = sum delta_j and
+    D_1 = sum delta'_j are sums at different points. delta_j = 0 does not imply
+    delta'_j = 0. Case B2 collapses.

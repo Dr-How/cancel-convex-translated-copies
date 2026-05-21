@@ -1,0 +1,381 @@
+```latex
+\begin{lemma}
+Let $S=\{s_1,\ldots,s_n\}\subset \mathbf{R}^2$ be in convex position, with $n\ge 3$, and let
+\[
+P=\mathrm{conv}(S).
+\]
+Let $T\subset \mathbf{R}^2$ be finite, let $\sigma:T\to\{\pm1\}$ attain both signs, and extend $\sigma$ to $\mathbf{R}^2$ by
+\[
+\sigma(p)=\sum_{\substack{t\in T\\ p-t\in S}}\sigma(t).
+\]
+Assume that
+\[
+|\mathrm{supp}(\sigma)|=n,
+\qquad
+\mathrm{supp}(\sigma)=\{p\in \mathbf{R}^2:\sigma(p)\neq 0\}.
+\]
+For each $i$, let
+\[
+C_i=\{u\in \mathbf{R}^2:u\cdot s_i>u\cdot s_j \mbox{ for all } j\neq i\}.
+\]
+For $u\in C_i$, let $t_i$ be a maximizer of $u\cdot t$ on $T$, and put
+\[
+x_i=s_i+t_i.
+\]
+Let also
+\[
+Q=\mathrm{conv}(T).
+\]
+Then:
+\begin{enumerate}
+\item[(a)] For every $i$, the point $t_i$ is well defined; equivalently, for every $u\in C_i$, the set of maximizers of $u\cdot(\cdot)$ on $T$ is the same singleton $\{t_i\}$.
+\item[(b)] The points $x_1,\ldots,x_n$ are pairwise distinct.
+\item[(c)] Each $x_i$ is the lonely support point $\ell_{s_i}$ of $s_i$, and
+\[
+\sigma(x_i)=\sigma(t_i)\in\{\pm1\}.
+\]
+\item[(d)] Each $t_i$ is a vertex of $Q$, and the sequence $t_1,\ldots,t_n$ runs through the vertices of $Q$ in the cyclic order induced by the normal fan of $P$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write
+\[
+S+T=\{s+t:s\in S,\ t\in T\}.
+\]
+For $u\in \mathbf{R}^2$, let
+\[
+M(u)=\{t\in T:u\cdot t=\max_{r\in T}u\cdot r\}.
+\]
+
+\medskip
+\noindent
+\emph{Claim.} If $u\in C_i$ and $t\in M(u)$, then $s_i+t\in \mathrm{supp}(\sigma)$, and in fact
+\[
+\sigma(s_i+t)=\sigma(t).
+\]
+
+\smallskip
+\noindent
+Indeed, suppose
+\[
+s_i+t=s_k+t'
+\]
+with $s_k\in S$ and $t'\in T$. If $k\neq i$, then
+\[
+u\cdot(s_i+t)=u\cdot(s_k+t')
+\le u\cdot s_k+\max_{r\in T}u\cdot r
+< u\cdot s_i+\max_{r\in T}u\cdot r
+= u\cdot(s_i+t),
+\]
+a contradiction. Hence $k=i$, and then $t'=t$. So the sum defining $\sigma(s_i+t)$ has exactly one term, namely $\sigma(t)$, and therefore
+\[
+\sigma(s_i+t)=\sigma(t)\neq 0.
+\]
+This proves the claim.
+
+\begin{enumerate}
+\item[(a)] Fix $i$. Suppose that the maximizer on $T$ is not constant on $C_i$. Then there exist $u_1,u_2\in C_i$ and distinct $a,b\in T$ such that
+\[
+a\in M(u_1),
+\qquad
+b\in M(u_2).
+\]
+
+Since
+\[
+C_i=\bigcap_{j\neq i}\{u\in \mathbf{R}^2:u\cdot(s_i-s_j)>0\},
+\]
+the set $C_i$ is convex. Hence
+\[
+u(\lambda)=(1-\lambda)u_1+\lambda u_2\in C_i
+\qquad
+(0\le \lambda\le 1).
+\]
+
+We claim that some $w\in C_i$ has at least two distinct maximizers on $T$. If $a\in M(u_2)$, we may simply take $w=u_2$. So assume
+\[
+a\notin M(u_2).
+\]
+Define
+\[
+A=\{\lambda\in[0,1]:a\in M(u(\lambda))\}.
+\]
+This set is closed, nonempty, and does not contain $1$. Let
+\[
+\lambda_0=\sup A.
+\]
+Because $A$ is closed, we have $\lambda_0\in A$. Choose a sequence $\lambda_m\downarrow \lambda_0$ with $\lambda_m\notin A$. For each $m$, choose
+\[
+c_m\in M(u(\lambda_m))\setminus\{a\}.
+\]
+Since $T$ is finite, some $c\in T\setminus\{a\}$ occurs for infinitely many $m$; after passing to a subsequence, we may assume
+\[
+c_m=c
+\qquad
+\mbox{for all } m.
+\]
+For every $r\in T$ and every $m$,
+\[
+u(\lambda_m)\cdot c\ge u(\lambda_m)\cdot r.
+\]
+Letting $m\to\infty$, we obtain
+\[
+u(\lambda_0)\cdot c\ge u(\lambda_0)\cdot r
+\qquad
+\mbox{for all } r\in T,
+\]
+so
+\[
+c\in M(u(\lambda_0)).
+\]
+Since $\lambda_0\in A$, we also have
+\[
+a\in M(u(\lambda_0)).
+\]
+Thus
+\[
+w:=u(\lambda_0)\in C_i
+\]
+has two distinct maximizers $a$ and $c$.
+
+Now set
+\[
+y=s_i+a,
+\qquad
+z=s_i+c.
+\]
+By the claim,
+\[
+y,z\in \mathrm{supp}(\sigma).
+\]
+
+For each $j\neq i$, choose any $u_j\in C_j$ and any $t_j\in M(u_j)$, and define
+\[
+y_j=s_j+t_j.
+\]
+Again the claim gives
+\[
+y_j\in \mathrm{supp}(\sigma)
+\qquad
+\mbox{for all } j\neq i.
+\]
+
+These $n+1$ points are pairwise distinct. First,
+\[
+y\neq z
+\]
+because $a\neq c$. Next, if $j\neq k$ and both are different from $i$, then
+\[
+u_j\cdot y_j
+=
+u_j\cdot s_j+u_j\cdot t_j
+>
+u_j\cdot s_k+u_j\cdot t_k
+=
+u_j\cdot y_k,
+\]
+since
+\[
+u_j\cdot s_j>u_j\cdot s_k
+\qquad\mbox{and}\qquad
+u_j\cdot t_j\ge u_j\cdot t_k.
+\]
+Hence
+\[
+y_j\neq y_k.
+\]
+Finally, for $j\neq i$,
+\[
+u_j\cdot y_j
+=
+u_j\cdot s_j+u_j\cdot t_j
+>
+u_j\cdot s_i+u_j\cdot a
+=
+u_j\cdot y,
+\]
+and similarly
+\[
+u_j\cdot y_j>u_j\cdot z.
+\]
+Thus $y_j$ is distinct from both $y$ and $z$.
+
+So $\mathrm{supp}(\sigma)$ contains at least $n+1$ distinct points, contradicting
+\[
+|\mathrm{supp}(\sigma)|=n.
+\]
+Therefore, for each $i$, the set $M(u)$ is the same singleton for every $u\in C_i$. This proves that $t_i$ is well defined.
+
+\item[(b)] Fix $i$, and choose any $u_i\in C_i$. If $j\neq i$, then
+\[
+u_i\cdot x_i
+=
+u_i\cdot s_i+u_i\cdot t_i
+>
+u_i\cdot s_j+u_i\cdot t_j
+=
+u_i\cdot x_j,
+\]
+because
+\[
+u_i\cdot s_i>u_i\cdot s_j
+\qquad\mbox{and}\qquad
+u_i\cdot t_i\ge u_i\cdot t_j.
+\]
+Hence
+\[
+x_i\neq x_j.
+\]
+Thus the points $x_1,\ldots,x_n$ are pairwise distinct.
+
+\item[(c)] Fix $i$, and choose $u_i\in C_i$. We show that $x_i$ is the unique element of $S+T$ maximizing $u_i\cdot(\cdot)$. Let $s_k+t\in S+T$.
+
+If $k\neq i$, then
+\[
+u_i\cdot(s_k+t)
+\le u_i\cdot s_k+u_i\cdot t_i
+< u_i\cdot s_i+u_i\cdot t_i
+= u_i\cdot x_i.
+\]
+If $k=i$ but $t\neq t_i$, then part $(a)$ says that $t_i$ is the unique maximizer of $u_i\cdot(\cdot)$ on $T$, so
+\[
+u_i\cdot t<u_i\cdot t_i,
+\]
+and therefore
+\[
+u_i\cdot(s_i+t)<u_i\cdot(s_i+t_i)=u_i\cdot x_i.
+\]
+So $x_i$ is the unique point of $S+T$ maximizing $u_i\cdot(\cdot)$; hence it is also the unique point of $\mathrm{supp}(\sigma)$ maximizing $u_i\cdot(\cdot)$. By definition, this means
+\[
+x_i=\ell_{s_i}.
+\]
+
+Now let $t\in T$ satisfy
+\[
+x_i-t\in S.
+\]
+Then
+\[
+x_i=s_k+t
+\]
+for some $k$. By the strict inequalities just proved, we must have $k=i$; then
+\[
+s_i+t=s_i+t_i,
+\]
+so
+\[
+t=t_i.
+\]
+Thus $t_i$ is the only element of $T$ contributing to $\sigma(x_i)$, and by the claim,
+\[
+\sigma(x_i)=\sigma(t_i)\in\{\pm1\}.
+\]
+
+\item[(d)] Fix $i$, and choose $u\in C_i$. By part $(a)$, $t_i$ is the unique maximizer of $u\cdot(\cdot)$ on $T$. We first show that it is also the unique maximizer on
+\[
+Q=\mathrm{conv}(T).
+\]
+Indeed, let
+\[
+q=\sum_{\nu=1}^N \lambda_\nu t^{(\nu)}\in Q,
+\qquad
+\lambda_\nu\ge 0,
+\qquad
+\sum_{\nu=1}^N\lambda_\nu=1,
+\]
+with each $t^{(\nu)}\in T$. If
+\[
+u\cdot q=u\cdot t_i,
+\]
+then
+\[
+u\cdot t_i
+=
+u\cdot q
+=
+\sum_{\nu=1}^N \lambda_\nu\,u\cdot t^{(\nu)}
+\le
+\sum_{\nu=1}^N \lambda_\nu\,u\cdot t_i
+=
+u\cdot t_i.
+\]
+Hence equality holds throughout, so every $t^{(\nu)}$ with $\lambda_\nu>0$ also maximizes $u\cdot(\cdot)$ on $T$. By uniqueness on $T$, all such $t^{(\nu)}$ equal $t_i$. Therefore
+\[
+q=t_i.
+\]
+So $t_i$ is the unique maximizer of $u\cdot(\cdot)$ on $Q$.
+
+Now suppose
+\[
+t_i=\lambda x+(1-\lambda)y
+\qquad
+(0<\lambda<1,\ x,y\in Q).
+\]
+Then
+\[
+u\cdot t_i
+=
+\lambda\,u\cdot x+(1-\lambda)\,u\cdot y
+\le
+\lambda\,u\cdot t_i+(1-\lambda)\,u\cdot t_i
+=
+u\cdot t_i.
+\]
+Hence
+\[
+u\cdot x=u\cdot y=u\cdot t_i.
+\]
+By uniqueness on $Q$, this forces
+\[
+x=y=t_i.
+\]
+Therefore $t_i$ is an extreme point of $Q$, hence a vertex of $Q$.
+
+It remains to prove the cyclic-order statement. If $\dim Q=0$, there is only one vertex and there is nothing to prove. If $\dim Q=1$, then $Q$ is a segment, its two endpoint normal cones are opposite open half-planes, and the order statement is immediate. So assume
+\[
+\dim Q=2.
+\]
+Write the vertices of $Q$ in cyclic order as
+\[
+q_1,\ldots,q_m.
+\]
+For each $r$, let
+\[
+D_r=\{u\in \mathbf{R}^2:u\cdot q_r>u\cdot x \mbox{ for all } x\in Q\setminus\{q_r\}\}
+\]
+be the open normal cone of $Q$ at $q_r$. If $n_r\in S^1$ is the outward unit normal to the edge $[q_r,q_{r+1}]$ (indices taken modulo $m$), then
+\[
+D_r\cap S^1
+\]
+is exactly the open arc from $n_{r-1}$ to $n_r$. Hence the arcs
+\[
+D_1\cap S^1,\ldots,D_m\cap S^1
+\]
+occur on $S^1$ in the same cyclic order as the vertices
+\[
+q_1,\ldots,q_m.
+\]
+
+Since every $u\in C_i$ has unique maximizer $t_i$, we have
+\[
+C_i\subset D_r
+\qquad
+\mbox{whenever } q_r=t_i.
+\]
+On the other hand, because $s_1,\ldots,s_n$ are the vertices of the convex polygon $P$ in cyclic order, the arcs
+\[
+C_1\cap S^1,\ldots,C_n\cap S^1
+\]
+occur on $S^1$ in that same cyclic order. Therefore, as $i$ runs cyclically through
+\[
+1,\ldots,n,
+\]
+the corresponding vertices
+\[
+t_i
+\]
+run through the vertices of $Q$ in cyclic order as well (possibly with repetitions if one normal cone of $Q$ contains several consecutive cones $C_i$). This is exactly the cyclic order induced by the normal fan of $P$.
+\end{enumerate}
+\end{proof}
+```

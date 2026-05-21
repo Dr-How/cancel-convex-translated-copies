@@ -1,0 +1,24 @@
+I found the following issues. No clear **Critical Errors** appeared, but the proof is **not correct as written** because it has **Justification Gaps**.
+
+1. **Location:**  
+   “The function \(x\mapsto\|s-x\|\) is continuous: the map \(x\mapsto s-x\) is continuous (**it is a translation**), and the Euclidean norm \(v\mapsto\|v\|\) is continuous, so their composition is continuous.”
+
+   **Description — Justification Gap:**  
+   The parenthetical justification is false: \(x\mapsto s-x\) is **not** a translation. The continuity claim may still be true, but the stated reason does not justify it.
+
+2. **Location:**  
+   “For \(0\le \lambda\le 1\), the point \(x_s+\lambda (y-x_s)\) lies in \(C_s\), so the function
+   \[
+   f(\lambda):=\|s-(x_s+\lambda(y-x_s))\|^2
+   \]
+   has a minimum at \(\lambda=0\). Hence
+   \[
+   f'(0^+)\ge 0.
+   \]”
+
+   **Description — Justification Gap:**  
+   This step uses unstated results. The proof does not explicitly justify:
+   - why minimizing \(\|s-x\|\) implies minimizing the **squared** distance \(\|s-x\|^2\), and
+   - why a differentiable function on \([0,1]\) attaining a minimum at the endpoint \(0\) must satisfy \(f'(0^+)\ge 0\).
+
+   Since the exposing-functional argument depends on this inequality, the proof is incomplete as written.

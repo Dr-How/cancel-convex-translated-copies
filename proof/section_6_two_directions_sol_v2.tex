@@ -1,0 +1,160 @@
+Here is a fully rigorous proof that fills the gaps in the proposed solution.
+
+**Proof.**  
+Let \(A_1,\dots,A_n\) be the points of \(S\) listed in counterclockwise order around
+\[
+P=\operatorname{conv}(S),
+\]
+and set \(A_{n+1}=A_1\). Define the edge vectors
+\[
+e_i:=A_{i+1}-A_i \qquad (1\le i\le n).
+\]
+Since \(S\) is in convex position, these are exactly the vertices of \(P\); in particular, each \(A_i\) is an extreme point of \(P\).
+
+### 1. No two adjacent edges are parallel
+Suppose, for contradiction, that \(e_i\) and \(e_{i+1}\) are parallel for some \(i\).
+
+The segments \([A_i,A_{i+1}]\) and \([A_{i+1},A_{i+2}]\) share the point \(A_{i+1}\). If they are parallel, then they lie on the same line. Hence the three distinct points
+\[
+A_i,\ A_{i+1},\ A_{i+2}
+\]
+are collinear.
+
+Among three distinct collinear points, one lies in the closed segment joining the other two. That point is then not an extreme point of \(P\), contradicting the fact that every \(A_j\) is a vertex of \(P\).
+
+Therefore adjacent edges cannot be parallel.
+
+---
+
+### 2. The two direction classes must alternate, so \(n\) is even
+There are exactly two unoriented edge-direction classes. Since consecutive edges cannot belong to the same class, the classes must alternate around the boundary:
+\[
+\text{class }1,\ \text{class }2,\ \text{class }1,\ \text{class }2,\ \dots
+\]
+Hence \(n\) is even.
+
+---
+
+### 3. The oriented edge directions are all distinct
+Let \(\alpha_i\) be the interior angle of \(P\) at \(A_i\).
+
+Because \(P\) is convex,
+\[
+0\le \alpha_i \le \pi.
+\]
+If \(\alpha_i=0\) or \(\alpha_i=\pi\), then the two edges incident to \(A_i\) are parallel, contradicting Step \(1\). So in fact
+\[
+0<\alpha_i<\pi \qquad (1\le i\le n).
+\]
+
+For each \(i\), let \(\tau_i\) be the exterior turning angle from \(e_i\) to \(e_{i+1}\) at the vertex \(A_{i+1}\). Then
+\[
+\tau_i=\pi-\alpha_{i+1},
+\]
+so
+\[
+0<\tau_i<\pi.
+\]
+
+Now triangulate the convex \(n\)-gon \(A_1A_2\cdots A_n\) from \(A_1\). This gives \(n-2\) triangles, hence
+\[
+\sum_{i=1}^n \alpha_i=(n-2)\pi.
+\]
+Therefore
+\[
+\sum_{i=1}^n \tau_i
+=
+\sum_{i=1}^n (\pi-\alpha_i)
+=
+n\pi-(n-2)\pi
+=
+2\pi.
+\]
+
+Choose a real argument \(\varphi_1\) of \(e_1\), and define recursively
+\[
+\varphi_{i+1}:=\varphi_i+\tau_i \qquad (1\le i\le n).
+\]
+Because the polygon is traversed counterclockwise, \(\tau_i\) is exactly the counterclockwise turn from \(e_i\) to \(e_{i+1}\). Thus each \(\varphi_i\) is a real argument of \(e_i\). Since every \(\tau_i\in(0,\pi)\),
+\[
+\varphi_1<\varphi_2<\cdots<\varphi_n<\varphi_{n+1}=\varphi_1+2\pi.
+\]
+So the oriented directions of the edges \(e_1,\dots,e_n\) are pairwise distinct.
+
+But there are only two unoriented direction classes. If they are represented by nonparallel vectors \(u\) and \(v\), then the only possible oriented directions are
+\[
+u,\ -u,\ v,\ -v.
+\]
+So there are at most \(4\) possible oriented directions. Since all \(e_i\) have distinct oriented directions, we obtain
+\[
+n\le 4.
+\]
+
+From Step \(2\), \(n\) is even; and \(n\ge 3\). Hence
+\[
+n=4.
+\]
+
+---
+
+### 4. The quadrilateral is a parallelogram
+Now \(P\) is the convex quadrilateral \(A_1A_2A_3A_4\). Let the two direction classes be \(\mathbb{R}u\) and \(\mathbb{R}v\), where \(u\) and \(v\) are nonparallel.
+
+Because the classes alternate, we can write
+\[
+e_1=a u,\qquad e_2=b v,\qquad e_3=c u,\qquad e_4=d v
+\]
+for some nonzero real numbers \(a,b,c,d\).
+
+Since the polygon closes,
+\[
+e_1+e_2+e_3+e_4=0.
+\]
+So
+\[
+(a+c)u+(b+d)v=0.
+\]
+Because \(u\) and \(v\) are nonparallel, they are linearly independent. Therefore
+\[
+a+c=0,\qquad b+d=0.
+\]
+Hence
+\[
+e_3=-e_1,\qquad e_4=-e_2.
+\]
+
+Now
+\[
+A_2-A_1=e_1=-e_3=A_4-A_3,
+\]
+and
+\[
+A_3-A_2=e_2=-e_4=A_4-A_1.
+\]
+So each pair of opposite sides is parallel (indeed equal as vectors). Therefore \(A_1A_2A_3A_4\) is a parallelogram.
+
+---
+
+### 5. Deriving \(A+C=B+D\)
+Rename
+\[
+A:=A_1,\qquad B:=A_2,\qquad C:=A_3,\qquad D:=A_4.
+\]
+Viewing points as position vectors in \(\mathbb{R}^2\), we have
+\[
+B=A+e_1,\qquad C=A+e_1+e_2.
+\]
+Also, since \(e_3=-e_1\),
+\[
+D=A+e_1+e_2+e_3=A+e_2.
+\]
+Therefore
+\[
+B+D=(A+e_1)+(A+e_2)=2A+e_1+e_2=A+(A+e_1+e_2)=A+C.
+\]
+Thus
+\[
+A+C=B+D.
+\]
+
+So \(S=\{A,B,C,D\}\) is the vertex set of a parallelogram, as required. \(\square\)

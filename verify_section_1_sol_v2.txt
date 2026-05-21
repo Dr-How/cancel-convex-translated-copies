@@ -1,0 +1,21 @@
+The solution is **not** correct under the stated rubric. I found these issues:
+
+- **Location:** “*(Also, part \(1\) asks us to choose \(t_s\in T\), so we tacitly assume \(T\neq\varnothing\).)*”  
+  **Description:** **Critical Error.** This adds a hypothesis that is **not** in the stated problem. The proof only handles the case \(T\neq\varnothing\), so it does not prove the statement as written.
+
+- **Location:** “*Since \(U\setminus\{u\}\) is finite, \(C\) is compact. Choose \(y\in C\) minimizing the distance to \(u\).*”  
+  **Description:** **Justification Gap.** The proof uses, without stating or proving it, that the convex hull of a finite set is compact, and then uses the existence of a minimizer of the distance function on that compact set. The existence of \(y\) is essential to Lemma 1.
+
+- **Location:** “*Finally,
+  \[
+  \operatorname{conv}(U)=\operatorname{conv}\bigl(C\cup\{u\}\bigr),
+  \]
+  and \(\phi\) is strictly smaller than \(\phi(u)\) on \(C\). Therefore \(\phi\) is uniquely maximized at \(u\) on \(\operatorname{conv}(U)\).*”  
+  **Description:** **Justification Gap.** The proof only established \(\phi(x)<\phi(u)\) for \(x\in C\). It does **not** justify why this implies \(\phi(x)<\phi(u)\) for every \(x\in \operatorname{conv}(C\cup\{u\})\setminus\{u\}\). That missing step is exactly what is needed to finish Lemma 1.
+
+- **Location:** “*Conversely, every point \(a+b\in A+B\) lies in
+  \(\operatorname{conv}(A)+\operatorname{conv}(B)\), and the latter set is convex, so
+  \[
+  \operatorname{conv}(A+B)\subseteq \operatorname{conv}(A)+\operatorname{conv}(B).
+  \]*”  
+  **Description:** **Justification Gap.** The convexity of \(\operatorname{conv}(A)+\operatorname{conv}(B)\) is asserted but not justified. Since this is the key step in the reverse inclusion of Lemma 2, that inclusion is not fully proved.

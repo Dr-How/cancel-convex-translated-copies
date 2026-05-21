@@ -1,0 +1,139 @@
+A clean write-up is:
+
+```tex
+\begin{proof}
+Assume for contradiction that
+\[
+|S\cap(S+v)|\ge 2.
+\]
+Choose distinct points
+\[
+p_1,p_2\in S\cap(S+v).
+\]
+Then
+\[
+p_1,p_2\in S,
+\]
+and because \(p_1,p_2\in S+v\), we also have
+\[
+p_1-v\in S
+\qquad\text{and}\qquad
+p_2-v\in S.
+\]
+Hence the four points
+\[
+p_1,\quad p_2,\quad p_1-v,\quad p_2-v
+\]
+all lie in \(S\).
+
+Since \(|S|=3\), at least two of these four points must coincide. Now
+\[
+p_1\neq p_2
+\]
+by choice, and therefore
+\[
+p_1-v\neq p_2-v
+\]
+because translation preserves distinctness. Also,
+\[
+p_1\neq p_1-v
+\qquad\text{and}\qquad
+p_2\neq p_2-v
+\]
+since \(v\neq 0\).
+
+So the only possible coincidences are the two cross-equalities
+\[
+p_1-v=p_2
+\qquad\text{or}\qquad
+p_2-v=p_1.
+\]
+By symmetry, it is enough to treat the case
+\[
+p_1-v=p_2.
+\]
+Then
+\[
+p_1=p_2+v.
+\]
+Since \(p_2\in S\cap(S+v)\), we also know that
+\[
+p_2-v\in S.
+\]
+Thus \(S\) contains the three points
+\[
+p_2-v,\qquad p_2,\qquad p_2+v=p_1.
+\]
+
+These three points are distinct. Indeed,
+\[
+p_2-v\neq p_2,\qquad p_2\neq p_2+v
+\]
+because \(v\neq 0\), and if \(p_2-v=p_2+v\), then \(2v=0\), hence \(v=0\), again impossible.
+
+Moreover, all three points lie on the affine line
+\[
+p_2+\mathbb{R}v.
+\]
+So \(S\) consists of three distinct collinear points, contradicting that \(S=\{A,B,C\}\) is the vertex set of a non-degenerate triangle.
+
+Therefore,
+\[
+|S\cap(S+v)|\le 1.
+\]
+\end{proof}
+
+\begin{proof}[Conclusion for \(F\)]
+Let
+\[
+F(p)=\mathbf{1}_S(p)-\mathbf{1}_{S+v}(p).
+\]
+Then \(F(p)\neq 0\) exactly when \(p\) belongs to exactly one of the sets \(S\) and \(S+v\). Hence
+\[
+\{p:F(p)\neq 0\}
+=
+\bigl(S\setminus(S+v)\bigr)\,\dot\cup\,\bigl((S+v)\setminus S\bigr),
+\]
+where the union is disjoint. Therefore
+\[
+|\{p:F(p)\neq 0\}|
+=
+|S\setminus(S+v)|+|(S+v)\setminus S|.
+\]
+Now
+\[
+|S\setminus(S+v)|=|S|-|S\cap(S+v)|
+\]
+and
+\[
+|(S+v)\setminus S|=|S+v|-|S\cap(S+v)|.
+\]
+Since \(|S|=|S+v|=3\), we get
+\[
+|\{p:F(p)\neq 0\}|
+=
+3+3-2|S\cap(S+v)|
+=
+6-2|S\cap(S+v)|.
+\]
+By the first proof,
+\[
+|S\cap(S+v)|\le 1,
+\]
+so
+\[
+|\{p:F(p)\neq 0\}|
+\ge 6-2=4>3=|S|.
+\]
+Thus it is impossible in the two-translate case to have
+\[
+|\{p:F(p)\neq 0\}|=3=|S|.
+\]
+\end{proof}
+```
+
+The key contradiction is that two overlap points force the three vertices of \(S\) to be of the form
+\[
+q-v,\quad q,\quad q+v,
+\]
+which are collinear.

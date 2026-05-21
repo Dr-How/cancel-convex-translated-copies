@@ -1,0 +1,161 @@
+The solution is **not correct**. Here is a bug report.
+
+## Global / setup issues
+
+1. **Location:**  
+   “*Let \(n \geq 3\). We have \(x_1,\ldots,x_n\) in convex position (CCW), \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) finitely supported on \(T = \{x_1,\ldots,x_n\}\), with \(T\) having both signs.*”
+
+   **Description — Critical Error:**  
+   This is not the problem’s setup. In the statement, \(S\) is the convex \(n\)-point set, \(T\) is the signed set of translating vectors, and \(\sigma(p)=\sum_{t\in T,\ p-t\in S}\sigma(t)\). The solution redefines \(T\) to be the support of \(\sigma\), assumes that support is itself in convex position, and assumes \(\sigma\) only takes values in \(\{-1,0,+1\}\). The allowed facts about exposed translates \(t_i\) and chains \(F_i\) apply to the original translate set, not to this redefined support. So the proof is about a different object.
+
+2. **Location:**  
+   “*The direction class \([a_i]\) is the equivalence class of \(a_i\) under nonzero scalar multiples (i.e., \([u]=[v]\) iff \(u=\lambda v\) for some \(\lambda\neq 0\)).*”
+
+   **Description — Critical Error:**  
+   As written, the problem defines parallel/direction classes using **positive** scalar multiples. The solution changes this to equivalence under **all** nonzero scalars. That changes the meaning of “number of edge-direction classes,” so the argument is not proving the stated claim.
+
+3. **Location:**  
+   “*\(c_j := \beta(s_j - s_1) = \sum_{i=1}^{j-1}\beta(a_i)\) (so \(c_1=0\), \(c_2=1\), \(c_3=1+\mu\), etc.).*”
+
+   **Description — Critical Error:**  
+   This computation is wrong. Since \(s_1=0\), \(s_2=a_1\), \(s_3=a_1+a_2\), and \(\beta(a_1)=0\), \(\beta(a_2)=1\), the correct values are \(c_1=0\), \(c_2=0\), \(c_3=1\), \(c_4=1+\mu\). Later height calculations using \(c_j\) are therefore off.
+
+---
+
+## \(n=3\) section
+
+4. **Location:**  
+   “*Apply \eqref{eq:S0} \(k=2\) at \(t'\):  
+   \[
+   \sigma_T(t'+a_1)+\sigma_T(t')+\sigma_T(t'-a_2)+\sigma_T(t'-a_2-a_3)=0.
+   \]*”
+
+   **Description — Critical Error:**  
+   For \(n=3\), equation \((S0)\) has only **three** terms: \(\sigma_T(t+a_1)+\sigma_T(t)+\sigma_T(t-a_2)=0\). The extra term \(\sigma_T(t-a_2-a_3)\) does not exist. The ensuing identity \(2\sigma_T(t'+a_1)+\cdots=0\) is invalid.
+
+5. **Location:**  
+   “*For \(t' = t_2\) ... This is getting complicated. Let me use the cleaner approach: for \(n=3\), ANY \(t' \in T\) with \(h(t')>0\) works.*”  
+   and later  
+   “*The analysis confirms contradiction in all sub-subcases. ✓*”
+
+   **Description — Justification Gap:**  
+   The case split in Lemma \(\ref{lem:n3}\) is not completed. The \(h(t')=0\) branch is abandoned, and the \(h_0=1\) branch is ended by assertion rather than proof. So the \(n=3\) contradiction is not established.
+
+---
+
+## \(n=4\) preliminary lemmas
+
+6. **Location:**  
+   “*Actually, Lemma betamin4 as stated may not hold in full generality ... Let me just state: choose \(\beta\) with \(\beta(a_1)=0\), \(\beta(a_2)=1\), AND \(h(p)\geq 0\) for all \(p\in T\) ...*”
+
+   **Description — Justification Gap:**  
+   The proof explicitly concedes the original argument does not work, then replaces it with an unsupported existence claim. No proof is given that one can choose a single linear functional satisfying all three requirements simultaneously.
+
+7. **Location:**  
+   In Lemma \(\ref{lem:hzero}\):  
+   “*Heights: \(h(q+a_1)=0\), \(h(q)=0\), \(h(q-a_2)=-1<0\), \(h(q-a_2-a_3)=-1-\mu\). For \(\mu \geq 0\): \(-1-\mu \leq -1 < 0\); for \(\mu < 0\): \(-1-\mu > -1\) ... By Lemma~\ref{lem:betamin4}, all terms with \(h < 0\) vanish.*”
+
+   **Description — Critical Error:**  
+   When \(\mu<0\), the height \(-1-\mu\) can be positive. That term cannot be discarded. The deduction \(\sigma_T(q+a_1)=-\sigma_T(q)\) is therefore not valid in that case.
+
+8. **Location:**  
+   “*\begin{proof}
+   (Analogous to hzero argument, applying the equation at an element above height \(m_2+m_3\mu\) and deriving a contradiction via infinite chain.)
+   \end{proof}*”
+
+   **Description — Justification Gap:**  
+   Lemma \(\ref{lem:betamax4}\) is asserted with no proof.
+
+9. **Location:**  
+   In Lemma \(\ref{lem:facechain}\):  
+   “*The lower terms ... vanish. Hence \(\sigma_T(t+a_1)=-\sigma_T(t)\neq 0\) and \(\sigma_T(t-a_1)=-\sigma_T(t)\neq 0\) ... Iterate: bi-infinite chain.*”
+
+   **Description — Justification Gap:**  
+   The claimed induction on lower heights is not set up or justified. In particular, it is not shown that all the additional terms in \((S0)\) vanish, especially when \(\mu<0\) or when \(n>4\).
+
+10. **Location:**  
+    In Lemma \(\ref{lem:nogaps}\):  
+    “*This is getting complex. The key point ... In all cases we get a contradiction. This completes the proof of Lemma~\ref{lem:nogaps}.*”
+
+    **Description — Justification Gap:**  
+    The proof never actually completes the subcase analysis. Several branches are only sketched, and the final contradiction is asserted rather than derived.
+
+---
+
+## \(n=4\) cross-lemmas and propositions
+
+11. **Location:**  
+    “*The cross-point: apply \eqref{eq:NL} at \(p = s_1 + (t_2 + a_2) = t_1 + a_2 = x_1 + a_2\).*”
+
+    **Description — Critical Error:**  
+    Since \(s_1=0\), this gives \(p=t_2+a_2\), not \(t_1+a_2\). Because \(t_2=t_1+m_1a_1\), the equality \(t_2+a_2=t_1+a_2\) is false when \(m_1\ge 1\). The lemma proceeds by evaluating the wrong point.
+
+12. **Location:**  
+    “*\(\sigma_T(t_1+a_2) = \sigma_T(t_2+a_2) = (-1)^1 \varepsilon_2\)*”
+
+    **Description — Critical Error:**  
+    This repeats the same point-identification error. \(t_1+a_2\) and \(t_2+a_2\) are generally different points, so the value of \(\sigma_T(t_2+a_2)\) says nothing about \(\sigma_T(t_1+a_2)\).
+
+13. **Location:**  
+    End of Lemma \(\ref{lem:cross}\):  
+    “*For the purposes of Lemma~\ref{lem:cross}: we handle \(\mu > 0\) here ... and delegate \(\mu < 0\) to Proposition~\ref{prop:n4muZ}.*”
+
+    **Description — Critical Error:**  
+    The lemma statement has no \(\mu>0\) restriction, but the proof only covers \(\mu>0\). Later Proposition \(\ref{prop:n4mu}\) invokes this lemma for all \(\mu\notin\mathbb Z\), including negative nonintegral \(\mu\), which are not proved.
+
+14. **Location:**  
+    End of Lemma \(\ref{lem:cross1}\):  
+    “*So Lemma~\ref{lem:cross1} is proved for \(\mu>0\). (The case \(\mu<0\) is handled in Prop n4muZ.)*”
+
+    **Description — Critical Error:**  
+    Same problem as above. The lemma is later used without the restriction \(\mu>0\), so the nonintegral negative-\(\mu\) cases are left uncovered.
+
+15. **Location:**  
+    In Proposition \(\ref{prop:n4mu}\), \(m_1=0,m_2=0\) case:  
+    “*For the main argument assume the face-chain height condition fails, giving \(\sigma_T(t'-a_2-a_3)=0\).*”
+
+    **Description — Critical Error:**  
+    This is not a proof. An unresolved case is simply assumed away. The proposition therefore does not establish the needed contradiction in general.
+
+16. **Location:**  
+    In Proposition \(\ref{prop:n4muZ}\):  
+    “*Key: for \(\mu \in \mathbb{Z}\), all face-chain heights are integers.*”
+
+    **Description — Critical Error:**  
+    This is false. Even in the solution’s own notation, heights on \(F_4\) are
+    \(m_2+m_3\mu + k\beta(a_4)\), with \(\beta(a_4)=-(m_2+m_3\mu)/m_4\), so these heights need not be integers even if \(\mu\in\mathbb Z\). Subsequent integrality-based reasoning is invalid.
+
+17. **Location:**  
+    In Proposition \(\ref{prop:n4muZ}\):  
+    “*This case analysis, while extensive, always yields a contradiction.*”
+
+    **Description — Justification Gap:**  
+    The integer-\(\mu\) case split is not actually carried out. Multiple branches are replaced by summary statements like “chain argument” or “always yields a contradiction” without proof.
+
+---
+
+## \(n\ge 5\) section
+
+18. **Location:**  
+    “*\begin{lemma}[betamin-n] ... \(h(t)\geq 0\) for all \(t\in T\) (by choosing \(\beta\) so that \(t_1\) is the \(h\)-minimum vertex ... as in Lemma~\ref{lem:betamin4}).*”
+
+    **Description — Justification Gap:**  
+    This depends on the same unsupported choice of \(\beta\) used in Lemma \(\ref{lem:betamin4}\). No new proof is given.
+
+19. **Location:**  
+    In Lemma \(\ref{lem:hzeron}\):  
+    “*extra \(j\geq 5\) terms ... have heights \(-c_j\leq -1<0\) (since \(c_j\geq 1+\mu\); for \(\mu<0\): ... all \(c_j\geq 0\), and ... \(c_j>0\)).*”
+
+    **Description — Critical Error:**  
+    The conclusion \(-c_j\le -1\) does not follow from \(c_j>0\). For \(\mu<0\), the proof only argues \(c_j>0\), not \(c_j\ge 1\). Combined with the earlier incorrect formula for \(c_j\), the vanishing of these extra terms is not established.
+
+20. **Location:**  
+    End of Proposition \(\ref{prop:n5}\):  
+    “*In all cases, the \(n\geq 5\) argument reduces to the \(n=4\) argument with the extra \(j\geq 5\) terms vanishing or contributing known values that do not prevent the contradiction.*”
+
+    **Description — Justification Gap:**  
+    This blanket reduction is asserted, not proved. The preceding discussion repeatedly uses phrases like “generic case,” “same contradiction,” “typical cases,” and “direct computation shows contradiction” without actually giving the needed derivations.
+
+---
+
+Because of these Critical Errors and Justification Gaps, the submitted solution does **not** verify the statement.

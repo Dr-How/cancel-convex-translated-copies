@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 1 --- Lonely points and extremal rigidity.}
+
+\medskip
+\textbf{Setup.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 1$ points in convex position
+(every point of $S$ is a vertex of $\operatorname{conv}(S)$).
+Let $T\subset\mathbb{R}^2$ be a finite set of translating vectors, each assigned a sign
+$\sigma(t)\in\{+1,-1\}$, with both signs present (i.e.\ $T_+\neq\varnothing$ and $T_-\neq\varnothing$).
+Write $T_+=\{t\in T:\sigma(t)=+1\}$ and $T_-=\{t\in T:\sigma(t)=-1\}$.
+For every $p\in\mathbb{R}^2$ define
+\[
+  \sigma(p) \;=\; \sum_{\substack{t\in T \\ p-t\in S}} \sigma(t).
+\]
+
+\medskip
+\textbf{Statement.}
+\begin{enumerate}
+  \item (Lower bound) $|\{p\in\mathbb{R}^2:\sigma(p)\neq 0\}|\ge n$.
+  \item (Extremal rigidity) If $|\{p\in\mathbb{R}^2:\sigma(p)\neq 0\}|=n$, then:
+    \begin{enumerate}
+      \item For each $s\in S$ there is a unique pair $(s,t_s)$ with $t_s\in T$ such that
+            $\ell_s:=s+t_s$ has \emph{no} other representation $\ell_s=s'+t'$ with $s'\in S$,
+            $t'\in T$, $(s',t')\neq(s,t_s)$.  (Such a point $\ell_s$ is called \emph{lonely}.)
+      \item The $n$ lonely points $\ell_s$ are pairwise distinct and
+            $\{p:\sigma(p)\neq 0\}=\{\ell_s:s\in S\}$.
+      \item $\sigma(\ell_s)=\sigma(t_s)\in\{\pm 1\}$ for every $s\in S$.
+      \item $\bigl||T_+|-|T_-|\bigr|\le 1$.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,29 @@
+The solution is **not correct**. Bug report:
+
+1. **Critical Error**  
+   - **Location:** “**Since both signs occur in \(T\),** the set \(T\) is nonempty; we use this below without adding it as a separate hypothesis.”  
+     and later  
+     “Since \(T\) contains both a positive and a negative element, \(T\) is nonempty and finite.”
+   - **Description:** The stated problem does **not** assume that both signs occur in \(T\), or even that \(T\neq\varnothing\). The proof relies on this extra assumption to choose \(t_s\in T\) in Step 2 (including the \(n=1\) case). So the argument proves only a stronger, unstated claim, not the theorem as stated.
+
+2. **Justification Gap**  
+   - **Location:** “Because \(S\) is in convex position, \(s\) is a vertex of \(\operatorname{conv}(S)\), so
+     \[
+     s\notin C_s.
+     \]”
+   - **Description:** The implication “\(s\) is a vertex of \(\operatorname{conv}(S)\) \(\Rightarrow s\notin \operatorname{conv}(S\setminus\{s\})\)” is used without justification. This fact is needed to conclude \(u_s\neq 0\).
+
+3. **Justification Gap**  
+   - **Location:** “Since \(C_s\) is compact, there exists \(x_s\in C_s\) minimizing the distance to \(s\).”
+   - **Description:** This invokes unstated results: that \(C_s=\operatorname{conv}(S\setminus\{s\})\) is compact, and that the distance function attains a minimum on a compact set. Under the stated grading rules, this needs explicit justification.
+
+4. **Justification Gap**  
+   - **Location:** “Hence
+     \[
+     f'(0^+)\ge 0.
+     \]”
+   - **Description:** This uses the one-sided derivative test at a boundary minimum, but that theorem is not stated or justified.
+
+5. **Justification Gap**  
+   - **Location:** “there are exactly \(|S|=n\) such values of \(p\).”
+   - **Description:** This counting step requires explicit justification that, for fixed \(t\), the map \(s\mapsto s+t\) is injective, so the points \(s+t\) are all distinct as \(s\) ranges over \(S\). The proof does not state this.

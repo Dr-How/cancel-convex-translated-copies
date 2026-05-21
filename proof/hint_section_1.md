@@ -1,0 +1,17 @@
+## Overall Insight
+
+The right way to attack the equality case is not by trying to collapse to two translates or by using only a coarse L²-count, because those arguments lose too much structure when |T+| and |T−| are both larger than 1. Instead, the key idea is to exploit the full rigidity of equality in the Lonely Points Lemma: if |supp(σ)|=|S|=n, then every nonzero point is lonely, hence uniquely represented. That uniqueness pins down, for each vertex of conv(S), a single translate that is exposed on the entire normal cone of that vertex.
+
+Once that exposed-translate assignment is in place, the problem becomes a boundary-structure problem for the Minkowski sum P+Q, where P=conv(S) and Q=conv(T). Each edge of P+Q reduces to a one-dimensional cancellation problem, forcing the T-points on the corresponding face of Q to form a full alternating arithmetic progression. The hard step is then global: showing that these alternating edge-chains cannot be made compatible around a polygon with three or more edge directions. That bypasses the gap in the raw L² bound and leads directly to the conclusion that only the two-direction case survives, i.e. a parallelogram.
+
+### Subproblem 1: Lonely points and extremal rigidity
+
+**Statement**: Let S⊂ℝ² be a finite set of n≥1 points in convex position, T⊂ℝ² a finite signed set (signs σ(t)∈{+1,−1}, both values present). Define σ(p)=Σ_{t∈T, p−t∈S} σ(t). Then |supp(σ)|≥n. Moreover, if |supp(σ)|=n, then: (a) each s∈S has a unique lonely point ℓ_s=s+t_s with no other representation; (b) the ℓ_s are pairwise distinct and equal the entire support; (c) σ(ℓ_s)=σ(t_s)∈{±1}; (d) ||T+|−|T−||≤1.
+
+**Approach**: Apply the Lonely Points Lemma: for each s∈S, choose a linear functional uniquely maximized at s (this exists since s is a vertex of conv(S)), then maximize it over s+T to obtain a point ℓ_s=s+t_s that cannot come from any other s'∈S. This gives a unique representation. The points ℓ_s are distinct because a single point cannot simultaneously maximize two different linear functionals that separate distinct convex vertices. Since ℓ_s has only one representation, σ(ℓ_s)=σ(t_s)∈{±1}. For the equality case: if exactly n points have σ≠0 and the n lonely points all have σ≠0, then the support equals {ℓ_s : s∈S} and every other point in S+T must have σ=0. The bound ||T+|−|T−||≤1 follows from the first-moment identity Σ_p σ(p) = n(|T+|−|T−|), combined with the fact that in the equality case all support values are ±1 so |#{positive lonely}−#{negative lonely}|=n·||T+|−|T−|| and both counts are non-negative and sum to n.
+
+**Difficulty**: medium
+
+## Integration Sketch
+
+Subproblem 1 gives the lower bound |supp(σ)|≥n and shows that equality means the support consists exactly of n lonely, uniquely represented points. Subproblem 2 then assigns to each vertex s_i of S a unique translate t_i exposed on the whole normal cone of s_i. Subproblem 3 upgrades that assignment to a boundary description of P+Q, where Q=conv(T): the support points are precisely the vertices x_i=s_i+t_i, and each edge of P corresponds to a face [t_i,t_{i+1}] of Q. Subproblem 4 shows that every such face is a full arithmetic progression with alternating signs. Subproblem 5 proves that these alternating face-chains cannot exist if P has at least three edge directions, so equality forces P to have only two edge directions. Finally, Subproblem 6 identifies the only convex-position set with exactly two edge directions as a 4-point parallelogram. Hence equality with both signs implies n=4 and S is the vertex set of a parallelogram.

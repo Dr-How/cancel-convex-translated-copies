@@ -1,0 +1,162 @@
+The solution is **not correct**. I found the following issues.
+
+## Global setup issues
+
+1. **Location:**  
+   “Let \(n \ge 3\). We have \(x_1,\ldots,x_n\) in convex position (CCW), \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) finitely supported on \(T = \{x_1,\ldots,x_n\}\) … Edge vectors \(a_i = x_{i+1}-x_i\).”
+
+   **Description:** **Critical Error.**  
+   This replaces the original problem data by a different setup. In the problem, \(S\) is the convex \(n\)-point set, while \(T\) is the finite signed translate set and need not have \(n\) points or be in convex position. The proof then builds \(a_i,s_j,F_i\), and the height function from this new \(T\), so the later argument is about the wrong object.
+
+2. **Location:**  
+   “The direction class \([a_i]\) is the equivalence class of \(a_i\) under nonzero scalar multiples (i.e. \([u]=[v]\) iff \(u=\lambda v\) for some \(\lambda \neq 0\)).”
+
+   **Description:** **Critical Error.**  
+   The problem defines edge-direction classes using **positive** scalar multiples only. The proof changes the equivalence relation to arbitrary nonzero multiples, collapsing opposite directions. That is a different statement.
+
+3. **Location:**  
+   “So \(T = F_1 \cup \cdots \cup F_n\) (with endpoints shared: \(t_{i+1} \in F_i \cap F_{i+1}\), …).”
+
+   **Description:** **Justification Gap.**  
+   This coverage of all of \(T\) by the face chains is not one of the stated facts allowed from Subproblems 1–4, and it is not proved here. Many later arguments rely on it.
+
+---
+
+## Section 1: \(n=3\)
+
+4. **Location:**  
+   “Apply \(\eqref{eq:S0}\) \(k=2\) at \(t'\):  
+   \[
+   \sigma_T(t'+a_1)+\sigma_T(t')+\sigma_T(t'-a_2)+\sigma_T(t'-a_2-a_3)=0.
+   \]”
+
+   **Description:** **Critical Error.**  
+   For \(n=3\), \(\eqref{eq:S0}\) has only **three** terms:
+   \[
+   \sigma_T(t+a_1)+\sigma_T(t)+\sigma_T(t-a_2)=0.
+   \]
+   The extra term \(\sigma_T(t-a_2-a_3)\) is invalid. The later factor \(2\sigma_T(t'+a_1)\) comes from this mistake.
+
+5. **Location:**  
+   “Actually, the more direct approach … for \(n=3\), ANY \(t' \in T\) with \(h(t')>0\) works.”
+
+   **Description:** **Critical Error.**  
+   The proof never shows that there exists an opposite-sign point \(t'\) with positive height. The previous \(h(t')=0\) case is started, then abandoned, and never resolved. So the \(n=3\) proof does not cover all cases.
+
+6. **Location:**  
+   “The analysis confirms contradiction in all sub-subcases. ✓”
+
+   **Description:** **Justification Gap.**  
+   This replaces the actual subcase proof by an assertion. The \(h_0=1\) analysis is not completed.
+
+---
+
+## Section 2: \(n=4\)
+
+7. **Location:**  
+   “Actually, Lemma betamin4 as stated may not hold in full generality … Let me just state: choose \(\beta\) with \(\beta(a_1)=0\), \(\beta(a_2)=1\), AND \(h(p) \ge 0\) for all \(p \in T\) (possible since \(T\) is contained in a half-plane …).”
+
+   **Description:** **Justification Gap.**  
+   This is a new foundational assumption, not a proof. The existence of such a \(\beta\) is not established from the allowed facts, yet it is used throughout to conclude that negative-height terms vanish.
+
+8. **Location:**  
+   In Lemma hzero:  
+   “For \(n=4\): \(\sigma_T(q+a_1)+\sigma_T(q)+0+0=0\) (checking: the \(k=2\) equation has terms at \(h = 0, 0, -1, -1-\mu\) …).”
+
+   **Description:** **Critical Error.**  
+   If \(\mu<0\), then \(-1-\mu\) can be \(0\) or positive, so the fourth term cannot be discarded as \(0\). The deduction \(\sigma_T(q+a_1)=-\sigma_T(q)\) is invalid in that case.
+
+9. **Location:**  
+   “\begin{lemma}[betamax4] … \begin{proof}  
+   (Analogous to hzero argument, applying the equation at an element above height \(m_2 + m_3\mu\) and deriving a contradiction via infinite chain.)  
+   \end{proof}”
+
+   **Description:** **Justification Gap.**  
+   This lemma is only announced by analogy; no proof is given.
+
+10. **Location:**  
+    “If \(t \in T\) and \(h(t) \notin \{h(p) : p \in F_1 \cup F_2 \cup F_3 \cup F_4\}\), then \(t\) generates a bi-infinite chain …”
+
+    **Description:** **Critical Error.**  
+    Earlier the proof asserted \(T = F_1 \cup \cdots \cup F_4\). Under that assertion, any \(t \in T\) itself lies in the union, so its height automatically belongs to \(\{h(p): p \in F_1 \cup \cdots \cup F_4\}\). The hypothesis is vacuous/inconsistent with the setup. The proof also invokes an undefined “induction on height.”
+
+11. **Location:**  
+    In Lemma nogaps:  
+    “Actually, by Lemma~\ref{lem:facechain}, if \(t'\) is not on any face chain then it generates a bi-infinite chain …”  
+    and later  
+    “The key point: in all sub-cases of Sub-case B … Contradiction.”
+
+    **Description:** **Justification Gap.**  
+    This lemma relies on the invalid/vacuous facechain lemma, then replaces the real case analysis by assertions. It is not proved.
+
+12. **Location:**  
+    In Lemma cross:  
+    “The cross-point: apply \(\eqref{eq:NL}\) at \(p = s_1 + (t_2 + a_2) = t_1 + a_2\) …”  
+    and  
+    “\(\sigma_T(t_1+a_2) = \sigma_T(t_2+a_2) = (-1)^1 \varepsilon_2\).”
+
+    **Description:** **Critical Error.**  
+    Two failures occur here:
+    - \(\eqref{eq:NL}\) requires \(p \notin T\), but the proof explicitly admits this is only checked “in the non-degenerate case,” so the application is not justified.
+    - \(t_1+a_2\) is **not** equal to \(t_2+a_2 = t_1 + m_1 a_1 + a_2\) when \(m_1 \ge 1\). So the value assigned to \(\sigma_T(t_1+a_2)\) is unjustified.
+
+13. **Location:**  
+    End of Lemma cross:  
+    “For the purposes of Lemma~\ref{lem:cross}: we handle \(\mu > 0\) here … and delegate \(\mu < 0\) to Proposition~\ref{prop:n4muZ}.”  
+    Similar language appears in Lemmas cross1 and cross0.  
+    Then in Proposition \(\ref{prop:n4mu}\):  
+    “Case \(m_1 \ge 1, m_2 \ge 1\): Lemma~\ref{lem:cross}. ✓”
+
+    **Description:** **Critical Error.**  
+    Proposition \(\ref{prop:n4mu}\) claims to handle all \(\mu \notin \mathbb Z\), but the cited lemmas only prove \(\mu>0\) cases and defer \(\mu<0\) to Proposition \(\ref{prop:n4muZ}\), which is about **integer** \(\mu\). Thus the non-integer negative-\(\mu\) quadrilateral cases are not proved at all.
+
+14. **Location:**  
+    In Proposition \(\ref{prop:n4muZ}\):  
+    “This grows complicated. The key insight: …”  
+    “This case analysis, while extensive, always yields a contradiction.”  
+    “Either way … ✓”
+
+    **Description:** **Justification Gap.**  
+    The remaining \(n=4\), \(\mu \in \mathbb Z \setminus \{0\}\) cases are not actually derived. The proof repeatedly substitutes summaries and “key insight” prose for the missing calculations and case analysis.
+
+---
+
+## Section 3: \(n \ge 5\)
+
+15. **Location:**  
+    “\begin{lemma}[betamin-n] … \(h(t)\geq 0\) for all \(t\in T\) (by choosing \(\beta\) so that \(t_1\) is the \(h\)-minimum vertex of the convex polygon, as in Lemma~\ref{lem:betamin4}).”
+
+    **Description:** **Justification Gap.**  
+    This repeats the unsupported choice of \(\beta\) from the \(n=4\) section and again uses it as a foundation without proof.
+
+16. **Location:**  
+    In Lemma hzero-n:  
+    “extra \(j\geq 5\) terms … have heights \(h(q)-c_j = -c_j \leq -1 <0\)”  
+    and  
+    “for \(\mu<0\): … by convexity and our choice of \(\beta\), all \(c_j\geq 0\), and for \(j\geq 3\) the angles increase so \(c_j>0\).”
+
+    **Description:** **Critical Error.**  
+    The claimed bounds on the \(c_j\) are not established. In particular, the proof does not justify replacing all extra terms by \(0\), especially when \(\mu<0\).
+
+17. **Location:**  
+    In Proposition \(\ref{prop:n5}\):  
+    “For \(\mu>0\) … the equation reduces to exactly the \(n=4\) cross-point equation, and the same contradiction is derived. ✓”  
+    “In the worst case … the equations remain solvable and always yield … ✓”  
+    “In all cases, the \(n\geq 5\) argument reduces to the \(n=4\) argument …”
+
+    **Description:** **Justification Gap.**  
+    This is only a sketch. The reduction to the \(n=4\) argument is not proved, and multiple cases are disposed of by phrases like “same contradiction,” “worst case,” and “always yield” without derivation.
+
+---
+
+## Final conclusion
+
+18. **Location:**  
+    “Therefore, \(T\) can have at most 2 edge-direction classes.”
+
+    **Description:** **Critical Error.**  
+    The theorem concerns the edge-direction classes of \(P=\operatorname{conv}(S)\), not of the translate set \(T\). This final sentence again shows the proof has tracked the wrong object.
+
+---
+
+Because of these **Critical Errors** and **Justification Gaps**, the solution is **not valid**.

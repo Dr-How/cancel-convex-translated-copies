@@ -1,0 +1,71 @@
+The solution is **not correct**. Issues found:
+
+1. **Location:**  
+   “Hence
+   \[
+   u:=t_i-a_{i-1}\in F_{i-1},\qquad
+   v:=t_i+a_i\in F_i,
+   \]
+   and
+   \[
+   \varepsilon(u)=\varepsilon(v)=-\varepsilon(t_i).
+   \]”
+
+   **Description — Critical Error:**  
+   This inference is not valid from the stated allowed facts. The fact provided only says
+   \[
+   F_i=\{t_i,t_i+a_i,\dots,t_i+m_i a_i\}
+   \]
+   with \(t_{i+1}=t_i+m_i a_i\); it does **not** state \(m_i\ge 1\) (or \(m_{i-1}\ge 1\)). If \(m_i=0\) or \(m_{i-1}=0\), then \(v\) or \(u\) need not belong to \(T\) at all. The later construction of \(q\) and the proof that \(\sigma(q)\neq 0\) rely on both \(u,v\in T\), so the main contradiction is unsupported.
+
+2. **Location:**  
+   “Since \(O\) is the vertex between \(B\) and \(A\), the opposite boundary arc from \(A\) to \(B\) lies in the half-plane
+   \[
+   x+y\ge 1.
+   \]
+   Therefore no vertex other than \(O,A,B\) lies in \(\triangle OAB\).”
+
+   **Description — Justification Gap:**  
+   This uses a convex-geometric chord/half-plane property without explicit justification here. That property is needed to rule out extra vertices in \(\triangle OAB\), which is essential for reducing the analysis to points in \(\triangle ABR\).
+
+3. **Location:**  
+   “Since \(O\) lies below \(y=1\), that whole arc lies in \(y\le 1\). Hence
+   \[
+   y(A^+)<1.
+   \]
+   Therefore the ear at \(A\),
+   \[
+   \triangle OAA^+,
+   \]
+   has area
+   \[
+   \operatorname{area}(\triangle OAA^+)=\frac{y(A^+)}{2}<\frac12,
+   \]
+   again contradicting the minimality of \(\Delta_i\).”
+
+   and similarly
+
+   “Hence
+   \[
+   x(B^-)<1.
+   \]
+   So the ear at \(B\) ... has area
+   \[
+   \operatorname{area}(\triangle OB^-B)=\frac{x(B^-)}{2}<\frac12.
+   \]”
+
+   **Description — Justification Gap:**  
+   From the half-plane argument, the proof only gets a non-strict bound (\(\le 1\)); it does not justify the strict inequalities \(y(A^+)<1\), \(x(B^-)<1\). It also does not justify the sign conditions needed to replace the area by \(y(A^+)/2\) and \(x(B^-)/2\) instead of absolute values. Additional geometric argument is required before the contradiction with minimal ear area follows.
+
+4. **Location:**  
+   “Because \(t_i\) is the exposed translate on the whole normal cone at \(s_i\), \(Q\) lies in the wedge at \(t_i\) bounded by the two support lines corresponding to the two edges through \(s_i\). Equivalently,
+   \[
+   Q\subset t_i+\operatorname{cone}(a_i,-a_{i-1}).
+   \]
+   Also, since \(P\) is convex,
+   \[
+   P\subset s_i+\operatorname{cone}(a_i,-a_{i-1}).
+   \]”
+
+   **Description — Justification Gap:**  
+   These containments are asserted but not derived from the stated hypotheses/facts. They are crucial for the later step that any representation \(q=s_j+t\) forces \(s_j\in K_i\). Without explicit justification, the restriction of possible representations of \(q\) is incomplete.

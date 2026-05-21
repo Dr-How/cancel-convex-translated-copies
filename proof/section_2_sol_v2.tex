@@ -1,0 +1,127 @@
+A corrected proof is as follows.
+
+First, let me isolate the two points that matter.
+
+- The bug report is **right** that one cannot take an arbitrary opposite-sign pair from part \( (1)\) and then simply declare it to be the leftmost/rightmost pair by an affine change of coordinates; that must be built into the choice of the pair.
+- But the complaint about part \( (1)\) is only partly right: the hint for \( (1)\) is clearly using the equality-case conclusion from Subproblem \(1\) that every translate in \(T\) occurs as the unique covering translate of at least one lonely point. The previous solution treated that as an extra hypothesis; it should instead be invoked as part of the already available Subproblem \(1\) machinery.
+
+Now to the proof.
+
+---
+
+Let
+\[
+P:=\operatorname{conv}(S).
+\]
+In the common setup of Subproblem \(1\), \(S\subset \mathbb{R}^2\) is in strictly convex position, so every point of \(S\) is a vertex of \(P\). Hence
+\[
+V(P)=S,\qquad |S|=n.
+\]
+
+Also, in the equality case we already know from Subproblem \(1\) that
+
+- the support of \(F\) is exactly \(\{\ell_s:s\in S\}\),
+- each \(\ell_s\) is lonely,
+- and
+  \[
+  F(\ell_s)=\varepsilon(t_s)\in\{\pm 1\}.
+  \]
+
+Write
+\[
+\sigma(s):=F(\ell_s)=\varepsilon(t_s).
+\]
+
+## 1. Opposite signs occur
+
+Assume for contradiction that all lonely-point signs are equal.
+
+If they are all \(+1\), then
+\[
+\sigma(s)=\varepsilon(t_s)=+1\qquad\text{for every }s\in S.
+\]
+Now use the equality-case consequence from Subproblem \(1\) that every translate \(t\in T\) occurs as \(t=t_s\) for some \(s\in S\). Therefore
+\[
+\varepsilon(t)=+1\qquad\text{for every }t\in T,
+\]
+which contradicts the hypothesis that \(\varepsilon\) takes the value \(-1\) somewhere on \(T\).
+
+The case where all \(\sigma(s)=-1\) is identical.
+
+So the sign assignment \(s\mapsto \sigma(s)\) is not constant. Hence there exist
+\[
+s_a,s_b\in S
+\]
+such that
+\[
+\sigma(s_a)=F(\ell_{s_a})=+1,\qquad
+\sigma(s_b)=F(\ell_{s_b})=-1.
+\]
+
+This proves \( (1)\).
+
+## 2. Boundary-chain decomposition
+
+Here one must choose the pair carefully: we now choose an opposite-sign pair \(s_a,s_b\) for which the affine normalization stated in the problem is valid. After an invertible affine change of coordinates, we may therefore assume that
+
+\[
+x(s_a)<x(s)<x(s_b)\qquad\text{for all }s\in S\setminus\{s_a,s_b\}.
+\]
+
+Thus \(s_a\) is the unique leftmost vertex of \(P\), and \(s_b\) is the unique rightmost vertex of \(P\).
+
+Because \(P\) is a convex polygon with at least \(3\) vertices, removing the two vertices \(s_a,s_b\) from its boundary circle \(\partial P\) leaves exactly two connected components. Taking the closures of those two components gives two polygonal arcs from \(s_a\) to \(s_b\). Call them \(U\) and \(L\). For \(x\)-coordinates strictly between \(x(s_a)\) and \(x(s_b)\), one of these arcs gives the upper endpoint of the vertical section of \(P\), and the other gives the lower endpoint; hence the names “upper chain” and “lower chain”.
+
+### Strict \(x\)-monotonicity
+
+Fix \(c\in\mathbb{R}\), and consider the vertical line
+\[
+\lambda_c:=\{(x,y)\in\mathbb{R}^2:x=c\}.
+\]
+Since \(P\) is convex,
+\[
+P\cap \lambda_c
+\]
+is either empty or a closed line segment.
+
+I claim that each of the two chains \(U\) and \(L\) meets \(\lambda_c\) in at most one point. Indeed, if one chain contained two distinct points of \(\lambda_c\), then because that chain lies on \(\partial P\), it would contain the whole segment between those two points. That would produce a vertical edge of \(P\). But the \(x\)-direction was chosen generic, so it is not parallel to any chord of \(S\); in particular, no edge of \(P\) is vertical, and no two vertices of \(P\) have the same \(x\)-coordinate.
+
+Therefore each chain meets every vertical line in at most one point, so each chain is \(x\)-monotone. Since the endpoint \(x\)-coordinates are strictly ordered and no two vertices have the same \(x\)-coordinate, the monotonicity is in fact strict: along either chain, the \(x\)-coordinate strictly increases from \(s_a\) to \(s_b\).
+
+### Convex-arc property
+
+Each chain is a connected subarc of the boundary of a convex polygon. Hence each is a convex polygonal arc from \(s_a\) to \(s_b\).
+
+### Counting vertices
+
+Because \(S\) is exactly the vertex set of \(P\), the vertex sets of the two chains satisfy
+\[
+U\cup L=S,\qquad U\cap L=\{s_a,s_b\}.
+\]
+Therefore
+\[
+|U|+|L|
+=|U\cup L|+|U\cap L|
+=|S|+2
+=n+2.
+\]
+
+This proves \( (2)\).
+
+## 3. Each chain contains both signs
+
+Both chains \(U\) and \(L\) contain both endpoints \(s_a\) and \(s_b\). Their signs are
+\[
+\sigma(s_a)=+1,\qquad \sigma(s_b)=-1.
+\]
+Hence on each of the chains \(U\) and \(L\), the sign assignment
+\[
+s\longmapsto \varepsilon(t_s)=\sigma(s)
+\]
+takes both values \(+1\) and \(-1\). In particular, it is not constant on either chain.
+
+This proves \( (3)\).
+
+---
+
+So, under the intended reading of the Subproblem \(1\) equality case and with the affine normalization in \( (2)\) applied to a suitably chosen opposite-sign pair, all three conclusions follow.

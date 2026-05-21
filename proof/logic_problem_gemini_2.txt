@@ -1,0 +1,26 @@
+**The proof structure is not valid as written.**
+
+The subproblems are broadly aimed in the right direction, but there are several structural gaps:
+
+1. **Missing reduction to a valid algebraic setting.**  
+   The problem is stated for arbitrary points in \(\mathbb R^2\), but the outline uses ordinary polynomials, divisibility, and roots of \(1+x^d\). That requires a prior reduction to a lattice/group-algebra setting, which is not included.
+
+2. **Normalization is assumed, not established.**  
+   Subproblem 2 assumes one can arrange simultaneously that an edge of \(S\) lies on \(y=0\), that \(S,T\subset\{y\ge 0\}\), and that the bottom slices have the exact forms \(S_0=1+x^d\) and \(Z_0=1\pm x^w\) rather than shifted monomials/Laurent terms. This setup is essential for later steps, but no lemma provides it.
+
+3. **The choice of \(y_1\) may give no information about \(S\).**  
+   In Subproblem 3, \(y_1\) is the smallest positive height occurring in \(S\) or \(T\). But \(y_1\) could come only from \(T\), in which case \(S_{y_1}=0\), so the claimed divisibility gives nothing useful about the geometry of \(S\). A separate argument or case split is needed.
+
+4. **The “next slice has at most one term” step is not justified by earlier subproblems.**  
+   From “\(Z\) is exactly the vertex set of a convex polygon,” it does **not** follow that the first positive horizontal slice of \(Z\) has at most one point. A convex polygon can have two vertices at the same intermediate height. So Subproblem 3 needs an additional lemma or case analysis.
+
+5. **The extremal quadrilateral case is not covered by Subproblem 3.**  
+   The outline says \(y_1\) is “strictly below the top,” but in the intended extremal \(n=4\) case, the first positive slice can already be the top edge, which has two terms. So the plan excludes a case it ultimately needs to classify.
+
+6. **A needed auxiliary dependency is missing in the root argument.**  
+   The deduction “evaluate at roots of \(1+x^d\), therefore \(1+x^d\mid S_{y_1}\)” requires an extra coprimality/common-root analysis between \(1+x^d\) and \(1\pm x^w\). That dependency is not listed.
+
+7. **The mixed-sign hypothesis is not clearly used in an essential way.**  
+   After Subproblem 1, the later steps do not identify where the assumption “\(T\) has both \(+1\) and \(-1\) signs” becomes indispensable. Since that hypothesis is central to the conjecture, the outline should show where it enters.
+
+**Relevance:** No major subproblem looks irrelevant; the issue is mainly **incompleteness** and **missing dependencies**, not redundancy.

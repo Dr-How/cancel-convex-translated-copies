@@ -1,0 +1,94 @@
+The solution is **not correct**. It contains multiple **Critical Errors** and several **Justification Gaps**.
+
+## Bug report
+
+1. **Location:**  
+   “Let \(n \geq 3\). We have \(x_1,\ldots,x_n\) in convex position (CCW), \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) finitely supported on \(T = \{x_1,\ldots,x_n\}\), with \(T\) having both signs.”  
+   **Description:** **Critical Error.** This replaces the problem’s setup by a different one. In the statement, \(S\) is the convex \(n\)-point set, \(T\) is the signed set of translation vectors, and \(\sigma\) is derived from \(S\) and \(T\). Here the proof identifies \(T\) with \(\operatorname{supp}(\sigma)\), assumes that support is in convex position, and assumes \(\sigma\in\{-1,0,+1\}\). The argument is no longer proving the stated problem.
+
+2. **Location:**  
+   “The direction class \([a_i]\) is the equivalence class of \(a_i\) under nonzero scalar multiples (i.e., \([u]=[v]\) iff \(u=\lambda v\) for some \(\lambda \neq 0\)).”  
+   **Description:** **Critical Error.** The problem statement defines parallel/direction classes using **positive** scalar multiples. The proof silently changes the definition to arbitrary nonzero scalar multiples, so it is reasoning about a different notion of “direction class.”
+
+3. **Location:**  
+   “Face chains: … So \(T = F_1 \cup \cdots \cup F_n\) …”  
+   **Description:** **Justification Gap.** This covering of all of \(T\) by the edge chains is not one of the allowed facts from Subproblems 1–4, and it is not proved here.
+
+4. **Location:**  
+   “Key equations (from the nonlonely/sigma0 conditions): … (NL) … (S0) …”  
+   **Description:** **Justification Gap.** These equations are heavily used throughout, but they are not among the two facts explicitly allowed from Subproblems 1–4, and they are not derived in this solution.
+
+5. **Location:**  
+   In Lemma \([n3\ contradiction]\):  
+   “Actually wait: … Let me redo this more carefully for \(h(t')=0\). … This is getting complicated. Let me use the cleaner approach: for \(n=3\), ANY \(t' \in T\) with \(h(t')>0\) works.”  
+   **Description:** **Critical Error.** The proof begins a case split \(h(t')=0\) / \(h(t')>0\), but never resolves the \(h(t')=0\) case. It then switches to assuming an opposite-sign point with positive height exists, which is not proved.
+
+6. **Location:**  
+   In the same lemma:  
+   “Apply \eqref{eq:S0} \(k=2\) at \(t'\):  
+   \[
+   \sigma_T(t'+a_1)+\sigma_T(t')+\sigma_T(t'-a_2)+\sigma_T(t'-a_2-a_3)=0.
+   \]”  
+   **Description:** **Critical Error.** For \(n=3\), equation (S0) with \(k=2\) has only three terms, corresponding to \(j=1,2,3\): \(\sigma_T(t'+a_1)+\sigma_T(t')+\sigma_T(t'-a_2)=0\). The extra term \(\sigma_T(t'-a_2-a_3)\) does not exist. The later reduction to \(2\sigma_T(t'+a_1)+\cdots=0\) is therefore invalid.
+
+7. **Location:**  
+   In Lemma \([betamin4]\):  
+   “Let me just state: choose \(\beta\) with \(\beta(a_1)=0\), \(\beta(a_2)=1\), AND \(h(p) \geq 0\) for all \(p \in T\) (possible since \(T\) is contained in a half-plane bounded by the line through \(t_1\) parallel to \(a_1\), because \(t_1\) is a vertex of the convex hull of \(T\)).”  
+   **Description:** **Justification Gap.** The existence of such a \(\beta\) is not established from the stated hypotheses or allowed prior facts. In particular, the claims about \(t_1\) being a vertex of \(\operatorname{conv}(T)\) and about the half-plane containment are unproved.
+
+8. **Location:**  
+   In Lemma \([hzero]\):  
+   “For \(n=4\): \(\sigma_T(q+a_1)+\sigma_T(q)+0+0=0\) (checking: the \(k=2\) equation has terms at \(h = 0, 0, -1, -1-\mu\) …)”  
+   **Description:** **Critical Error.** When \(\mu<0\), the height \(-1-\mu\) can be positive, so the fourth term is not shown to vanish. The proof incorrectly collapses the equation to two nonzero terms.
+
+9. **Location:**  
+   In Lemma \([betamax4]\):  
+   “\begin{proof}  
+   (Analogous to hzero argument, applying the equation at an element above height \(m_2+m_3\mu\) and deriving a contradiction via infinite chain.)  
+   \end{proof}”  
+   **Description:** **Justification Gap.** This is only a placeholder, not a proof.
+
+10. **Location:**  
+   In Lemma \([facechain]\):  
+   “If \(t \in T\) and \(h(t) \notin \{h(p) : p \in F_1 \cup F_2 \cup F_3 \cup F_4\}\), then \(t\) generates a bi-infinite chain…”  
+   **Description:** **Justification Gap.** Earlier the solution asserted \(T=F_1\cup\cdots\cup F_4\), so this premise is impossible. The lemma is inconsistent with the earlier setup, and its proof also relies on an unproved “induction on height.”
+
+11. **Location:**  
+   In Lemma \([nogaps]\):  
+   “This is getting complex. The key point: … In all cases we get a contradiction. This completes the proof of Lemma~\ref{lem:nogaps}.”  
+   **Description:** **Justification Gap.** The argument stops with a sketch and does not actually resolve the listed subcases. The claimed contradiction is asserted, not derived.
+
+12. **Location:**  
+   In Lemma \([cross]\):  
+   “The cross-point: apply \eqref{eq:NL} at \(p = s_1 + (t_2 + a_2) = t_1 + a_2 = x_1 + a_2\).”  
+   **Description:** **Critical Error.** Since \(s_1=0\), the left-hand side is \(t_2+a_2\), not \(t_1+a_2\). For \(m_1\ge1\), \(t_2=t_1+m_1a_1\neq t_1\). The subsequent substitutions using \(t_1+a_2\) are algebraically wrong.
+
+13. **Location:**  
+   In Lemma \([cross1]\):  
+   “Apply \eqref{eq:NL} at \(p = t_2+a_2\) (height 1, likely not in \(T\) for \(m_2=0\)).”  
+   and similarly in Section 3:  
+   “if \(t_1+a_2\notin T\) (generic case)…”  
+   **Description:** **Justification Gap.** Equation (NL) is only valid at points outside \(T\), but several applications are justified only by “likely not in \(T\)” or “generic case,” with exceptional cases not handled.
+
+14. **Location:**  
+   In Proposition \([n4mu]\):  
+   “\textbf{Case \(m_1 \geq 1\), \(m_2 = 0\):} Lemma~\ref{lem:cross1}. ✓”  
+   together with the end of Lemma \([cross1]\):  
+   “So Lemma~\ref{lem:cross1} is proved for \(\mu>0\). (The case \(\mu<0\) is handled in Prop n4muZ.)”  
+   **Description:** **Critical Error.** Proposition \([n4mu]\) is supposed to handle all \(\mu\notin\mathbb Z\), but it cites lemmas that explicitly only prove the \(\mu>0\) case. The deferred reference to Proposition \([n4muZ]\) does not help, because that proposition only concerns **integer** \(\mu\). Thus the negative non-integer case is left unproved.
+
+15. **Location:**  
+   In Proposition \([n4muZ]\):  
+   “This case analysis, while extensive, always yields a contradiction. The key point: …”  
+   and  
+   “In all cases, at least one of \(\sigma_T(t'+a_1)\) or \(\sigma_T(t'-a_1)\) is nonzero, and iterating gives a chain … ✓”  
+   **Description:** **Justification Gap.** The proof replaces actual case analysis with summary claims. The required deductions are not carried out.
+
+16. **Location:**  
+   In Section 3, Lemma \([hzero\text{-}n]\) and Proposition \([n\ge5\ contradiction]\):  
+   “by convexity and our choice of \(\beta\), all \(c_j\geq 0\), and for \(j\geq 3\) the angles increase so \(c_j>0\)”  
+   and  
+   “In all cases, the \(n\geq 5\) argument reduces to the \(n=4\) argument with the extra \(j\geq 5\) terms vanishing or contributing known values…”  
+   **Description:** **Justification Gap.** The needed inequalities for the extra heights \(c_j\) are not proved from the stated hypotheses, and the reduction from \(n\ge5\) to \(n=4\) is asserted rather than established.
+
+Because of these issues, the solution does **not** verify the statement.

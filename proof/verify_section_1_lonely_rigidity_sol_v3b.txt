@@ -1,0 +1,15 @@
+**Bug report**
+
+1. **Location:** “the map \(x\mapsto s-x\) is continuous (**it is a translation**)”
+   
+   **Description:** **Critical Error.** The stated justification is false: \(x\mapsto s-x\) is not a translation. Since this incorrect claim is used to justify continuity of \(x\mapsto \|s-x\|\) before applying the extreme value theorem, that part of the argument is invalid as written.
+
+2. **Location:** “Since \(\sigma(p)=0\) for every \(p\notin S+T\), the set \(\operatorname{supp}(\sigma)\) is finite.”
+   
+   **Description:** **Justification Gap.** This conclusion also requires the omitted fact that \(S+T\) is finite because \(S\) and \(T\) are finite. The sentence as written does not by itself imply finiteness of the support.
+
+3. **Location:** “\(f(\lambda)\) has a minimum at \(\lambda=0\). Hence \(f'(0^+)\ge 0\).”
+   
+   **Description:** **Justification Gap.** This uses the one-sided derivative test at a boundary minimum, but that fact is not explicitly stated or justified. Under the stated rubric, this implication needs to be supported.
+
+Because of the critical error and the justification gaps above, the solution is **not correct under the given grading standard**.

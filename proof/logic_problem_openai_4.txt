@@ -1,0 +1,33 @@
+The proof structure is **valid overall**.
+
+### Why it is structurally sound
+
+**1. Completeness**
+- **Subproblem 1** gives the baseline lower bound \( |\operatorname{supp}(f)| \ge n \).
+- **Subproblem 2** uses the equality case \( |\operatorname{supp}(f)|=n \) to force rigidity: each vertex \(s_i\) has a single associated extremal translate \(t_i\).
+- **Subproblem 3** uses that rigidity to rule out \(n\ge 5\), giving \(n\le 4\).
+- Since the conjecture already assumes \(n\ge 3\), **Subproblem 4** excludes the only remaining smaller case \(n=3\), so \(n=4\).
+- **Subproblem 5** then classifies the \(n=4\) case as a parallelogram.
+
+So if all five subproblems are solved, the conjecture follows.
+
+**2. Dependencies**
+- The dependency chain is coherent:
+  - 1 establishes the extremal baseline.
+  - 2 depends on 1 and the equality assumption.
+  - 3 depends on 2.
+  - 4 and 5 naturally depend on the rigidity/local-relations framework developed in 2–3.
+- There is no circular dependence.
+
+**3. Relevance**
+- Every subproblem serves a necessary purpose.
+- None of the listed lemmas is obviously redundant.
+
+### Minor note
+A useful bridge to make explicit is:
+
+- After Subproblem 1, under the equality assumption \( |\operatorname{supp}(f)|=n \), the lonely points produced there must **exhaust the entire support**.
+
+That observation is what makes Subproblem 2 feel immediate. But this is just an implicit transition, not a structural gap.
+
+So: **the proof plan is logically well organized and sufficient to prove the stated conjecture.**

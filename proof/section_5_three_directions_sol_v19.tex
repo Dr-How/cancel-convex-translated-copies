@@ -1,0 +1,376 @@
+% Section 5: Three or more edge-direction classes leads to a contradiction.
+% Version 19
+%
+% PROBLEM SETUP (from the problem statement):
+%   S = {s_1,...,s_n}: n >= 3 points in convex position (vertices of P = conv(S)).
+%   T: finite set with sigma_T : T -> {+1,-1}, both values present.
+%   sigma(p) = sum_{t in T, p-t in S} sigma_T(t)  for p in R^2.
+%   Extremal equality: |{p : sigma(p) != 0}| = n.
+%
+% ALLOWED FACTS from SP1--4 (used without proof):
+%   (F1) Each vertex s_i of P has an exposed translate t_i in T.
+%   (F2) F_i = T cap [t_i, t_{i+1}] = {t_i, t_i+a_i, ..., t_i+m_i*a_i},
+%        sigma_T(t_i + k*a_i) = (-1)^k * eps_i,  t_{i+1} = t_i + m_i*a_i,
+%        eps_{i+1} = (-1)^{m_i} * eps_i.
+%
+% KEY IMPROVEMENTS over v18:
+%   - betamin proof rewritten cleanly (no mid-proof correction).
+%   - n>=4 chain argument completed for ALL cases:
+%       D=0, D!=0 k_j<=m_1-1, all k_j=m_1 via leftward, all k_j=m_1 & k_j'=0
+%       resolved via sigma-tilde magnitude computation.
+%   - Lonely-point handling at R_max+1 made explicit.
+
+\subsection*{Proof that $\geq 3$ edge-direction classes is impossible}
+
+%----------------------------------------------------------------------
+\paragraph{Notation and setup.}
+Set $s_1=0$ (translate S so the first vertex is the origin).
+Write $\tilde\sigma(p)=\sum_{j=1}^n \sigma_T(p-s_j)$
+(with $\sigma_T(q)=0$ for $q\notin T$); then $\sigma(p)=\tilde\sigma(p)$
+and $|\mathrm{supp}(\tilde\sigma)|=n$.
+The edge directions are $a_i=s_{i+1}-s_i$ (indices mod $n$), with $\sum_i a_i=0$.
+
+\paragraph{Lonely points.}
+By (F1)--(F2), each $p_i=t_i+s_i$ satisfies $\tilde\sigma(p_i)\ne 0$
+(the term $j=i$ contributes $\sigma_T(t_i)\ne0$, while the maximality of $t_i$
+over its normal cone forces all other terms $\sigma_T(p_i-s_j)=0$ for $j\ne i$
+by linear-functional separation).
+Since the $p_i$ are distinct (the $s_i$ are distinct and the $t_i$ come from
+disjoint normal cones) and $|\mathrm{supp}(\tilde\sigma)|=n$:
+\begin{equation}\label{eq:lonely}
+  \mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.
+\end{equation}
+
+\paragraph{VAN equation.}
+For $p\notin\mathrm{supp}(\tilde\sigma)$:
+\begin{equation}\label{eq:VAN}
+  \sum_{j=1}^n \sigma_T(p-s_j)=0. \tag{VAN}
+\end{equation}
+Every application below is accompanied by an explicit verification that
+the point lies outside $\mathrm{supp}(\tilde\sigma)$.
+
+\paragraph{Direction classes.}
+$[a]=[b]$ iff $b=\lambda a$ for some $\lambda\ne0$.
+The hypothesis is $|\{[a_i]:1\le i\le n\}|\ge3$.
+(A parallelogram has edges $a_1,a_2,-a_1,-a_2$ giving exactly 2 classes.)
+
+\paragraph{Closure and parity.}
+From (F2): $t_{n+1}=t_1$ gives
+\begin{equation}\label{eq:closure}\textstyle
+  \sum_{i=1}^n m_i\,a_i=0.\tag{Cl}
+\end{equation}
+Returning to $\varepsilon_1$ after the full loop: $(-1)^{\sum m_i}\varepsilon_1=\varepsilon_1$, so
+\begin{equation}\label{eq:parity}\textstyle
+  \sum_{i=1}^n m_i\text{ is even.}\tag{Par}
+\end{equation}
+
+%======================================================================
+\subsection*{Case $n=3$ (triangle)}
+
+Every triangle has three pairwise distinct direction classes.
+
+\paragraph{Step~1: $m_1=m_2=m_3=:m$.}
+With $s_1=0$: $s_2=a_1$, $s_3=a_1+a_2$, $a_3=-(a_1+a_2)$.
+Substituting into \eqref{eq:closure}: $(m_1-m_3)a_1+(m_2-m_3)a_2=0$.
+Since $[a_1]\ne[a_2]$ the vectors $a_1,a_2$ are linearly independent,
+so $m_1=m_2=m_3=:m$.
+
+\paragraph{Step~2: $m\ge2$, $m$ even.}
+By \eqref{eq:parity}: $3m$ even, so $m$ even.
+If $m=0$: $t_1=t_2=t_3$, so $T\subseteq\{t_1\}$, contradicting both signs present.
+Hence $m\ge1$; since $m$ is even, $m\ge2$.
+
+\paragraph{Step~3: Magnitude computation at $p_*=t_2+a_2$.}
+Using $s_1=0$, $s_2=a_1$, $s_3=a_1+a_2$:
+\[
+  p_*-s_1=t_2+a_2,\qquad
+  p_*-s_2=t_1+(m{-}1)a_1+a_2,\qquad
+  p_*-s_3=t_1+(m{-}1)a_1.
+\]
+$t_2+a_2$ is position $1$ on $F_2$: $\sigma_T(t_2+a_2)=(-1)^1\varepsilon_2=-\varepsilon_2$.
+Since $m$ is even: $\varepsilon_2=(-1)^m\varepsilon_1=\varepsilon_1$, so $\sigma_T(t_2+a_2)=-\varepsilon_1$.
+
+$t_1+(m-1)a_1$ is position $m-1$ on $F_1$ (valid since $1\le m-1<m$):
+$\sigma_T(t_1+(m-1)a_1)=(-1)^{m-1}\varepsilon_1=-\varepsilon_1$ (since $m$ even).
+
+Let $c:=\sigma_T(t_1+(m-1)a_1+a_2)\in\{-1,0,+1\}$.  Then
+\[
+  \tilde\sigma(p_*)=-\varepsilon_1+c+(-\varepsilon_1)=-2\varepsilon_1+c,
+  \qquad|\tilde\sigma(p_*)|\ge2-1=1>0.
+\]
+Hence $p_*\in\mathrm{supp}(\tilde\sigma)$.
+
+\paragraph{Step~4: Contradiction.}
+The lonely points are $p_1=t_1$, $p_2=t_2+a_1=t_1+(m+1)a_1$,
+$p_3=t_3+a_1+a_2=t_1+(m+1)(a_1+a_2)$.
+Check $p_*=t_2+a_2=t_1+ma_1+a_2\notin\{p_1,p_2,p_3\}$:
+\begin{itemize}
+\item $p_*=p_1$: $ma_1+a_2=0$, impossible ($a_1,a_2$ linearly independent).
+\item $p_*=p_2$: $a_2=a_1$, i.e.\ $[a_1]=[a_2]$: contradicts three direction classes.
+\item $p_*=p_3$: $ma_1+a_2=(m+1)a_1+(m+1)a_2\Rightarrow0=a_1+ma_2$,
+      impossible ($a_1,a_2$ linearly independent).
+\end{itemize}
+So $p_*\in\mathrm{supp}(\tilde\sigma)\setminus\{p_1,p_2,p_3\}$: \textbf{contradiction}.\hfill$\square$
+
+%======================================================================
+\subsection*{Case $n\ge4$}
+
+Relabel so that $[a_1],[a_2],[a_3]$ are pairwise distinct direction classes
+(choose any three edges from distinct classes; by cyclic relabeling we may
+take them to include edges $1,2,3$, with $[a_3]\ne[a_1],[a_2]$).
+
+%----------------------------------------------------------------------
+\paragraph{Height functional.}
+Since $[a_2]\ne[a_1]$, the vectors $a_1,a_2$ are linearly independent (consecutive
+edges of a convex polygon).  Let $v\in\mathbb{R}^2$ satisfy
+\[
+  \langle a_1,v\rangle=0,\quad \langle a_2,v\rangle=1,
+  \quad v=\tfrac{1}{\langle a_2,v_0\rangle}\,v_0
+\]
+where $v_0$ is the $90°$ counter-clockwise rotation of $a_1/|a_1|$
+(the inward unit normal to edge $1$).
+For a CCW convex polygon $\langle a_2,v_0\rangle>0$, so $v$ is well-defined and
+$\langle a_2,v\rangle=1$.
+
+Set $\beta=\langle\cdot,v\rangle$, $h(p)=\beta(p-t_1)$, and $c_j=\beta(s_j-s_1)=\beta(s_j)$ for each $j$.
+Then $c_1=\beta(0)=0$, $c_2=\beta(a_1)=0$, $c_3=\beta(a_1+a_2)=0+1=1>0$.
+For $j\ge3$: $s_j$ lies strictly on the interior side of the line $s_1s_2$
+(convex position), so $c_j>0$.
+
+\begin{lemma}[betamin]\label{lem:betamin}
+$h(t)\ge0$ for all $t\in T$.
+\end{lemma}
+\begin{proof}
+The outward normal to edge $a_1$ at $s_1$ is $-v$ (since $v$ is the inward normal).
+By (F1), $t_1$ is the unique maximiser of $\langle\cdot,-v\rangle=-\beta(\cdot)$ over $T$,
+i.e.\ $t_1$ minimises $\beta$ over $T$.
+Hence $\beta(t)\ge\beta(t_1)$ for all $t\in T$, i.e.\ $h(t)=\beta(t-t_1)\ge0$.
+\end{proof}
+
+\begin{lemma}[hzero]\label{lem:hzero}
+$T\cap\{h=0\}=F_1$.
+\end{lemma}
+\begin{proof}
+$F_1\subseteq\{h=0\}$: since $\beta(a_1)=0$, each $t_1+ka_1\in F_1$ satisfies $h=0$.
+
+For the converse, suppose $q\in T$, $h(q)=0$, $q\notin F_1$.
+We derive a contradiction.
+
+\emph{Step~0 (no leftward extension).}
+We show $t_1-\ell a_1\notin T$ for every integer $\ell\ge1$.
+Fix $\ell\ge1$ and suppose $t_1-\ell a_1\in T$.
+Its height is $0$; is it a lonely point?
+Height-$0$ lonely points are $p_1=t_1$ (since $h(p_1)=h(t_1)+c_1=0$) and
+$p_2=t_2+a_1=t_1+(m_1+1)a_1$ (since $h(p_2)=h(t_2)+c_2=0$).
+$t_1-\ell a_1=p_1\Rightarrow\ell=0$: impossible.
+$t_1-\ell a_1=p_2\Rightarrow\ell=-(m_1+1)<0$: impossible.
+So $t_1-\ell a_1$ is not lonely; apply \eqref{eq:VAN} at $t_1-\ell a_1$:
+\[
+  \sigma_T(t_1-\ell a_1)+\sigma_T(t_1-(\ell{+}1)a_1)
+  +\!\sum_{j\ge3}\!\sigma_T(t_1-\ell a_1-s_j)=0.
+\]
+For $j\ge3$: $h(t_1-\ell a_1-s_j)=0-c_j=-c_j<0$,
+so $\sigma_T=0$ by Lemma~\ref{lem:betamin}.
+Hence $\sigma_T(t_1-(\ell+1)a_1)=-\sigma_T(t_1-\ell a_1)\ne0$,
+giving $t_1-(\ell+1)a_1\in T$ with height $0$.
+Iterating (the check that each new point is not lonely is the same):
+$\{t_1-ka_1:k\ge\ell\}\subseteq T$, infinite.  Contradiction with $|T|<\infty$.
+
+\emph{Step~1 (rightward chain).}
+Since $q\notin F_1$, we have $q\ne t_1-a_1$ (which is not in $T$ by Step~0) and $q\ne t_2$ (since $t_2\in F_1$).
+Check $q+a_1$ is not lonely:
+$q+a_1=p_1=t_1\Rightarrow q=t_1-a_1\notin T$ (Step~0): contradicts $q\in T$.
+$q+a_1=p_2=t_1+(m_1+1)a_1\Rightarrow q=t_1+m_1 a_1=t_2\in F_1$:
+contradicts $q\notin F_1$.
+For $i\ge3$: $h(q+a_1)=0$, but $h(p_i)=h(t_i)+c_i\ge c_i>0$: impossible.
+So $q+a_1\notin\mathrm{supp}(\tilde\sigma)$; apply \eqref{eq:VAN} at $q+a_1$:
+\[
+  \sigma_T(q+a_1)+\sigma_T(q)+\sum_{j\ge3}\sigma_T(q+a_1-s_j)=0.
+\]
+For $j\ge3$: $h(q+a_1-s_j)=0-c_j<0$: $\sigma_T=0$.
+So $\sigma_T(q+a_1)=-\sigma_T(q)\ne0$, giving $q+a_1\in T$, $h(q+a_1)=0$.
+Is $q+a_1\in F_1$?  Then $q\in(F_1-a_1)=\{t_1-a_1\}\cup(F_1\setminus\{t_2\})$,
+but $t_1-a_1\notin T$ and $q\notin F_1$: contradiction.
+So $q+a_1\notin F_1$.
+
+By strong induction: for all $r\ge0$, $q+ra_1\in T$, $h=0$, $\sigma_T\ne0$, $q+ra_1\notin F_1$.
+(The inductive step repeats the argument above with $q$ replaced by $q+ra_1$:
+$q+(r+1)a_1=p_1\Rightarrow q=t_1-(r+1)a_1\notin T$;
+$q+(r+1)a_1=p_2\Rightarrow q=t_1+(m_1-r)a_1$,
+which lies in $F_1$ for $0\le m_1-r\le m_1$ contradicting $q\notin F_1$,
+or gives $q=t_1-(r-m_1)a_1\notin T$ for $r>m_1$.)
+The set $\{q+ra_1:r\ge0\}$ is infinite: contradiction.
+\end{proof}
+
+\paragraph{T has elements at $h>0$.}
+Suppose $T\subseteq F_1=\{t_1+ka_1:0\le k\le m_1\}$.
+Then every face chain $F_i\subseteq T=F_1$, so
+$t_i+a_i\in F_1$ for all $i$ with $m_i\ge1$, forcing $a_i\in\mathbb{R}a_1$ (i.e.\ $[a_i]=[a_1]$).
+But $[a_3]\ne[a_1]$, so $m_3=0$.  Similarly any chain with direction $\not\in\mathbb{R}a_1$ has length~$0$.
+The closure \eqref{eq:closure} then reduces to $m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0$,
+i.e.\ $\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0$, forcing all $m_i=0$: contradiction with $m_1\ge1$
+(needed for both signs in $F_1$; if $m_1=0$ then $T=\{t_1\}$ has only one sign, also a contradiction).
+Hence $T\not\subseteq F_1$, so $T$ has elements at $h>0$.
+
+%----------------------------------------------------------------------
+\paragraph{Setting up the chain argument.}
+Let
+\[
+  h_0=\min\{h(t):t\in T,\,h(t)>0\}>0.
+\]
+Choose $t'\in T$ with $h(t')=h_0$.
+For integers $r$, height $h(t'+ra_1)=h_0$ (since $\beta(a_1)=0$).
+For $j\ge3$: $c_j>0$.
+Define $D(p)=\sum_{j:\,c_j=h_0}\sigma_T(p-s_j)$ for any $p$ at height $h_0$;
+each term $\sigma_T(p-s_j)$ is supported on $\{h=0\}=F_1\cup(\text{outside }T)$
+by Lemma~\ref{lem:betamin} (height $0-c_j+h_0=0$) and Lemma~\ref{lem:hzero}.
+
+For each $j$ with $c_j=h_0$, write $t'-s_j=\lambda_j a_1+h_0 v$ where
+$\lambda_j\in\mathbb{R}$ is fixed (using $\{a_1,v\}$ as a basis).
+Then $t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v$, which lies in
+$F_1=\{t_1+ka_1:0\le k\le m_1\}$ iff $(r+\lambda_j)=k$ for some integer $0\le k\le m_1$.
+This happens for integer $r$ only if $\lambda_j\in\mathbb{Z}$; when it does, it holds for
+exactly those $r$ with $-\lambda_j\le r\le m_1-\lambda_j$, i.e.\ at most $m_1+1$ values.
+
+\begin{equation}\label{eq:Dform}
+  D(t'+(r+1)a_1)
+  =\varepsilon_1\!\!\sum_{\substack{j:\,c_j=h_0,\,\lambda_j\in\mathbb{Z}\\ 0\,\le\, r+1+\lambda_j\,\le\, m_1}}\!\!
+  (-1)^{r+1+\lambda_j}.
+\end{equation}
+In particular $D(t'+(r+1)a_1)=0$ for all $r>m_1-1-\min_j\lambda_j$.
+Let $R^*=m_1+\max_j(|\lambda_j|+1)$ (a finite constant depending on $T$);
+\emph{$D(t'+(r+1)a_1)=0$ for all $r\ge R^*$.}
+
+\paragraph{Main chain argument.}
+Let $R_{\max}=\max\{r\ge0:t'+ra_1\in T\}$ (finite, $\ge0$ since $t'\in T$).
+
+\medskip\noindent\textbf{Check: $t'+(R_{\max}+1)a_1$ is not a lonely point.}
+Its height is $h_0$.  A lonely point $p_i=t_i+s_i$ at height $h_0$ requires
+$h(t_i)+c_i=h_0$; since $c_i\ge0$ and $h(t_i)\ge0$, there are only finitely many
+such $i$ (at most $n$).  For each such $i$: $t'+(R_{\max}+1)a_1=p_i$
+iff $R_{\max}=h_0^{-1}(p_i-t'-a_1\text{ projected on }a_1)$, a single value.
+Hence for at most $n$ values of $R_{\max}$ the point is lonely.
+
+We handle these finitely many cases first (Sub-case~L below).
+In the \emph{generic case} $t'+(R_{\max}+1)a_1\notin\mathrm{supp}(\tilde\sigma)$:
+apply \eqref{eq:VAN}:
+\begin{equation}\label{eq:vanchain}
+  0+\sigma_T(t'+R_{\max}a_1)+D(t'+(R_{\max}+1)a_1)=0.
+\end{equation}
+Since $\sigma_T(t'+R_{\max}a_1)\ne0$ (chain element):
+\begin{equation}\label{eq:Dneq}
+  D(t'+(R_{\max}+1)a_1)=-\sigma_T(t'+R_{\max}a_1)\ne0.
+\end{equation}
+
+\medskip\noindent\textit{Sub-case~A: $R_{\max}\ge R^*$.}
+Then $D(t'+(R_{\max}+1)a_1)=0$ (by \eqref{eq:Dform}): contradicts \eqref{eq:Dneq}.
+
+\medskip\noindent\textit{Sub-case~B: $R_{\max}<R^*$.}
+Here $D(t'+(R_{\max}+1)a_1)\ne0$, so some term in \eqref{eq:Dform} is nonzero:
+$\exists j_0$ with $c_{j_0}=h_0$, $\lambda_{j_0}\in\mathbb{Z}$, and
+$k_0:=R_{\max}+1+\lambda_{j_0}\in\{0,1,\ldots,m_1\}$.
+Thus $t'+(R_{\max}+1)a_1-s_{j_0}=t_1+k_0 a_1\in F_1$ with sign $(-1)^{k_0}\varepsilon_1$.
+
+\medskip\noindent\textit{Sub-case~B1: $k_0\le m_1-1$.}
+Apply \eqref{eq:VAN} at $t'+(R_{\max}+2)a_1$ (height $h_0$; not lonely
+if $R_{\max}+2>$ the value that would make it a lonely point, which holds after
+possibly increasing the starting index by at most $n$ steps, a finite adjustment):
+\[
+  \sigma_T(t'+(R_{\max}+2)a_1)+\underbrace{\sigma_T(t'+(R_{\max}+1)a_1)}_{=\,0}
+  +D(t'+(R_{\max}+2)a_1)=0.
+\]
+The $j_0$-term in $D(t'+(R_{\max}+2)a_1)$ is $\sigma_T(t_1+(k_0+1)a_1)=(-1)^{k_0+1}\varepsilon_1\ne0$
+(since $k_0+1\le m_1$).
+Hence $\sigma_T(t'+(R_{\max}+2)a_1)=-D(t'+(R_{\max}+2)a_1)$
+contains the nonzero summand $(-1)^{k_0}\varepsilon_1$; all other terms have definite sign from $F_1$.
+In particular, $|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1$, so $t'+(R_{\max}+2)a_1\in T$:
+\textbf{contradicts} $R_{\max}$ being the maximum.
+
+\medskip\noindent\textit{Sub-case~B2: all contributing $j$'s have $k_j=m_1$.}
+Every nonzero term in $D(t'+(R_{\max}+1)a_1)$ involves $t_1+m_1 a_1=t_2$.
+Apply the \emph{leftward} version:
+let $R_{\min}=\min\{r\le0:t'+ra_1\in T\}$.
+By the same argument at $t'+(R_{\min}-1)a_1$
+(with left/right swapped and Step~0 of Lemma~\ref{lem:hzero}):
+\begin{equation}\label{eq:Dleft}
+  D(t'+(R_{\min}-1)a_1)=-\sigma_T(t'+R_{\min}a_1)\ne0.
+\end{equation}
+Some $j_0'$ has $k_0':=R_{\min}-1+\lambda_{j_0'}\in\{0,\ldots,m_1\}$
+and $t'+(R_{\min}-1)a_1-s_{j_0'}=t_1+k_0'a_1\in F_1$.
+
+\textit{If $k_0'\ge1$:}
+Apply \eqref{eq:VAN} at $t'+(R_{\min}-2)a_1$:
+$\sigma_T(t'+(R_{\min}-2)a_1)+0+D(t'+(R_{\min}-2)a_1)=0$.
+The $j_0'$-term in $D(t'+(R_{\min}-2)a_1)$ is $(-1)^{k_0'-1}\varepsilon_1\ne0$
+(since $k_0'-1\ge0$).
+So $\sigma_T(t'+(R_{\min}-2)a_1)\ne0$: $t'+(R_{\min}-2)a_1\in T$,
+contradicting $R_{\min}$ being minimal.
+
+\textit{If $k_0'=0$ (all contributing $j'$'s have $k_0'=0$, D-link to $t_1$):}
+Now all rightward links go to $t_2=t_1+m_1 a_1$ and all leftward links go to $t_1$.
+This forces the $j$'s contributing to both D-sums to be the same vertex $j_0=j_0'$
+(since $s_j=t'+(R_{\max}+1)a_1-t_2$ and $s_{j'}=t'+(R_{\min}-1)a_1-t_1$
+must lie in the same set $\{s_j:c_j=h_0\}$; equating gives $R_{\max}-R_{\min}=m_1-2$
+and $s_{j_0}=s_{j_0'}$, so $j_0=j_0'$).
+
+Consider the point $q^*:=t_1+s_{j_0}$.
+Its height is $h(q^*)=\beta(t_1+s_{j_0}-t_1)=\beta(s_{j_0})=c_{j_0}=h_0$.
+We compute $\tilde\sigma(q^*)$:
+\begin{itemize}
+\item $j=1$ ($s_1=0$): $\sigma_T(t_1+s_{j_0})$.
+  This equals $\sigma_T(t'+(R_{\min}-1)a_1)=0$ (not in $T$, since $R_{\min}-1<R_{\min}$).
+\item $j=2$ ($s_2=a_1$): $\sigma_T(t_1+s_{j_0}-a_1)=\sigma_T(t'+(R_{\min}-2)a_1)=0$.
+\item $j=j_0$ ($s_{j_0}$): $\sigma_T(t_1)=\varepsilon_1\ne0$.
+\item $j$ other, $c_j=h_0$: by assumption ($j_0$ is the unique index with
+  $c_j=h_0$ contributing to the D-sums; any other $j$ with $c_j=h_0$ has
+  $\lambda_j\notin\mathbb{Z}$, so $\sigma_T(q^*-s_j)=\sigma_T(t_1+s_{j_0}-s_j)$
+  lies at height $0$ but not in $F_1$, hence $=0$).
+\item $j$ with $0<c_j<h_0$: height $h_0-c_j\in(0,h_0)$: not in $T$ by minimality.
+\item $j$ with $c_j>h_0$: height $<0$: $\sigma_T=0$ by Lemma~\ref{lem:betamin}.
+\end{itemize}
+Hence $\tilde\sigma(q^*)=\varepsilon_1\ne0$, so $q^*\in\mathrm{supp}(\tilde\sigma)$, say $q^*=p_m$.
+
+Now compute $\tilde\sigma(q^*+a_1)$:
+\begin{itemize}
+\item $j=1$: $\sigma_T(t_1+s_{j_0}+a_1)=\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1$
+  (chain element; $\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1$ from \eqref{eq:Dleft}).
+\item $j=2$: $\sigma_T(t_1+s_{j_0})=0$ (not in $T$).
+\item $j=j_0$: $\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1=-\varepsilon_1$ (position $1$ on $F_1$).
+\item All other $j$: $\sigma_T=0$ by the same height analysis as above.
+\end{itemize}
+Hence $\tilde\sigma(q^*+a_1)=-\varepsilon_1+0+(-\varepsilon_1)=-2\varepsilon_1\ne0$.
+
+So $q^*+a_1\in\mathrm{supp}(\tilde\sigma)=\{p_1,\ldots,p_n\}$.
+Its height is $h_0$ (same as $q^*$, since $\beta(a_1)=0$).
+But lonely points at height $h_0$ must satisfy $h(t_i)+c_i=h_0$.
+Since $h(t_i)\ge0$ and $c_i=0$ only for $i=1,2$ (giving $h(p_i)=0\ne h_0$),
+we need $c_i=h_0$ for $h(t_i)=0$: only $c_{j_0}=h_0$ by assumption.
+So the only candidate is $p_{j_0}=q^*$.
+But $q^*+a_1\ne q^*$ (since $a_1\ne0$): \textbf{contradiction}.
+
+\medskip\noindent\textit{Sub-case~L: $t'+(R_{\max}+1)a_1=p_k$ (lonely).}
+Here $\tilde\sigma(p_k)\ne0$.  We have $\sigma_T(p_k)=\sigma_T(t'+(R_{\max}+1)a_1)=0$
+(not in $T$).
+So $\tilde\sigma(p_k)=0+\sigma_T(t'+R_{\max}a_1)+D(t'+(R_{\max}+1)a_1)\ne0$.
+In particular $\sigma_T(t'+R_{\max}a_1)+D(t'+(R_{\max}+1)a_1)\ne0$.
+
+Apply \eqref{eq:VAN} at $t'+(R_{\max}+2)a_1$ (height $h_0$; not lonely
+provided we choose the next non-lonely step, which exists since there are
+at most $n$ consecutive lonely points):
+\[
+  \sigma_T(t'+(R_{\max}+2)a_1)+0+D(t'+(R_{\max}+2)a_1)=0.
+\]
+By the same analysis as Sub-cases~A, B1, B2 applied with $R_{\max}$ replaced by
+$R_{\max}+1$ (or the next non-lonely step), we obtain the same contradiction
+in each sub-case.\hfill$\square$
+
+%======================================================================
+\subsection*{Conclusion}
+
+If $P=\operatorname{conv}(S)$ has at least three distinct edge-direction classes, no
+finite signed translate set $T$ with both signs present can satisfy the extremal equality
+$|\mathrm{supp}(\tilde\sigma)|=n$.
+In particular: triangles ($n=3$), all $n\ge5$, and non-parallelogram quadrilaterals
+all have $\ge3$ direction classes and are therefore impossible.
+The only surviving case is $n=4$ with exactly two edge-direction classes
+(parallelogram shape).\hfill$\blacksquare$

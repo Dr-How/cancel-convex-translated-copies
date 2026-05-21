@@ -1,0 +1,118 @@
+**Proof.** First, there is one necessary correction: as written, `$(1)$` is false if $T=\varnothing$, because then $\sigma(p)=0$ for every $p\in\mathbb R^2$. So I will prove the statement under the natural additional assumption $T\neq\varnothing$.
+
+Let
+\[
+A:=\{p\in\mathbb R^2:\sigma(p)\neq 0\}.
+\]
+Call a point $p\in S+T$ **lonely** if there is a unique pair $(s,t)\in S\times T$ such that $p=s+t$.
+
+If $n=1$, say $S=\{s\}$, then the map $t\mapsto s+t$ is injective, so every point of $S+T$ is lonely, and
+\[
+\sigma(s+t)=\sigma(t)\in\{\pm1\}.
+\]
+Hence $A=S+T$ and $|A|=|T|\ge 1=n$. If moreover $|A|=1$, then $|T|=1$, and all conclusions in `$(2)$` are immediate. So it remains to treat the case $n\ge 2$.
+
+Now fix $s\in S$. Since $s$ is a vertex of $\operatorname{conv}(S)$, we have
+\[
+s\notin \operatorname{conv}(S\setminus\{s\}).
+\]
+By strict separation of a point from a convex set, there exist a linear functional $f_s:\mathbb R^2\to\mathbb R$ and a real number $c_s$ such that
+\[
+f_s(s)>c_s\ge f_s(x)\qquad\text{for all }x\in \operatorname{conv}(S\setminus\{s\}).
+\]
+In particular,
+\[
+f_s(s)>f_s(u)\qquad\text{for every }u\in S\setminus\{s\}.
+\]
+This is exactly the standard setup of the lonely-point lemma. ([encyclopediaofmath.org](https://encyclopediaofmath.org/wiki/Convex_set))
+
+Because $T$ is finite and nonempty, $f_s$ attains a maximum on $T$; choose $t_s\in T$ with
+\[
+f_s(t_s)=\max_{t\in T} f_s(t),
+\]
+and set
+\[
+\ell_s:=s+t_s.
+\]
+I claim that $\ell_s$ is lonely. Indeed, suppose
+\[
+\ell_s=u+t
+\]
+for some $u\in S$ and $t\in T$. Then
+\[
+f_s(s)+f_s(t_s)=f_s(\ell_s)=f_s(u)+f_s(t).
+\]
+If $u\neq s$, then $f_s(u)<f_s(s)$, so
+\[
+f_s(t)=f_s(s)+f_s(t_s)-f_s(u)>f_s(t_s),
+\]
+contradicting the choice of $t_s$. Therefore $u=s$, and then necessarily $t=t_s$. So $\ell_s$ has a unique representation and is lonely.
+
+Since $\ell_s$ is lonely, the defining sum for $\sigma(\ell_s)$ has exactly one term, namely $\sigma(t_s)$. Thus
+\[
+\sigma(\ell_s)=\sigma(t_s)\in\{\pm1\},
+\]
+so $\ell_s\in A$.
+
+Also, if $s\neq s'$, then $\ell_s\neq \ell_{s'}$, because otherwise that common point would have the two distinct representations $(s,t_s)$ and $(s',t_{s'})$, contradicting loneliness. Hence the points
+\[
+\{\ell_s:s\in S\}
+\]
+are pairwise distinct and all belong to $A$. Therefore
+\[
+|A|\ge n.
+\]
+This proves `$(1)$`.
+
+Now assume the extremal case
+\[
+|A|=n.
+\]
+We already know that the $n$ points $\ell_s$ are distinct and belong to $A$. Therefore
+\[
+A=\{\ell_s:s\in S\}.
+\]
+This gives `$(2)(b)$`: the lonely points are pairwise distinct and they exhaust the support of $\sigma$. In particular, every other point of $S+T$ has $\sigma=0$.
+
+For `$(2)(a)$`, existence of a lonely point for each $s$ has already been proved. To get uniqueness, suppose some fixed $s\in S$ had another lonely point $s+t\neq \ell_s$. Since $s+t$ is lonely, we have
+\[
+\sigma(s+t)=\sigma(t)\in\{\pm1\},
+\]
+so $s+t\in A$. But $A=\{\ell_u:u\in S\}$, and $s+t$ cannot equal $\ell_u$ for any $u\neq s$, because $\ell_u$ is lonely and would then have two representations. It also cannot equal $\ell_s$ by assumption. This is impossible. Hence, for each $s$, there is exactly one $t_s\in T$ such that $s+t_s$ is lonely. So `$(2)(a)$` holds.
+
+Part `$(2)(c)$` was already shown:
+\[
+\sigma(\ell_s)=\sigma(t_s)\in\{\pm1\}\qquad\text{for every }s\in S.
+\]
+
+It remains to prove `$(2)(d)$`. Since $\sigma(p)=0$ outside the finite set $S+T$, summing over all $p\in\mathbb R^2$ is finite. Each ordered pair $(s,t)\in S\times T$ contributes exactly once, namely at the point $p=s+t$. Therefore
+\[
+\sum_{p\in\mathbb R^2}\sigma(p)
+=
+\sum_{(s,t)\in S\times T}\sigma(t)
+=
+\sum_{t\in T}\sum_{s\in S}\sigma(t)
+=
+n\sum_{t\in T}\sigma(t)
+=
+n\bigl(|T_+|-|T_-|\bigr).
+\]
+In the extremal case, $A=\{\ell_s:s\in S\}$ and each $\sigma(\ell_s)\in\{\pm1\}$. Hence
+\[
+\left|\sum_{p\in\mathbb R^2}\sigma(p)\right|
+=
+\left|\sum_{s\in S}\sigma(\ell_s)\right|
+\le n.
+\]
+Combining the two displayed formulas gives
+\[
+n\,\bigl||T_+|-|T_-|\bigr|
+\le n.
+\]
+Since $n\ge 1$, dividing by $n$ yields
+\[
+\bigl||T_+|-|T_-|\bigr|\le 1.
+\]
+This is `$(2)(d)$`.
+
+So, with the necessary hypothesis $T\neq\varnothing$, all assertions are proved.

@@ -1,0 +1,25 @@
+**Verdict:** **Not fully valid as written.**
+
+### Issues
+
+1. **Missing dependency: the “allowed \(n\) points” are not explicitly justified.**  
+   The outline repeatedly argues by producing a point
+   \[
+   p\notin \{s_1+t_1,\dots,s_n+t_n\}
+   \quad\text{with}\quad \sigma(p)\neq 0,
+   \]
+   and treats that as an immediate contradiction to \(|\{p:\sigma(p)\neq 0\}|=n\).  
+   Structurally, this requires an earlier lemma that the \(n\) points \(s_i+t_i\) are **distinct nonzero support points** and already exhaust the \(n\) points allowed by extremality. That fact is not included among the stated prior facts, but it is used in Subproblems 2, 3, and 5.
+
+2. **Triangle branch leaves a subcase unaccounted for in the stated route.**  
+   Subproblem 2’s suggested method uses an “interior translate on one side-chain,” which only exists if the common value \(m_1=m_2=m_3\) is **positive**. The decomposition does not separately handle the case \(m_1=m_2=m_3=0\), nor does it first prove that this case is impossible from the available hypotheses.  
+   So, as a proof plan, the triangle case needs either:
+   - an extra lemma forcing \(m_i>0\), or
+   - a separate subcase for \(m_i=0\).
+
+### Otherwise
+
+- **Dependencies:** The ordering is sensible: 1 feeds 2, 3 provides contradiction mechanisms, 4 produces one of those mechanisms for \(n\ge 4\), and 5 combines everything.
+- **Relevance:** The subproblems are all aimed at the main claim; no major irrelevant lemma is included.
+
+So the structure is **close**, but it has at least the two gaps above. If the missing “lonely/exposed support points” lemma is available from earlier work, and the triangle zero-length subcase is added or excluded, the plan becomes structurally sound.

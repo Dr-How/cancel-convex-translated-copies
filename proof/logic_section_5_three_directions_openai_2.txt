@@ -1,0 +1,35 @@
+**Verdict:** **Not fully valid as written.**
+
+The overall strategy is plausible, and the subproblems are mostly relevant, but there are a few structural issues.
+
+### Completeness issues
+
+1. **Mismatch in the notion of “direction class.”**  
+   The problem statement literally defines classes using **positive** scalar multiples, while the outline switches to **unoriented** parallelism (“parallel as segments,” “opposite pair,” “two unoriented edge directions iff parallelogram”).  
+   So the outline is not proving the statement exactly as written unless this convention is clarified/fixed.
+
+2. **Missing explicit lemma giving the \(n\) forced nonzero points.**  
+   Subproblems 3 and 4 argue that finding an extra point
+   \[
+   p\in S+T\setminus\{s_i+t_i\}
+   \quad\text{with}\quad \sigma(p)\neq 0
+   \]
+   contradicts \(|\{p:\sigma(p)\neq 0\}|=n\).  
+   But that only works if it has already been established that the \(n\) points \(s_i+t_i\) are **distinct** and all already satisfy \(\sigma\neq 0\). The outline uses this as a baseline but does not include it as a subproblem or cite it explicitly from the allowed earlier facts.
+
+### Dependency issues
+
+3. **Subproblem 5 depends on Subproblem 3 as well as 4.**  
+   Subproblem 4 only rules out three direction classes **assuming** the compatibility condition from Subproblem 3.  
+   So Subproblem 5 cannot be justified from Subproblem 4 alone; it needs Subproblem 3 too (or Subproblem 4 must be restated to absorb that assumption).
+
+4. **The “overlap” contradiction in Subproblem 4 is too vague.**  
+   Adjacent chains already share endpoints by construction, so “two different chains overlap in a translate of \(T\)” is not automatically contradictory.  
+   The subproblem needs to specify **nontrivial overlap** / a duplicate translate beyond the expected shared endpoints.
+
+### Relevance
+
+5. **No obvious redundant lemmas.**  
+   Subproblems 1–5 all have a natural role in the intended argument; the problem is not redundancy but the missing/unclear links above.
+
+If those issues are repaired, the proof plan would become a coherent structural outline.

@@ -1,0 +1,18 @@
+The solution is **not fully correct as written**.
+
+## Bug report
+
+1. **Location:**  
+   “Because the face \([t_i,t_{i+1}]\) has direction \(a_i\), there is some real \(M\ge 0\) such that
+   \[
+   t_{i+1}=t_i+M a_i.
+   \]
+   Now define
+   \[
+   \Lambda:=\{\lambda\in[0,M]: t_i+\lambda a_i\in F_i\}.
+   \]”
+
+   **Description:** **Justification Gap.**  
+   This is the key unproved step in the argument. The proof explicitly imported only three facts from Subproblems 1–3, and none of them states that the exposed face \([t_i,t_{i+1}]\) of \(Q\) is parallel to \(a_i\), much less that it is oriented so that the coefficient \(M\) is **nonnegative**. If this is meant to come from the standard exposed-face/Minkowski-sum theorem mentioned in the background citation, that theorem is not actually stated or applied with its hypotheses here.  
+
+   The rest of the proof depends on this parameterization: the definition of \(\Lambda\), the claims that \(s_i+t(\lambda)\) and \(s_{i+1}+t(\lambda)\) lie in \(\operatorname{relint}(E)\), and the Step 2 argument excluding \(t-a_i\) because its “parameter” is \(<0\). Since this parameterization is not justified, the logical chain is incomplete.

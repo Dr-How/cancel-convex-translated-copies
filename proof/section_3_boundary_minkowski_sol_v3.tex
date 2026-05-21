@@ -1,0 +1,460 @@
+I agree with the bug report that several “standard facts” should be written out explicitly.  
+In particular, I will **not** assume in advance that the support points \(x_i=s_i+t_i\) are distinct; that will follow from the proof.
+
+Let
+\[
+R:=P+Q,\qquad E_i:=[s_i,s_{i+1}],\qquad a_i:=s_{i+1}-s_i,
+\]
+with indices taken modulo \(n\).
+
+Since \(P=\operatorname{conv}(S)\) and \(Q=\operatorname{conv}(T)\),
+\[
+R=P+Q=\operatorname{conv}(S+T),
+\]
+so \(R\) is a convex polygon.
+
+---
+
+## Preliminary lemmas
+
+### Lemma 1: exposed faces of a convex hull of finitely many points
+If \(A\subset \mathbb{R}^2\) is finite and \(K=\operatorname{conv}(A)\), define
+\[
+M_A(u):=\left\{a\in A:\ \langle u,a\rangle=\max_{x\in A}\langle u,x\rangle\right\}.
+\]
+Then
+\[
+F_K(u)=\operatorname{conv}\bigl(M_A(u)\bigr).
+\]
+
+#### Proof
+Let
+\[
+m:=\max_{x\in A}\langle u,x\rangle.
+\]
+If \(x=\sum_{a\in A}\alpha_a a\in K\) with \(\alpha_a\ge 0\) and \(\sum_a\alpha_a=1\), then
+\[
+\langle u,x\rangle=\sum_{a\in A}\alpha_a\langle u,a\rangle\le \sum_{a\in A}\alpha_a m=m.
+\]
+So \(h_K(u)=m\).
+
+Moreover, equality \(\langle u,x\rangle=m\) holds iff every \(a\) with \(\alpha_a>0\) satisfies \(\langle u,a\rangle=m\), i.e. iff \(x\in \operatorname{conv}(M_A(u))\). Hence
+\[
+F_K(u)=\operatorname{conv}(M_A(u)).
+\]
+\(\square\)
+
+Two consequences will be used repeatedly:
+
+- if one point of \(A\) strictly beats all others for the functional \(\langle u,\cdot\rangle\), then it is the **unique** maximizer on \(K=\operatorname{conv}(A)\);
+- if \(a\in A\) merely maximizes on \(A\), then \(a\in F_K(u)\).
+
+---
+
+### Lemma 2: exposed faces of a Minkowski sum
+For nonempty compact convex sets \(A,B\subset \mathbb{R}^2\),
+\[
+F_{A+B}(u)=F_A(u)+F_B(u).
+\]
+
+#### Proof
+First,
+\[
+h_{A+B}(u)=\max_{a\in A,\ b\in B}\langle u,a+b\rangle
+=\max_{a,b}\bigl(\langle u,a\rangle+\langle u,b\rangle\bigr)
+=h_A(u)+h_B(u).
+\]
+If \(a\in F_A(u)\) and \(b\in F_B(u)\), then
+\[
+\langle u,a+b\rangle=h_A(u)+h_B(u)=h_{A+B}(u),
+\]
+so \(a+b\in F_{A+B}(u)\). Thus
+\[
+F_A(u)+F_B(u)\subseteq F_{A+B}(u).
+\]
+
+Conversely, if \(z\in F_{A+B}(u)\), write \(z=a+b\) with \(a\in A\), \(b\in B\). Then
+\[
+h_A(u)+h_B(u)=h_{A+B}(u)=\langle u,z\rangle
+=\langle u,a\rangle+\langle u,b\rangle\le h_A(u)+h_B(u),
+\]
+so equality holds in both inequalities; hence
+\[
+a\in F_A(u),\qquad b\in F_B(u).
+\]
+Therefore \(z\in F_A(u)+F_B(u)\). \(\square\)
+
+---
+
+### Lemma 3: compact convex subsets of a line
+Let \(a\neq 0\), and let \(G\) be a nonempty compact convex subset of a line parallel to \(a\).  
+If \(p,q\in G\) are respectively the minimum and maximum points of the linear functional \(\langle a,\cdot\rangle\) on \(G\), then
+\[
+G=[p,q].
+\]
+
+#### Proof
+Write the line as \(L=x_0+\mathbb{R}a\). Since \(G\subset L\) is compact and convex,
+\[
+G=\{x_0+\tau a:\ \tau\in [\alpha,\beta]\}
+\]
+for some \(\alpha\le \beta\).
+
+Now
+\[
+\langle a, x_0+\tau a\rangle=\langle a,x_0\rangle+\tau\|a\|^2,
+\]
+which is strictly increasing in \(\tau\). Hence the minimum is attained at \(\tau=\alpha\) and the maximum at \(\tau=\beta\). Therefore
+\[
+p=x_0+\alpha a,\qquad q=x_0+\beta a,
+\]
+and so
+\[
+G=[p,q].
+\]
+\(\square\)
+
+---
+
+## Part (2)
+
+Fix \(i\), and choose an outer normal \(u_i\) to the edge
+\[
+E_i=[s_i,s_{i+1}].
+\]
+Then
+\[
+F_P(u_i)=E_i,
+\]
+so
+\[
+\langle u_i,s_i\rangle=\langle u_i,s_{i+1}\rangle=h_P(u_i),
+\]
+and for every \(j\neq i,i+1\),
+\[
+\langle u_i,s_j\rangle<h_P(u_i).
+\]
+
+Let
+\[
+G_i:=F_Q(u_i).
+\]
+
+We prove that \(G_i=[t_i,t_{i+1}]\).
+
+---
+
+### Step 1: perturbing the edge normal enters the adjacent cones
+For \(j\neq i,i+1\), define
+\[
+\delta_j:=\langle u_i,s_i-s_j\rangle>0,
+\qquad
+\delta:=\min_{j\neq i,i+1}\delta_j>0.
+\]
+Also set
+\[
+M:=\max_{j\neq i,i+1}\max\Bigl(
+|\langle a_i,s_i-s_j\rangle|,
+|\langle a_i,s_{i+1}-s_j\rangle|
+\Bigr).
+\]
+Choose
+\[
+0<\varepsilon<\frac{\delta}{M+1}.
+\]
+
+Then for \(j\neq i,i+1\),
+\[
+\langle u_i-\varepsilon a_i,\ s_i-s_j\rangle
+=\delta_j-\varepsilon\langle a_i,s_i-s_j\rangle
+\ge \delta-\varepsilon M>0,
+\]
+and
+\[
+\langle u_i-\varepsilon a_i,\ s_i-s_{i+1}\rangle
+=-\varepsilon\langle a_i,s_i-s_{i+1}\rangle
+=\varepsilon\|a_i\|^2>0.
+\]
+So \(s_i\) strictly beats every other vertex of \(P\) for the functional \(\langle u_i-\varepsilon a_i,\cdot\rangle\). By Lemma 1,
+\[
+F_P(u_i-\varepsilon a_i)=\{s_i\}.
+\]
+Thus
+\[
+u_i-\varepsilon a_i\in C_i.
+\]
+
+Similarly, for \(j\neq i,i+1\),
+\[
+\langle u_i+\varepsilon a_i,\ s_{i+1}-s_j\rangle
+=\langle u_i,s_{i+1}-s_j\rangle+\varepsilon\langle a_i,s_{i+1}-s_j\rangle
+\ge \delta-\varepsilon M>0,
+\]
+and
+\[
+\langle u_i+\varepsilon a_i,\ s_{i+1}-s_i\rangle
+=\varepsilon\|a_i\|^2>0.
+\]
+Hence, again by Lemma 1,
+\[
+F_P(u_i+\varepsilon a_i)=\{s_{i+1}\},
+\]
+so
+\[
+u_i+\varepsilon a_i\in C_{i+1}.
+\]
+
+---
+
+### Step 2: \(t_i,t_{i+1}\in G_i\)
+Take a sequence \(\varepsilon_m\downarrow 0\) such that for every \(m\),
+\[
+u_i-\varepsilon_m a_i\in C_i,\qquad u_i+\varepsilon_m a_i\in C_{i+1}.
+\]
+By the hypothesis from Subproblems \(1\)–\(2\), \(t_i\) is the unique maximizer on \(T\) for every direction in \(C_i\). Hence for every \(t\in T\),
+\[
+\langle u_i-\varepsilon_m a_i,\ t_i-t\rangle\ge 0.
+\]
+Letting \(m\to\infty\) gives
+\[
+\langle u_i,\ t_i-t\rangle\ge 0\qquad(\forall t\in T).
+\]
+So \(t_i\in M_T(u_i)\), and therefore by Lemma 1,
+\[
+t_i\in F_Q(u_i)=G_i.
+\]
+
+Exactly the same argument with \(C_{i+1}\) shows
+\[
+t_{i+1}\in G_i.
+\]
+
+---
+
+### Step 3: \(G_i\) is exactly \([t_i,t_{i+1}]\)
+Since \(G_i=F_Q(u_i)\), it lies in the support line
+\[
+L_i:=\{q\in\mathbb{R}^2:\ \langle u_i,q\rangle=h_Q(u_i)\}.
+\]
+Because \(u_i\) is orthogonal to the edge direction \(a_i\), the line \(L_i\) is parallel to \(a_i\).
+
+Now fix \(\varepsilon>0\) as in Step 1. For any \(q\in G_i\), we have \(\langle u_i,q\rangle=h_Q(u_i)\), so
+\[
+\langle u_i-\varepsilon a_i,q\rangle
+=h_Q(u_i)-\varepsilon\langle a_i,q\rangle.
+\]
+Thus, **restricted to \(G_i\)**, maximizing \(\langle u_i-\varepsilon a_i,\cdot\rangle\) is exactly the same as minimizing \(\langle a_i,\cdot\rangle\).
+
+But \(u_i-\varepsilon a_i\in C_i\), so by the setup and Lemma 1,
+\[
+F_Q(u_i-\varepsilon a_i)=\{t_i\}.
+\]
+Since \(t_i\in G_i\), it follows that \(t_i\) is the unique minimizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+Likewise, because \(u_i+\varepsilon a_i\in C_{i+1}\),
+\[
+F_Q(u_i+\varepsilon a_i)=\{t_{i+1}\},
+\]
+and on \(G_i\),
+\[
+\langle u_i+\varepsilon a_i,q\rangle
+=h_Q(u_i)+\varepsilon\langle a_i,q\rangle,
+\]
+so \(t_{i+1}\) is the unique maximizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+Now \(G_i\) is a compact convex subset of the line \(L_i\), which is parallel to \(a_i\). By Lemma 3,
+\[
+G_i=[t_i,t_{i+1}].
+\]
+
+Since multiplying a normal by a positive scalar does not change the exposed face, the same conclusion holds for **any** outer normal to \(E_i\).
+
+---
+
+### Step 4: direction of \(t_{i+1}-t_i\)
+Because \(G_i=[t_i,t_{i+1}]\subset L_i\) and \(L_i\parallel a_i\), there exists \(\lambda_i\in\mathbb{R}\) such that
+\[
+t_{i+1}-t_i=\lambda_i a_i=\lambda_i(s_{i+1}-s_i).
+\]
+Also \(t_i\) is the minimum and \(t_{i+1}\) the maximum of \(\langle a_i,\cdot\rangle\) on \(G_i\), so
+\[
+\langle a_i,t_{i+1}-t_i\rangle\ge 0.
+\]
+Substituting \(t_{i+1}-t_i=\lambda_i a_i\) yields
+\[
+\lambda_i\|a_i\|^2\ge 0.
+\]
+Since \(a_i\neq 0\), we get
+\[
+\lambda_i\ge 0.
+\]
+
+This proves Part \((2)\).
+
+---
+
+## Part (1)
+
+Define
+\[
+x_i:=s_i+t_i.
+\]
+
+---
+
+### Step 1: each \(x_i\) is a vertex of \(R=P+Q\)
+If \(u\in C_i\), then by definition of \(C_i\),
+\[
+F_P(u)=\{s_i\}.
+\]
+By the setup from Subproblems \(1\)–\(2\), \(t_i\) is the unique maximizer on \(T\) for every \(u\in C_i\), so by Lemma 1,
+\[
+F_Q(u)=\{t_i\}.
+\]
+Hence by Lemma 2,
+\[
+F_R(u)=F_P(u)+F_Q(u)=\{s_i+t_i\}=\{x_i\}.
+\]
+Therefore \(x_i\) is a vertex of \(R\).
+
+---
+
+### Step 2: for each \(i\), the corresponding edge of \(R\) is \([x_i,x_{i+1}]\)
+From Part \((2)\),
+\[
+F_Q(u_i)=[t_i,t_{i+1}],
+\]
+so by Lemma 2,
+\[
+F_R(u_i)=E_i+[t_i,t_{i+1}].
+\]
+
+Write
+\[
+t_{i+1}-t_i=\lambda_i a_i,\qquad \lambda_i\ge 0.
+\]
+Then
+\[
+E_i=\{s_i+\alpha a_i:\ 0\le \alpha\le 1\},
+\]
+and
+\[
+[t_i,t_{i+1}]
+=\{t_i+\beta\lambda_i a_i:\ 0\le \beta\le 1\}.
+\]
+Therefore
+\[
+E_i+[t_i,t_{i+1}]
+=\{x_i+(\alpha+\lambda_i\beta)a_i:\ \alpha,\beta\in[0,1]\}.
+\]
+
+Now
+\[
+\{\alpha+\lambda_i\beta:\ \alpha,\beta\in[0,1]\}=[0,1+\lambda_i].
+\]
+Indeed:
+
+- the inclusion \(\subseteq [0,1+\lambda_i]\) is immediate;
+- conversely, if \(r\in[0,1+\lambda_i]\), then:
+  - if \(0\le r\le 1\), choose \((\alpha,\beta)=(r,0)\);
+  - if \(1\le r\le 1+\lambda_i\) and \(\lambda_i>0\), choose
+    \[
+    (\alpha,\beta)=\left(1,\frac{r-1}{\lambda_i}\right);
+    \]
+  - if \(\lambda_i=0\), then \([0,1+\lambda_i]=[0,1]\), already covered by the first case.
+
+So
+\[
+F_R(u_i)=\{x_i+ra_i:\ 0\le r\le 1+\lambda_i\}
+=[x_i,x_i+(1+\lambda_i)a_i].
+\]
+But
+\[
+x_{i+1}
+=s_{i+1}+t_{i+1}
+=(s_i+a_i)+(t_i+\lambda_i a_i)
+=x_i+(1+\lambda_i)a_i.
+\]
+Hence
+\[
+F_R(u_i)=[x_i,x_{i+1}].
+\]
+
+Since \(1+\lambda_i>0\) and \(a_i\neq 0\), this is a nondegenerate edge of \(R\).
+
+---
+
+### Step 3: these are all the edges of \(R\)
+Let \(E\) be any edge of \(R\), and let \(u\) be an outer normal to \(E\). Then
+\[
+E=F_R(u).
+\]
+
+Because \(P\) is a convex polygon, \(F_P(u)\) is either a vertex \(\{s_i\}\) or an edge \(E_i\).
+
+- If \(F_P(u)=\{s_i\}\), then \(u\in C_i\). By the setup, \(F_Q(u)=\{t_i\}\), so Lemma 2 gives
+  \[
+  F_R(u)=\{x_i\},
+  \]
+  a point, not an edge. Contradiction.
+
+- Therefore \(F_P(u)=E_i\) for some \(i\). Then \(u\) is an outer normal to \(E_i\), so by Part \((2)\),
+  \[
+  F_Q(u)=[t_i,t_{i+1}],
+  \]
+  and therefore
+  \[
+  E=F_R(u)=E_i+[t_i,t_{i+1}]=[x_i,x_{i+1}].
+  \]
+
+So **every** edge of \(R\) is one of the segments
+\[
+[x_1,x_2],\ [x_2,x_3],\ \dots,\ [x_n,x_1].
+\]
+
+Conversely, Step 2 shows each of these segments is indeed an edge of \(R\). Thus the boundary edges of \(R\) are exactly those \(n\) segments.
+
+---
+
+### Step 4: cyclic order of the vertices
+The boundary of a convex polygon is a simple closed polygonal chain made of its edges.  
+We have just proved that the boundary edges of \(R\) are exactly
+\[
+[x_1,x_2],\ [x_2,x_3],\ \dots,\ [x_n,x_1].
+\]
+Therefore the boundary of \(R\) is precisely the closed chain
+\[
+x_1,x_2,\dots,x_n,x_1.
+\]
+Hence the vertices of \(R\) are exactly
+\[
+x_1,x_2,\dots,x_n,
+\]
+they are pairwise distinct, and they occur in that cyclic order.
+
+This proves Part \((1)\).
+
+---
+
+## Final conclusion
+
+For each \(i\),
+\[
+x_i=s_i+t_i
+\]
+is a vertex of \(P+Q\), and the vertices of \(P+Q\) are exactly
+\[
+x_1,x_2,\dots,x_n
+\]
+in cyclic order.
+
+Also, for any outer normal to the edge \([s_i,s_{i+1}]\) of \(P\),
+\[
+F_Q(u)=[t_i,t_{i+1}],
+\]
+and
+\[
+t_{i+1}-t_i=\lambda_i(s_{i+1}-s_i)\qquad\text{for some }\lambda_i\ge 0.
+\]
+
+So both statements are proved.

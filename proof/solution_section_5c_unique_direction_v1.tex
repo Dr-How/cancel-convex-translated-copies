@@ -1,0 +1,138 @@
+I cannot honestly give the requested proof, because the lemma is **false as stated**.
+
+Here is the rigorous resolution.
+
+**Claim.** Under the hypotheses written in the prompt, the conclusion \(m_k=0\) does not follow.
+
+**Proof.** For **every** polygon with vertices \(s_1,\dots,s_n\) and edge vectors \(a_i=s_{i+1}-s_i\) (with \(s_{n+1}=s_1\)), one has the telescoping identity
+\[
+\sum_{i=1}^n a_i
+=
+\sum_{i=1}^n (s_{i+1}-s_i)
+=
+0.
+\]
+Hence
+\[
+(m_1,\dots,m_n)=(1,\dots,1)
+\]
+is always a nonnegative integer solution of
+\[
+\sum_{i=1}^n m_i a_i=0.
+\]
+
+Therefore, if the proposed lemma were true, then **no** convex polygon could have an edge \(a_k\) with no parallel counterpart, because the universal choice \(m_i=1\) would force
+\[
+m_k=1=0,
+\]
+a contradiction.
+
+But such convex polygons certainly exist; the simplest example is a triangle.
+
+Take
+\[
+s_1=(0,0),\qquad s_2=(1,0),\qquad s_3=(0,1).
+\]
+Then \(P=\operatorname{conv}\{s_1,s_2,s_3\}\) is a convex polygon, and its counterclockwise edge vectors are
+\[
+a_1=s_2-s_1=(1,0),\qquad
+a_2=s_3-s_2=(-1,1),\qquad
+a_3=s_1-s_3=(0,-1).
+\]
+No two of \(a_1,a_2,a_3\) are parallel. In particular, for each \(k\), the vector \(a_k\) has no parallel counterpart of either sign among the other edges.
+
+Now choose
+\[
+m_1=m_2=m_3=1.
+\]
+Then
+\[
+m_1a_1+m_2a_2+m_3a_3
+=
+(1,0)+(-1,1)+(0,-1)
+=
+(0,0).
+\]
+So all the hypotheses of the stated lemma hold, but
+\[
+m_1=m_2=m_3=1>0.
+\]
+This contradicts the claimed conclusion \(m_k=0\).
+
+Thus the lemma is false. \(\square\)
+
+---
+
+**Where the proposed projection argument fails.**
+
+The problematic step is the assertion that cancellation of the \( \hat a_k \)-component requires an antiparallel edge. That is not true.
+
+In the triangle above,
+\[
+-a_1=(-1,0)=(-1,1)+(0,-1)=a_2+a_3.
+\]
+So \(a_1\) is canceled by **two nonparallel vectors**, not by a single vector parallel to \(-a_1\).
+
+If we project onto
+\[
+\hat a_1=(1,0),\qquad \hat a_1^\perp=(0,1),
+\]
+then
+\[
+a_2\cdot \hat a_1=-1,\qquad a_3\cdot \hat a_1=0,
+\]
+so the \( \hat a_1 \)-component of \(a_1\) is canceled without any antiparallel copy of \(a_1\). And
+\[
+a_2\cdot \hat a_1^\perp=1,\qquad a_3\cdot \hat a_1^\perp=-1,
+\]
+so the perpendicular projection equation is simply a cancellation of one positive scalar by one negative scalar. The fact that the coefficients \(m_j\) are nonnegative does **not** imply that each projected term must vanish separately.
+
+---
+
+**What projection does prove.**
+
+A correct statement is the following:
+
+**Lemma.** If
+\[
+\sum_i m_i a_i=0,\qquad m_i\ge 0,
+\]
+and for some nonzero vector \(u\) there exists an index \(i\) with
+\[
+m_i>0
+\quad\text{and}\quad
+u\cdot a_i>0,
+\]
+then there exists an index \(j\) with
+\[
+m_j>0
+\quad\text{and}\quad
+u\cdot a_j<0.
+\]
+
+**Proof.** Otherwise \(u\cdot a_j\ge 0\) for every active index \(j\), and at least one active index has \(u\cdot a_i>0\). Then
+\[
+0
+=
+u\cdot \sum_i m_i a_i
+=
+\sum_i m_i (u\cdot a_i)
+>
+0,
+\]
+a contradiction. \(\square\)
+
+So projection only shows that the active edge vectors cannot all lie in a single open half-plane through the origin. It does **not** force cancellation to occur by parallel or antiparallel direction classes.
+
+---
+
+If you want a version with **no accidental zero projection** at all, one can also use the five unit vectors at arguments \(0,\frac{2\pi}{5},\frac{4\pi}{5},\frac{6\pi}{5},\frac{8\pi}{5}\): their sum is \(0\) by the fifth-roots-of-unity identity, and their partial sums form a regular pentagon, hence a convex polygon. That gives a counterexample even when every other edge is neither parallel nor perpendicular to \(a_k\). ([dlmf.nist.gov](https://dlmf.nist.gov/1.11.iv))
+
+So the correct conclusion is:
+
+\[
+\textit{the closure equation } \sum_i m_i a_i=0 \textit{ with } m_i\ge 0
+\textit{ does not imply } m_k=0 \textit{ from “no parallel counterpart” alone.}
+\]
+
+If you want, I can help formulate a **corrected lemma** that uses additional hypotheses from \( \mathrm{SP1\text{--}4} \) and *is* actually provable.

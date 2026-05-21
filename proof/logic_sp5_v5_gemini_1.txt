@@ -1,0 +1,25 @@
+The proof structure is **not valid** as written.
+
+### Issues
+
+1. **The main case split in Subproblem 2 is not a clean/exhaustive decomposition.**  
+   The whole proof depends on Subproblem 2 reducing the problem to two branches, but the alternatives are not formulated as a clear partition of all configurations with at least three direction classes. In particular, the second branch (“there exist \(a_i,a_j\) with \(a_j=\lambda a_i\)”) is not a strong structural conclusion by itself.
+
+2. **Subproblem 3 does not follow from Subproblem 2 as stated.**  
+   Subproblem 3 needs a stronger hypothesis than Subproblem 2 provides: it talks about “opposite edges” and overlapping chains in \(Q\), while Subproblem 2 only mentions edges in the same direction class. The dependency is therefore incomplete.
+
+3. **The notion of “direction class” is used inconsistently.**  
+   The outline mixes “same direction” (positive scalar multiple) with “parallel/opposite edges” as though they were interchangeable. Since the case analysis relies on this notion, that ambiguity breaks the logical structure.
+
+4. **The uniform-length branch is not fully decomposed.**  
+   Subproblem 4 gives a parity-based route for odd \(n\), but for even \(n\) it only says to “explicitly construct an extra non-canceling point.” That is a substantial additional lemma/case analysis, and it is not isolated as its own subproblem.
+
+5. **Some geometric properties of the auxiliary polygon/chain \(Q\) are used without being established in the outline.**  
+   Statements such as “same vertex of \(Q\),” “overlap,” and “\(Q=mP\)” are central to the contradictions in Subproblems 3 and 4, but the needed structural facts about \(Q\) are not cleanly included in the decomposition.
+
+### Relevance
+
+- Subproblem 1 is relevant.
+- Subproblems 2–4 are intended to be relevant, but **Subproblem 2 is not formulated strongly enough in the right way** to support the later steps.
+
+So the outline has the right high-level idea, but **the decomposition has logical gaps and mismatched dependencies**, so it is not structurally sound yet.

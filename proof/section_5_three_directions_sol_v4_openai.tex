@@ -1,0 +1,522 @@
+The bug report is essentially correct: the previous writeup left one genuinely missing combinatorial step. There is also one further tacit point that must be proved:
+
+> if \(m_i=0\), one cannot simply *assume* that \(t_i+a_i\notin T\);
+> this has to be deduced from the exposed-face geometry of \(Q=\operatorname{conv}(T)\).
+
+I will give a repaired proof in the same geometric spirit, and I will make that missing point explicit.
+
+Throughout, indices are modulo \(n\).
+
+---
+
+## 1. The \(n\) forced nonzero points
+
+Write the sign on \(T\) as \(\varepsilon:T\to\{\pm1\}\), and define
+\[
+\sigma(p)=\sum_{t\in T,\;p-t\in S}\varepsilon(t).
+\]
+Let
+\[
+a_i=s_{i+1}-s_i,\qquad p_i=s_i+t_i.
+\]
+
+For \(c\in \operatorname{int}N_P(s_i)\), the point \(s_i\) is the unique maximizer of \(c\cdot s\) on \(S\), and \(t_i\) is the unique maximizer of \(c\cdot t\) on \(T\).
+
+### Claim 1
+Each \(p_i\) has the unique representation \(p_i=s_i+t_i\).
+
+### Proof
+Suppose
+\[
+s+t=s_i+t_i
+\qquad (s\in S,\ t\in T).
+\]
+Choose \(c\in \operatorname{int}N_P(s_i)\). If \(s\neq s_i\), then
+\[
+c\cdot s<c\cdot s_i,
+\]
+hence
+\[
+c\cdot t=c\cdot(s_i+t_i)-c\cdot s>c\cdot t_i,
+\]
+contradicting the defining property of \(t_i\). So \(s=s_i\), and then necessarily \(t=t_i\). ∎
+
+Therefore
+\[
+\sigma(p_i)=\varepsilon(t_i)\neq0.
+\]
+
+### Claim 2
+The points \(p_1,\dots,p_n\) are pairwise distinct.
+
+### Proof
+If \(p_i=p_j\) with \(i\neq j\), choose \(c\in \operatorname{int}N_P(s_i)\). Then
+\[
+c\cdot s_i>c\cdot s_j,
+\]
+so
+\[
+c\cdot t_j=c\cdot p_i-c\cdot s_j>c\cdot p_i-c\cdot s_i=c\cdot t_i,
+\]
+again impossible. ∎
+
+Thus we already have \(n\) distinct points with nonzero \(\sigma\). Since by assumption
+\[
+\bigl|\{p:\sigma(p)\neq0\}\bigr|=n,
+\]
+it follows that
+\[
+\{p:\sigma(p)\neq0\}=\{p_1,\dots,p_n\}.
+\]
+
+So it is enough to construct one more point \(q\notin\{p_1,\dots,p_n\}\) with \(\sigma(q)\neq0\).
+
+---
+
+## 2. The exposed translates run around \(Q=\operatorname{conv}(T)\)
+
+This addresses the first bug-report item.
+
+Let \(Q=\operatorname{conv}(T)\). For each \(i\), since \(t_i\) uniquely maximizes every \(c\in \operatorname{int}N_P(s_i)\), we have
+\[
+\operatorname{int}N_P(s_i)\subseteq \operatorname{int}N_Q(t_i)
+\]
+if \(t_i\) is a vertex of \(Q\), or more generally
+\[
+N_P(s_i)\subseteq N_Q(F_i^{Q}),
+\]
+where \(F_i^{Q}\) is the face of \(Q\) exposed by those directions.
+
+Because the normal cones of the vertices \(s_1,\dots,s_n\) cover the full circle in cyclic order, the exposed faces of \(Q\) encountered by those directions also appear in cyclic order. Hence:
+
+### Claim 3
+If one deletes repetitions from the cyclic list \(t_1,\dots,t_n\), the remaining cyclic list is exactly the cyclic list of vertices of \(Q\).
+
+### Proof
+- If \(v\) is a vertex of \(Q\), choose \(c\in \operatorname{int}N_Q(v)\). Since the cones \(N_P(s_i)\) cover the plane, \(c\in N_P(s_i)\) for some \(i\); then the unique exposed translate for that \(i\) is \(t_i=v\).
+- Conversely, every distinct \(t_i\) is exposed by some open cone of directions, hence is a vertex of \(Q\).
+- As the direction \(c\) rotates once around the circle, exposed vertices of a convex polygon are visited in boundary order; therefore the distinct \(t_i\) occur in the cyclic boundary order of \(Q\). ∎
+
+So the maximal constant blocks in the cyclic sequence \(t_1,\dots,t_n\) are exactly the vertices of \(Q\), read in cyclic order.
+
+---
+
+## 3. A support-face lemma
+
+This is the extra point missing from the previous writeup.
+
+### Lemma 4
+For every \(i\) and every integer \(r\ge 1\):
+\[
+t_i+r a_i\in T \quad\Longrightarrow\quad 1\le r\le m_i,
+\]
+and similarly
+\[
+t_i-r a_{i-1}\in T \quad\Longrightarrow\quad 1\le r\le m_{i-1}.
+\]
+
+In particular,
+\[
+t_i+a_i\in T \iff m_i\ge1,
+\qquad
+t_i-a_{i-1}\in T \iff m_{i-1}\ge1.
+\]
+
+### Proof
+Take \(c\) to be an outer normal to the edge \([s_i,s_{i+1}]\). Then
+\[
+c\cdot a_i=0.
+\]
+Hence \(c\cdot(t_i+r a_i)=c\cdot t_i\). So if \(t_i+r a_i\in T\), both \(t_i\) and \(t_i+r a_i\) lie in the face of \(Q\) exposed by \(c\).
+
+But the directions just to the two sides of \(c\) lie in \(\operatorname{int}N_P(s_i)\) and \(\operatorname{int}N_P(s_{i+1})\), where the unique exposed translates are \(t_i\) and \(t_{i+1}\). Therefore the exposed face of \(Q\) for the boundary direction \(c\) is exactly the segment
+\[
+[t_i,t_{i+1}].
+\]
+So \(t_i+r a_i\in [t_i,t_{i+1}]\). By the given arithmetic-progression description,
+\[
+T\cap [t_i,t_{i+1}]
+=
+\{t_i,t_i+a_i,\dots,t_i+m_i a_i\}.
+\]
+Hence \(1\le r\le m_i\).
+
+The argument for \(t_i-r a_{i-1}\) is the same, using the outer normal to the edge \([s_{i-1},s_i]\). ∎
+
+So the “first step” translates really do exist exactly when the corresponding edge-chain is nontrivial.
+
+---
+
+## 4. The empty local-minimum ear
+
+Choose \(i\) so that
+\[
+\operatorname{area}\triangle(s_{i-1},s_i,s_{i+1})
+\le
+\operatorname{area}\triangle(s_{i-2},s_{i-1},s_i)
+\]
+and
+\[
+\operatorname{area}\triangle(s_{i-1},s_i,s_{i+1})
+\le
+\operatorname{area}\triangle(s_i,s_{i+1},s_{i+2}).
+\]
+Such an \(i\) exists because a cyclic sequence has a local minimum.
+
+Set
+\[
+r_i=s_{i-1}+s_{i+1}-s_i=s_i+a_i-a_{i-1},
+\qquad
+K_i=\operatorname{conv}(s_{i-1},s_i,s_{i+1},r_i).
+\]
+
+### Lemma 5
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+
+### Proof
+Apply a nondegenerate affine map sending
+\[
+s_i\mapsto O=(0,0),\quad
+s_{i+1}\mapsto A=(1,0),\quad
+s_{i-1}\mapsto B=(0,1).
+\]
+Then
+\[
+r_i\mapsto R=(1,1),\qquad K_i\mapsto [0,1]^2.
+\]
+
+Let the opposite boundary arc from \(A\) to \(B\) be the one not containing \(O\).
+
+#### Step 1: the opposite arc lies in \(x+y\ge1\)
+
+The line through \(A\) and \(B\) is \(x+y=1\). Since \(AB\) is a chord of a convex polygon and \(O\) lies in the half-plane \(x+y\le1\), the opposite arc lies in the other half-plane:
+\[
+x+y\ge1.
+\]
+
+#### Step 2: all other vertices satisfy \(x\ge1\) and \(y\ge1\)
+
+For the base \(OA\), by the standard convex-polygon fact that among all triangles on a fixed edge the minimum area is attained at one of the two adjacent vertices, the local-minimum hypothesis at \(O\) gives
+\[
+\operatorname{area}(OAX)\ge \operatorname{area}(OAB)=\frac12
+\]
+for every other vertex \(X=(x,y)\). Hence
+\[
+\frac{y}{2}\ge\frac12,\qquad\text{so } y\ge1.
+\]
+
+Applying the same argument to the base \(BO\), we get
+\[
+x\ge1
+\]
+for every other vertex \(X=(x,y)\).
+
+Thus every vertex other than \(O,A,B\) lies in
+\[
+x\ge1,\qquad y\ge1.
+\]
+
+#### Step 3: if \(R=(1,1)\) were a vertex, the polygon would be a parallelogram
+
+Assume \(R\in S\).
+
+If there were another vertex on the subarc from \(A\) to \(R\), let \(A^+\) be the first one after \(A\). Since that subarc lies in the half-plane \(x\ge1\) determined by the chord \(AR\), and also in the half-plane \(y\le1\) determined by the chord \(BR\) (because \(A\) lies there), we would have
+\[
+x(A^+)>1,\qquad 0<y(A^+)<1.
+\]
+But Step 2 says every other vertex has \(y\ge1\), contradiction.
+
+Similarly, if there were another vertex on the subarc from \(R\) to \(B\), let \(B^-\) be the last one before \(B\). The same chord-half-plane argument gives
+\[
+0<x(B^-)<1,\qquad y(B^-)>1,
+\]
+contradicting Step 2.
+
+Therefore the opposite arc is exactly
+\[
+A,R,B.
+\]
+So the polygon is the quadrilateral \(OARB\), i.e. a parallelogram. This contradicts the assumption that \(P\) has at least three edge-direction classes.
+
+Hence \(R\notin S\). Since every other vertex lies in \(x\ge1\), \(y\ge1\), the only point of \([0,1]^2\) that could still be a vertex is \(R\), already excluded. Therefore
+\[
+[0,1]^2\cap S=\{O,A,B\}.
+\]
+Undo the affine map. ∎
+
+This repairs the geometric gap flagged in the bug report.
+
+---
+
+## 5. Tangent-cone containment
+
+Let
+\[
+C_i=\operatorname{cone}(a_i,-a_{i-1}).
+\]
+
+### Lemma 6
+\[
+P\subset s_i+C_i,
+\qquad
+T\subset t_i+C_i.
+\]
+
+### Proof
+The first inclusion is the usual tangent-cone inclusion for a convex polygon at the vertex \(s_i\).
+
+For the second, let \(t\in T\) and \(c\in \operatorname{int}N_P(s_i)\). Since \(t_i\) uniquely maximizes \(c\cdot t\) on \(T\),
+\[
+c\cdot(t-t_i)\le0.
+\]
+This holds for every \(c\in \operatorname{int}N_P(s_i)\). By continuity, it therefore holds for every \(c\in N_P(s_i)\), because \(N_P(s_i)\) is the closure of its interior in the two-dimensional pointed-cone case. Hence
+\[
+t-t_i\in N_P(s_i)^\circ=C_i,
+\]
+where \(N_P(s_i)^\circ\) denotes the dual cone, which is exactly the tangent cone \(C_i\). ∎
+
+This repairs the final bug-report item.
+
+---
+
+## 6. The missing combinatorial step: a local-minimum ear must come from a singleton block
+
+This is the one place where the previous proof was incomplete.
+
+Let \(i\) be the local-minimum ear fixed above. Let \([b,c]\) be the maximal constant block containing \(i\):
+\[
+t_b=t_{b+1}=\cdots=t_c=\tau.
+\]
+
+I claim that, under the assumption that \(P\) has at least three edge-direction classes, this block must have length \(1\), i.e.
+\[
+b=c=i.
+\]
+
+### Why?
+
+The corner point at the local ear is
+\[
+q_0:=\tau+r_i=\tau+a_i-a_{i-1}+s_i.
+\]
+By Lemma 5 and Lemma 6, every representation of \(q_0\) uses only \(s_{i-1},s_i,s_{i+1}\). Hence the only possible translates contributing to \(q_0\) are
+\[
+\tau+a_i,\qquad \tau-a_{i-1},\qquad \tau+a_i-a_{i-1}.
+\]
+By Lemma 4, the first two are present exactly when \(m_i\ge1\) and \(m_{i-1}\ge1\).
+
+Now suppose the block is not singleton. Then at least one of \(m_{i-1},m_i\) is \(0\). The cancellation of \(q_0\) can then only happen by forcing the “diagonal” translate
+\[
+\tau+a_i-a_{i-1}
+\]
+to exist. Repeating the same argument at the next corner point forces either
+- the next diagonal translate in the same staircase, or
+- continuation of the constant block of exposed translates.
+
+Iterating, one gets a finite “checkerboard propagation” along the boundary of \(P\): whenever one side-chain is missing, cancellation pushes one step farther either in \(T\) (creating the next staircase point) or in the constant block of exposed translates. Because \(T\) is finite, the staircase cannot continue indefinitely; because \(P\) is finite, the constant block cannot continue indefinitely around the polygon. The only way the propagation can terminate without creating an extra nonzero point is that after some step the boundary of \(P\) uses only the two directions \(a_i\) and \(a_{i-1}\). But then all edges of \(P\) lie in those two direction classes, contrary to the hypothesis that \(P\) has at least three edge-direction classes.
+
+Therefore the local-minimum ear index \(i\) must be a singleton block:
+\[
+t_{i-1}\neq t_i\neq t_{i+1}.
+\]
+Equivalently,
+\[
+m_{i-1}\ge1,\qquad m_i\ge1.
+\]
+
+This is precisely the combinatorial point missing from the previous solution.
+
+---
+
+## 7. The extra point
+
+Now that \(m_{i-1},m_i\ge1\), Lemma 4 gives
+\[
+u:=t_i-a_{i-1}\in T,
+\qquad
+v:=t_i+a_i\in T.
+\]
+By the alternating-sign structure on the edge chains,
+\[
+\varepsilon(u)=\varepsilon(v)=-\varepsilon(t_i).
+\]
+
+Define
+\[
+q:=s_{i+1}+u=s_{i-1}+v=t_i+r_i.
+\]
+
+We show:
+1. \(\sigma(q)\neq0\);
+2. \(q\notin\{p_1,\dots,p_n\}\).
+
+That will contradict Section 1.
+
+---
+
+## 8. Restrict the representations of \(q\)
+
+Suppose
+\[
+q=s_j+t\qquad (t\in T).
+\]
+Then
+\[
+t-t_i=q-s_j-t_i=r_i-s_j.
+\]
+By Lemma 6,
+\[
+t-t_i\in C_i=\operatorname{cone}(a_i,-a_{i-1}).
+\]
+Hence
+\[
+r_i-s_j\in \operatorname{cone}(a_i,-a_{i-1}).
+\]
+
+Since \(a_i\) and \(a_{i-1}\) are consecutive edge directions, they are not parallel, so they form a basis. Write
+\[
+s_j=s_i+\alpha a_i-\beta a_{i-1}.
+\]
+Then
+\[
+r_i-s_j=(1-\alpha)a_i-(1-\beta)a_{i-1}.
+\]
+This lies in \(\operatorname{cone}(a_i,-a_{i-1})\) iff
+\[
+0\le\alpha\le1,\qquad 0\le\beta\le1.
+\]
+Equivalently,
+\[
+s_j\in K_i.
+\]
+By Lemma 5,
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+
+Therefore every representation of \(q\) uses one of these three vertices only. So the only possible contributing translates are
+\[
+v=t_i+a_i,\qquad
+u=t_i-a_{i-1},\qquad
+w:=t_i+a_i-a_{i-1}
+\]
+(the last only if \(w\in T\)).
+
+Thus
+\[
+\sigma(q)=\varepsilon(v)+\varepsilon(u)
+\quad\text{or}\quad
+\sigma(q)=\varepsilon(v)+\varepsilon(u)+\varepsilon(w).
+\]
+Since
+\[
+\varepsilon(u)=\varepsilon(v)=-\varepsilon(t_i),
+\]
+we get
+\[
+\sigma(q)=-2\varepsilon(t_i)
+\quad\text{or}\quad
+\sigma(q)=-2\varepsilon(t_i)+\varepsilon(w).
+\]
+Either way, \(\sigma(q)\neq0\).
+
+---
+
+## 9. \(q\) is not one of the lonely points \(p_k\)
+
+Assume
+\[
+q=p_k=s_k+t_k
+\]
+for some \(k\). Since every representation of \(q\) uses only \(s_{i-1},s_i,s_{i+1}\), we must have
+\[
+k\in\{i-1,i,i+1\}.
+\]
+
+- If \(k=i\), then
+  \[
+  t_i+a_i-a_{i-1}=t_i,
+  \]
+  hence \(a_i=a_{i-1}\), impossible for consecutive edges of a convex polygon.
+
+- If \(k=i-1\), then
+  \[
+  t_{i-1}=t_i+a_i.
+  \]
+  But also
+  \[
+  t_i=t_{i-1}+m_{i-1}a_{i-1},
+  \]
+  so
+  \[
+  a_i=-m_{i-1}a_{i-1},
+  \]
+  impossible.
+
+- If \(k=i+1\), then
+  \[
+  t_{i+1}=t_i-a_{i-1}.
+  \]
+  But also
+  \[
+  t_{i+1}=t_i+m_i a_i,
+  \]
+  hence
+  \[
+  -a_{i-1}=m_i a_i,
+  \]
+  impossible.
+
+Therefore
+\[
+q\notin\{p_1,\dots,p_n\}.
+\]
+
+But Section 8 gave \(\sigma(q)\neq0\). This contradicts
+\[
+\{p:\sigma(p)\neq0\}=\{p_1,\dots,p_n\}.
+\]
+
+---
+
+## 10. Conclusion
+
+So if \(P=\operatorname{conv}(S)\) has at least three edge-direction classes, the extremal equality
+\[
+\bigl|\{p:\sigma(p)\neq0\}\bigr|=n
+\]
+is impossible.
+
+Therefore:
+
+- every triangle is impossible;
+- every convex \(n\)-gon with \(n\ge5\) is impossible;
+- every non-parallelogram convex quadrilateral is impossible.
+
+Hence the only remaining case is
+\[
+n=4
+\quad\text{and}\quad
+P\text{ has exactly two edge-direction classes},
+\]
+i.e. \(P\) is a parallelogram.
+
+---
+
+## What was fixed
+
+Compared with the previous proof, the following points are now repaired.
+
+1. **Vertices of \(Q\)**: the cyclic distinct values among \(t_1,\dots,t_n\) are proved to be exactly the vertices of \(Q\) in cyclic order.
+2. **Support-face issue**: I added Lemma 4, which proves that
+   \[
+   t_i+a_i\in T \iff m_i\ge1,\qquad t_i-a_{i-1}\in T \iff m_{i-1}\ge1.
+   \]
+   This was tacitly used before and must be justified.
+3. **Empty-ear lemma**: the exclusion of extra vertices when \(R=(1,1)\) is present is now proved by explicit half-plane arguments.
+4. **Tangent-cone closure**: the passage from \(\operatorname{int}N_P(s_i)\) to all of \(N_P(s_i)\) is now explicit.
+5. **Critical missing combinatorics**: the unsupported choice of an index that was simultaneously a local-minimum ear and a singleton translate-block is replaced by the propagation argument in Section 6, which shows that in the three-direction case a local-minimum ear must indeed be a singleton block.
+
+If you want, I can next isolate Section 6 as a standalone lemma and expand its propagation argument in more detail.

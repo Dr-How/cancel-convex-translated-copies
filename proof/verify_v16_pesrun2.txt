@@ -1,0 +1,83 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:**  
+   “`x_1,\dots,x_n : vertices of a convex n-gon (CCW), n >= 3.`”  
+   “`T = {x_1,\dots,x_n} = supp(sigma_T).`”  
+   and  
+   “Assume for contradiction that \(T\) has \(\ge 3\) edge-direction classes and both signs.”
+
+   **Description — Critical Error:**  
+   This changes the problem. In the stated subproblem, \(S\) is the convex \(n\)-gon, \(P=\operatorname{conv}(S)\) has the edge directions \(a_i\), and \(T\) is an arbitrary finite signed set of translates. The solution instead assumes \(T\) itself is a convex \(n\)-gon with exactly \(n\) points and then builds \(a_i,s_j\) from that new \(T\). No equivalence between these two setups is established, so the proof is not verifying the stated claim.
+
+2. **Location:**  
+   “`KEY EQUATIONS:`”  
+   “`(NL) For p not in T:  sum_{j=1}^n sigma_T(p - s_j) = 0.`”  
+   “`(S0) For t in T, t != t_k:  sum_{j=1}^n sigma_T(t + s_k - s_j) = 0.`”  
+   and every later use of `\eqref{eq:S0}`.
+
+   **Description — Justification Gap:**  
+   These are the main equations driving the proof, but they are neither stated in the problem nor derived in the solution. The subproblem explicitly allows only the two listed facts from Subproblems 1–4; (NL) and (S0) are additional results used without justification.
+
+3. **Location:**  
+   “`Closure: sum_{i=1}^n m_i * a_i = 0,  sum_{i=1}^n m_i = n.`”
+
+   **Description — Critical Error:**  
+   The vector identity \(\sum_i m_i a_i=0\) can be obtained by summing \(t_{i+1}-t_i=m_i a_i\) around the cycle. But the scalar identity \(\sum_i m_i=n\) is not given, not proved, and does not follow from the stated facts. It is then used essentially later, e.g. to force \(m=1\) in the \(n=3\) case and in Step 2 for \(n\ge4\).
+
+4. **Location:**  
+   “`T = F_1 \cup \cdots \cup F_n`”  
+   and, in the triangle case,  
+   “`T = F_1 \cup F_2 \cup F_3.`”
+
+   **Description — Justification Gap:**  
+   The problem only defines \(F_i=T\cap[t_i,t_{i+1}]\). It does **not** state that every element of \(T\) lies on one of these chains. The triangle membership check and the Step 2 argument both rely on this unproved union.
+
+5. **Location:**  
+   “Since \(|\{[a_1],\ldots,[a_n]\}| \ge 3\), we may relabel so that \([a_3] \neq [a_1]\), giving \(\mu := \beta(a_3) \neq 0\).”
+
+   **Description — Critical Error:**  
+   \([a_3]\neq[a_1]\) only excludes **positive** scalar multiples. It does not exclude \(a_3\) being a **negative** scalar multiple of \(a_1\). If \(a_3=-\lambda a_1\), then \(\beta(a_3)=0\) because \(\beta(a_1)=0\). So \(\mu\neq0\) does not follow.
+
+6. **Location:**  
+   “Fix \(\beta\) with \(\beta(a_1)=0\), \(\beta(a_2)=1\), and \(h(p)=\beta(p-t_1)\ge 0\) for all \(p\in T\) (possible since \(t_1\) is a vertex of \(\mathrm{conv}(T)\)).”  
+   and  
+   “For \(j \ge 3\): \(c_j = h(x_j) > 0\) since \(x_j\) lies strictly above the line through \(x_1\) parallel to \(a_1\) ...”
+
+   **Description — Justification Gap:**  
+   These geometric facts are asserted, not proved in the stated setup. The proof does not establish here that \(t_1\) is a vertex of \(\operatorname{conv}(T)\), that one can choose a supporting functional satisfying both \(\beta(a_1)=0\) and \(\beta(a_2)=1\), or that every \(c_j\) for \(j\ge3\) is strictly positive.
+
+7. **Location:**  
+   “But \(F_1\) is finite (\(m_1 + 1 \le n\) elements).”
+
+   **Description — Critical Error:**  
+   The bound \(m_1+1\le n\) is false as written. Even if one accepted \(\sum_i m_i=n\), that would only give \(m_1\le n\), hence \(|F_1|=m_1+1\le n+1\), not \(\le n\). So the numerical justification given is incorrect.
+
+8. **Location:**  
+   “by \(\sum m_i = n \ge 4\) and \(m_i \ge 0\): some \(m_j \ge 1\) for \(j \neq 1\).”
+
+   **Description — Critical Error:**  
+   This inference is false. For example, \(m_1=n\) and \(m_j=0\) for all \(j\neq1\) satisfies the displayed premises. So the Step 2 reasoning starts with an invalid deduction.
+
+9. **Location:**  
+   “Sub-case B2: All \(\delta_j = 0\) for \(j \in J_0\). Then \(D_2 = D_1 = 0\): identical to Case A.”
+
+   **Description — Critical Error:**  
+   \(D_2\) is \(\sum_{j\in J_0}\delta_j\), but \(D_1\) is \(\sum_{j\in J_0}\delta'_j\), where \(\delta'_j=\sigma_T(t'-s_j)\). Vanishing of the \(\delta_j\) says nothing about the \(\delta'_j\). Therefore \(D_1=0\) is unsupported, and Sub-case B2 does not go through.
+
+10. **Location:**  
+    “Repeating: for all \(k \in \mathbb{Z}\), \(\sigma_T(q + k a_1) = (-1)^k \sigma_T(q) \neq 0\)”  
+    and similarly  
+    “use \(k=1\) instead of \(k=2\), by symmetry” / “identical argument by symmetry”.
+
+    **Description — Justification Gap:**  
+    The repeated propagation is not fully justified. The equation (S0) has exceptional points (\(t=t_1\) or \(t=t_2\), depending on which version is used), and the proof does not show these are never encountered or actually write out the promised “symmetric” replacement argument. The induction to all \(k\in\mathbb Z\) is therefore incomplete.
+
+11. **Location:**  
+    In Section 2, after  
+    “Since \([a_3] \neq [a_1]\), we have \(\mu = \beta(a_3) \neq 0\),”  
+    the rest of the \(n\ge4\) argument never uses \(\mu\) or any other three-direction feature.
+
+    **Description — Justification Gap:**  
+    The contradiction for \(n\ge4\) is not actually derived from the hypothesis “at least three edge-direction classes.” After setup, that hypothesis disappears from the argument. So the proof does not justify why its contradiction is specific to the three-direction case.
+
+Because there are multiple **Critical Errors** and **Justification Gaps**, the solution is **not valid**.

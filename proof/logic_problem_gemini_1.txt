@@ -1,0 +1,27 @@
+**The proof structure is not valid as stated.**
+
+Main issues:
+
+1. **It silently adds an extra hypothesis not in the problem.**  
+   Subproblem 1 assumes \(g\) is not a single monomial (and hints at conditions like \(|T|\ge 2\) or \(\sum \sigma(t)=0\)). That is **not** part of the stated setup. Under the given setup, a single translate with sign \(+1\) gives exactly \(n\) nonzero points for **any** convex-position \(S\), so the outline is not addressing the original statement.
+
+2. **Signed-multiset degeneracies are not covered.**  
+   The plan treats extreme coefficients as if they were automatically \(\pm1\), but \(T\) is a **multiset**: repeated translation vectors with opposite signs can cancel. So the decomposition in Subproblem 1 is not aligned with the actual hypotheses.
+
+3. **Several steps assume \(S\) is 2-dimensional, but that is never established.**  
+   Subproblem 3 and the final paragraph assume \(\operatorname{Conv}(S)\) is a polygon (\(n\ge 3\)). The original problem allows \(n=1,2\), and the outline never proves equality forces the 2D case. So there are missing cases.
+
+4. **The outline constrains \(h\) and \(\operatorname{Conv}(S)+\operatorname{Conv}(T)\), not \(S\) itself.**  
+   Subproblems 4 and 5 only yield information about the support of \(h\), i.e. the vertices of \(\operatorname{Conv}(S+T)\). Even if that polygon has 4 vertices or is a parallelogram, there is no lemma transferring that structure back to \(S\).
+
+5. **The final inference “therefore \(S\) is a parallelogram” is unsupported.**  
+   Earlier lemmas only say edges of \(T\) are parallel to edges of \(S\), or that \(h\) factors by \((1-X^v)\). That does **not** establish that \(S\) has exactly two edge directions or opposite sides parallel. A crucial concluding lemma is missing.
+
+6. **At best the plan gets \(n\le 4\), not the stated classification.**  
+   Subproblem 5 bounds the number of paired segments, hence \(n\le 4\). But the target is stronger: equality should force **\(S\) itself** to be a parallelogram. That stronger conclusion is not obtained by the listed subproblems.
+
+7. **Subproblem 3 depends on a major external classification theorem whose role is not properly integrated.**  
+   The outline invokes a strong Newton-polytope/Ostrowski-type result with hypotheses not clearly tracked from earlier subproblems. So the dependency chain is not clean, especially if the goal is to prove the conjecture “from scratch.”
+
+**Relevance:**  
+There is no obvious major redundancy; most subproblems would be relevant in a repaired proof. The problem is not extra lemmas, but **missing cases and a missing bridge from properties of \(h\) / \(S+T\) to a structural conclusion about \(S\)**.

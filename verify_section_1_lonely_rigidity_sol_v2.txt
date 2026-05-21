@@ -1,0 +1,28 @@
+**Bug report:** the submission is **not** a correct proof of the stated problem.
+
+1. **Critical Error**  
+   **Location:** “So the theorem that can actually be proved is the same statement with the added hypothesis \(T\neq\varnothing\). I will prove that corrected statement.”  
+   **Description:** The argument explicitly switches to a **different theorem** than the one stated in the problem. The observation that the original part (1) fails when \(T=\varnothing\) is correct, but the rest of the writeup is then only a proof of a modified statement, not of the original problem.
+
+2. **Justification Gap**  
+   **Location:** “Indeed, if \(s\in K_s\), then \(s\) is a convex combination of points of \(S\setminus\{s\}\). Grouping one term against the convex combination of the remaining terms would write \(s\) as a nontrivial convex combination of two points of \(\operatorname{conv}(S)\), contradicting that \(s\) is an extreme point.”  
+   **Description:** This contradiction is only sketched. The proof does not explicitly construct the two points in \(\operatorname{conv}(S)\), nor verify that the coefficients are genuinely in \((0,1)\), which is needed for a **nontrivial** convex combination. Under the stated grading rules, this is not fully justified.
+
+3. **Justification Gap**  
+   **Location:** “Since \(K_s\) is the convex hull of a finite set, it is compact. Therefore the continuous function
+   \[
+   y\mapsto \|s-y\|
+   \]
+   attains its minimum on \(K_s\). Choose \(y_s\in K_s\)…”  
+   **Description:** This minimum-attainment step also requires that \(K_s\neq\varnothing\). The proof never explicitly states that \(n\ge 2\) implies \(S\setminus\{s\}\neq\varnothing\), hence \(K_s\) is nonempty. The choice of \(y_s\) is therefore not fully justified as written.
+
+4. **Justification Gap**  
+   **Location:**  
+   \[
+   \sum_{p\in S+T}\ \sum_{\substack{t\in T\\ p-t\in S}}\sigma(t)
+   =
+   \sum_{(s,t)\in S\times T}\sigma(t).
+   \]
+   **Description:** The reindexing of the finite sum is used without explicit justification. To validate this equality, the proof should state the correspondence between left-hand summands and pairs \((s,t)\in S\times T\) via \(p=s+t\). Under the “no missing steps” standard, this is a gap.
+
+Because there is a **Critical Error**, the solution is not correct.

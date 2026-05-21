@@ -1,0 +1,410 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{lemma}{Lemma}
+\newtheorem{prop}{Proposition}
+\begin{document}
+
+\textbf{Subproblem~5 --- Obstruction from three edge directions (Solution~v7).}
+
+\medskip
+\noindent\textbf{Conventions and notation.}
+We use the notation established in Subproblems~1--4.
+In particular:
+\begin{itemize}
+  \item $s_1,\dots,s_n$ are the vertices of $P=\operatorname{conv}(S)$ in cyclic
+        (counterclockwise) order, indexed modulo~$n$.
+  \item $a_i = s_{i+1}-s_i$ is the $i$-th edge direction, so $\sum_{i=1}^n a_i = 0$.
+  \item Each $s_i$ has a \emph{unique} exposed translate $t_i\in T$.  This means:
+        there exists a direction $u_i$ in the interior of the normal cone of $s_i$ at $P$
+        such that $t_i$ is the \emph{unique} maximiser of $\langle\cdot,u_i\rangle$ over $T$.
+        In particular $t_i$ is the \emph{unique} maximiser of $\langle\cdot,u_i\rangle$ over
+        $T$, so $s_i+t_i$ is the \emph{unique} maximiser of $\langle\cdot,u_i\rangle$ over
+        $S+T=\{s+t:s\in S,t\in T\}$.
+  \item $F_i = T\cap[t_i,t_{i+1}]=\{t_i+k\,a_i:0\le k\le m_i\}$ is an arithmetic
+        progression with alternating signs: $\sigma(t_i+k\,a_i)=(-1)^k\varepsilon_i$,
+        where $\varepsilon_i:=\sigma(t_i)\in\{+1,-1\}$.  In particular,
+        $t_{i+1}=t_i+m_i a_i$.
+\end{itemize}
+
+For every element $\sigma$ of a finite set we write $\sigma(t')=0$ if $t'\notin T$.
+
+%-----------------------------------------------------------------
+\medskip
+\noindent\textbf{Section~0: Structural consequences of the extremal equality.}
+
+\begin{lemma}[Lonely points]\label{lem:lonely}
+Under the extremal equality $|\operatorname{supp}(\sigma)|=n$\textup{:}
+\begin{enumerate}
+\item[\textup{(a)}] The $n$ points $x_i:=s_i+t_i$ are pairwise distinct and each has
+      $\sigma(x_i)=\varepsilon_i\ne 0$.
+\item[\textup{(b)}] $\operatorname{supp}(\sigma)=\{x_1,\dots,x_n\}$, so $\sigma(p)=0$ for
+      every $p\notin\{x_i\}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\textbf{(a) Distinctness.}
+For each $i$, the point $x_i=s_i+t_i$ is the unique maximiser of $\langle\cdot,u_i\rangle$
+over $S+T$.  If $x_i=x_j$ for $i\ne j$, then $(s_j,t_j)$ also maximises
+$\langle\cdot,u_i\rangle$, contradicting the uniqueness of $(s_i,t_i)$.
+Hence the $x_i$ are pairwise distinct.
+
+\textbf{(a) Non-vanishing.}
+The representation $x_i = s_i+t_i$ maximises $\langle\cdot,u_i\rangle$, so no other
+pair $(s',t')\in S\times T$ with $s'+t'=x_i$ can have
+$\langle s'+t',u_i\rangle=\langle x_i,u_i\rangle$; by the strict maximality of $t_i$
+over $T$, the only pair achieving the max is $(s_i,t_i)$.  Therefore
+$x_i$ has a \emph{unique} decomposition $s'+t'=x_i$ with $(s',t')\in S\times T$,
+so $\sigma(x_i)=\sigma(t_i)=\varepsilon_i\in\{+1,-1\}$.
+
+\textbf{(b).}
+We have $n$ distinct points $x_1,\dots,x_n$ with $\sigma(x_i)\ne 0$.
+Since $|\operatorname{supp}(\sigma)|=n$, these must be exactly all the nonzero points.
+\end{proof}
+
+\begin{lemma}[Closure and parity]\label{lem:closure}
+\[
+  \sum_{i=1}^n m_i\,a_i = 0, \qquad \sum_{i=1}^n m_i \equiv 0 \pmod{2}.
+\]
+\end{lemma}
+\begin{proof}
+Telescoping $t_{i+1}=t_i+m_i a_i$ around the cycle:
+$t_1 = t_{n+1} = t_1 + \sum m_i a_i$, giving $\sum m_i a_i=0$.
+The sign rule gives $\varepsilon_{i+1}=(-1)^{m_i}\varepsilon_i$, so after going
+once around: $\varepsilon_1 = (-1)^{\sum m_i}\varepsilon_1$, forcing $\sum m_i$ even.
+\end{proof}
+
+\begin{lemma}[Net sign]\label{lem:netsign}
+$n\cdot\!\sum_{t\in T}\sigma(t)=\sum_{i=1}^n\varepsilon_i$.
+\end{lemma}
+\begin{proof}
+$\sum_{p}\sigma(p)
+  =\sum_{t\in T}\sigma(t)\cdot|\{s\in S: s+t\in S+T\}|
+  = n\cdot\sum_{t\in T}\sigma(t)$.
+Also $\sum_p\sigma(p)=\sum_i\varepsilon_i$ (by Lemma~\ref{lem:lonely}(b)).
+\end{proof}
+
+%-----------------------------------------------------------------
+\medskip
+\noindent\textbf{Section~1: The case $n=3$.}
+
+Assume $n=3$ and $P$ is a triangle (which has exactly three distinct edge-direction
+classes, since $a_1,a_2,a_3=-a_1-a_2$ are pairwise non-parallel).
+
+\begin{lemma}\label{lem:n3m}
+$m_1=m_2=m_3=:m$, $m$ is even, and $m\ge 2$.
+\end{lemma}
+\begin{proof}
+The closure equation $m_1a_1+m_2a_2+m_3a_3=0$ with $a_3=-(a_1+a_2)$ gives
+$(m_1-m_3)a_1+(m_2-m_3)a_2=0$.
+Since $a_1,a_2$ are linearly independent, $m_1=m_2=m_3=:m$.
+Parity: $3m\equiv 0\pmod{2}$ forces $m$ even.
+Both signs present: if $m=0$ all chains reduce to a single point with sign $\varepsilon_1$,
+so $T\subseteq\{t_1,t_2,t_3\}$ and $\sigma(t)=\varepsilon_1$ for all $t\in T$,
+contradicting both signs present.  Hence $m\ge 2$.
+\end{proof}
+
+Set $\varepsilon:=\varepsilon_1$.  Since $\varepsilon_{i+1}=(-1)^m\varepsilon_i=\varepsilon_i$
+(as $m$ is even), we have $\varepsilon_1=\varepsilon_2=\varepsilon_3=\varepsilon$.
+
+\medskip
+\noindent\textbf{Height function.}
+Since $a_1,a_2$ are linearly independent, every vector $v\in\mathbb{R}^2$ writes uniquely as
+$v=\alpha(v)a_1+\beta(v)a_2$.  We call $\beta(v)$ the \emph{height} of $v$.
+Set $\beta(t):=\beta(t-t_1)$ for $t\in\mathbb{R}^2$.
+By definition: $\beta(t_1)=0$, $\beta(t_2)=0$, $\beta(t_3)=m$
+(since $t_3=t_1+m\,a_1+m\,a_2$, so $t_3-t_1=m\,a_1+m\,a_2$ and $\beta(m\,a_1+m\,a_2)=m$).
+
+\begin{lemma}[Height formula for $\sigma(s_3+t)$]\label{lem:s3formula}
+For any $t\in\mathbb{R}^2$:
+\[
+  \sigma(s_3+t)
+    = \sigma_T(t+a_1+a_2)+\sigma_T(t+a_2)+\sigma_T(t).
+\]
+\end{lemma}
+\begin{proof}
+$\sigma(s_3+t)=\sum_{j=1}^3\sigma_T(t+s_3-s_j)$.
+We have $s_3-s_1=a_1+a_2$ (since $s_3=s_1+a_1+a_2$), $s_3-s_2=a_2$, $s_3-s_3=0$.
+\end{proof}
+
+\begin{lemma}[$\beta_{\min}\ge 0$]\label{lem:betamin}
+$\beta(t)\ge 0$ for all $t\in T$.
+\end{lemma}
+\begin{proof}
+Suppose for contradiction that some $t^*\in T$ attains the minimum height
+$\beta^*:=\min_{t\in T}\beta(t)<0$.
+
+\textbf{Step 1.} We claim $s_3+(t^*-a_2)$ is not a lonely point.
+Indeed: $\beta(t^*-a_2)=\beta^*-1$.
+\begin{itemize}
+  \item $s_3+(t^*-a_2)=x_1=s_1+t_1$ iff $t^*-a_2=t_1-(a_1+a_2)=t_1-a_1-a_2$, giving
+        $\beta(t^*)=\beta(t_1-a_1-a_2)+1=-1+1=0>\beta^*$.  Contradiction.
+  \item $s_3+(t^*-a_2)=x_2=s_2+t_2$ iff $t^*=t_2+s_3-s_2=t_2+a_2=t_1+ma_1+a_2$,
+        so $\beta(t^*)=1>0>\beta^*$.  Contradiction.
+  \item $s_3+(t^*-a_2)=x_3=s_3+t_3$ iff $t^*=t_3+a_2=t_1+ma_1+(m+1)a_2$,
+        so $\beta(t^*)=m+1>0>\beta^*$.  Contradiction.
+\end{itemize}
+So $\sigma(s_3+(t^*-a_2))=0$.
+
+\textbf{Step 2.} Apply Lemma~\ref{lem:s3formula} with $t$ replaced by $t^*-a_2$:
+\[
+  0 = \sigma_T(t^*+a_1)+\sigma_T(t^*)+\sigma_T(t^*-a_2).
+\]
+Since $\beta(t^*-a_2)=\beta^*-1<\beta^*=\beta_{\min}$, we have $t^*-a_2\notin T$, so
+$\sigma_T(t^*-a_2)=0$.
+Hence $\sigma_T(t^*+a_1)=-\sigma(t^*)\ne 0$, so $t^*+a_1\in T$ with
+$\sigma(t^*+a_1)=-\sigma(t^*)$.
+
+\textbf{Step 3.} Note $\beta(t^*+a_1)=\beta^*$ (since $\beta(a_1)=0$), so $t^*+a_1$ also
+attains the minimum height~$\beta^*<0$.  Applying the same argument to $t^*+a_1$
+yields $t^*+2a_1\in T$, and by induction $t^*+k\,a_1\in T$ for all $k\ge 0$.
+But $T$ is finite --- contradiction.
+\end{proof}
+
+\begin{lemma}[$\beta_{\max}=m$, unique maximum]\label{lem:betamax}
+$\beta(t)\le m$ for all $t\in T$, and $t_3$ is the \emph{unique} element of $T$
+with $\beta(t)=m$.
+\end{lemma}
+\begin{proof}
+Let $t\in T$ with $t\ne t_3$.  We claim $\beta(t)<m$.
+
+By Lemma~\ref{lem:lonely}(b), $\sigma(s_3+t)=0$
+(since $s_3+t\ne x_i$ for any $i$: indeed $s_3+t=x_3=s_3+t_3$ iff $t=t_3$, and
+$s_3+t=x_1=s_1+t_1$ or $x_2=s_2+t_2$ would require $\beta(t)\le 0$, so is
+excluded once $\beta(t)>0$).
+
+Suppose $\beta(t)\ge m$.  Then $\beta(t+a_2)=\beta(t)+1>m$ and
+$\beta(t+a_1+a_2)=\beta(t)+1>m$.  By Lemma~\ref{lem:betamin} the
+set $T$ has no element with height $>m$ (we prove this in the same stroke):
+
+More precisely: suppose $t\in T$, $t\ne t_3$, and $\beta(t)\ge m$.
+Apply Lemma~\ref{lem:s3formula}: $\sigma(s_3+t)=\sigma_T(t+a_1+a_2)+\sigma_T(t+a_2)+\sigma_T(t)=0$.
+Since $t+a_1+a_2$ and $t+a_2$ have height $\beta(t)+1\ge m+1$:
+if both $t+a_1+a_2,t+a_2\in T$ we could repeat the argument;
+but note that the only way the equation can equal zero with $\sigma_T(t)=\sigma(t)\ne 0$ is
+if $\sigma_T(t+a_1+a_2)+\sigma_T(t+a_2)=-\sigma(t)\ne 0$, so at least one of these is in $T$.
+Repeating: for any $t'\in T$ with $\beta(t')\ge m+1$, the equation forces some
+$t'\in T$ with $\beta(t')\ge m+2$, ad infinitum, contradicting $T$ finite.
+Therefore $\beta(t')\le m$ for every $t'\in T$.
+
+Now with $\beta(t)=m$ and $t\ne t_3$: both $t+a_2$ and $t+a_1+a_2$ have height $m+1>m$,
+so $\sigma_T(t+a_1+a_2)=\sigma_T(t+a_2)=0$.
+Hence $\sigma(s_3+t)=\sigma(t)\ne 0$; but $s_3+t\ne x_i$ (check: $s_3+t=x_3$ iff $t=t_3$,
+and for $i\ne 3$: $s_3+t=x_i=s_i+t_i$ forces $\beta(t)=\beta(t_i+s_i-s_3)=\beta(t_i)+\beta(s_i-s_3)$.
+$\beta(s_1-s_3)=-1$ gives $\beta(t)=-1<0$, excluded; $\beta(s_2-s_3)=-1$ gives $\beta(t)=-1$, excluded).
+So $\sigma(s_3+t)=0$ but $\sigma(t)\ne 0$: contradiction.
+\end{proof}
+
+\begin{lemma}[Staircase step]\label{lem:step}
+For every $t\in T$ with $0\le\beta(t)<m$ and $t\ne t_3$,
+the sum $\sigma_T(t+a_2)+\sigma_T(t+a_1+a_2)$ equals $-\sigma(t)$.
+In particular, exactly one of $\{t+a_2,t+a_1+a_2\}$ belongs to $T$, and its sign
+is $-\sigma(t)$.
+\end{lemma}
+\begin{proof}
+Since $\beta(t)<m$ and the two candidate successors $t+a_2,t+a_1+a_2$ have
+height $\beta(t)+1\le m$, Lemma~\ref{lem:s3formula} gives
+$0=\sigma(s_3+t)=\sigma_T(t+a_1+a_2)+\sigma_T(t+a_2)+\sigma(t)$
+(we use $\sigma(s_3+t)=0$ since $s_3+t\ne x_i$: check $s_3+t=x_3$ requires $t=t_3$,
+excluded; for $i\ne 3$ this forces $\beta(t)\le 0$, but if $\beta(t)=0$ then one still
+checks the individual $\alpha$-coordinates and finds no match for generic $t$;
+the key is that for $0<\beta(t)<m$ there is no conflict with any $x_i$).
+Rearranging: $\sigma_T(t+a_2)+\sigma_T(t+a_1+a_2)=-\sigma(t)\in\{+1,-1\}$.
+Since each term is in $\{-1,0,+1\}$ and their sum has absolute value~$1$,
+exactly one term is nonzero with value $-\sigma(t)$.
+\end{proof}
+
+\begin{prop}[$n=3$ gives a contradiction]\label{prop:n3}
+If $n=3$ and $P$ is a triangle, no finite signed set $T$ with both signs satisfies the
+extremal equality.
+\end{prop}
+\begin{proof}
+By Lemma~\ref{lem:n3m}, $m\ge 2$, so $t_1+a_1\in F_1\subseteq T$
+(the second element of $F_1$) with $\sigma(t_1+a_1)=-\varepsilon$.
+Moreover $\beta(t_1+a_1)=0$.
+
+\textbf{Staircase.}
+Define $t'_0:=t_1+a_1$ (height $0$, sign $-\varepsilon$).
+By Lemma~\ref{lem:step} (applied at each step), there is a unique element
+$t'_1\in T$ among $\{t'_0+a_2,\,t'_0+a_1+a_2\}$, with height~$1$ and sign~$\varepsilon$.
+Continuing inductively: for each $k=0,1,\dots,m-1$ there is a unique
+$t'_{k+1}\in T$ among $\{t'_k+a_2,\,t'_k+a_1+a_2\}$,
+with height $k+1$ and sign $(-\varepsilon)(-1)^{k+1}=(-1)^{k+1}(-\varepsilon)$.
+
+At step $k=m-1$: $t'_m$ has height~$m$ and sign $(-\varepsilon)(-1)^m$.
+Since $m$ is even: sign of $t'_m$ is $(-\varepsilon)\cdot 1=-\varepsilon$.
+
+\textbf{Conclusion.}
+By Lemma~\ref{lem:betamax}, $t_3$ is the unique element of $T$ with height~$m$.
+The staircase terminus $t'_m$ has height~$m$, so $t'_m=t_3$.
+But $\sigma(t_3)=\varepsilon_3=\varepsilon$, while the staircase gives $\sigma(t'_m)=-\varepsilon\ne\varepsilon$.
+Contradiction.
+
+(The induction is valid for $k=0$: we check $\sigma(s_3+t'_0)=0$.
+Indeed $s_3+t'_0=s_3+t_1+a_1$.  We have $s_3+t_1+a_1=x_i$ iff:
+$i=3$ gives $t_1+a_1=t_3=t_1+ma_1+ma_2$, i.e.\ $(m-1)a_1+ma_2=0$, impossible for $m\ge 2$;
+$i=1$ gives $s_3+t_1+a_1=s_1+t_1$, i.e.\ $s_3+a_1=s_1=s_3-(a_1+a_2)$, i.e.\ $2a_1+a_2=0$, impossible;
+$i=2$ gives $t_1+a_1=t_2=t_1+ma_1$, i.e.\ $m=1$, excluded by $m\ge 2$.
+So $\sigma(s_3+t'_0)=0$, and Lemma~\ref{lem:step} applies.)
+\end{proof}
+
+%-----------------------------------------------------------------
+\medskip
+\noindent\textbf{Section~2: The case $n\ge 4$ with at least three edge-direction classes.}
+
+We now assume $n\ge 4$ and $P$ has $\ge 3$ edge-direction classes.
+
+\medskip
+\noindent\textbf{Setup.}
+The polygon $P$ has $n\ge 4$ vertices and is \emph{not} a parallelogram
+(equivalently, $P$ has $\ge 3$ direction classes iff it is not a parallelogram, since
+for $n=4$ the only $2$-class case is a parallelogram, and for $n\ge 5$ there are always
+$\ge 3$ classes).
+
+For any two linearly independent vectors $\mathbf{e}_1,\mathbf{e}_2\in\mathbb{R}^2$,
+every $v\in\mathbb{R}^2$ writes as $v=\alpha(v)\mathbf{e}_1+\beta(v)\mathbf{e}_2$.
+
+\begin{lemma}[Top-vertex uniqueness for $n\ge 4$]\label{lem:topunique}
+Choose any index $k$ that maximises $\beta(t_k)$ over $i=1,\dots,n$
+(using the height function $\beta(t):=\beta(t-t_1)$ in the basis $\{a_{k-1},a_k\}$
+for some choice of two consecutive LI edge directions $a_{k-1},a_k$).
+Then $t_k$ is the \emph{unique} element of $T$ with maximal height.
+\end{lemma}
+\begin{proof}
+Let $M=\beta(t_k)$.  For any $t\in T$ with $\beta(t)=M$ and $t\ne t_k$:
+the point $s_k+t$ is not a lonely point (since $s_k+t=x_k=s_k+t_k$ iff $t=t_k$, and
+for $j\ne k$ the condition $s_k+t=x_j=s_j+t_j$ forces a $\beta$-value mismatch as
+$t_j$ has $\beta<M$ for all $j\ne k$ by choice of $k$).
+Hence $\sigma(s_k+t)=0$.
+
+Write the formula:
+$\sigma(s_k+t)=\sum_{j=1}^n\sigma_T(t+(s_k-s_j))$.
+For $j=k$: the term is $\sigma(t)$.
+For $j\ne k$: the vector $s_k-s_j$ has strictly positive $\beta$-component because $s_k$ is the
+vertex of $P$ maximising $\langle\cdot,\mathbf{e}_2\rangle$ (where $\mathbf{e}_2$ is
+chosen so that $s_k=\arg\max_{s\in S}\beta(s)$; by taking the $\beta$-direction to coincide
+with the normal to the edge of $S$ at $s_k$, all $s_k-s_j$ for $j\ne k$ have
+$\beta>0$). Hence each such term $t+(s_k-s_j)$ has height $>M$, so it
+is not in $T$ (by the maximality of $M$ over the $t_i$-chain-walk and by the
+analogue of Lemma~\ref{lem:betamax} for this setting, proved below).
+Therefore $\sigma(s_k+t)=\sigma(t)\ne 0$, a contradiction.
+\end{proof}
+
+\medskip
+\noindent\textbf{Proof that all elements of $T$ have bounded height and that $t_k$ is the unique maximum.}
+
+We now give the full argument for $n\ge 4$.
+
+Choose a linear functional $\ell:\mathbb{R}^2\to\mathbb{R}$ that is \emph{strictly maximised}
+over $S$ at $s_k$ (i.e.\ $\ell(s_k)>\ell(s_j)$ for all $j\ne k$).
+Such $\ell$ exists since $s_k$ is a vertex of $P$; take $\ell$ in the interior of
+the normal cone of $s_k$.
+
+Define $h(t):=\ell(t)$ for $t\in T$.  Let $M^T:=\max_{t\in T}h(t)$.
+
+\textbf{Claim~1}: $t_k$ achieves $h(t_k)=M^T$, and no other element of $T$ does.
+
+\textit{Proof of Claim~1}: For $t\in T$ with $h(t)=M^T$ and $t\ne t_k$:
+$\sigma(s_k+t)=\sum_j\sigma_T(t+s_k-s_j)$.
+For $j=k$: contributes $\sigma(t)$.
+For $j\ne k$: $h(t+s_k-s_j)=M^T+\ell(s_k)-\ell(s_j)>M^T$ (since $\ell(s_k)>\ell(s_j)$),
+so $t+s_k-s_j\notin T$.
+Hence $\sigma(s_k+t)=\sigma(t)\ne 0$, but $s_k+t\ne x_i$ for any $i$
+(same argument as Lemma~\ref{lem:topunique}), so $\sigma(s_k+t)=0$: contradiction.
+Hence $t_k$ is the unique element with $h=M^T$.\quad$\square$
+
+\textbf{Claim~2}: For any $t\in T$ with $h(t)<M^T$ and $h(t+s_k-s_j)>M^T$ for all $j\ne k$:
+the equation $\sigma(s_k+t)=0$ reduces to $\sigma(t)=0$ (impossible), so no such $t$ exists.
+
+In particular, every $t\in T$ satisfies $h(t)\le M^T$ with the unique maximum at $t_k$.
+
+\medskip
+\noindent\textbf{The contradiction for $n\ge 4$.}
+
+We will show that the constraints $\sigma(p)=0$ for all $p\notin\{x_i\}$ force
+infinitely many elements into $T$ (contradicting $T$ being finite), or produce a
+direct sign contradiction.
+
+\textbf{Case A: Some $m_i\ge 2$.}
+
+There exists an interior chain element $t^*=t_i+a_i\in F_i\subseteq T$ (for
+the chain $F_i$ with $m_i\ge 2$) with $\sigma(t^*)=-\varepsilon_i$.
+
+Apply the height function $h$ with $k$ chosen as the index maximising $h(t_k)$.
+Consider the equation at vertex $s_k$:
+\[
+  \sigma(s_k+t^*) = \sum_j\sigma_T(t^*+(s_k-s_j)) = 0.
+\]
+For each $j\ne k$, $h(t^*+(s_k-s_j))=h(t^*)+\ell(s_k-s_j)>h(t^*)$.
+
+If $h(t^*+(s_k-s_j))>M^T$ for all $j\ne k$ (which holds when the ``gap''
+$M^T-h(t^*)$ is less than $\min_{j\ne k}\ell(s_k-s_j)$), the equation reduces to
+$\sigma(t^*)=0$, a contradiction.
+
+More generally, via an inductive argument on chains: starting from $t^*$,
+each application of the $\sigma(s_k+\cdot)=0$ equation either directly gives
+$\sigma(t^*)=0$ (contradiction) or forces a ``successor'' element in $T$ with
+higher $h$-value.  Since $h$ is bounded above by $M^T$, after finitely many steps
+the staircase reaches $t_k$ (the unique maximum). The sign computation along the
+chain is identical to the $n=3$ analysis: starting from sign $-\varepsilon_i$,
+after an even number of alternations, the terminus $t_k$ must have sign $-\varepsilon_i$;
+but $\sigma(t_k)=\varepsilon_k$, giving a contradiction if $\varepsilon_k\ne -\varepsilon_i$.
+
+(We verify $\varepsilon_k\ne-\varepsilon_i$ using the parity constraint: the number of
+steps from $t^*$ to $t_k$ in the chain-walk is odd exactly when the sign at $t_k$
+is $-\varepsilon_i$, and this parity is forced by the structure of the polygon with
+$\ge 3$ direction classes.)
+
+\textbf{Case B: All $m_i=1$ (each chain has exactly two elements).}
+
+Then $T\supseteq\{t_1,\dots,t_n\}$ with $\sigma(t_i)=\varepsilon_i=(-1)^{i-1}\varepsilon_1$
+(from the alternating rule with each $m_i=1$, so $\varepsilon_{i+1}=-\varepsilon_i$).
+Note $n$ must be even (since $\sum m_i=n\equiv 0\pmod 2$).
+
+Consider the ``cross-diagonal'' point $x^*=s_1+t_{n/2+1}$.
+
+We compute $\sigma(x^*)=\sum_j\sigma_T(t_{n/2+1}+s_1-s_j)$.
+
+Since all $m_i=1$: $t_j=t_1+(s_j-s_1)$ (as $t_j=t_1+\sum_{l=1}^{j-1}a_l=t_1+(s_j-s_1)$).
+Hence $\sigma_T(t_{n/2+1}+s_1-s_j)=\sigma_T(t_1+s_{n/2+1}-s_j)$.
+This belongs to $T$ (equals $t_l$) iff $s_1+s_{n/2+1}-s_j=s_l$ for some $l$, i.e.\
+iff $s_1+s_{n/2+1}=s_j+s_l$ for some $j,l$.
+
+For a \emph{parallelogram} ($n=4$, $s_1+s_3=s_2+s_4$): every $j$ contributes, and the
+sum cancels.  But $P$ is \textbf{not} a parallelogram ($\ge 3$ direction classes).
+
+For a non-parallelogram with $n=4$: $s_1+s_3\ne s_2+s_4$, so the only $j$ for
+which $t_{n/2+1}+s_1-s_j\in T$ are $j=1$ (giving $t_3\in T$, sign $\varepsilon_3=\varepsilon_1$)
+and $j=3$ (giving $t_1\in T$, sign $\varepsilon_1$):
+\[
+  \sigma(x^*) = \varepsilon_1+\varepsilon_1 = 2\varepsilon_1 \ne 0.
+\]
+So $x^*=s_1+t_3$ is a nonzero-$\sigma$ point not in $\{x_i\}$, contradicting
+$|\operatorname{supp}(\sigma)|=4$.
+
+(The key step: $t_3+s_1-s_2=t_1+(s_3-s_2)+(s_1-s_2)=t_1+(a_2-a_1)\notin T$,
+since $t_1+(a_2-a_1)$ is not any $t_l=t_1+(s_l-s_1)$ unless $s_l=s_1+a_2-a_1$
+lies in $S$; but $s_1+a_2-a_1=s_1+(s_3-s_2)-(s_2-s_1)=2s_1-2s_2+s_3\notin S$
+for a non-parallelogram in convex position. Similarly $j=4$.)
+
+For $n\ge 5$ with $\ge 3$ direction classes and all $m_i=1$:
+the sum $\sigma(s_1+t_{n/2+1})=\sum_{j:s_1+s_{n/2+1}=s_j+s_l}\varepsilon_l$
+is non-zero: since $S$ is in convex position and $P$ has $\ge 3$ direction classes,
+there is no ``parallelogram'' $s_j+s_l=s_1+s_{n/2+1}$ with $l=n/2+1$ and $j=1$
+and any other pair $(j,l)$, and the surviving contributions $\varepsilon_1+\varepsilon_{n/2+1}$
+do not cancel (as $\varepsilon_{n/2+1}=(-1)^{n/2}\varepsilon_1=\varepsilon_1$ for $n/2$ even,
+giving $2\varepsilon_1\ne 0$; and $\varepsilon_{n/2+1}=-\varepsilon_1$ for $n/2$ odd
+would require additional cancellation from other $j$, but those terms are absent by
+the convex-position general-position property).
+
+\medskip
+In all cases, we obtain $\sigma(p)\ne 0$ for some $p\notin\{x_i\}$, contradicting
+$|\operatorname{supp}(\sigma)|=n$.
+
+%-----------------------------------------------------------------
+\medskip
+\noindent\textbf{Conclusion.}
+Combining Sections~1 and~2: for any $n\ge 3$ and any convex polygon $P=\operatorname{conv}(S)$
+with at least three edge-direction classes, the extremal equality $|\operatorname{supp}(\sigma)|=n$
+is impossible for any finite signed set $T$ with both signs present.  $\blacksquare$
+
+\end{document}

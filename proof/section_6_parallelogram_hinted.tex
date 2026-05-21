@@ -1,0 +1,23 @@
+% APPROACH HINT: if |S∩(S+v)|=2 for a convex quadrilateral S={A,B,C,D}, then there are two chords in S with the same direction vector v; in a convex quadrilateral these must be opposite sides (using cyclic order), giving a parallelogram. All 4 permutation cases should be checked. Please include explicit LaTeX with \begin{proof}...\end{proof} blocks.
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 6 --- A convex quadrilateral with a two-point overlap is a parallelogram.}
+
+\medskip
+\textbf{Statement.}
+Let $S = \{A,B,C,D\}\subset\mathbb{R}^2$ be the four vertices (in convex position) of a convex quadrilateral, listed in cyclic order around the boundary.
+Let $v\in\mathbb{R}^2$, $v\neq 0$.  Suppose $|S\cap(S+v)| = 2$.
+
+Prove: $S$ is the vertex set of a parallelogram, i.e.\ (after possible relabeling) $B-A = C-D$ and $C-B = D-A$ (opposite sides are parallel and equal), equivalently $A+C = B+D$ (the diagonals bisect each other).
+
+\medskip
+\textbf{Hint.}
+Let $S\cap(S+v) = \{P,Q\}$ with $P\neq Q$.  Then $P\in S$ and $P-v\in S$; likewise $Q\in S$ and $Q-v\in S$.  The four points $P,Q,P-v,Q-v$ are all in $S = \{A,B,C,D\}$, hence (since $v\neq 0$) they are four distinct elements of $S$.  So $\{P,Q,P-v,Q-v\} = \{A,B,C,D\}$.
+
+Now write the assignment as: $P = A$, $Q = B$, $P-v = C$, $Q-v = D$ (or some permutation consistent with the cyclic order).  The condition $P-v = C$ and $Q-v = D$ gives $A-C = v = B-D$, i.e.\ $A+D = B+C$... examine all permutations and show that the only one consistent with the cyclic convex order gives a parallelogram.
+
+In detail: we have $v = P - (P-v)$ and $v = Q - (Q-v)$, so the two chords $P\to P-v$ and $Q\to Q-v$ in $S$ are parallel and equal.  In a convex polygon, two equal parallel chords force the four endpoints to be a parallelogram.  Prove this from the convexity/cyclic-order hypothesis.
+
+\end{document}

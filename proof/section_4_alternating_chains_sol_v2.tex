@@ -1,0 +1,231 @@
+The bug report points out a real gap: one must justify first that the exposed face \([t_i,t_{i+1}]\) is parametrized by \(a_i\) with a **nonnegative** coefficient. Once that is inserted, the rest of the argument goes through.
+
+Here is a corrected proof.
+
+---
+
+### Proof
+
+Fix \(i\), and abbreviate
+\[
+a:=a_i=s_{i+1}-s_i,\qquad
+x_i:=s_i+t_i,\qquad
+x_{i+1}:=s_{i+1}+t_{i+1},
+\]
+\[
+E:=[x_i,x_{i+1}],\qquad
+F:=F_i=T\cap[t_i,t_{i+1}].
+\]
+
+From Subproblems \(1\)–\(3\), we may use the following facts.
+
+1. \(E\) is the exposed face of \(P+Q\) corresponding to the edge \([s_i,s_{i+1}]\), and
+   \[
+   E=[s_i,s_{i+1}]+[t_i,t_{i+1}].
+   \]
+2. \(E\) is an edge of \(P+Q\) parallel to \(a\).
+3. Every interior point of \(E\) cancels:
+   \[
+   \sigma(p)=0\qquad\text{for all }p\in\operatorname{relint}(E).
+   \]
+4. If \(p\in E\) and \(p=t+s\) with \(t\in T\) and \(s\in S\), then
+   \[
+   t\in[t_i,t_{i+1}],\qquad s\in[s_i,s_{i+1}].
+   \]
+
+Also, since \(S\) is in convex position, the edge \([s_i,s_{i+1}]\) contains no point of \(S\) other than its endpoints:
+\[
+S\cap [s_i,s_{i+1}]=\{s_i,s_{i+1}\}.
+\tag{1}
+\]
+
+---
+
+### Step 1: justify the parametrization of \([t_i,t_{i+1}]\)
+
+Because \(E\) is parallel to \(a\), the vector
+\[
+x_{i+1}-x_i=(s_{i+1}-s_i)+(t_{i+1}-t_i)=a+(t_{i+1}-t_i)
+\]
+is parallel to \(a\). Hence \(t_{i+1}-t_i\) is also parallel to \(a\), so there exists \(M\in\mathbb{R}\) such that
+\[
+t_{i+1}=t_i+Ma.
+\tag{2}
+\]
+
+We now show \(M\ge 0\).
+
+If \(M<0\), then
+\[
+[t_i,t_{i+1}]=t_i+[M,0]\,a.
+\]
+Using the face identity from Subproblem \(3\),
+\[
+E=[s_i,s_{i+1}]+[t_i,t_{i+1}]
+  =x_i+[0,1]a+[M,0]a
+  =x_i+[M,1]a.
+\]
+But then \(x_i=x_i+0\cdot a\) is an interior point of this segment, not an endpoint, contradicting \(E=[x_i,x_{i+1}]\).
+
+Therefore
+\[
+M\ge 0.
+\]
+So (2) becomes
+\[
+[t_i,t_{i+1}]
+=\{\,t_i+\lambda a:0\le \lambda\le M\,\},
+\qquad
+E=x_i+[0,M+1]a.
+\tag{3}
+\]
+
+Define
+\[
+\Lambda:=\{\lambda\in[0,M]: t_i+\lambda a\in F\}.
+\]
+Since \(t_i,t_{i+1}\in F\), we have
+\[
+0,M\in\Lambda.
+\tag{4}
+\]
+
+---
+
+### Step 2: successor and predecessor relations
+
+Let \(\lambda\in\Lambda\) with \(\lambda<M\), and set
+\[
+t:=t_i+\lambda a,\qquad p:=s_{i+1}+t.
+\]
+By (3),
+\[
+p=s_{i+1}+t_i+\lambda a=x_i+(\lambda+1)a.
+\]
+Since \(0<\lambda+1<M+1\), we have \(p\in\operatorname{relint}(E)\). Hence \(\sigma(p)=0\).
+
+One contribution to \(\sigma(p)\) comes from \(t\), because
+\[
+p-t=s_{i+1}.
+\]
+Any other contribution must come from some \(t'\in T\) with \(p-t'\in S\). By Fact 4, \(t'\in[t_i,t_{i+1}]\) and \(p-t'\in[s_i,s_{i+1}]\). By (1), the only possibilities for \(p-t'\) are \(s_i\) and \(s_{i+1}\). The case \(s_{i+1}\) gives \(t'=t\); the case \(s_i\) gives
+\[
+t'=p-s_i=t+a.
+\]
+So the only possible contributors are \(t\) and \(t+a\). Since \(\sigma(p)=0\) and \(\sigma(t)\in\{\pm1\}\), the second one must actually occur and must cancel the first:
+\[
+t+a\in F,\qquad \sigma(t+a)=-\sigma(t).
+\tag{5}
+\]
+
+Similarly, let \(\lambda\in\Lambda\) with \(\lambda>0\), and set
+\[
+t:=t_i+\lambda a,\qquad p:=s_i+t=x_i+\lambda a.
+\]
+Again \(p\in\operatorname{relint}(E)\), so \(\sigma(p)=0\). As above, the only possible contributors are \(t\) and
+\[
+p-s_{i+1}=t-a.
+\]
+Hence
+\[
+t-a\in F,\qquad \sigma(t-a)=-\sigma(t).
+\tag{6}
+\]
+
+In terms of \(\Lambda\), (5) and (6) say:
+\[
+\lambda\in\Lambda,\ \lambda<M \implies \lambda+1\in\Lambda,
+\tag{7}
+\]
+\[
+\lambda\in\Lambda,\ \lambda>0 \implies \lambda-1\in\Lambda.
+\tag{8}
+\]
+
+---
+
+### Step 3: there are no fractional parameters
+
+We claim that
+\[
+\Lambda\subset\mathbb{Z}.
+\]
+
+Assume not, and choose \(\lambda\in\Lambda\setminus\mathbb{Z}\). Write
+\[
+r:=\lfloor\lambda\rfloor,\qquad \lambda_0:=\lambda-r.
+\]
+Then
+\[
+0<\lambda_0<1.
+\]
+Applying (8) repeatedly \(r\) times yields
+\[
+\lambda_0\in\Lambda.
+\]
+
+Now let
+\[
+t:=t_i+\lambda_0 a,\qquad p:=s_i+t=x_i+\lambda_0 a.
+\]
+Because \(0<\lambda_0<1\), we have \(p\in\operatorname{relint}(E)\), so \(\sigma(p)=0\).
+
+But the same two-contributor analysis as above shows that the only possible contributors to \(\sigma(p)\) are \(t\) and \(t-a\). Here
+\[
+t-a=t_i+(\lambda_0-1)a,
+\]
+and since \(\lambda_0-1<0\), this point is not on \([t_i,t_{i+1}]\), hence not in \(F\). Therefore \(p\) has exactly one contribution, namely \(t\), and so
+\[
+\sigma(p)=\sigma(t)\in\{\pm1\},
+\]
+contradicting \(\sigma(p)=0\).
+
+Thus indeed
+\[
+\Lambda\subset\mathbb{Z}.
+\tag{9}
+\]
+
+Since \(M\in\Lambda\) by (4), (9) implies
+\[
+M\in\mathbb{Z}_{\ge 0}.
+\]
+Set
+\[
+m_i:=M.
+\]
+
+---
+
+### Step 4: the face is the full arithmetic progression and the signs alternate
+
+From \(0\in\Lambda\) and the successor rule (7), we obtain
+\[
+1,2,\dots,m_i\in\Lambda.
+\]
+Together with \(\Lambda\subset[0,m_i]\cap\mathbb{Z}\), this gives
+\[
+\Lambda=\{0,1,\dots,m_i\}.
+\]
+Therefore
+\[
+F_i=\{\,t_i+k\,a_i:0\le k\le m_i\,\},
+\qquad
+t_{i+1}=t_i+m_i a_i.
+\]
+
+Finally, (5) gives for \(0\le k<m_i\),
+\[
+\sigma(t_i+(k+1)a_i)=-\sigma(t_i+k a_i).
+\]
+Induction on \(k\) yields
+\[
+\sigma(t_i+k a_i)=(-1)^k\,\sigma(t_i)
+\qquad(0\le k\le m_i).
+\]
+
+So every \(F_i\) is a full arithmetic progression in direction \(a_i\), and the signs alternate along it. \(\square\)
+
+---
+
+If you want, I can also rewrite this in a shorter “official solution” style.

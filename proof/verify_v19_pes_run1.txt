@@ -1,0 +1,58 @@
+The solution is **not correct**. I found the following issues.
+
+1. **Critical Error**  
+   **Location:** “\([a]=[b]\) iff \(b=\lambda a\) for some \(\lambda\ne0\). (A parallelogram has edges \(a_1,a_2,-a_1,-a_2\) giving exactly 2 classes.)”  
+   **Description:** This changes the problem’s stated notion of direction class from **positive** scalar multiples to **arbitrary nonzero** scalar multiples. Relative to the statement as written, the proof is proving a different claim.
+
+2. **Justification Gap**  
+   **Location:** “Since the \(p_i\) are distinct (the \(s_i\) are distinct and the \(t_i\) come from disjoint normal cones) and \(|\mathrm{supp}(\tilde\sigma)|=n\):  
+   \[
+   \mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.
+   \]”  
+   **Description:** The stated reason does not prove the \(p_i\) are distinct. From \(s_i\neq s_j\) and the way \(t_i\) are chosen, it does not follow that \(t_i+s_i\neq t_j+s_j\). This exact support identification is used later, but it is not established here.
+
+3. **Critical Error**  
+   **Location:** “If \(m=0\): \(t_1=t_2=t_3\), so \(T\subseteq\{t_1\}\), contradicting both signs present.”  
+   **Description:** From \(t_1=t_2=t_3\) one cannot conclude \(T\) has no other elements. The allowed facts describe the chains \(F_i\), not all of \(T\). So the case \(m=0\) is not actually excluded.
+
+4. **Justification Gap**  
+   **Location:** “Relabel so that \([a_1],[a_2],[a_3]\) are pairwise distinct direction classes … by cyclic relabeling we may take them to include edges \(1,2,3\).”  
+   **Description:** No proof is given that three distinct direction classes can be arranged at consecutive indices \(1,2,3\) by cyclic relabeling alone. The later height-functional setup depends on this.
+
+5. **Critical Error**  
+   **Location:** “By (F1), \(t_1\) is the unique maximiser of \(\langle\cdot,-v\rangle=-\beta(\cdot)\) over \(T\), i.e. \(t_1\) minimises \(\beta\) over \(T\).”  
+   **Description:** \(-v\) is the outward normal to the **edge** \([s_1,s_2]\), not a functional exposing the vertex \(s_1\). Nothing in (F1) justifies unique maximization for this functional. In fact the proof later claims \(F_1\subseteq\{h=0\}\), so every point of \(F_1\) has the same \(\beta\)-value as \(t_1\). Thus Lemma “betamin” is not established.
+
+6. **Critical Error**  
+   **Location:** “The closure \eqref{eq:closure} then reduces to  
+   \[
+   m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0,
+   \]
+   i.e. \(\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0\), forcing all \(m_i=0\).”  
+   **Description:** From \([a_i]=[a_1]\) one only gets \(a_i\in\mathbb Ra_1\), not \(a_i=a_1\). Opposite directions and different scalar multiples are possible, so this simplification is invalid. The conclusion that \(T\not\subseteq F_1\) is therefore not proved.
+
+7. **Critical Error**  
+   **Location:** “For each \(j\) with \(c_j=h_0\), write \(t'-s_j=\lambda_j a_1+h_0 v\)…” and equation \((\ref{eq:Dform})\).  
+   **Description:** If \(c_j=h_0\), then
+   \[
+   h(t'-s_j)=h(t')-c_j=h_0-h_0=0,
+   \]
+   so \(t'-s_j\) lies on the **affine** line \(t_1+\mathbb Ra_1\), not on the vector line \(\mathbb Ra_1+h_0v\). The missing \(t_1\)-shift invalidates the membership test for \(F_1\), the integrality condition on \(\lambda_j\), and the formula for \(D\).
+
+8. **Critical Error**  
+   **Location:** “The \(j_0\)-term in \(D(t'+(R_{\max}+2)a_1)\) is \(\sigma_T(t_1+(k_0+1)a_1)=(-1)^{k_0+1}\varepsilon_1\ne0\)… In particular, \(|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1\), so \(t'+(R_{\max}+2)a_1\in T\).”  
+   **Description:** One nonzero summand in \(D\) does **not** imply the whole sum \(D(t'+(R_{\max}+2)a_1)\) is nonzero; cancellation with other summands is possible. So the conclusion \(\sigma_T(t'+(R_{\max}+2)a_1)\neq0\) does not follow. Also, the proof does not actually establish that this point is non-lonely before applying VAN.
+
+9. **Critical Error**  
+   **Location:** “The \(j_0'\)-term in \(D(t'+(R_{\min}-2)a_1)\) is \((-1)^{k_0'-1}\varepsilon_1\ne0\)… So \(\sigma_T(t'+(R_{\min}-2)a_1)\ne0\).”  
+   **Description:** This repeats the same invalid inference as in Sub-case B1: a single nonzero term does not rule out cancellation in the full \(D\)-sum.
+
+10. **Critical Error**  
+   **Location:** “This forces the \(j\)'s contributing to both D-sums to be the same vertex \(j_0=j_0'\)…” together with later claims such as “\(j_0\) is the unique index with \(c_j=h_0\) contributing…” and “only \(c_{j_0}=h_0\) by assumption.”  
+   **Description:** None of these uniqueness claims is proved. From “both lie in \(\{s_j:c_j=h_0\}\)” one cannot conclude the vertices are equal, and the proof never shows there is only one vertex or one contributor at height \(h_0\). The subsequent computations of \(\tilde\sigma(q^*)\), \(\tilde\sigma(q^*+a_1)\), and the exact sign of \(\sigma_T(t'+R_{\min}a_1)\) all depend on these unsupported identifications.
+
+11. **Justification Gap**  
+   **Location:** “Sub-case~L: … By the same analysis as Sub-cases~A, B1, B2 applied with \(R_{\max}\) replaced by \(R_{\max}+1\) (or the next non-lonely step), we obtain the same contradiction.”  
+   **Description:** The lonely-point case is not actually proved. The argument only gestures at skipping ahead and reusing earlier subcases, without showing that the needed hypotheses still hold after this change.
+
+Because the proof contains multiple **Critical Errors** (not just missing details), the solution is **not valid**.

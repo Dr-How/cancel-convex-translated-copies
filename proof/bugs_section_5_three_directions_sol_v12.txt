@@ -1,0 +1,250 @@
+CONSOLIDATED BUG REPORT
+Solution: proof/section_5_three_directions_sol_v12.tex
+Problem:  proof/section_5_three_directions.tex
+Mode: pessimistic (3 independent verifier runs)
+Verdict: ISSUES_FOUND
+
+All three runs flagged multiple critical errors and justification gaps.
+The solution is NOT a correct proof.
+
+=============================================================
+ISSUE LIST (all runs flagging the same logical flaw are merged)
+=============================================================
+
+[RUN1+RUN2+RUN3] CRITICAL — Incomplete case split in Lemma lem:n3m (m=0 case)
+  Location: "Case h(t')=0 ... Case h(t')>0 ... Therefore m≥1"
+  The case h(t')<0 is never treated. Since t' is an arbitrary opposite-sign
+  translate, the claimed contradiction for m=0 is incomplete.
+
+[RUN1+RUN2+RUN3] CRITICAL — False claim "t_0 is the only T-element" in Lemma lem:n3m
+  Location: "the term at height -1<0 vanishes (since t_0 is the only
+  T-element in this degenerate case; …)"
+  The proof just chose t'∈T with t'≠t_0, so t_0 is NOT the only T-element.
+  The vanishing of the height-(-1) term is circular and unproved. Hence
+  t'±a_1 ∈ T does not follow, and Proposition prop:n3 depends on a faulty lemma.
+
+[RUN1+RUN3] CRITICAL — False geometric characterization of parallelograms
+  Location: "P is a parallelogram iff [a_3]=[a_1] and [a_4]=[a_2], i.e.
+  a_3=λa_1 for some λ>0 and a_4=νa_2 for some ν>0."
+  For a CCW convex quadrilateral, opposite edges satisfy a_3=-a_1 (anti-parallel),
+  not a_3=λa_1 with λ>0. The characterization is wrong, and the subsequent
+  impossibility argument is built on a false foundation.
+
+[RUN1+RUN2+RUN3] CRITICAL — Lemma lem:cross silently requires m_2≥1
+  Location: "σ_T(t_2+a_2)=(-1)^1 ε_2 = -ε_2 = -(-1)^{m_1} ε_1"
+  t_2+a_2 lies in F_2 only if m_2≥1. The lemma does not assume m_2≥1.
+  If m_2=0, σ_T(t_2+a_2) may be 0 and the magnitude-2 contradiction collapses.
+  This flaw propagates to every proposition that invokes Lemma lem:cross.
+
+[RUN3] CRITICAL — Equation eq:sigma0 applied to t_1-a_1 ∉ T
+  Location: "From k=2 at t_1-a_1 … σ_T(t_1)+σ_T(t_1-a_1)=0"
+  eq:sigma0 is valid only for t∈T, but when m_1=0, Lemma lem:hzero implies
+  t_1-a_1 ∉ T. Applying the equation is therefore invalid.
+
+[RUN2+RUN3] CRITICAL — Wrong bound in Lemma lem:nogaps Sub-case B: j≥-1, not j≥0
+  Location: "Note j≥0 (since h_0-1-μ>-(1+μ)>-2, and j integer ≥0)."
+  From j>-2 and j∈Z, one can only conclude j≥-1. The proof then splits into
+  j=0 and j≥1 only, omitting the valid case j=-1.
+
+[RUN2+RUN3] CRITICAL — Cases γ=0 or γ'=0 not eliminated in Lemma lem:nogaps Sub-case B
+  Location: "So in the surviving case: γ=-σ(t') and γ'=-σ(t'),
+  σ_T(t'+a_1)=0, σ_T(t'-a_1)=0."
+  Only γ=σ(t') and γ'=σ(t') were ruled out. γ=0 and/or γ'=0 are never
+  excluded. The contradiction is proved only for a strict subfamily of cases.
+
+[RUN3] CRITICAL — Missing sub-case m_1=0, m_2=1, m_3=0 in Proposition prop:n4mu
+  Location: Case split in Proposition prop:n4mu.
+  The case m_1=0, m_2=1, m_3=0 is absent. For μ∉Z closure does not exclude it
+  (e.g. μ=-1/2 with m_4=2 satisfies 1=m_4(1+μ)).
+
+[RUN1+RUN2+RUN3] CRITICAL — Lemma lem:nogaps invoked outside its valid range
+  Location: "σ_T(t_3+a_3-a_2) at height μ: non-integer and <h_max … in both
+  cases σ_T=0 by Lemma lem:nogaps or betamin4."
+  Lemma lem:nogaps only excludes non-integer heights in (0, m_2)=(0,1). For
+  μ>1 non-integer the height is outside that interval; the claimed vanishing
+  is unsupported. (Proposition prop:n4mu, case m_1=0, m_2=1, m_3≥1.)
+
+[RUN1+RUN2+RUN3] CRITICAL — Minimality argument does not force lower-height terms to zero
+  Location: "lower terms at heights <h(t'): vanish by minimality (height-zero
+  elements have sign ε_1≠-ε_1, and heights in (0,h(t')) either vanish by
+  no-gaps or are not of sign -ε_1 by minimality)."
+  Minimality among translates of sign -ε_1 says nothing about translates of sign
+  +ε_1 at lower heights; those can exist and contribute. (Prop. prop:n4mu,
+  case m_1=0, m_2=0; same flaw recurs in Prop. prop:n4muZ, case m_1=0, m_2=0.)
+
+[RUN1+RUN2+RUN3] CRITICAL — Wrong heights in Proposition prop:n4mu0 case m_1=0, m_2=1
+  Location: "From k=2 at any t∈F_3, t≠t_3=t_1+a_2: heights 0,0,-1,-1 (since μ=0);
+  lower terms vanish; σ_T(t+a_1)=-σ(t)≠0."
+  Points of F_3 lie at height 1, not 0. The actual heights are 1,1,0,0.
+  "Lower terms vanish" is therefore false, and the argument that m_3=0 collapses.
+
+[RUN1+RUN3] CRITICAL — Calculation error: a_4 silently drops a_3
+  Location: "t_1+a_2+a_4 = t_1+a_2-(a_1+a_2+0) = t_1-a_1"
+  With μ=0, a_4=-(a_1+a_2+a_3), so t_1+a_2+a_4 = t_1-a_1-a_3 = t_1-(1+λ)a_1,
+  not t_1-a_1. The final contradiction in this case rests on a wrong vector identity.
+
+[RUN1+RUN2+RUN3] JUSTIFICATION GAP — T is not shown to be the union of face chains
+  Location: "T=F_1∪F_3", "T=F_1∪F_2∪F_4", "The only T-elements at height μ
+  come from face chains."
+  The allowed facts describe T∩[t_i, t_{i+1}], but never exclude interior
+  T-points. Neither T=∪F_i nor the existence of opposite-sign points in specific
+  face chains is established.
+
+[RUN1+RUN2+RUN3] CRITICAL — "Not generally integer" and "generic" are not proofs
+  Location: "F_4-elements at height μ: not generally an integer. … for μ≥2 and
+  generic a_3, a_4." (Proposition prop:n4muZ.)
+  A proof must cover all cases satisfying the hypotheses, not just "generic" ones.
+  No rigorous argument is given that σ_T vanishes at height μ≠m_2=1.
+
+[RUN1+RUN2+RUN3] CRITICAL — Admitted unresolved consistent case in n=5 subargument
+  Location: "If δ_5=±ε_1: … consistent? Hmm — so for n=5, there is a specific
+  scenario where δ_5 could cancel the magnitude-2 term. We must rule this out."
+  The proof explicitly acknowledges failure to obtain a contradiction and then
+  does not resolve the case.
+
+[RUN1+RUN2+RUN3] JUSTIFICATION GAP — Lemma lem:nogaps extension to n≥5 only asserted
+  Location: "The formal structure of Sub-cases A and B goes through unchanged;
+  n≥5 only adds more terms … Lemma lem:nogaps holds for n≥5. ✓"
+  No calculation is given for the additional j≥5 terms. Their combined effect
+  on the magnitude-2 bound is never bounded. This is an assertion, not a proof.
+
+[RUN1+RUN2+RUN3] JUSTIFICATION GAP — "Unified approach" for n≥5 is only a sketch
+  Location: "we can use a second cross-point … This telescoping argument …
+  yields a contradiction in finitely many steps."
+  No second-cross-point calculation is actually carried out, no telescoping
+  recurrence is written down, and the cited height-maximum lemmas
+  (lem:betamax4mu–lem:betamax4zero) were proved only for n=4 and are not
+  extended to n≥5.
+
+=============================================================
+TOTAL: 15 Critical Errors, 4 Justification Gaps (18 distinct issues across 3 runs)
+=============================================================
+
+=============================================================
+APPENDIX A — Full output of Run 1
+(file: proof/verify_v12_run1.txt)
+=============================================================
+
+The solution is **not correct**. Here is a bug report.
+
+### 1) Incomplete and invalid proof of m≥1 in the n=3 case
+Location: "Suppose m=0. Then t_1=t_2=t_3=:t_0. …  Case h(t')=0. … Case h(t')>0. … Therefore m≥1."
+and "The term at height -1<0 vanishes (since t_0 is the only T-element in this degenerate case; …)"
+Description — Critical Error: The proof never treats the case h(t')<0, so the case split is
+incomplete. Also, the claim that t_0 is "the only T-element" is false, because the proof just
+chose t'≠t_0 ∈ T. Thus the vanishing of the height-(-1) term is not established, and the
+conclusion m≥1 does not follow.
+
+### 2) False characterization of parallelograms
+Location: "P is a parallelogram iff [a_3]=[a_1] and [a_4]=[a_2], i.e. a_3=λa_1 for some λ>0
+and a_4=νa_2 for some ν>0."
+Description — Critical Error: For a quadrilateral listed in cyclic order, a parallelogram has
+a_3 anti-parallel to a_1 and a_4 anti-parallel to a_2, not positive multiples. The paragraph
+therefore starts from a false geometric characterization and "proves" that the parallelogram
+condition is impossible.
+
+### 3) Height-zero structure lemma does not fully justify the "infinite chain"
+Location: "the above argument applies to any t∉F_1 at height 0 … so T∩{h=0}=F_1."
+Description — Justification Gap: The proof does not show that the recurrence can be iterated
+indefinitely without hitting a point where the chosen equation is no longer applicable.
+
+### 4) Lemma lem:cross silently assumes m_2≥1
+Location: "σ_T(t_2+a_2)=(-1)^1 ε_2=-ε_2=-(-1)^{m_1}ε_1."
+Description — Critical Error: This evaluation is valid only if t_2+a_2∈T, i.e. only if m_2≥1.
+If m_2=0 the term σ_T(t_2+a_2) may be 0 so the contradiction disappears.
+
+### 5) Misuse of Lemma lem:nogaps in Proposition prop:n4mu
+Description — Critical Error: Lemma lem:nogaps only excludes non-integer heights in (0,m_2).
+In this case m_2=1, so it only controls (0,1). If μ>1 the height is outside that range, and
+"<h_max" does not imply vanishing.
+
+### 6) Invalid minimality argument in Proposition prop:n4mu, case m_1=0, m_2=0
+Description — Critical Error: Minimality among translates of sign -ε_1 does NOT force lower-
+height terms of sign +ε_1 to vanish.
+
+### 7) Wrong heights in Proposition prop:n4mu0, case m_1=0, m_2=1
+Description — Critical Error: Points of F_3 have height 1, not 0. Four heights are 1,1,0,0,
+not 0,0,-1,-1. The argument for m_3=0 collapses.
+
+### 8) Incorrect computation of a_4 in Proposition prop:n4mu0
+Description — Critical Error: t_1+a_2+a_4 = t_1-a_1-a_3 ≠ t_1-a_1 in general.
+
+### 9) T not shown exhausted by face chains
+Description — Justification Gap: Allowed facts describe T∩[t_i,t_{i+1}]; they do NOT show
+every element of T lies on one of these chains.
+
+### 10) "Not generally" / "generic" not valid in Proposition prop:n4muZ
+Description — Critical Error: "Not generally an integer" and "generic" are not proofs.
+
+### 11) Wrong equation in Proposition prop:n4muZ, case m_1=0, m_2=0
+Description — Critical Error: σ_T(t'-a_1) does not appear in the k=2 equation. Invalid
+application of minimality repeated.
+
+### 12) Lemma lem:nogaps extension to n≥5 only asserted
+Description — Justification Gap: No computation of additional lower-height terms is given.
+
+### 13) Admitted unresolved consistent case for n=5
+Description — Critical Error: Proof explicitly says "consistent? We must rule this out" and
+then does not.
+
+### 14) "Unified approach" for n≥5 is only a sketch
+Description — Justification Gap: Second cross-point calculation never carried out; telescoping
+never written; height-maximum lemmas proved only for n=4.
+
+### 15) n≥5 conclusion unsupported
+Description — Critical Error: Claimed contradiction for all n≥5 not established because
+Section 3 does not contain a complete proof.
+
+=============================================================
+APPENDIX B — Full output of Run 2
+(file: proof/verify_v12_run2.txt)
+=============================================================
+
+The solution is **not correct**.
+
+1. Critical Error — Lemma lem:n3m, m=0 case: circular "t_0 is the only T-element" claim;
+   height-(-1) vanishing not established.
+2. Critical Error — Lemma lem:n3m, m=0: case j=-1 (i.e. h(t')=-1 interpreted via j bound)
+   is possible: j>-2 implies j≥-1, not j≥0.
+3. Critical Error — Lemma lem:nogaps Sub-case B: cases γ=0 or γ'=0 not eliminated.
+4. Critical Error — Lemma lem:cross: requires m_2≥1 but does not assume it.
+5. Critical Error — Proposition prop:n4mu, case m_1=0, m_2=1, m_3≥1: Lemma lem:nogaps
+   only controls (0,1); μ>1 case is unaddressed.
+6. Critical Error — Proposition prop:n4mu, case m_1=0, m_2=0: minimality flaw.
+7. Critical Error — Proposition prop:n4mu0, case m_1=0, m_2=1: heights are 1,1,0,0 not
+   0,0,-1,-1.
+8. Justification Gap — T=F_i unions unproved; interior T-points not excluded.
+9. Critical Error — Proposition prop:n4muZ, case m_1=0, m_2=1, m_3≥1: "not generally"
+   and exhaustiveness of face chains not proved.
+10. Critical Error — Proposition prop:n4muZ, case m_1=0, m_2=0: minimality flaw repeated.
+11. Justification Gap — n≥5 extension of Lemma lem:nogaps not proved.
+12. Critical Error — n=5 consistent scenario identified but not resolved.
+13. Justification Gap — "Unified approach" for n≥5 is a sketch; no second cross-point
+    calculation; height-maximum lemmas not extended.
+
+=============================================================
+APPENDIX C — Full output of Run 3
+(file: proof/verify_v12_run3.txt)
+=============================================================
+
+The solution is **not correct**.
+
+1. Critical — Incomplete case split (h(t')<0 missing) in n=3 lemma.
+2. Critical — "t_0 only T-element" false; height-(-1) term vanishing unproved.
+3. Critical — Parallelogram characterization wrong (positive vs. negative scalar).
+4. Critical — Lemma lem:cross requires m_2≥1 implicitly.
+5. Critical — eq:sigma0 applied to t_1-a_1 which is not in T when m_1=0.
+6. Critical — j≥-1, not j≥0, in Lemma lem:nogaps Sub-case B.
+7. Critical — γ=0 and γ'=0 cases not eliminated in Lemma lem:nogaps Sub-case B.
+8. Critical — Missing sub-case m_1=0, m_2=1, m_3=0 in Proposition prop:n4mu.
+9. Critical — Lemma lem:nogaps used for μ>1 outside range (0,1).
+10. Critical — Minimality flaw in Proposition prop:n4mu, case m_1=0, m_2=0.
+11. Critical — Wrong heights (0,0,-1,-1 should be 1,1,0,0) in Proposition prop:n4mu0.
+12. Critical — a_4 calculation drops a_3 in Proposition prop:n4mu0.
+13. Critical — T=F_i union unproved; no exclusion of interior T-points.
+14. Critical — "Not generally integer"/"generic" invalid in Proposition prop:n4muZ.
+15. Critical — Minimality flaw repeated in Proposition prop:n4muZ, case m_1=0, m_2=0.
+16. Critical — Lemma lem:nogaps n≥5 extension asserted, not proved.
+17. Critical — n=5 consistent case identified and not resolved.
+18. Critical — "Unified approach" / telescoping for n≥5 only sketched; height-maximum
+    lemmas not extended beyond n=4.

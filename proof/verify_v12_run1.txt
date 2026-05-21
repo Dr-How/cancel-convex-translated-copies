@@ -1,0 +1,169 @@
+The solution is **not correct**. Here is a bug report.
+
+---
+
+### 1) Incomplete and invalid proof of \(m\ge 1\) in the \(n=3\) case
+**Location**
+> “Suppose \(m=0\). Then \(t_1=t_2=t_3=:t_0\). Since \(T\) has both signs, pick \(t'\in T\) with \(\sigma(t')\ne\varepsilon_1\). …  
+> *Case \(h(t')=0\).* …  
+> *Case \(h(t')>0\).* …  
+> Therefore \(m\ge 1\).”
+
+and
+
+> “The term at height \(-1<0\) vanishes (since \(t_0\) is the only \(T\)-element in this degenerate case; …)”
+
+**Description — Critical Error**  
+The proof never treats the case \(h(t')<0\), so the case split is incomplete. Also, the claim that \(t_0\) is “the only \(T\)-element” is false, because the proof just chose \(t'\ne t_0\in T\). Thus the vanishing of the height-\(-1\) term is not established, and the conclusion \(m\ge1\) does not follow.
+
+---
+
+### 2) False characterization of parallelograms
+**Location**
+> “\(P\) is a parallelogram iff \([a_3]=[a_1]\) and \([a_4]=[a_2]\), i.e., \(a_3=\lambda a_1\) for some \(\lambda>0\) and \(a_4=\nu a_2\) for some \(\nu>0\).”
+
+**Description — Critical Error**  
+For a quadrilateral listed in cyclic order, a parallelogram has \(a_3\) **anti-parallel** to \(a_1\) and \(a_4\) anti-parallel to \(a_2\), not positive multiples. The paragraph therefore starts from a false geometric characterization and even “proves” that the parallelogram condition is impossible.
+
+---
+
+### 3) Height-zero structure lemma does not fully justify the “infinite chain”
+**Location**
+> “the above argument applies to any \(t\notin F_1\) at height \(0\) (since if \(t\notin F_1\) then \(t+ka_1\notin F_1\) for all \(k\) large enough, giving an infinite chain), so \(T\cap\{h=0\}=F_1\).”
+
+**Description — Justification Gap**  
+The proof does not show that the recurrence can be iterated indefinitely without hitting a point where the chosen equation is no longer applicable. The conclusion \(T\cap\{h=0\}=F_1\) is asserted, not fully derived.
+
+---
+
+### 4) Lemma \(\ref{lem:cross}\) silently assumes \(m_2\ge1\)
+**Location**
+> “\(\sigma_T(t_2+a_2)=(-1)^1\varepsilon_2=-\varepsilon_2=-(-1)^{m_1}\varepsilon_1\).”
+
+and later
+
+> “Case \(m_1\ge1\): … Lemma~\(\ref{lem:cross}\) gives the contradiction.”
+
+**Description — Critical Error**  
+This evaluation is valid only if \(t_2+a_2\in T\), i.e. only if \(m_2\ge1\) so that there is a first step on \(F_2\). Lemma \(\ref{lem:cross}\) does not assume \(m_2\ge1\), and the later propositions apply it without proving \(m_2\ge1\). If \(m_2=0\), the term \(\sigma_T(t_2+a_2)\) may be \(0\), so the contradiction disappears.
+
+---
+
+### 5) Misuse of Lemma \(\ref{lem:nogaps}\) in Proposition \(\ref{prop:n4mu}\)
+**Location**
+> “\(\sigma_T(t_3+a_3-a_2)\) at height \(\mu\): non-integer and \(<m_2+m_3\mu=h_{\max}\) (for \(\mu>0\), \(m_3\ge 1\)), … in both cases \(\sigma_T=0\) by Lemma~\(\ref{lem:nogaps}\) or betamin4.”
+
+**Description — Critical Error**  
+Lemma \(\ref{lem:nogaps}\) only excludes non-integer heights in \((0,m_2)\). In this case \(m_2=1\), so it only controls \((0,1)\). If \(\mu>1\), the height \(\mu\) is outside that range, and “\(<h_{\max}\)” does not imply vanishing.
+
+---
+
+### 6) Invalid minimality argument and wrong equation in Proposition \(\ref{prop:n4mu}\), case \(m_1=0,m_2=0\)
+**Location**
+> “lower terms at heights \(<h(t')\): vanish by minimality (height-\(0\) elements have sign \(\varepsilon_1\ne-\varepsilon_1\), and heights in \((0,h(t'))\) either vanish by no-gaps or are not of sign \(-\varepsilon_1\) by minimality). Hence \(\sigma_T(t'+a_1)=-\sigma(t')=\varepsilon_1\) and \(\sigma_T(t'-a_1)=\varepsilon_1\)…”
+
+**Description — Critical Error**  
+Minimality among translates of sign \(-\varepsilon_1\) does **not** force lower-height terms of sign \(+\varepsilon_1\) to vanish. Also, the displayed \(k=2\) equation does not even contain \(t'-a_1\), so the conclusion about \(\sigma_T(t'-a_1)\) is unsupported. The same paragraph also falsely says “all \(\varepsilon_i=\varepsilon_1\)”.
+
+---
+
+### 7) Wrong heights in Proposition \(\ref{prop:n4mu0}\), case \(m_1=0,m_2=1\)
+**Location**
+> “From \(k=2\) at any \(t\in F_3\), \(t\ne t_3=t_1+a_2\): heights \(0,0,-1,-1\) (since \(\mu=0\)); lower terms vanish…”
+
+**Description — Critical Error**  
+For such \(t\), one has \(h(t)=1\), not \(0\). So the four heights are \(1,1,0,0\), not \(0,0,-1,-1\). The claimed vanishing of the lower terms is therefore false, and the argument for \(m_3=0\) collapses.
+
+---
+
+### 8) Incorrect computation of \(a_4\) in Proposition \(\ref{prop:n4mu0}\)
+**Location**
+> “\(t_1+a_2+a_4=t_1+a_2-(a_1+a_2+0)=t_1-a_1\)”
+
+**Description — Critical Error**  
+This silently replaces \(a_3\) by \(0\). But in the \(\mu=0\) case, \(a_3=\lambda a_1\) with \(\lambda<0\), so
+\[
+a_4=-(a_1+a_2+a_3)\neq -(a_1+a_2)
+\]
+in general. The contradiction is based on a wrong vector identity.
+
+---
+
+### 9) Unsupported assumption that \(T\) is exhausted by the face chains
+**Location**
+> “The only \(T\)-elements at height \(\mu\) come from face chains;”
+
+and
+
+> “With \(m_3=0\): \(t_4=t_3=t_1+a_2\), \(T=F_1\cup F_2\cup F_4\).”
+
+and
+
+> “\(m_4=0\), \(t_2=t_3=t_4=t_1\). \(T=F_1\cup F_3\).”
+
+**Description — Justification Gap**  
+The allowed facts only describe the boundary sets \(F_i=T\cap[t_i,t_{i+1}]\). They do **not** show that every element of \(T\) lies on one of these chains, nor that \(T\) equals a union of them. Several later arguments rely on this unsupported exhaustiveness.
+
+---
+
+### 10) Non-rigorous and invalid vanishing argument in Proposition \(\ref{prop:n4muZ}\), case \(m_1=0,m_2=1,m_3\ge1\)
+**Location**
+> “\(F_4\)-elements at height \(\mu\): … not generally an integer. … So \(T\) has no element at height \(\mu\ne m_2=1\) (for \(\mu\ge2\) and generic \(a_3,a_4\)). For \(\mu=1\): … any extra \(T\)-element at height \(1\) would generate a bi-infinite horizontal chain (by applying \(k=1,k=2\) equations: same argument as Lemma~\(\ref{lem:hzero}\) applied at height \(1\))”
+
+**Description — Critical Error**  
+“Not generally” and “generic” are not proofs. The \(\mu=1\) subargument is also unsupported: at height \(1\), the \(k=2\) equation has a height-\(0\) term that may be nonzero, so it is not the same situation as Lemma \(\ref{lem:hzero}\).
+
+---
+
+### 11) Wrong equation again in Proposition \(\ref{prop:n4muZ}\), case \(m_1=0,m_2=0\)
+**Location**
+> “From \(k=2\) at \(t'\) … \(\sigma_T(t'+a_1)+\sigma_T(t'-a_1)=-2\sigma(t')=2\varepsilon_1\)”
+
+**Description — Critical Error**  
+This is not the \(k=2\) equation: \(t'-a_1\) does not appear there. The argument also repeats the invalid reasoning that minimality for one sign forces all lower terms to vanish. The same paragraph further incorrectly states “All \(t_i=t_1\) with \(\varepsilon_i=\varepsilon_1\)”.
+
+---
+
+### 12) The \(n\ge5\) extension of Lemma \(\ref{lem:nogaps}\) is only asserted
+**Location**
+> “The formal structure of Sub-cases A and B goes through unchanged; \(n\ge 5\) only adds more terms to the equations… Lemma~\(\ref{lem:nogaps}\) holds for \(n\ge 5\). \checkmark”
+
+**Description — Justification Gap**  
+For \(n=4\), the proof of Lemma \(\ref{lem:nogaps}\) relied on controlling exactly two lower terms. For \(n\ge5\), many additional lower-height terms appear. Their combined contribution is never computed or bounded, so the extension is not proved.
+
+---
+
+### 13) Section 3 explicitly identifies an unresolved “consistent” case
+**Location**
+> “If \(\delta_5=\pm\varepsilon_1\): \(=2(\pm\varepsilon_1)\mp\varepsilon_1=\pm\varepsilon_1\in\{-1,+1\}\): *consistent?*  
+> Hmm — so for \(n=5\), there is a specific scenario where \(\delta_5\) could cancel the magnitude-2 term. We must rule this out.”
+
+**Description — Critical Error**  
+The proof itself admits that the proposed contradiction fails in a specific \(n=5\) case. That case is never rigorously ruled out afterward.
+
+---
+
+### 14) The “unified approach” for \(n\ge5\) is only a sketch
+**Location**
+> “we can use a second cross-point … This telescoping argument … yields a contradiction in finitely many steps.”
+
+and
+
+> “The height-maximum lemmas … ensure the telescoping terminates”
+
+**Description — Justification Gap**  
+No second cross-point argument is actually carried out, no telescoping recurrence is written down, and the cited height-maximum lemmas were proved only for \(n=4\), not extended to \(n\ge5\). This is a proof sketch, not a completed argument.
+
+---
+
+### 15) The final \(n\ge5\) conclusion is unsupported
+**Location**
+> “\(n\ge 5\): Section~3 (extends all \(n=4\) arguments via the unified approach).”
+
+**Description — Critical Error**  
+Because Section 3 does not provide a complete proof, the claimed contradiction for all \(n\ge5\) has not been established.
+
+---
+
+## Verdict
+Because the solution contains multiple **Critical Errors** and several **Justification Gaps**, it is **not a correct proof**.

@@ -1,0 +1,36 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:** “**\(T\) traces the boundary of the convex polygon \(Q=\operatorname{conv}(T)\).**”  
+   **Description:** **Justification Gap.** The allowed facts only give the exposed translates \(t_i\) and the arithmetic-progressions \(F_i=T\cap [t_i,t_{i+1}]\). They do **not** establish that these data exhaust the relevant geometry of \(T\), that every \(t_i\) is a boundary vertex of \(Q\), or that the segments \([t_i,t_{i+1}]\) are the boundary edges of \(Q\). Later references to “adjacent positive edges of \(Q\)” and uniqueness of decompositions rely on this unproved structure.
+
+2. **Location:** “**It is straightforward to show that the points of \(T\cdot S\) on the boundary of \(Q+P\) perfectly telescope, leaving exactly the \(n\) ‘lonely vertices’ \(V_i=t_i+s_i\)** …”  
+   **Description:** **Justification Gap.** This is a substantial claim, but it is neither proved here nor listed among the facts from Subproblems 1–4 that may be used without proof. The later counting argument depends on it.
+
+3. **Location:** “**Because \(\sum_{i=1}^n m_i a_i=0\) and \(P\) has at least 3 distinct direction classes, we encounter three mutually exhaustive geometric cases:**”  
+   **Description:** **Justification Gap.** The proof never shows that Cases A, B, and C are exhaustive.
+
+4. **Location:** Case A: “**This point lies strictly inside \(Q+P\).**”  
+   **Description:** **Justification Gap.** No argument is given that \(P^*\) is interior rather than on the boundary or equal to one of the already-counted points.
+
+5. **Location:** Case A: “**Because \(P^*\) is near the vertex \(V_{i+1}\)… No other combinations in \(T\times S\) can reach \(P^*\). Thus, the coefficient of \(P^*\) … is \(-2\epsilon_{i+1}\neq 0\).**”  
+   **Description:** **Critical Error.** The proof never establishes that \(P^*\) has exactly the two listed decompositions. “Near the vertex” is not a justification, and possible additional points of \(T\) are not excluded. Without an exhaustive decomposition count, the coefficient computation does not follow.
+
+6. **Location:** Case B: “**The only viable vertex in \(S\) near this location is \(s_{k+1}\)** … **Since \(v\) is an extreme point in \(T\), this is only possible if \(t=v\)** … **If \(a_k\neq -a_i\), the point \(P^{**}\) is uniquely formed** …”  
+   **Description:** **Critical Error.** None of these inferences is justified. In particular, \(v\) being an extreme point of \(\operatorname{conv}(T)\) does **not** imply that other points of \(T\) such as \(v-a_i-a_k\) cannot exist. The claimed uniqueness/noncancellation of \(P^{**}\) therefore does not follow.
+
+7. **Location:** Case C: “**To avoid both \(P^*\) and \(P^{**}\), \(Q\) must only have positive lengths for a single pair of strictly opposite parallel edges. Consequently, \(m_j=0\) for all other indices, meaning \(Q\) degenerates into a 1-dimensional line segment.**”  
+   **Description:** **Justification Gap.** This reduction is asserted but not proved. The failure of Cases A and B does not, as written, imply this line-segment scenario.
+
+8. **Location:** Case C: “**Hence \(a_k=-a_i\) (so \(a_i\) and \(a_k\) share a direction class** …)”  
+   **Description:** **Critical Error.** This conflicts with the problem’s formal definition of direction class as equivalence up to **positive** scalar multiples. Opposite vectors are not the same class under that definition.
+
+9. **Location:** Case C: “**Because \(T\) is a proper set (no repeating elements), the only valid layout is a single alternating 1D chain of step \(a_i\).**”  
+   **Description:** **Justification Gap.** This structural claim is not proved.
+
+10. **Location:** Case C: “**When we convolve the 1D segment \(T\) with such a vertex \(s_r\), we produce an entire line segment of points \(T+s_r\). For any of these points to be cancelled, there would have to exist another vertex \(s_l\in S\) such that the segment \(T+s_l\) perfectly overlaps with \(T+s_r\)** …”  
+    **Description:** **Critical Error.** \(T+s_r\) is a finite translated arithmetic progression, not a continuous segment, and pointwise cancellation in the convolution does **not** require whole translated copies to coincide. The cancellation criterion used here is false.
+
+11. **Location:** Case C: “**Since \(P\) is strictly convex, chords parallel to an edge can only be the opposing edge itself.**”  
+    **Description:** **Critical Error.** This geometric statement is false in general for convex polygons; diagonals/chords can be parallel to a side. The subsequent no-cancellation conclusion is therefore unsupported.
+
+Because the proof contains multiple **Critical Errors** and several additional **Justification Gaps**, the solution is **not valid**.

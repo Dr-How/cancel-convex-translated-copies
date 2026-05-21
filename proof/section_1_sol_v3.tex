@@ -1,0 +1,94 @@
+% SP1 solution v3: adds counting argument (item 7); drops incorrect surjectivity claim from item 5.
+
+I follow the hint.
+
+For each \(s\in S\), choose a linear functional \(\phi_s:\mathbb{R}^2\to\mathbb{R}\) that is uniquely maximized at \(s\) on \(P=\operatorname{conv}(S)\). Since \(T\) is finite, choose \(t_s\in T\) with
+\[
+\phi_s(t_s)=\max_{t\in T}\phi_s(t),
+\]
+and define \(\ell_s:=s+t_s\).
+
+\medskip
+\textbf{1. Lonely points exist.}
+
+Fix \(s\in S\). Suppose \(\ell_s = s'+t'\) for some \(s'\in S\), \(t'\in T\).
+Applying \(\phi_s\):
+\[
+\phi_s(s)+\phi_s(t_s)=\phi_s(s')+\phi_s(t').
+\]
+By construction \(\phi_s(s')\le\phi_s(s)\) and \(\phi_s(t')\le\phi_s(t_s)\), so equality holds in both.
+Since \(s\) is the unique maximizer of \(\phi_s\) on \(S\), we get \(s'=s\), hence \(t'=t_s\).
+Therefore the only \(t\in T\) with \(\ell_s - t\in S\) is \(t=t_s\): the point \(\ell_s\) is lonely.
+
+\medskip
+\textbf{2. Distinctness.}
+
+If \(\ell_{s_1}=\ell_{s_2}\), then by loneliness the covering translation is unique, so \(t_{s_1}=t_{s_2}\), hence \(s_1=s_2\).
+Thus the \(n\) points \(\ell_s\) are pairwise distinct.
+
+\medskip
+\textbf{3. Non-vanishing.}
+
+By loneliness, \(F(\ell_s)=\varepsilon(t_s)\neq 0\).
+
+\medskip
+\textbf{4. Lower bound.}
+
+The \(n\) distinct points \(\ell_s\) all lie in \(\operatorname{supp}(F)\), so \(|\operatorname{supp}(F)|\ge n\).
+
+\medskip
+\textbf{5. Rigidity in the equality case.}
+
+Assume \(|\operatorname{supp}(F)|=n\). Since \(\{\ell_s:s\in S\}\subseteq\operatorname{supp}(F)\) and both sets have size \(n\), we have
+\[
+\operatorname{supp}(F)=\{\ell_s:s\in S\}.
+\]
+In particular, for any \(p\in S+T\) that is not of the form \(\ell_s\), we have \(F(p)=0\).
+
+\medskip
+\textbf{6. Vertices of \(P+Q\) survive.}
+
+Let \(v\) be a vertex of \(P+Q=\operatorname{conv}(S)+\operatorname{conv}(T)\).
+Choose \(\psi:\mathbb{R}^2\to\mathbb{R}\) uniquely maximized at \(v\) on \(P+Q\).
+Let \(s^*\in S\) and \(t^*\in T\) be the maximizers of \(\psi\) on \(S\) and \(T\) respectively.
+Then \(\psi(s^*+t^*)=\max_{P+Q}\psi=\psi(v)\), so \(v=s^*+t^*\) by uniqueness.
+The same uniqueness argument shows \(s^*\) is the unique maximizer of \(\psi\) on \(S\), and \(t^*\) is the unique maximizer on \(T\).
+Hence \(v\) is lonely: the only pair \((s',t')\) with \(s'+t'=v\) is \((s^*,t^*)\).
+Therefore \(F(v)=\varepsilon(t^*)\neq 0\), so every vertex of \(P+Q\) lies in \(\operatorname{supp}(F)\).
+
+\medskip
+\textbf{7. Sign-count identity (counting argument).}
+
+Define \(\sigma(s):=F(\ell_s)=\varepsilon(t_s)\in\{+1,-1\}\) and let
+\[
+n_+:=|\{s\in S:\sigma(s)=+1\}|, \qquad n_-:=|\{s\in S:\sigma(s)=-1\}|.
+\]
+Also let \(k_1:=|\{t\in T:\varepsilon(t)=+1\}|\) and \(k_2:=|\{t\in T:\varepsilon(t)=-1\}|\).
+
+We compute the total weight of \(F\) in two ways.
+
+\emph{First way.} In the equality case \(\operatorname{supp}(F)=\{\ell_s:s\in S\}\), so
+\[
+\sum_{p\in\mathbb{R}^2}F(p)=\sum_{s\in S}F(\ell_s)=\sum_{s\in S}\sigma(s)=n_+-n_-.
+\]
+
+\emph{Second way.} By definition \(F(p)=\sum_{t\in T:\,p-t\in S}\varepsilon(t)\), so
+\[
+\sum_{p\in\mathbb{R}^2}F(p)=\sum_{t\in T}\varepsilon(t)\cdot|S|=n(k_1-k_2).
+\]
+
+Equating the two expressions:
+\[
+n_+-n_-=n(k_1-k_2).
+\]
+Since \(0\le n_\pm\le n\) and \(n_++n_-=n\), we have \(|n_+-n_-|\le n\), so \(n(k_1-k_2)\in\{-n,0,n\}\), giving:
+\[
+k_1-k_2\in\{-1,0,1\}.
+\]
+In particular:
+\begin{itemize}
+\item \textbf{Case~0} (\(k_1=k_2\)): \(n_+=n_-=n/2\). Both signs appear on \(S\), and \(n\) is even.
+\item \textbf{Case~\(+n\)} (\(k_1=k_2+1\)): \(n_+=n\), \(n_-=0\). All lonely points have sign \(+1\).
+\item \textbf{Case~\(-n\)} (\(k_2=k_1+1\)): \(n_-=n\), \(n_+=0\). All lonely points have sign \(-1\).
+\end{itemize}
+\end{proof}

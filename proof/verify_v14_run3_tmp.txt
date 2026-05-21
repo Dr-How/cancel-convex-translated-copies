@@ -1,0 +1,137 @@
+The solution is **not correct**. It contains multiple **Critical Errors** and **Justification Gaps**.
+
+## Bug report
+
+### Global / setup issues
+
+1. **Location:** “Let \(n \geq 3\). We have \(x_1,\ldots,x_n\) in convex position (CCW), \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) finitely supported on \(T = \{x_1,\ldots,x_n\}\), with \(T\) having both signs.”
+   
+   **Description:** **Critical Error.** This is not the problem’s setup. In the problem, \(S\) is the convex \(n\)-point set, \(T\) is a finite set of translating vectors, and the extremal equality concerns \(\{p:\sigma(p)\neq 0\}\). The proof replaces these objects by a different configuration in which \(T\) itself is an \(n\)-point convex polygon and the support of \(\sigma_T\). The rest of the argument is therefore about different objects than the ones in the statement.
+
+2. **Location:** “The direction class \([a_i]\) is the equivalence class of \(a_i\) under nonzero scalar multiples (i.e., \([u]=[v]\) iff \(u = \lambda v\) for some \(\lambda \neq 0\)).”
+   
+   **Description:** **Critical Error.** The problem defines direction classes using **positive** scalar multiples. The solution changes the equivalence relation by also identifying opposite directions. That changes the statement being proved, especially in the quadrilateral case.
+
+3. **Location:** “So \(T = F_1 \cup \cdots \cup F_n\) (with endpoints shared: \(t_{i+1} \in F_i \cap F_{i+1}\), \(\varepsilon_{i+1} = (-1)^{m_i}\varepsilon_i\)).”
+   
+   **Description:** **Justification Gap.** This union property is used throughout, but it is not one of the allowed imported facts from Subproblems 1–4 and is not proved here.
+
+4. **Location:** “Key equations (from the nonlonely/sigma0 conditions): … (NL), (S0).”
+   
+   **Description:** **Justification Gap.** These equations are foundational for the whole proof, but they are neither among the permitted facts nor derived in the current setup.
+
+5. **Location:** “\(c_j := \beta(s_j - s_1) = \sum_{i=1}^{j-1}\beta(a_i)\) (so \(c_1=0\), \(c_2=1\), \(c_3=1+\mu\), etc.).”
+   
+   **Description:** **Critical Error.** Since \(s_2=x_2-x_1=a_1\) and \(\beta(a_1)=0\), one has \(c_2=0\), not \(1\). This indexing/calculation error contaminates later height computations.
+
+---
+
+### Section 1: \(n=3\)
+
+6. **Location:** “Apply \eqref{eq:S0} with \(k=2\) at \(t'\):
+\[
+  \sigma_T(t'+a_1)+\sigma_T(t')+\sigma_T(t'-a_2)+\sigma_T(t'-a_2-a_3)=0.
+\]”
+   
+   **Description:** **Critical Error.** For \(n=3\), the \(k=2\) instance of \(\eqref{eq:S0}\) has only **three** terms (\(j=1,2,3\)). The extra term \(\sigma_T(t'-a_2-a_3)\) should not be there. This incorrect equation is used repeatedly in the \(n=3\) argument.
+
+7. **Location:** “This is getting complicated. Let me use the cleaner approach: for \(n=3\), ANY \(t' \in T\) with \(h(t')>0\) works.”
+   
+   **Description:** **Critical Error.** The proof abandons the \(h(t')=0\) case without resolving it. No argument is given that this case cannot occur or that it may be ignored.
+
+8. **Location:** “The analysis confirms contradiction in all sub-subcases. ✓”
+   
+   **Description:** **Justification Gap.** This is not a proof. Several subcases are left as assertions rather than established arguments.
+
+---
+
+### Section 2: \(n=4\)
+
+9. **Location:** “Actually, Lemma betamin4 as stated may not hold in full generality… Let me just state: choose \(\beta\) with \(\beta(a_1)=0\), \(\beta(a_2)=1\), AND \(h(p)\geq 0\) for all \(p \in T\) (possible since \(T\) is contained in a half-plane bounded by the line through \(t_1\) parallel to \(a_1\), because \(t_1\) is a vertex of the convex hull of \(T\)).”
+   
+   **Description:** **Critical Error.** The proof explicitly admits the previous argument fails, then replaces it by an unproved choice of \(\beta\). Neither the claim that \(t_1\) is a vertex of \(\operatorname{conv}(T)\) nor the half-plane claim nor the existence of such a \(\beta\) with both normalization conditions is established.
+
+10. **Location:** In Lemma \([hzero]\): “\(h(q-a_2-a_3)=-1-\mu\). … By Lemma~\ref{lem:betamin4}, all terms with \(h<0\) vanish. … For \(n=4\): \(\sigma_T(q+a_1)+\sigma_T(q)+0+0=0\).”
+    
+    **Description:** **Critical Error.** When \(\mu<0\), the quantity \(-1-\mu\) may be positive, so the term \(\sigma_T(q-a_2-a_3)\) cannot simply be set to \(0\). The reduction to two terms is invalid.
+
+11. **Location:** “\begin{proof}
+(Analogous to hzero argument, applying the equation at an element above height \(m_2+m_3\mu\) and deriving a contradiction via infinite chain.)
+\end{proof}”
+    
+    **Description:** **Justification Gap.** Lemma \([betamax4]\) is effectively unproved.
+
+12. **Location:** “If \(t \in T\) and \(h(t) \notin \{h(p) : p \in F_1 \cup F_2 \cup F_3 \cup F_4\}\), then \(t\) generates a bi-infinite chain…”
+    
+    **Description:** **Critical Error.** Earlier the solution stated \(T = F_1 \cup F_2 \cup F_3 \cup F_4\). Under that assumption, every \(t\in T\) already lies in the union, so the lemma’s hypothesis is impossible/internally inconsistent.
+
+13. **Location:** In Lemma \([facechain]\): “By induction on height, lower terms vanish.”
+    
+    **Description:** **Justification Gap.** No induction parameter, base case, or well-ordering of the relevant heights is given, and the needed claim about which shifted heights occur is not proved.
+
+14. **Location:** In Lemma \([nogaps]\): “In all sub-cases, the equation at \(t'\) either gives contradiction (magnitude \(>1\)) or propagates to a bi-infinite chain. ✓”
+    
+    **Description:** **Justification Gap.** The advertised case analysis is not actually carried out; the contradiction is asserted, not established.
+
+15. **Location:** In Lemma \([cross]\): “apply \eqref{eq:NL} at \(p = \dots = t_1+a_2\) … and is not in \(T\): … possible but a degenerate subcase; in the non-degenerate case \(p \notin T\).”
+    
+    **Description:** **Critical Error.** The proof applies \(\eqref{eq:NL}\) without proving its hypothesis \(p\notin T\). In fact, it explicitly admits possible cases where \(p\in T\).
+
+16. **Location:** In Lemma \([cross]\): “\(\sigma_T(t_1+a_2) = \sigma_T(t_2+a_2) = (-1)^1\varepsilon_2\)”
+    
+    **Description:** **Critical Error.** This identifies \(t_1+a_2\) with \(t_2+a_2\). But \(t_2=t_1+m_1a_1\), so these points are equal only if \(m_1=0\), contrary to the case \(m_1\ge 1\).
+
+17. **Location:** 
+   - “For the purposes of Lemma~\ref{lem:cross}: we handle \(\mu > 0\) here … and delegate \(\mu < 0\) to Proposition~\ref{prop:n4muZ}.”
+   - “So Lemma~\ref{lem:cross1} is proved for \(\mu>0\).”
+   - “(The case \(\mu<0\), … is handled there.)”
+    
+    **Description:** **Critical Error.** The lemmas are stated without restriction on \(\mu\), but their proofs explicitly cover only special subcases. Later propositions invoke them as if they were fully proved.
+
+18. **Location:** In Proposition \([n4mu]\): “For the main argument assume the face-chain height condition fails, giving \(\sigma_T(t'-a_2-a_3)=0\).”
+    
+    **Description:** **Critical Error.** The proof simply assumes away the unresolved alternative instead of handling it.
+
+19. **Location:** In Proposition \([n4muZ]\): “Closure: \(m_3\cdot(-\ell)a_1+m_4a_4=0\) (since \(a_3=\lambda a_1\) with \(\beta(a_3)=\mu=-\ell\) … wait: … \([a_3]\neq[a_1]\) requires \(a_3\not\parallel a_1\) …)”
+    
+    **Description:** **Critical Error.** This is self-contradictory and algebraically invalid. From \(\beta(a_3)=-\ell\) one cannot replace \(a_3\) by \((-\,\ell)a_1\). The text first treats \(a_3\) as parallel to \(a_1\) and then says \(a_3\not\parallel a_1\).
+
+20. **Location:** In Proposition \([n4muZ]\): “This case analysis, while extensive, always yields a contradiction. The key point: … ✓”
+    
+    **Description:** **Justification Gap.** Large parts of the proof are replaced by a claim that omitted casework “always yields” the result. That is not a proof.
+
+21. **Location:** In Proposition \([n4muZ]\): “for \(\mu \in \mathbb{Z}_{<0}\): … the height \(h\) is integer-valued on face chains … \(h(F_4)\in\mathbb{Z}\).”
+    
+    **Description:** **Critical Error.** Even if \(\mu\in\mathbb{Z}\), the step size on \(F_4\) is \(\beta(a_4)=-(m_2+m_3\mu)/m_4\), which need not be an integer. So \(h(F_4)\subseteq\mathbb Z\) does not follow.
+
+---
+
+### Section 3: \(n\ge 5\)
+
+22. **Location:** “\(h(t)\geq 0\) for all \(t\in T\) (by choosing \(\beta\) so that \(t_1\) is the \(h\)-minimum vertex of the convex polygon, as in Lemma~\ref{lem:betamin4}).”
+    
+    **Description:** **Justification Gap.** This repeats the earlier unproved choice of \(\beta\), now for the \(n\ge5\) case.
+
+23. **Location:** In Lemma \([hzero\text{-}n]\): “for \(j\geq 3\) the angles increase so \(c_j>0\).”
+    
+    **Description:** **Justification Gap.** No theorem is stated or proved that gives this monotonicity/positivity for the \(\beta\)-heights \(c_j\). It is then used to kill all extra terms.
+
+24. **Location:** In Proposition \([n\ge5\text{ contradiction}]\): “For \(j=1\): \(\sigma_T(p)=\sigma_T(t_1+a_2)\): height 1; if \(t_1+a_2\notin T\) (generic case): \(=0\). … The equation reduces to exactly the \(n=4\) cross-point equation, and the same contradiction is derived. ✓”
+    
+    **Description:** **Critical Error.** The proof does not give a single valid argument: it treats only a “generic case,” switches equations depending on whether \(p\in T\), and then reduces to the already invalid \(n=4\) argument.
+
+25. **Location:** In the same proposition: “Either way, equations yield chain contradiction. ✓” / “same contradiction as \(n=4\). ✓”
+    
+    **Description:** **Justification Gap.** The \(n\ge5\) case is not independently proved; it repeatedly appeals to the unverified \(n=4\) case and replaces detailed analysis by assertions.
+
+---
+
+### Final conclusion
+
+26. **Location:** “Therefore, \(T\) can have at most 2 edge-direction classes. \(\blacksquare\)”
+    
+    **Description:** **Critical Error.** The statement to prove is about the edge-direction classes of \(P=\operatorname{conv}(S)\), not of \(T\). The conclusion does not match the theorem.
+
+---
+
+Because of these issues, especially the changed setup, the altered definition of direction class, the incorrect \(n=3\) equation, and the many unresolved \(n=4\)/\(n\ge5\) case analyses, the solution cannot be accepted.

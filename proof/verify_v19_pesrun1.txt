@@ -1,0 +1,294 @@
+CONSOLIDATED PESSIMISTIC VERIFICATION REPORT
+============================================================
+Solution:  proof/section_5_three_directions_sol_v19.tex
+Problem:   proof/section_5_three_directions.tex
+Mode:      pessimistic (3 independent runs)
+Verdict:   ISSUES_FOUND
+
+All three verifier runs independently flagged the solution as INCORRECT.
+
+------------------------------------------------------------
+ISSUE LIST  (run that flagged it | type | summary)
+------------------------------------------------------------
+
+[R1,R2,R3] CRITICAL ERROR — Direction-class definition mismatch.
+  The proof defines [a]=[b] iff b=λa for some λ≠0 (any nonzero scalar),
+  merging opposite directions into one class. The problem statement uses
+  POSITIVE scalar multiples only. This changes the hypothesis throughout.
+
+[R1,R2,R3] CRITICAL ERROR — Support identification of σ̃ is unproved.
+  The claim supp(σ̃)={p_i=t_i+s_i} is asserted without proof. The
+  distinctness argument (s_i distinct + disjoint normal cones ⟹ p_i distinct)
+  is invalid (distinct summands do not imply distinct sums), and the
+  vanishing of all other summands at each p_i uses an unstated separation
+  argument. All subsequent VAN applications rest on this unsupported premise.
+
+[R1,R2,R3] CRITICAL ERROR — m=0 case not eliminated.
+  From t_1=t_2=t_3 the proof concludes T⊆{t_1}, but this does not follow:
+  T may contain further points outside the degenerate chains F_1,F_2,F_3.
+  So m≥1 (and later m≥2) are not established.
+
+[R1,R2,R3] JUSTIFICATION GAP — Cyclic relabeling does not achieve edges 1,2,3.
+  The proof claims that by cyclic relabeling one can make any three chosen
+  edges (from distinct classes) become the consecutive edges 1,2,3. Cyclic
+  relabeling only rotates the boundary order; no argument is given that the
+  chosen triple can always be made consecutive.
+
+[R1,R2,R3] CRITICAL ERROR — Closure relation algebra is wrong.
+  The proof writes (Σ_{[a_i]=[a_1]} m_i)·a_1=0, but if a_i is parallel to
+  a_1 then a_i=λ_i·a_1 with possibly different scalars λ_i, giving
+  (m_1+Σ λ_i m_i)·a_1=0, not (Σ m_i)·a_1=0. The conclusion "all m_i=0"
+  does not follow; the proof has not established T⊄F_1.
+
+[R2,R3] JUSTIFICATION GAP — t_1 not the unique β-minimiser when m_1>0.
+  The proof states t_1 is the unique maximiser of ⟨·,−v⟩ over T, but when
+  m_1>0 every point of F_1 has the same β-value. The needed h(t)≥0 for all
+  t∈T is not established.
+
+[R1,R2,R3] CRITICAL ERROR — D-decomposition at height h_0 is incorrect.
+  For c_j=h_0, the height of t'−s_j is h(t')−c_j=h_0−h_0=0, not h_0.
+  Additionally the base-point offset t_1 is omitted. The formula
+  t'−s_j=λ_j a_1+h_0 v and the resulting membership test for F_1 are wrong,
+  making eq.(Dform) and the subsequent D-sum analysis unsupported.
+
+[R1,R2,R3] JUSTIFICATION GAP — Index set {j: c_j=h_0} may be empty.
+  The proof never establishes that any j satisfies c_j=h_0. If that set is
+  empty, D, λ_j, min_j λ_j, and R* are undefined.
+
+[R1,R2,R3] CRITICAL ERROR — Nonzero summand does not imply nonzero sum.
+  In both Sub-case B1 (at t'+(R_max+2)a_1) and Sub-case B2 (at
+  t'+(R_min−2)a_1), the proof infers the whole D-sum is nonzero because one
+  term j_0 (resp. j_0') is nonzero. Cancellation among other terms is never
+  ruled out. Both key contradiction steps are invalid.
+
+[R1,R2,R3] JUSTIFICATION GAP — VAN application points not verified to be
+  outside supp(σ̃).
+  Before applying the VAN equation at t'+(R_max+2)a_1, t'+(R_min−1)a_1,
+  t'+(R_min−2)a_1, the proof must verify these points are outside the
+  support. No such verification is given.
+
+[R1,R2,R3] CRITICAL ERROR — Leftward VAN equation is wrong (run 3 detail).
+  At p=t'+(R_min−1)a_1, the proof claims D gives −σ_T(t'+R_min·a_1)≠0.
+  But both j=1,2 terms in the D-sum land to the left of the minimal chain
+  element; the term σ_T(t'+R_min·a_1) does not appear. The equation is
+  incorrect.
+
+[R1,R2,R3] JUSTIFICATION GAP — Uniqueness of contributing index j_0=j_0'
+  is not proved.
+  The identification j_0=j_0' and the assertion that j_0 is the unique index
+  with c_j=h_0 contributing to the D-sums are stated but never derived.
+  Multiple vertices may satisfy c_j=h_0.
+
+[R1,R2,R3] CRITICAL ERROR — Sign σ_T(t'+R_min·a_1)=−ε_1 is unsupported.
+  eq.(Dleft) only relates σ_T(t'+R_min·a_1) to a D-sum; it does not
+  identify the sign as −ε_1. The sign computation driving the final
+  contradiction is unsupported.
+
+[R1,R2,R3] JUSTIFICATION GAP — m_1≥1 is assumed but never proved for n≥4.
+  The step σ_T(t_1+a_1)=(−1)^1 ε_1 requires m_1≥1. In the general n≥4
+  case the proof never establishes m_1>0.
+
+[R1,R2,R3] CRITICAL ERROR — Final contradiction in Sub-case B2 does not
+  follow.
+  Even if j_0 were the unique relevant index, p_{j_0}=t_{j_0}+s_{j_0} need
+  not equal q*=t_1+s_{j_0}; that would require t_{j_0}=t_1, which is
+  never shown.
+
+[R1,R2,R3] JUSTIFICATION GAP — Sub-case L is not proved.
+  The proof refers to "the same analysis as Sub-cases A, B1, B2 applied with
+  R_max replaced by R_max+1." After shifting to the next non-lonely step, the
+  defining maximality property of R_max no longer holds, so the earlier
+  equations do not apply verbatim. The case is not actually resolved.
+
+------------------------------------------------------------
+TOTAL: 10 Critical Errors, 7 Justification Gaps across all runs
+Most critical issue: Direction-class definition mismatch undermines the
+  entire proof from the first definition, combined with the unproved support
+  identification of σ̃ which invalidates every VAN application.
+
+------------------------------------------------------------
+APPENDIX A — FULL OUTPUT: RUN 1
+------------------------------------------------------------
+The solution is **not correct**. Here is the bug report.
+
+1. **Location:** "\(\,[a]=[b]\) iff \(b=\lambda a\) for some \(\lambda\ne0\). … (A parallelogram has edges \(a_1,a_2,-a_1,-a_2\) giving exactly 2 classes.)\)"
+
+   **Description:** **Critical Error.** The problem statement defines direction classes using **positive** scalar multiples. The solution replaces this by equivalence up to any nonzero scalar, which identifies opposite directions. That changes the meaning of "edge-direction class," so the proof is not addressing the stated hypothesis.
+
+2. **Location:** "Since the \(p_i\) are distinct (the \(s_i\) are distinct and the \(t_i\) come from disjoint normal cones) and \(|\mathrm{supp}(\tilde\sigma)|=n\):
+   \[
+   \mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.
+   \]"
+
+   **Description:** **Critical Error.** This support identity is not established.
+   - The argument that all other summands vanish at \(p_i\) uses "maximality … by linear-functional separation," which is not one of the allowed facts and is not proved here.
+   - The stated reason for distinctness is invalid: \(s_i\neq s_j\) and information about \(t_i,t_j\) do **not** imply \(t_i+s_i\neq t_j+s_j\).
+   Since later VAN applications rely on "not lonely ⇒ outside support," this is a major break in the logic.
+
+3. **Location:** "If \(m=0\): \(t_1=t_2=t_3\), so \(T\subseteq\{t_1\}\), contradicting both signs present."
+
+   **Description:** **Justification Gap.** From \(t_1=t_2=t_3\) one cannot conclude \(T\subseteq\{t_1\}\). The allowed facts only describe the edge chains \(F_i\), not the whole set \(T\). So the case \(m=0\) is not ruled out.
+
+4. **Location:** "Relabel so that \([a_1],[a_2],[a_3]\) are pairwise distinct direction classes … by cyclic relabeling we may take them to include edges \(1,2,3\)."
+
+   **Description:** **Justification Gap.** A cyclic relabeling only rotates the edge sequence. No argument is given that three edges from distinct classes can always be made the consecutive edges \(1,2,3\).
+
+5. **Location:** "The closure \eqref{eq:closure} then reduces to \(m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0\), i.e.\ \(\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0\), forcing all \(m_i=0\)."
+
+   **Description:** **Critical Error.** Even if each such \(a_i\) is parallel to \(a_1\), one only gets \(a_i=\lambda_i a_1\) with possibly different (and possibly negative) scalars \(\lambda_i\). The displayed simplification drops those coefficients. This is an algebraic mistake.
+
+6. **Location:** "Define \(D(p)=\sum_{j:\,c_j=h_0}\sigma_T(p-s_j)\) … Let \(R^*=m_1+\max_j(|\lambda_j|+1)\)."
+
+   **Description:** **Justification Gap.** The proof never shows that there exists any \(j\) with \(c_j=h_0\). If that index set is empty, the later definitions of \(\lambda_j\), \(\min_j\lambda_j\), and \(R^*\) are undefined.
+
+7. **Location:** "For each \(j\) with \(c_j=h_0\), write \(t'-s_j=\lambda_j a_1+h_0 v\) … Then \(t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v\), which lies in \(F_1=\{t_1+ka_1:0\le k\le m_1\}\) iff \((r+\lambda_j)=k\)."
+
+   **Description:** **Critical Error.** This decomposition has the wrong height and omits the \(t_1\)-offset. If \(c_j=h_0\), then \(h(t'-s_j)=h_0-c_j=0\), so \(t'-s_j\) should lie on the height-0 line through \(t_1\), not on a translate by \(h_0v\). The subsequent formula for \(D\) is therefore unsupported.
+
+8. **Location:** "Apply \eqref{eq:VAN} at \(t'+(R_{\max}+2)a_1\) (height \(h_0\); not lonely … after possibly increasing the starting index by at most \(n\) steps, a finite adjustment)"
+
+   **Description:** **Justification Gap.** This "finite adjustment" is not justified. The proof does not show that one may shift the starting point and still preserve the earlier setup (\(R_{\max}\), \(k_0\), the contributing index \(j_0\), etc.).
+
+9. **Location A:** "The \(j_0\)-term in \(D(t'+(R_{\max}+2)a_1)\) is … \(\ne0\) … In particular, \(|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1\)."
+   **Location B:** "The \(j_0'\)-term in \(D(t'+(R_{\min}-2)a_1)\) is … \(\ne0\). So \(\sigma_T(t'+(R_{\min}-2)a_1)\ne0\)."
+
+   **Description:** **Critical Error.** In both places, the proof infers that the whole \(D\)-sum is nonzero merely because one summand is nonzero. Possible cancellation among different summands is not ruled out.
+
+10. **Location:** "By the same argument at \(t'+(R_{\min}-1)a_1\) (with left/right swapped …):
+    \[
+    D(t'+(R_{\min}-1)a_1)=-\sigma_T(t'+R_{\min}a_1)\ne0.
+    \]"
+
+    **Description:** **Justification Gap.** No verification is given that \(t'+(R_{\min}-1)a_1\) lies outside \(\mathrm{supp}(\tilde\sigma)\). Without that, \eqref{eq:VAN} cannot be applied there.
+
+11. **Location:** "This forces the \(j\)'s contributing to both D-sums to be the same vertex \(j_0=j_0'\) … equating gives \(R_{\max}-R_{\min}=m_1-2\) and \(s_{j_0}=s_{j_0'}\)."
+
+    **Description:** **Justification Gap.** No proof is given that the right-hand and left-hand \(D\)-sums have unique contributors, or that their contributors must coincide. The claimed equalities are asserted, not derived.
+
+12. **Location:** "\(j=1\): \(\sigma_T(t_1+s_{j_0}+a_1)=\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1\) (chain element; \(\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1\) from \eqref{eq:Dleft})."
+
+    **Description:** **Critical Error.** \eqref{eq:Dleft} does not determine the sign of \(\sigma_T(t'+R_{\min}a_1)\) to be \(-\varepsilon_1\). It only relates that value to a \(D\)-sum. The sign computation used later is unsupported.
+
+13. **Location:** "\(j=j_0\): \(\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1=-\varepsilon_1\) (position \(1\) on \(F_1\))."
+
+    **Description:** **Justification Gap.** This requires \(t_1+a_1\in F_1\), i.e. \(m_1\ge1\). The \(n\ge4\) argument never established \(m_1\ge1\).
+
+14. **Location:** "Since \(h(t_i)\ge0\) and \(c_i=0\) only for \(i=1,2\) … only \(c_{j_0}=h_0\) by assumption. So the only candidate is \(p_{j_0}=q^*\)."
+
+    **Description:** **Critical Error.** Even if \(j_0\) were the only relevant vertex index, \(p_{j_0}=t_{j_0}+s_{j_0}\) need not equal \(q^*=t_1+s_{j_0}\). That would require \(t_{j_0}=t_1\), which is never shown. The final contradiction in Sub-case B2 does not follow.
+
+15. **Location:** "Sub-case~L … By the same analysis as Sub-cases~A, B1, B2 applied with \(R_{\max}\) replaced by \(R_{\max}+1\) (or the next non-lonely step), we obtain the same contradiction in each sub-case."
+
+    **Description:** **Justification Gap.** This is only a reference to earlier cases, not a proof. The argument does not show that after moving to "the next non-lonely step" the hypotheses of those sub-cases still hold.
+
+Overall, the proof contains multiple **Critical Errors** and **Justification Gaps**, so it does **not** verify the statement.
+
+------------------------------------------------------------
+APPENDIX B — FULL OUTPUT: RUN 2
+------------------------------------------------------------
+The solution is **not correct**. Bug report:
+
+1. **Location:** `\paragraph{Direction classes.} $[a]=[b]$ iff $b=\lambda a$ for some $\lambda\ne0$. (A parallelogram has edges $a_1,a_2,-a_1,-a_2$ giving exactly 2 classes.)`
+   **Type:** Critical Error
+   **Description:** This changes the problem's definition. The statement defines edge-direction classes using **positive** scalar multiples; the proof identifies vectors differing by any nonzero scalar, so opposite directions are merged. That is a different equivalence relation, so the proof is not addressing the stated hypothesis as written.
+
+2. **Location:** `By (F1)--(F2), each $p_i=t_i+s_i$ satisfies ... Since the $p_i$ are distinct ... and $|\mathrm{supp}(\tilde\sigma)|=n$: \[\mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.\]`
+   **Type:** Critical Error
+   **Description:** This foundational claim is not established from the allowed facts.
+   - The statement that all other terms at p_i vanish uses an unstated separation argument not included in (F1)-(F2).
+   - The claim that the p_i are distinct because the s_i are distinct and the t_i come from disjoint normal cones is invalid; distinct summands do not imply distinct sums.
+   Therefore supp(σ̃)={p_i} is unproved, and many later uses of VAN rely on an unsupported premise.
+
+3. **Location:** `If $m=0$: $t_1=t_2=t_3$, so $T\subseteq\{t_1\}$, contradicting both signs present.`
+   **Type:** Critical Error
+   **Description:** From t_1=t_2=t_3 and the listed facts about the chains F_i, it does **not** follow that all of T is {t_1}. Extra translates outside those degenerate chains are not ruled out. So the case m=0 is not actually eliminated.
+
+4. **Location:** `Relabel so that $[a_1],[a_2],[a_3]$ are pairwise distinct direction classes (choose any three edges from distinct classes; by cyclic relabeling we may take them to include edges $1,2,3$...)`
+   **Type:** Justification Gap
+   **Description:** Cyclic relabeling only rotates the boundary order; it does not make arbitrary chosen edges become the consecutive edges 1,2,3. The proof never shows that one can arrange for the first three **consecutive** edges to have three distinct classes.
+
+5. **Location:** `The closure \eqref{eq:closure} then reduces to ... i.e.\ $\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0$, forcing all $m_i=0$.`
+   **Type:** Critical Error
+   **Description:** This algebra is wrong. If a_i is parallel to a_1, then a_i=λ_i a_1 for some scalar λ_i, not necessarily a_i=a_1. The closure relation becomes (m_1+Σ λ_i m_i)a_1=0, not (Σ m_i)a_1=0. So the conclusion "all m_i=0" does not follow. Consequently, the proof has not established T⊄F_1, so the later choice of a positive height h_0 is not justified.
+
+6. **Location:** `For each $j$ with $c_j=h_0$, write $t'-s_j=\lambda_j a_1+h_0 v$ ... Then $t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v$, which lies in F_1={t_1+ka_1:0≤k≤m_1} iff ...`
+   **Type:** Critical Error
+   **Description:** This decomposition is incorrect for two separate reasons.
+   - Heights are defined by h(x)=β(x−t_1), so the relevant line is the affine line through t_1; the displayed formula omits the base point t_1.
+   - The coefficient of v in the basis {a_1,v} is not automatically equal to the β-value unless β(v)=1, which is never shown.
+   Therefore eq.(Dform) and the later conclusion that D(t'+(r+1)a_1)=0 for large r are unsupported.
+
+7. **Location:** `Apply \eqref{eq:VAN} at $t'+(R_{\max}+2)a_1$ ... not lonely if ... after possibly increasing the starting index by at most $n$ steps ...` and `By the same argument at $t'+(R_{\min}-1)a_1$ ...`
+   **Type:** Critical Error
+   **Description:** These VAN applications are not justified. The proof does not actually prove that the points t'+(R_max+2)a_1, t'+(R_min−1)a_1, or t'+(R_min−2)a_1 lie outside supp(σ̃). The "possibly increasing the starting index" remark is not a valid fix, because changing the start changes the meaning of R_max/R_min, and there is no separate leftward lonely-point case analyzed.
+
+8. **Location:** `The $j_0$-term in $D(t'+(R_{\max}+2)a_1)$ is ... $\ne0$ ... In particular, $|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1$` and `The $j_0'$-term in $D(t'+(R_{\min}-2)a_1)$ is ... $\ne0$. So $\sigma_T(t'+(R_{\min}-2)a_1)\ne0$`
+   **Type:** Critical Error
+   **Description:** A sum can contain a nonzero displayed term and still equal zero by cancellation with the other terms. The proof gives no argument that the remaining contributions to the D-sum cannot cancel the exhibited nonzero term. Both contradiction steps are invalid.
+
+9. **Location:** `This forces the $j$'s contributing to both D-sums to be the same vertex $j_0=j_0'$ ...` and later `by assumption ($j_0$ is the unique index with $c_j=h_0$ contributing to the D-sums ...)` and `\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1$ from \eqref{eq:Dleft}`
+   **Type:** Critical Error
+   **Description:** None of these assertions is proved.
+   - The proof does not show the rightward and leftward contributing indices must coincide.
+   - It does not show uniqueness of a contributor with c_j=h_0.
+   - eq.(Dleft) only yields D=−σ_T(·)≠0, not the exact value −ε_1.
+   - The later use of σ_T(t_1+a_1)=(−1)^1 ε_1 also implicitly assumes m_1≥1, which was never proved in the general n≥4 case.
+   The final contradiction in Sub-case B2 rests on unsupported assumptions.
+
+10. **Location:** `By the same analysis as Sub-cases A, B1, B2 applied with $R_{\max}$ replaced by $R_{\max}+1$ (or the next non-lonely step), we obtain the same contradiction.`
+    **Type:** Critical Error
+    **Description:** This does not work. Replacing R_max by R_max+1 or by a later step loses the defining property that R_max is the last index with t'+r·a_1∈T. The earlier maximality-based equations no longer apply verbatim. So Sub-case L is not actually resolved.
+
+Because of these issues, the proof does **not** verify the statement.
+
+------------------------------------------------------------
+APPENDIX C — FULL OUTPUT: RUN 3
+------------------------------------------------------------
+The solution is **not correct**. Bug report:
+
+1. **Location:** `Direction classes.  [a]=[b] iff b=λa for some λ≠0.`
+   **Description:** **Critical Error.** The statement defines edge-direction classes using **positive** scalar multiples, but the proof switches to equivalence under **any nonzero** scalar. Later steps use this altered meaning, e.g. identifying a_i∈ℝa_1 with [a_i]=[a_1]. So the proof is not addressing the stated notion of direction class.
+
+2. **Location:** `Since the p_i are distinct (the s_i are distinct and the t_i come from disjoint normal cones) ... supp(σ̃)={p_i=t_i+s_i:1≤i≤n}.`
+   **Description:** **Justification Gap.** The stated reason does not prove the points p_i=t_i+s_i are distinct, and it does not justify that these are **all** support points. This unsupported identification of the support is used repeatedly later to decide when VAN may be applied.
+
+3. **Location:** `By (F1), t_1 is the unique maximiser of ⟨·,−v⟩=−β(·) over T`
+   **Description:** **Justification Gap.** As written this is false when m_1>0, because every point of F_1={t_1,t_1+a_1,…,t_1+m_1·a_1} has the same β-value. The needed conclusion h(t)≥0 for all t∈T is not established by the argument given.
+
+4. **Location:** `If m=0: t_1=t_2=t_3, so T⊆{t_1}, contradicting both signs present.`
+   **Description:** **Critical Error.** From m=0 one only gets F_1=F_2=F_3={t_1}. It does **not** follow that T has no other points. Therefore the proof does not establish m≥1, so the later use of m≥2 is unsupported.
+
+5. **Location:** `by cyclic relabeling we may take them to include edges 1,2,3`
+   **Description:** **Justification Gap.** Cyclic relabeling rotates the boundary order; it does not show that arbitrary chosen edges from three classes can be made consecutive. The later setup uses s_3=s_1+a_1+a_2, so this adjacency matters.
+
+6. **Location:** `The closure eq.(closure) then reduces to ... (Σ_{[a_i]=[a_1]} m_i)·a_1=0, forcing all m_i=0`
+   **Description:** **Critical Error.** Even if each relevant a_i is parallel to a_1, one only has a_i=λ_i·a_1 with possibly different scalars (and, under the proof's own class definition, possibly opposite sign). Replacing Σ m_i·a_i by (Σ m_i)·a_1 is invalid.
+
+7. **Location:** `write t'−s_j=λ_j a_1+h_0 v ... Then t'+r·a_1−s_j=(r+λ_j)a_1+h_0 v, which lies in F_1 iff ...`
+   **Description:** **Critical Error.** For c_j=h_0, the point t'−s_j has height 0, not h_0. The decomposition also omits the translation by t_1. So the membership test for F_1 and the derived formula eq.(Dform) are not justified.
+
+8. **Location:** `The j_0-term in D(t'+(R_max+2)a_1) is ... ≠0 ... In particular, |σ_T(t'+(R_max+2)a_1)|≥1`
+   **Description:** **Critical Error.** A nonzero summand in a sum does not imply the whole sum is nonzero; other terms may cancel it. The conclusion that t'+(R_max+2)a_1∈T does not follow.
+
+9. **Location:** `after possibly increasing the starting index by at most n steps` and later `provided we choose the next non-lonely step ... By the same analysis ...`
+   **Description:** **Justification Gap.** The proof never re-establishes the needed hypotheses after skipping ahead past lonely points. It does not show that the same j_0, k_0, or D-sum structure survives. So the lonely-point exception is not actually handled.
+
+10. **Location:** `By the same argument at t'+(R_min−1)a_1 ... D(t'+(R_min−1)a_1)=−σ_T(t'+R_min·a_1)≠0.`
+    **Description:** **Critical Error.** This is the wrong VAN equation. At p=t'+(R_min−1)a_1, the j=1,2 terms are σ_T(p) and σ_T(p−a_1), both left of the minimal chain element. The term σ_T(t'+R_min·a_1) does not appear there.
+
+11. **Location:** `The j_0'-term in D(t'+(R_min−2)a_1) is ... ≠0. So σ_T(t'+(R_min−2)a_1)≠0`
+    **Description:** **Critical Error.** Same cancellation problem as in Sub-case B1: one nonzero contribution does not imply the whole D-sum is nonzero.
+
+12. **Location:** `This forces the j's contributing to both D-sums to be the same vertex j_0=j_0'` and later `j_0 is the unique index with c_j=h_0 ... only c_{j_0}=h_0 by assumption`
+    **Description:** **Justification Gap.** Neither j_0=j_0' nor uniqueness of a height-h_0 contributor is proved. Multiple vertices may satisfy c_j=h_0, and the later construction depends on this unsupported uniqueness.
+
+13. **Location:** `σ_T(t'+R_min·a_1)=−ε_1 (chain element; σ_T(t'+R_min·a_1)=−ε_1 from eq.(Dleft))`
+    **Description:** **Critical Error.** Even if eq.(Dleft) were valid, it would only relate σ_T(t'+R_min·a_1) to an entire D-sum, not identify it as −ε_1. The sign computation of σ̃(q*+a_1) is unsupported.
+
+14. **Location:** `σ_T(t_1+a_1)=(−1)^1 ε_1` `(position 1 on F_1)`
+    **Description:** **Justification Gap.** This requires m_1≥1, but the proof never establishes m_1>0 in the n≥4 case.
+
+15. **Location:** `So the only candidate is p_{j_0}=q*. But q*+a_1≠q*`
+    **Description:** **Critical Error.** Even if j_0 were the only relevant index, p_{j_0}=t_{j_0}+s_{j_0} need not equal q*=t_1+s_{j_0}. That would require t_{j_0}=t_1, which is never shown. So the final contradiction does not follow.
+
+Because of these issues, the proof does not verify the claim.

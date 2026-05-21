@@ -1,0 +1,99 @@
+Here is a clean rigorous proof.
+
+For reference, I checked the standard convex-polygon fact that, after a cyclic relabeling, the oriented edge directions of a strictly convex polygon form a strictly monotone sequence; Pinelis states this characterization in *Polygon Convexity: Another \(O(n)\) Test*. ([arxiv.org](https://arxiv.org/abs/cs/0701045)) I will prove the special case needed here directly.
+
+**Proof.** Let \(A_1,\dots,A_n\) be the vertices of \(P=\operatorname{conv}(S)\) in counterclockwise order, with \(A_{n+1}=A_1\), and let
+\[
+e_i:=A_{i+1}-A_i \qquad (1\le i\le n)
+\]
+be the edge vectors.
+
+Because \(S\) is in convex position, every \(A_i\) is a vertex of \(P\). In particular, no three consecutive vertices are collinear: if \(A_{i-1},A_i,A_{i+1}\) were collinear, then \(A_i\in [A_{i-1},A_{i+1}]\), so \(A_i\) would not be a vertex of the convex hull. Hence no two adjacent edges are parallel.
+
+Now let the two edge-direction classes be represented by two nonparallel vectors \(u\) and \(v\). Since every edge is parallel to either \(u\) or \(v\), and adjacent edges cannot be parallel, the classes must alternate around the boundary:
+\[
+[u],[v],[u],[v],\dots
+\]
+Therefore \(n\) is even.
+
+Next, let \(\alpha_i\in(0,\pi)\) be the interior angle of \(P\) at \(A_i\), and let
+\[
+\tau_i:=\pi-\alpha_i
+\]
+be the exterior turning angle from \(e_i\) to \(e_{i+1}\). Since \(P\) is strictly convex, each \(\alpha_i\) lies in \((0,\pi)\), so each \(\tau_i\) lies in \((0,\pi)\).
+
+Also,
+\[
+\sum_{i=1}^n \alpha_i=(n-2)\pi,
+\]
+because a convex \(n\)-gon can be triangulated into \(n-2\) triangles by drawing the diagonals from \(A_1\). Hence
+\[
+\sum_{i=1}^n \tau_i
+=
+\sum_{i=1}^n (\pi-\alpha_i)
+=
+n\pi-(n-2)\pi
+=
+2\pi.
+\]
+
+Choose a real argument \(\varphi_1\) of \(e_1\), and define recursively
+\[
+\varphi_{i+1}:=\varphi_i+\tau_i \qquad (1\le i\le n).
+\]
+Then \(\varphi_i\) is an argument of \(e_i\), and since each \(\tau_i\in(0,\pi)\), we get
+\[
+\varphi_1<\varphi_2<\cdots<\varphi_n<\varphi_{n+1}=\varphi_1+2\pi.
+\]
+So the oriented edge directions, viewed as real angles in the half-open interval \([\varphi_1,\varphi_1+2\pi)\), are all distinct.
+
+But there are only two unoriented direction classes. Thus there exist distinct angles \(\theta,\psi\in[0,\pi)\) such that every edge direction is congruent modulo \(2\pi\) to one of
+\[
+\theta,\quad \psi,\quad \theta+\pi,\quad \psi+\pi.
+\]
+So there are at most \(4\) possible oriented edge directions. Since the \(\varphi_i\) are all distinct, it follows that
+\[
+n\le 4.
+\]
+We already know that \(n\) is even and \(n\ge 3\), so necessarily
+\[
+n=4.
+\]
+
+Thus \(P\) is a convex quadrilateral \(A_1A_2A_3A_4\). After cyclic relabeling, we may write
+\[
+e_1=\lambda u,\qquad
+e_2=\mu v,\qquad
+e_3=-\lambda' u,\qquad
+e_4=-\mu' v
+\]
+for some positive scalars \(\lambda,\mu,\lambda',\mu'\). Since the polygon closes,
+\[
+e_1+e_2+e_3+e_4=0,
+\]
+hence
+\[
+(\lambda-\lambda')u+(\mu-\mu')v=0.
+\]
+Because \(u\) and \(v\) are nonparallel, they are linearly independent, so
+\[
+\lambda=\lambda'
+\qquad\text{and}\qquad
+\mu=\mu'.
+\]
+Therefore
+\[
+e_3=-e_1,\qquad e_4=-e_2.
+\]
+So opposite sides are parallel and equal, and \(A_1A_2A_3A_4\) is a parallelogram.
+
+Renaming \((A_1,A_2,A_3,A_4)\) as \((A,B,C,D)\), we conclude that
+\[
+S=\{A,B,C,D\}
+\]
+is the vertex set of a parallelogram, equivalently
+\[
+A+C=B+D.
+\]
+
+This proves the statement. \(\square\)

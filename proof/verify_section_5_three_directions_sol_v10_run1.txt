@@ -1,0 +1,77 @@
+Bug report — the solution is **not correct**.
+
+## Section 1 (\(n=3\))
+
+1. **Location:** “Check that \(p:=s_3+(t^*-a_2)\notin\{x_j\}\): for each \(j\), \(p=x_j\) forces \(h(t^*)>h^*\) (verified by direct substitution), contradiction.”
+   - **Description:** **Justification Gap.** The proof never actually carries out the “direct substitution” for the three possible \(j\). Since the non-loneliness of \(p\) is essential to applying \(\eqref{eq:nonlonely}\), this step is incomplete.
+
+## Section 2 setup (\(n=4\))
+
+2. **Location:** “\([a_4]=[a_2]\Leftrightarrow a_4\parallel a_2\Leftrightarrow\beta(a_4)=0\)”
+   - **Description:** **Critical Error.** With \(\beta(a_1)=0\) and \(\beta(a_2)=1\), the condition \(\beta(v)=0\) says that \(v\) has zero \(a_2\)-component, i.e. is parallel to \(a_1\), **not** to \(a_2\). This equivalence is false.
+
+## Section 2 lemmas
+
+3. **Location:** “\begin{lemma}[Height maximum for \(\mu\le 0\)] ... For \(\mu\le 0\): \(h_{\max}=m_2\), achieved uniquely at \(t_3\).”
+   - **Description:** **Critical Error.** When \(\mu=0\), the solution itself has already computed \(h(t_4)=m_2+m_3\mu=m_2\). So \(t_4\) is also at height \(m_2\) (and may differ from \(t_3\) if \(m_3>0\)). The lemma’s uniqueness claim is false.
+
+4. **Location:** “For \(\mu=0\): ... apply \(k=4\) at \(t_*\)”
+   - **Description:** **Critical Error.** Equation \(\eqref{eq:sigma0}\) with \(k=4\) is only valid when \(t_*\neq t_4\). The proof only assumed \(t_*\neq t_3\), so this application is unjustified exactly in the case \(t_*=t_4\), which is the problematic case for \(\mu=0\).
+
+5. **Location:** “Apply~\(\eqref{eq:sigma0}\) with \(k=1\) at \(v\) (height~\(0\), \(v\ne t_1\) unless \(v=t_1\)): ... Apply \(k=2\) at \(v\): similarly ...”
+   - **Description:** **Critical Error.** The proof explicitly acknowledges the exceptional case \(v=t_1\), but then proceeds as if \(\eqref{eq:sigma0}\) were applicable anyway. If \(v=t_1\) (or \(v=t_2\) in the \(k=2\) step), the hypothesis \(t\neq t_k\) fails, so the deductions are invalid.
+
+6. **Location:** “By induction on \(m_3\) (or by the descending chain via the \(k=3\) equation applied to elements of height \(>m_2\) as in Lemma~\ref{lem:betamax4mu}) ... Hence \(\sigma_T(t+a_2)=0\), and similarly \(\sigma_T(t+a_1+a_2)=0\).”
+   - **Description:** **Justification Gap.** No induction is actually set up, and Lemma \(\ref{lem:betamax4mu}\) does not prove the stated “descending” property. The crucial vanishing of the height-\((m_2+1)\) terms is unsupported.
+
+## Proposition \(\ref{prop:n4mu}\) (\(\mu\notin\mathbb Z_{\ge 0}\), \(\mu\neq 0\))
+
+7. **Location:** “The height-\(\mu\) term: ... for \(\mu\in(0,1)\) ...; for \(\mu>1\) ... by the \(s_1,s_2\) equations at any element at height \(\mu\) (similar argument to Lemma~\ref{lem:nogaps} ...): \(\sigma_T(t-a_2)=0\).”
+   - **Description:** **Justification Gap.** The case \(\mu<0\) is not handled at all here, and the case \(\mu>1\) is dismissed via an unspecified “similar argument”. The claimed vanishing of \(\sigma_T(t-a_2)\) is not proved.
+
+8. **Location:** “\textit{Sub-case \(m_2=0\):} ... Since all \(m_i=0\): \(\varepsilon_i=\varepsilon_1\) for all \(i\), ... \(h_{\max}=0\).”
+   - **Description:** **Critical Error.** In this subcase the proof only knows \(m_1=m_2=0\). The closure relation \(m_3\mu=m_4(1+\mu)\) does **not** force \(m_3=m_4=0\) when \(\mu>0\). The jump to “all \(m_i=0\)” is invalid.
+
+## Proposition \(\ref{prop:n4mu0}\) (\(\mu=0\))
+
+9. **Location:** “Heights: \(h(t_1)=h(t_2)=0\), \(h(t_3)=m_2=h(t_4)\) (since \(\mu=0\)). By Lemma~\ref{lem:betamax4neg}: \(h_{\max}=m_2\), unique at \(t_3\).”
+   - **Description:** **Critical Error.** These two sentences contradict each other: the proof has just stated \(h(t_4)=m_2\), so uniqueness at \(t_3\) cannot hold unless \(t_4=t_3\), which is not established.
+
+10. **Location:** “\(j=3\): \(p=x_3\) iff \(t_1=t_3\) iff \(m_2=0\) (handled separately below).”
+    - **Description:** **Critical Error.** In general \(t_3=t_1+m_1a_1+m_2a_2\). Thus \(t_1=t_3\) requires \(m_1=m_2=0\), not merely \(m_2=0\). The non-loneliness check is wrong.
+
+11. **Location:** “Since \(m_2\ge 1\): \(t_1+a_2\in F_2\) with sign \(-\varepsilon_1\ne 0\).”
+    - **Description:** **Critical Error.** \(F_2\) is \(\{t_2+k a_2:0\le k\le m_2\}\), where \(t_2=t_1+m_1a_1\). So \(t_1+a_2\) need not lie in \(F_2\) unless \(m_1=0\), which is not assumed here.
+
+12. **Location:** “From \(k=2\): \(\sigma_T(t_1)+\sigma_T(t_1-a_3)=0\Rightarrow \sigma_T(t_1-a_3)=-\varepsilon_1\).”
+    - **Description:** **Critical Error.** This is not the \(k=2\) equation at \(t_1-a_3\). The first term should be \(\sigma_T(t_1-a_3+a_1)\), not \(\sigma_T(t_1)\). This is a miswritten equation and invalid deduction.
+
+13. **Location:** “Now apply \(k=2\) at \(t_1+a_1+a_2\) ... heights \(1,1,0,-1-\mu=0-1=-1<0\)...”
+    - **Description:** **Critical Error.** Here \(h(t_1+a_1+a_2)=1\) and \(\mu=0\), so the fourth term has height \(1-1-0=0\), not \(-1\). Treating that term as vanished is incorrect. A similar wrong height computation occurs later at “Apply \(k=1\) at \(t_1+a_2-\lambda a_1\) ... heights \(1,1,0,-1<0\)”.
+
+14. **Location:** “apply \(k=2\) at \(t_1\): \(\sigma_T(t_1+a_1)+\varepsilon_1+\sigma_T(t_1-a_2)+\sigma_T(t_1-a_2-a_3)=0\)”
+    - **Description:** **Critical Error.** Using \(\eqref{eq:sigma0}\) with \(k=2\) requires \(t_1\neq t_2\). The proof never establishes this, and it fails when \(m_1=0\).
+
+15. **Location:** “Then from \(k=1\) at \(t_1+a_1+a_2\): ... this gets involved. We use instead: ... A detailed case analysis shows ... the argument goes through unchanged ... Continue the staircase upward; the argument is the same ...”
+    - **Description:** **Justification Gap.** Large parts of Proposition \(\ref{prop:n4mu0}\) are not actually proved. The argument is replaced by placeholders, informal sketches, and references to unstated case analyses.
+
+16. **Location:** “\textit{Sub-case \(m_2=0\):} All \(m_i=0\) ... but \(h_{\max}=0\) forces \(m_3=0\).”
+    - **Description:** **Critical Error.** When \(\mu=0\), every point of \(F_3\) has the same height as \(t_3\), namely \(0\). So \(h_{\max}=0\) does **not** force \(m_3=0\). This deduction is false.
+
+## Sub-case \(\mu\in\mathbb Z_{>0}\)
+
+17. **Location:** “In all sub-cases of \(\mu\in\mathbb{Z}_{>0}\), a magnitude-\(2\) or sign contradiction is derived.”
+    - **Description:** **Justification Gap.** This entire case is only sketched. No complete proof is provided; the argument is descriptive rather than deductive.
+
+## Section 3 (\(n\ge 5\))
+
+18. **Location:** “For \(j\ge 5\): \(c_j\ge c_4+\beta(a_4)>c_4\) ...”
+    - **Description:** **Critical Error.** Earlier the proof computed \(\beta(a_4)=-(1+\mu)\) and \(c_4=1+\mu\), so \(c_4+\beta(a_4)=0\), not something \(>c_4\). This displayed inequality is algebraically impossible, and the subsequent height estimates for \(j\ge5\) rely on it.
+
+19. **Location:** “For \(\mu\le 0\): heights \(h+1-c_j\) for \(j\ge 4\) satisfy \(h+1-c_j\le h-\mu\le h\) (since \(-\mu\ge 0\)...)”
+    - **Description:** **Critical Error.** If \(\mu<0\), then \(h-\mu=h+|\mu|>h\), so the inequality \(h-\mu\le h\) is false.
+
+20. **Location:** “By the same No-Gaps argument ... the \(k=3\) equation reduces to ...” and “the uniqueness of \(t_3\) at height \(m_2\) ... follows ...”
+    - **Description:** **Justification Gap.** Section 3 repeatedly imports the \(n=4\) lemmas and conclusions to the \(n\ge5\) setting without proving the required analogues. The reduction to a three-term staircase, the elimination of all \(j\ge4\) terms, and the uniqueness of \(t_3\) at height \(m_2\) are all asserted, not established.
+
+Because of these issues, the submitted solution is **not a valid proof**.

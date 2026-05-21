@@ -1,0 +1,260 @@
+Here is a complete proof. All indices are taken modulo \(n\).
+
+**Notation.** For a compact convex set \(K\subset \mathbb{R}^2\) and a nonzero vector \(u\), write
+\[
+h_K(u):=\max_{x\in K}\langle u,x\rangle,
+\qquad
+F_K(u):=\{x\in K:\langle u,x\rangle=h_K(u)\}.
+\]
+Thus \(F_K(u)\) is the face of \(K\) exposed by \(u\).
+
+---
+
+### Basic lemma for Minkowski sums
+
+For compact convex sets \(A,B\subset\mathbb{R}^2\) and \(u\neq 0\),
+\[
+F_{A+B}(u)=F_A(u)+F_B(u).
+\]
+
+**Proof.** First, if \(a\in F_A(u)\) and \(b\in F_B(u)\), then
+\[
+\langle u,a+b\rangle
+=
+h_A(u)+h_B(u)
+=
+h_{A+B}(u),
+\]
+so \(a+b\in F_{A+B}(u)\). Hence
+\[
+F_A(u)+F_B(u)\subseteq F_{A+B}(u).
+\]
+
+Conversely, let \(z\in F_{A+B}(u)\). Write \(z=a+b\) with \(a\in A\), \(b\in B\). Then
+\[
+h_A(u)+h_B(u)
+=
+h_{A+B}(u)
+=
+\langle u,z\rangle
+=
+\langle u,a\rangle+\langle u,b\rangle
+\le h_A(u)+h_B(u).
+\]
+Therefore equality holds in both inequalities, so
+\[
+\langle u,a\rangle=h_A(u),
+\qquad
+\langle u,b\rangle=h_B(u),
+\]
+that is,
+\[
+a\in F_A(u),\qquad b\in F_B(u).
+\]
+Thus \(z\in F_A(u)+F_B(u)\), proving the reverse inclusion. \(\square\)
+
+---
+
+## Part \((1)\): the vertices of \(P+Q\)
+
+Let
+\[
+x_i:=s_i+t_i.
+\]
+
+Fix \(i\), and let \(u\in C_i\). Since \(u\) lies in the open normal cone of \(P\) at \(s_i\),
+\[
+F_P(u)=\{s_i\}.
+\]
+By the defining property of \(t_i\) from Subproblem \(2\),
+\[
+F_Q(u)=\{t_i\}.
+\]
+Hence, by the lemma,
+\[
+F_{P+Q}(u)=F_P(u)+F_Q(u)=\{s_i+t_i\}=\{x_i\}.
+\]
+So \(x_i\) is an exposed point of \(P+Q\), hence a vertex of the polygon \(P+Q\).
+
+Moreover, by Subproblems \(1\)–\(2\), the points
+\[
+\ell_i=s_i+t_i=x_i
+\]
+are the \(n\) support points arising in the extremal case, so they are distinct. Thus \(x_1,\dots,x_n\) are \(n\) distinct vertices of \(P+Q\).
+
+Now we show there are no other vertices. Since \(P\) and \(Q\) are convex hulls of finite sets, \(P+Q\) is a convex polygon. Any vertex \(y\) of a polygon is exposed by all directions in a nonempty open arc of outer normals; call that arc \(D\). The normal fan of \(P\) consists of the \(n\) open cones \(C_1,\dots,C_n\) together with the \(n\) boundary rays corresponding to the edge normals of \(P\). Since \(D\) is open, it must meet some \(C_i\). For any \(u\in D\cap C_i\),
+\[
+\{y\}=F_{P+Q}(u)=\{x_i\},
+\]
+so \(y=x_i\).
+
+Therefore the vertices of \(P+Q\) are exactly
+\[
+x_1,x_2,\dots,x_n.
+\]
+
+Finally, the cones \(C_1,C_2,\dots,C_n\) occur cyclically around the circle of directions, and for \(u\in C_i\) the exposed vertex is \(x_i\). Hence, as the outer normal rotates once around the circle, the vertices encountered on \(P+Q\) are exactly
+\[
+x_1,x_2,\dots,x_n
+\]
+in that cyclic order. This proves Part \((1)\).
+
+---
+
+## Part \((2)\): the face of \(Q\) at an edge normal of \(P\)
+
+Fix \(i\), and set
+\[
+E_i:=[s_i,s_{i+1}],
+\qquad
+a_i:=s_{i+1}-s_i.
+\]
+Let \(u_i\) be any outer normal to the edge \(E_i\). Then
+\[
+F_P(u_i)=E_i,
+\qquad
+\langle u_i,a_i\rangle=0.
+\]
+
+Define
+\[
+G_i:=F_Q(u_i).
+\]
+
+### Step \((a)\): \(t_i\) and \(t_{i+1}\) both lie in \(G_i\)
+
+Take a sequence \(u_m\in C_i\) with \(u_m\to u_i\). For each \(m\), the point \(t_i\) is the unique maximizer of \(\langle u_m,\cdot\rangle\) on \(Q\). Since \(Q=\operatorname{conv}(T)\), it is enough to compare on \(T\): for every \(t\in T\),
+\[
+\langle u_m,t_i\rangle\ge \langle u_m,t\rangle.
+\]
+Passing to the limit gives
+\[
+\langle u_i,t_i\rangle\ge \langle u_i,t\rangle
+\qquad\text{for all }t\in T.
+\]
+A linear functional attains its maximum on \(\operatorname{conv}(T)\) at a point of \(T\), so this implies
+\[
+t_i\in F_Q(u_i)=G_i.
+\]
+
+The same argument, using a sequence from \(C_{i+1}\), shows that
+\[
+t_{i+1}\in G_i.
+\]
+
+So \(G_i\) contains both \(t_i\) and \(t_{i+1}\).
+
+### Step \((b)\): \(G_i\) is exactly \([t_i,t_{i+1}]\)
+
+Because \(G_i=F_Q(u_i)\), it lies in the support line
+\[
+L_i:=\{q\in\mathbb{R}^2:\langle u_i,q\rangle=h_Q(u_i)\}.
+\]
+This line is orthogonal to \(u_i\). Since \(E_i\) is also orthogonal to \(u_i\), the line \(L_i\) is parallel to \(E_i\), hence parallel to \(a_i\). Therefore \(G_i\) is a point or a segment contained in a line parallel to \(a_i\).
+
+Now perturb \(u_i\) slightly in the \(\pm a_i\) directions. Since \(u_i\) is the common boundary direction between the cones \(C_i\) and \(C_{i+1}\), and \(a_i\) points from \(s_i\) to \(s_{i+1}\), for all sufficiently small \(\varepsilon>0\) we have
+\[
+u_i-\varepsilon a_i\in C_i,
+\qquad
+u_i+\varepsilon a_i\in C_{i+1}.
+\]
+Indeed, on the edge \(E_i\), the perturbation by \(-\varepsilon a_i\) favors \(s_i\), and the perturbation by \(+\varepsilon a_i\) favors \(s_{i+1}\); all other vertices of \(P\) stay strictly below the supporting line for small \(\varepsilon\).
+
+Now take any \(q\in G_i\). Since \(\langle u_i,q\rangle=h_Q(u_i)\), we have
+\[
+\langle u_i-\varepsilon a_i,q\rangle
+=
+h_Q(u_i)-\varepsilon\langle a_i,q\rangle.
+\]
+Thus, on \(G_i\), maximizing \(\langle u_i-\varepsilon a_i,\cdot\rangle\) is equivalent to minimizing \(\langle a_i,\cdot\rangle\). But \(u_i-\varepsilon a_i\in C_i\), so its unique maximizer on \(Q\) is \(t_i\). Therefore \(t_i\) is the unique minimizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+Similarly,
+\[
+\langle u_i+\varepsilon a_i,q\rangle
+=
+h_Q(u_i)+\varepsilon\langle a_i,q\rangle,
+\]
+so, on \(G_i\), maximizing \(\langle u_i+\varepsilon a_i,\cdot\rangle\) is equivalent to maximizing \(\langle a_i,\cdot\rangle\). Since \(u_i+\varepsilon a_i\in C_{i+1}\), its unique maximizer on \(Q\) is \(t_{i+1}\). Therefore \(t_{i+1}\) is the unique maximizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+But \(G_i\) is a convex subset of a line parallel to \(a_i\). On such a set, the minimum and maximum of \(\langle a_i,\cdot\rangle\) occur exactly at the two endpoints. Hence the endpoints of \(G_i\) are precisely \(t_i\) and \(t_{i+1}\). Therefore
+\[
+G_i=[t_i,t_{i+1}].
+\]
+
+This proves the first assertion in Part \((2)\).
+
+### Step \((c)\): the direction constraint
+
+Since \(G_i=[t_i,t_{i+1}]\) lies on a line parallel to \(a_i\), there exists a real number \(\lambda_i\) such that
+\[
+t_{i+1}-t_i=\lambda_i a_i
+=
+\lambda_i\,(s_{i+1}-s_i).
+\]
+Because \(t_i\) is the \(a_i\)-minimum and \(t_{i+1}\) is the \(a_i\)-maximum on \(G_i\),
+\[
+\langle a_i,t_{i+1}-t_i\rangle\ge 0.
+\]
+Substituting \(t_{i+1}-t_i=\lambda_i a_i\) gives
+\[
+\lambda_i\langle a_i,a_i\rangle\ge 0.
+\]
+Since \(a_i\neq 0\), we have \(\langle a_i,a_i\rangle>0\), so
+\[
+\lambda_i\ge 0.
+\]
+Thus
+\[
+t_{i+1}-t_i
+\]
+is a nonnegative scalar multiple of
+\[
+s_{i+1}-s_i,
+\]
+with the degenerate case \(\lambda_i=0\) corresponding to \(t_i=t_{i+1}\).
+
+This proves Part \((2)\).
+
+---
+
+## Stronger boundary identity for \(P+Q\)
+
+At the same edge normal \(u_i\), the lemma gives
+\[
+F_{P+Q}(u_i)=F_P(u_i)+F_Q(u_i)
+=
+[s_i,s_{i+1}]+[t_i,t_{i+1}].
+\]
+Since
+\[
+t_{i+1}-t_i=\lambda_i a_i
+\qquad\text{with}\qquad
+\lambda_i\ge 0,
+\]
+we get
+\[
+[s_i,s_{i+1}]+[t_i,t_{i+1}]
+=
+\{s_i+t_i+(\alpha+\lambda_i\beta)a_i:0\le \alpha,\beta\le 1\}
+=
+[x_i,x_{i+1}].
+\]
+So the edge-normal direction of \(P\) exposes exactly the edge
+\[
+[x_i,x_{i+1}]
+\]
+of \(P+Q\).
+
+---
+
+Therefore:
+
+\[
+\boxed{\text{The vertices of }P+Q\text{ are exactly }x_i=s_i+t_i\text{ in cyclic order,}}
+\]
+and for each \(i\),
+\[
+\boxed{F_Q(u_i)=[t_i,t_{i+1}],\qquad
+t_{i+1}-t_i=\lambda_i\,(s_{i+1}-s_i)\ \text{for some }\lambda_i\ge 0.}
+\]
+

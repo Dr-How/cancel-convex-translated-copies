@@ -1,0 +1,17 @@
+**Verdict:** **Not valid as a proof of the problem as stated.**
+
+### Issues
+
+1. **The outline changes the statement by excluding cases the original conjecture still allows.**  
+   Subproblem 1 says the cases \(\dim \operatorname{conv}(S)<2\) or \(|\operatorname{supp}(g_T)|=1\) are “degenerate” and should be set aside. But the original conjecture does **not** exclude them. So even if all later subproblems are solved, the outline only proves a **restricted** theorem, not the stated one.  
+   In particular, if \(g_T\) is a monomial, then \(\operatorname{supp}(f_Sg_T)\) is just a translate of \(S\), so equality can occur for arbitrary \(S\), not only parallelograms.
+
+2. **Subproblem 5 depends on a stronger geometric conclusion than Subproblem 2 actually provides.**  
+   Subproblem 5 says to use a “common normal-fan structure implied by Subproblem 2,” but Subproblem 2 only states that **each edge direction of \(Q\)** is parallel to **some** edge direction of \(P\). That is weaker than having the same normal fan / same cyclic edge structure.
+
+3. **Because of that missing bridge, the local corner lemma is not yet enough to force the global classification.**  
+   Subproblem 4 is formulated for a corner of \(Q\) whose two incident directions match the two edges adjacent to a single vertex \(s_i\) of \(P\). The outline does not establish that this happens for all needed \(i\), or even enough \(i\), to derive the cyclic family of relations required in Subproblem 5. So the passage from local relations to “\(P\) must be a parallelogram” has a structural gap.
+
+### Relevance
+
+Aside from those gaps, the listed subproblems are broadly relevant; there is no obvious major redundancy. The main problems are **incompleteness for the original statement** and a **missing dependency/bridge** in the 2D \(Q\)-case.

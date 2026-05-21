@@ -1,0 +1,188 @@
+Background only: the standard support-function formalism for Minkowski sums gives additivity of support functions and of exposed faces in a fixed direction; this is the convex-geometric framework behind the face description already available from Subproblems \(1\)–\(3\). I will use only those already-established face facts below. ([tropp.caltech.edu](https://tropp.caltech.edu/notes/Tro18-Lectures-Convex-LN.pdf))
+
+**Proof.**
+
+Fix \(i\). Set
+\[
+x_i:=s_i+t_i,\qquad x_{i+1}:=s_{i+1}+t_{i+1},\qquad E:=[x_i,x_{i+1}],
+\]
+and write \(\operatorname{relint}(E)\) for the relative interior of \(E\).
+
+Recall that \(\sigma(t)\in\{\pm1\}\) is the sign attached to a translate \(t\in T\), while for \(p\in\mathbb{R}^2\),
+\[
+\sigma(p)=\sum_{\substack{t\in T\\ p-t\in S}}\sigma(t).
+\]
+
+From Subproblems \(1\)–\(3\), we may use the following facts.
+
+1. \(E\) is an edge of \(P+Q\), and its direction is \(a_i=s_{i+1}-s_i\).
+2. Every point of \(\operatorname{relint}(E)\) cancels:
+   \[
+   \sigma(p)=0\qquad\text{for all }p\in \operatorname{relint}(E).
+   \]
+3. If \(p\in E\) and \(p=t+s\) with \(t\in T\) and \(s\in S\), then necessarily
+   \[
+   t\in [t_i,t_{i+1}]
+   \quad\text{and}\quad
+   s\in [s_i,s_{i+1}].
+   \]
+   Since \(S\) is in convex position, the edge \([s_i,s_{i+1}]\) contains no point of \(S\) other than its endpoints, so
+   \[
+   [s_i,s_{i+1}]\cap S=\{s_i,s_{i+1}\}.
+   \]
+   Hence any contribution to a point of \(E\) comes from a translate in
+   \[
+   F_i=T\cap [t_i,t_{i+1}],
+   \]
+   and only via \(s_i\) or \(s_{i+1}\).
+
+Because the face \([t_i,t_{i+1}]\) has direction \(a_i\), there is some real \(M\ge 0\) such that
+\[
+t_{i+1}=t_i+M a_i.
+\]
+Now define
+\[
+\Lambda:=\{\lambda\in[0,M]: t_i+\lambda a_i\in F_i\}.
+\]
+Then \(0,M\in\Lambda\).
+
+For \(\lambda\in\Lambda\), write
+\[
+t(\lambda):=t_i+\lambda a_i.
+\]
+Observe that
+\[
+s_i+t(\lambda)=x_i+\lambda a_i,\qquad
+s_{i+1}+t(\lambda)=x_i+(\lambda+1)a_i.
+\]
+So whenever \(0\le \lambda<M\), the point \(s_{i+1}+t(\lambda)\) lies in \(\operatorname{relint}(E)\), and whenever \(0<\lambda\le M\), the point \(s_i+t(\lambda)\) lies in \(\operatorname{relint}(E)\).
+
+### Step \(1\): successor and predecessor relations
+
+Let \(\lambda\in\Lambda\) with \(\lambda<M\), and set
+\[
+t:=t(\lambda),\qquad p:=s_{i+1}+t.
+\]
+Then \(p\in \operatorname{relint}(E)\), so \(\sigma(p)=0\).
+
+One contribution to \(\sigma(p)\) is \(\sigma(t)\), coming from
+\[
+p-t=s_{i+1}.
+\]
+By the face description above, any other contribution must also come from a translate in \(F_i\), and the only other possible vertex of \(S\) is \(s_i\). But
+\[
+p-s_i=t+a_i.
+\]
+Therefore the only possible second translate is \(t+a_i\). Since \(\sigma(p)=0\), that second translate must actually be present, and
+\[
+\sigma(t+a_i)=-\sigma(t).
+\]
+Equivalently,
+\[
+\lambda+1\in\Lambda.
+\tag{1}
+\]
+
+Similarly, let \(\lambda\in\Lambda\) with \(\lambda>0\), and set
+\[
+t:=t(\lambda),\qquad p:=s_i+t.
+\]
+Again \(p\in \operatorname{relint}(E)\), hence \(\sigma(p)=0\). One contribution is \(\sigma(t)\), and the only possible second one comes from
+\[
+p-s_{i+1}=t-a_i.
+\]
+So \(t-a_i\in F_i\) and
+\[
+\sigma(t-a_i)=-\sigma(t).
+\]
+Equivalently,
+\[
+\lambda-1\in\Lambda.
+\tag{2}
+\]
+
+Thus every nonterminal point of \(F_i\) has a successor one step \(a_i\) ahead, and every noninitial point has a predecessor one step \(a_i\) behind.
+
+### Step \(2\): no fractional chain can occur
+
+I claim that
+\[
+\Lambda\subset \mathbb{Z}.
+\]
+
+Assume not. Pick some \(\lambda\in\Lambda\setminus\mathbb{Z}\), and let
+\[
+r:=\lfloor \lambda\rfloor,\qquad \lambda_0:=\lambda-r.
+\]
+By repeatedly applying \((2)\), we get
+\[
+\lambda_0\in\Lambda,
+\qquad 0<\lambda_0<1.
+\]
+Now let
+\[
+t:=t(\lambda_0)=t_i+\lambda_0 a_i,\qquad p:=s_i+t.
+\]
+Since \(0<\lambda_0<1\), the point \(p=x_i+\lambda_0 a_i\) lies in \(\operatorname{relint}(E)\), so \(\sigma(p)=0\).
+
+But by the same two-contributor analysis as above, the only possible translates that could contribute to \(p\) are \(t\) and \(t-a_i\). The second one cannot occur, because
+\[
+t-a_i=t_i+(\lambda_0-1)a_i
+\]
+has parameter \(\lambda_0-1<0\), so it is not in \([t_i,t_{i+1}]\), hence not in \(F_i\). Therefore \(p\) has exactly one contribution, namely \(\sigma(t)\), and thus
+\[
+\sigma(p)=\sigma(t)\in\{\pm1\},
+\]
+contradicting \(\sigma(p)=0\).
+
+So indeed
+\[
+\Lambda\subset\mathbb{Z}.
+\]
+
+Since \(M\in\Lambda\), it follows that
+\[
+M\in\mathbb{Z}_{\ge 0}.
+\]
+Set
+\[
+m_i:=M.
+\]
+
+### Step \(3\): the face is the full arithmetic progression
+
+We already know \(0\in\Lambda\). Repeatedly applying \((1)\) gives
+\[
+1,2,\dots,m_i\in\Lambda.
+\]
+Since also \(\Lambda\subset[0,m_i]\cap\mathbb{Z}\), we conclude
+\[
+\Lambda=\{0,1,\dots,m_i\}.
+\]
+Therefore
+\[
+F_i=\{t_i+k a_i:0\le k\le m_i\},
+\qquad
+t_{i+1}=t_i+m_i a_i.
+\]
+
+### Step \(4\): alternating signs
+
+From the successor relation,
+\[
+\sigma\bigl(t_i+(k+1)a_i\bigr)=-\sigma\bigl(t_i+k a_i\bigr)
+\qquad (0\le k<m_i).
+\]
+By induction on \(k\),
+\[
+\sigma(t_i+k a_i)=(-1)^k\,\sigma(t_i)
+\qquad (0\le k\le m_i).
+\]
+
+This is exactly the required conclusion:
+\[
+F_i=\{t_i+k a_i:0\le k\le m_i\},
+\qquad
+t_{i+1}=t_i+m_i a_i,
+\]
+and the signs alternate along the chain. ∎

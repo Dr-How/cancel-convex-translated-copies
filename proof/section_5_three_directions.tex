@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 5 --- Obstruction from three edge directions.}
+
+\medskip
+\textbf{Setup.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 3$ points in convex position,
+let $T\subset\mathbb{R}^2$ be a finite set of translating vectors with signs
+$\sigma(t)\in\{+1,-1\}$, both values present, and define
+$\sigma(p)=\sum_{t\in T,\,p-t\in S}\sigma(t)$.
+
+Assume the \textbf{extremal equality} $|\{p:\sigma(p)\neq 0\}|=n$.
+
+The following facts from Subproblems 1--4 may be used without proof:
+\begin{itemize}
+  \item Vertices $s_1,\dots,s_n$ of $P=\operatorname{conv}(S)$ in cyclic order each have
+        an associated unique translate $t_i\in T$ (the exposed translate on the normal cone).
+  \item For each edge $[s_i,s_{i+1}]$ (with direction $a_i=s_{i+1}-s_i$), the set
+        $F_i=T\cap[t_i,t_{i+1}]$ is an arithmetic progression
+        $\{t_i,t_i+a_i,\dots,t_i+m_i a_i\}$ with alternating signs and $t_{i+1}=t_i+m_i a_i$.
+\end{itemize}
+
+Call two edges of $P$ \emph{parallel} if their direction vectors are positive scalar multiples
+of each other (i.e.\ they point in the same direction along the boundary).  Say $P$ has
+\emph{at least three edge-direction classes} if no two non-opposite boundary edges of $P$
+are parallel (equivalently, $P$ is not a parallelogram and not degenerate in the sense
+that every edge direction appears exactly once or in an antipodal pair with no third class).
+More precisely: the edges of $P$ determine direction vectors $a_1,\dots,a_n$ (up to positive
+scaling); $P$ has at least three edge-direction classes if the set
+$\{[a_i]:1\le i\le n\}$ of direction classes has at least three elements.
+
+\medskip
+\textbf{Statement.}
+If $P=\operatorname{conv}(S)$ has at least three distinct edge-direction classes, then
+the extremal equality $|\{p:\sigma(p)\neq 0\}|=n$ cannot hold for any finite signed set $T$
+with both signs present.
+
+In particular:
+\begin{itemize}
+  \item Every triangle ($n=3$) has three distinct edge-direction classes, so $n=3$ is impossible.
+  \item Every convex $n$-gon with $n\ge 5$ has at least three edge-direction classes
+        (since a polygon cannot have opposite sides for all pairs when $n$ is odd, and for
+        $n\ge 5$ even there is always a third direction), so all $n\ge 5$ are impossible.
+  \item A non-parallelogram convex quadrilateral has three or four edge-direction classes,
+        so it is also impossible.
+\end{itemize}
+Therefore the only surviving case is $n=4$ with exactly two edge-direction classes.
+
+\medskip
+\textbf{Hint.}
+Suppose for contradiction that three distinct edge-direction classes $[a_i],[a_j],[a_k]$
+exist.  By the alternating-chain structure, the sign of $t_i$ determines the signs of all
+translates in $F_i$, and $\sigma(t_{i+1})=(-1)^{m_i}\sigma(t_i)$.
+Follow the sign assignment around the boundary of $P$: starting at $t_1$ with sign
+$\varepsilon_1=\sigma(t_1)$, after traversing all $n$ edges we return to $t_1$.
+The sign after one full traversal is $(-1)^{m_1+m_2+\cdots+m_n}\varepsilon_1$.
+For consistency this product must equal $\varepsilon_1$, so $\sum_i m_i$ must be even.
+Now examine what the three distinct edge-direction classes force: two faces with the same
+direction class (opposite edges) satisfy $a_j=\lambda a_i$ for some $\lambda>0$; but
+the alternating chains on them produce translates that both start from the \emph{same}
+vertex of $Q$ or overlap, creating either a repeated translate in $T$ (violating $T$ being
+a set) or an extra cancellation-point not among the $n$ lonely vertices.
+Formalize this by tracking the endpoint $t_{i+1}=t_i+m_i a_i$ around the full boundary
+and showing that three direction classes force either a contradiction in $Q$'s geometry
+or an extra non-canceling point.
+
+\end{document}

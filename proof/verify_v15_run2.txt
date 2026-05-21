@@ -1,0 +1,577 @@
+PESSIMISTIC VERIFICATION REPORT
+Solution: proof/section_5_three_directions_sol_v15.tex
+Problem:  proof/section_5_three_directions.tex
+Mode:     pessimistic (3 independent verifier runs)
+Verdict:  ISSUES_FOUND — all 3 runs flagged issues independently
+
+================================================================================
+CONSOLIDATED ISSUE LIST
+(Prefix indicates which verifier run(s) flagged the issue.)
+================================================================================
+
+CRITICAL ERRORS
+---------------
+
+[Run1, Run2, Run3] WRONG OBJECT — T vs S CONFLATION
+The proof opens by fixing a convex n-gon x_1,...,x_n with sign function
+supported on T={x_1,...,x_n}. This conflates the roles of S and T. The problem
+statement has S as the convex n-point set, while T is an ARBITRARY finite signed
+set of translate vectors. The proof argues about a different object from the
+start. It also creates an internal inconsistency because the chains F_i can
+contain many points even though T was declared to have exactly n elements.
+
+[Run1, Run2, Run3] UNPROVED KEY EQUATIONS (NL) AND (S0)
+The equations (NL) and (S0) are asserted as "key equations" but are neither
+proved nor among the facts permitted from Subproblems 1-4. Since nearly every
+later contradiction derives from them, the entire logical chain has no valid
+foundation. The hypothesis "p not in T" does not imply sigma(p)=0, and "t != t_k"
+does not imply t+s_k is not one of the nonzero-sigma points. Also, t_k is not
+defined in the setup used.
+
+[Run1, Run2, Run3] WRONG DIRECTION-CLASS EQUIVALENCE RELATION
+The proof defines [u]=[v] iff u=lambda*v for some lambda != 0 (unoriented).
+The problem uses POSITIVE scalar multiples only. These are different equivalence
+relations; the proof does not address the stated hypothesis.
+
+[Run1, Run2, Run3] T = union of boundary chains ASSUMED, NEVER PROVED
+The proof checks membership in T by inspecting only F_1, F_2, F_3 (e.g., "We
+check whether t'-a_1 in T. For T=F_1 u F_2 u F_3: ...") and concludes
+"if all m_j=0: T={t_1}". The allowed facts only establish F_i as T intersect
+[t_i, t_{i+1}]; they do NOT show every point of T lies in one of these chains.
+All membership exclusion arguments are therefore unsupported.
+
+[Run1, Run2, Run3] FALSE ARITHMETIC FOR CONTRADICTION
+The proof asserts "If D_2=+-1: sigma_T(t'+2a_1) = sigma_T(t') +- 2: outside
+{-1,0,+1} if sigma_T(t')=+-1. Contradiction!" This arithmetic is false. For
+example: sigma_T(t')=1 and D_2=-1 gives sigma_T(t'+2a_1)=-1, which is inside
+{-1,0,+1}. The claimed contradiction does not follow.
+
+[Run1, Run2, Run3] EXISTENCE OF FUNCTIONAL beta NOT JUSTIFIED
+The proof requires a single linear functional beta satisfying simultaneously:
+h >= 0 on all of T, beta(a_1)=0, beta(a_2)=1, and F_1 entirely at height 0.
+No argument is given that one functional can satisfy all these constraints at
+once. All height arguments downstream depend on this unestablished construction.
+
+[Run1, Run2] D_2 SIGN-FLIP CLAIM UNJUSTIFIED
+The proof asserts "So D_2 for t'+a_1 is -D_2 (signs flipped from before)."
+After shifting by a_1, boundary points of F_1 may hit endpoints or leave T
+entirely; the contribution can become 0, not the negative of the old value.
+The subsequent propagation argument rests on a false premise.
+
+[Run2] CASE B CHAIN ITERATION INVALID
+In Case B the proof asserts "Iterating: {t''+k*a_1 : k in Z} subseteq T cap
+{h=0} = F_1. But F_1 is finite. Contradiction." A finite set can only contain
+finitely many steps of a_1 before an endpoint is reached. No argument shows
+continuation past endpoints, so no bi-infinite chain has been established and
+the finiteness contradiction is invalid.
+
+[Run1, Run2] IDENTITY h(t_j+a_j)=c_{j+1} NOT ESTABLISHED
+The proof writes "if some m_j >= 1: by the above, h(t_j+a_j)=c_{j+1}>0 for
+j>=3." This requires h(t_j)=0, which is never proved for general j. The branch
+claiming existence of a positive-height point is incomplete.
+
+[Run1, Run2] EDGE CASE m_1=0 LEFT UNRESOLVED
+The passage "(Edge case m_1=0, t_1=t_2): ... Then J_0=empty ... actually
+|J_0| can be >= 2, but the key point is ... hmm. Actually ..." explicitly
+retracts one claim, leaves a computation incomplete, then jumps to "In all
+sub-cases a contradiction follows" without any valid argument. The m_1=0 case
+is not proved.
+
+[Run1] INCORRECT REASONING FOR m_2=m_3=0 SUBCASE
+From m_2=m_3=0 the proof deduces t_4=t_3=t_2=t_1, which is false: m_2=0
+gives t_3=t_2, m_3=0 gives t_4=t_3, but t_2=t_1 requires m_1=0 as well.
+Also F_4 ends at t_5, not t_1, unless n=4. The deduction m_4*beta(a_4)=0 has
+no valid basis.
+
+[Run3] FINAL CONCLUSION STATES THEOREM ABOUT WRONG OBJECT
+The final theorem says "If T has >= 3 edge-direction classes and both signs,
+then the nonlonely equations are contradicted. Hence no such T exists." The
+statement to prove is about P=conv(S) having at least three edge-direction
+classes. The proof ends with the wrong conclusion.
+
+JUSTIFICATION GAPS
+------------------
+
+[Run1, Run2, Run3] POSITIVITY c_j>0 FOR j>=3 NOT ESTABLISHED
+This is used throughout the height arguments. The accompanying remark is
+internally inconsistent: it first states c_j>0 for all j>=2, then immediately
+states c_2=0 by construction. The crucial positivity claim is never rigorously
+established.
+
+[Run1, Run2, Run3] BI-INFINITE CHAIN ITERATION INCOMPLETE (Lemma hzero)
+The lemma proves q+-a_1 in T, then claims the full bi-infinite arithmetic
+progression is in T, contradicting finiteness. No argument shows the iteration
+can continue indefinitely, especially when an iterate could be a special point
+where (S0) does not apply.
+
+[Run1, Run3] RELABELING SYMMETRY CLAIM UNJUSTIFIED
+The proof asserts "By relabeling/symmetry we may assume [a_3] != [a_1]" without
+showing the earlier special choices (t_1, a_1, a_2, beta) can all be preserved
+under such a relabeling.
+
+[Run2, Run3] D_2 EVOLUTION NOT PROVED IN CASE B FINAL PARAGRAPH
+The passage "yielding D_2=0 for even steps and D_2=+-2*epsilon_1 for odd steps"
+is internally inconsistent (D values are first said to be 0, then +-2*epsilon_1
+on odd steps). Contributing index sets, endpoint effects, and the comparison of
+D_2 (a sum) to {-1,0,+1} (values of sigma) are all unanalyzed.
+
+[Run1] CASE A PROPAGATION INVOKED IN CASE B WITHOUT JUSTIFICATION
+In Case B the proof says "propagating the chain as in Case A." Case A relied on
+J_0 being empty; in Case B J_0 is nonempty, so the Case A argument does not
+carry over without additional work.
+
+[Run1] J_0 MEMBERSHIP SILENTLY ASSUMED
+The proof applies (S0) "at each t'' = t'+s_2-s_j for j in J_0" and treats
+these as actual nonzero height-0 contributors. J_0 = {j>=3 : c_j=h_0} does NOT
+imply t'+s_2-s_j in T, nor delta_j != 0.
+
+[Run3] DELTA_j UNITS INCONSISTENT
+The proof first defines delta_j as multiples of epsilon_1 (values in
+{-epsilon_1, 0, +epsilon_1}), then later treats them as plain integers in
+{-1, 0, +1}. The magnitude arguments for sigma_T(t' +- a_1) are therefore
+not properly derived.
+
+================================================================================
+SUMMARY
+================================================================================
+Critical Errors:  12 distinct issues (flagged by 2 or more runs each)
+Justification Gaps: 7 distinct issues
+Total distinct issues: 19
+
+All 3 verifier runs: ISSUES_FOUND
+Overall verdict: ISSUES_FOUND
+
+Most critical issue: The proof argues about the wrong object — it assumes T is
+a convex n-gon with exactly n points (so that T=S), whereas the problem
+requires T to be an arbitrary finite signed set of translate vectors with S
+fixed as the convex set. This structural mismatch invalidates the entire
+argument before any other analysis begins.
+
+================================================================================
+APPENDIX A: Full output of verifier run 1
+(file: proof/verify_v15_pessimistic_run1.txt)
+================================================================================
+
+The solution is **not correct**. I found the following issues.
+
+1. **Location:** "Fix \(n \geq 3\) and a convex \(n\)-gon \(x_1,\ldots,x_n\)
+(CCW) with sign function \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) supported
+on \(T = \{x_1,\ldots,x_n\}\) having both signs."
+
+   **Description — Critical Error:** This changes the problem. In the stated
+problem, **\(S\)** has \(n\) points in convex position; **\(T\)** is an
+arbitrary finite signed set of translate vectors. The proof instead assumes that
+\(T\) itself is a convex \(n\)-gon with exactly \(n\) points. Later it also uses
+extra points of the form \(t_i+k a_i\in F_i\), which is incompatible with the
+claim \(T=\{x_1,\dots,x_n\}\) unless all chains are trivial. So the proof is
+working in a different and internally inconsistent setup.
+
+2. **Location:** "The key equations are:
+\[
+\text{(NL): For } p \notin T: \sum_{j=1}^n \sigma_T(p - s_j) = 0,
+\qquad
+\text{(S0): For } t \in T,\ t \neq t_k: \sum_{j=1}^n \sigma_T(t + s_k - s_j) = 0.
+\]
+"
+
+   **Description — Critical Error:** These equations are asserted without proof
+and are **not** among the facts explicitly allowed from Subproblems 1-4.
+Moreover, \((S0)\) uses \(t_k\), which has not even been defined in this setup.
+Since nearly every later contradiction comes from \((NL)\) or \((S0)\), the
+proof has no established foundation.
+
+3. **Location:** "Write \(a_i = x_{i+1}-x_i\) (mod \(n\)), \(s_j =
+\sum_{i=1}^{j-1} a_i\), \(c_j = \beta(s_j)\) for the height functional
+\(\beta\). Note \(c_1=c_2=0\), \(c_3=1\)."
+
+   **Description — Justification Gap:** The proof has not yet established any
+\(\beta\) with the required properties. The claims \(c_2=0\) and \(c_3=1\)
+presuppose \(\beta(a_1)=0\) and \(\beta(a_2)=1\), but those conditions have not
+been justified at this point.
+
+4. **Location:** "Choose \(\beta\) to be the linear functional making \(t_1\)
+the height-\(0\) vertex and all other \(T\)-elements at height \(\ge 0\). ...
+take \(\beta\) normal to this boundary with \(\beta(a_2)=1>0\)."
+
+   **Description — Justification Gap:** No proof is given that one can choose a
+*single* supporting functional at \(t_1\) that simultaneously has kernel in the
+\(a_1\)-direction and satisfies \(\beta(a_2)=1>0\). The existence of such a
+\(\beta\) is simply asserted.
+
+5. **Location:** "since \(c_j > 0\) for all \(j \geq 3\): the polygon vertex
+\(x_j\) lies strictly above the \(h=0\) baseline for \(j \geq 3\)."
+   and the later remark:
+   "all other vertices \(x_j\) (\(j \geq 2\)) lie strictly on the positive side,
+so \(c_j = h(x_j) > 0\) for \(j \geq 2\). (We have \(c_2 = h(x_2) = m_1
+\beta(a_1) = 0\) by construction...)"
+
+   **Description — Justification Gap:** The proof uses \(c_j>0\) before it is
+proved, and the later attempted proof is flawed. It is internally inconsistent
+(it first says \(c_j>0\) for all \(j\ge2\), then says \(c_2=0\)) and contains
+the false identity \(h(x_2)=m_1\beta(a_1)\). Thus the crucial positivity claim
+is not validly established.
+
+6. **Location:** "Iterating: \(\{\ldots, q-2a_1, q-a_1, q, q+a_1, q+2a_1,
+\ldots\} \subseteq T\) with alternating nonzero signs. Contradicts \(T\) finite."
+
+   **Description — Justification Gap:** Only the first step \(q\pm a_1\in T\)
+was shown. No argument is given that the same application of \((S0)\) remains
+valid at every newly produced point, so the claimed bi-infinite chain is not
+justified.
+
+7. **Location:** "If \(m=0\): \(T = F_1 = F_2 = F_3 = \{t_1\}\), a single
+point."
+   and
+   "We check whether \(t'-a_1 \in T\). For \(T = F_1 \cup F_2 \cup F_3\): ..."
+   and later
+   "if all \(m_j=0\): \(T=\{t_1\}\)"
+
+   **Description — Critical Error:** The proof repeatedly assumes, without proof,
+that every translate in \(T\) lies on the boundary chains \(F_i\), or even that
+\(T=\bigcup_i F_i\). This is not one of the allowed facts. In particular,
+conclusions such as "\(t'-a_1\notin T\)" are invalid unless this extra
+assumption is established.
+
+8. **Location:** "Here \([u] = [v]\) iff \(u = \lambda v\) for some \(\lambda
+\neq 0\) (same unoriented line through \(0\))."
+
+   **Description — Critical Error:** This changes the definition of
+"edge-direction class" from the one formally stated in the problem, which uses
+**positive** scalar multiples. The proof is therefore using a different
+equivalence relation than the problem's stated one.
+
+9. **Location:** "By relabeling/symmetry we may assume \([a_3] \neq [a_1]\),
+i.e., \(a_1 \not\parallel a_3\)."
+
+   **Description — Justification Gap:** No justification is given that the
+earlier special choices (\(t_1\), \(a_1\), \(a_2\), and \(\beta\)) can be
+preserved under such a relabeling. The symmetry claim is asserted, not proved.
+
+10. **Location:** "If \(m_2=m_3=0\): similarly \(F_4\) starts at
+\(t_4=t_3=t_2=t_1\) with heights that go from \(h(t_4)=0\) to \(h(t_1)=0\);
+but \(F_4\) has heights \(k\beta(a_4)\). By closure \(m_4\beta(a_4)=0\)..."
+
+    **Description — Critical Error:** This is false. From \(m_2=m_3=0\) one
+gets \(t_3=t_2\) and \(t_4=t_3\), but **not** \(t_2=t_1\) unless \(m_1=0\) as
+well. Also, \(F_4\) ends at \(t_5\), not at \(t_1\), unless \(n=4\). The
+deduction \(m_4\beta(a_4)=0\) therefore has no valid basis.
+
+11. **Location:** "if some \(m_j \geq 1\): by the above, \(h(t_j+a_j) =
+c_{j+1} > 0\) for \(j \geq 3\)"
+
+    **Description — Critical Error:** No formula \(h(t_j+a_j)=c_{j+1}\) has
+been established. In general \(h(t_j+a_j)=h(t_j)+\beta(a_j)\), and the proof
+never shows \(h(t_j)=0\). This step is used to produce a positive-height
+element, so the argument breaks here.
+
+12. **Location:** "If both values are in \(\{-1,0,+1\}\): then either
+\(\sigma_T(t'+a_1)\neq 0\) or \(\sigma_T(t'-a_1)\neq 0\) (or both),
+propagating the chain as in Case A."
+
+    **Description — Justification Gap:** Case A relied on \(J_0=\emptyset\),
+i.e. the absence of extra height-\(0\) terms. In Case B, \(J_0\neq\emptyset\),
+so the Case A propagation argument does not automatically apply. This step is
+asserted without proof.
+
+13. **Location:** "apply \((S0)\) \(k=2\) at each \(t'' = t'+s_2-s_j\) for
+\(j \in J_0\) (these are height-0 elements of \(F_1\) with \(\delta_j \neq
+0\))."
+
+    **Description — Justification Gap:** By definition, \(J_0=\{j\ge3:c_j=h_0\}\).
+That does **not** imply \(t'+s_2-s_j\in T\), nor that \(\delta_j\neq0\). The
+proof silently treats every \(j\in J_0\) as an actual nonzero height-\(0\)
+contribution.
+
+14. **Location:** The paragraph beginning "**(Edge case \(m_1=0\),
+\(t_1=t_2\)):** If \(m_1=0\): \(F_1=\{t_1\}\) is a single point. Then
+\(J_0=\emptyset\) ... actually \(|J_0|\) can be \(\geq 2\), but the key point
+is ... hmm. Actually ..."
+
+    **Description — Critical Error:** This branch is not a completed proof. It
+first makes a claim (\(J_0=\emptyset\)) and then retracts it; the calculation is
+abandoned mid-argument ("hmm. Actually ..."). So the case \(m_1=0\) is left
+unresolved.
+
+15. **Location:** "So \(D_2\) for \(t'+a_1\) is \(-D_2\) (signs flipped from
+before)."
+
+    **Description — Justification Gap:** This is not proved. After shifting by
+\(a_1\), some contributing height-\(0\) points may leave \(F_1\) or hit an
+endpoint, so the new lower-term sum need not equal \(-D_2\).
+
+16. **Location:** "If \(D_2=\pm 1\): \(\sigma_T(t'+2a_1)=\sigma_T(t')\pm 2\):
+outside \(\{-1,0,+1\}\) if \(\sigma_T(t')=\pm 1\). Contradiction!"
+
+    **Description — Critical Error:** This calculation is false. For example,
+if \(\sigma_T(t')=-1\) and \(D_2=1\), then \(\sigma_T(t'+2a_1)=1\), which is
+**inside** \(\{-1,0,+1\}\). So the claimed contradiction does not follow even
+from the displayed formula.
+
+Overall, the proof contains multiple **Critical Errors** and **Justification
+Gaps**, so it does **not** verify the stated result.
+
+================================================================================
+APPENDIX B: Full output of verifier run 2
+(file: proof/verify_v15_pessimistic_run2.txt)
+================================================================================
+
+The solution is **not correct**. Bug report below.
+
+1. **Location:** "Fix \(n \ge 3\) and a convex \(n\)-gon \(x_1,\ldots,x_n\)
+(CCW) with sign function \(\sigma_T\) supported on \(T=\{x_1,\ldots,x_n\}\)
+having both signs."
+   **Description:** **Critical Error.** This changes the problem's setup. The
+original statement assumes **\(S\)** is the convex \(n\)-point set, while
+**\(T\)** is an arbitrary finite signed set of translate vectors. The proof
+instead assumes \(T\) itself is an \(n\)-point convex polygon and then uses
+edge vectors of that polygon. So the proof is arguing about the wrong object.
+The final theorem is likewise stated for \(T\), not for \(P=\operatorname{conv}(S)\).
+
+2. **Location:**
+   "\(\text{(NL): For } p \notin T:\ \sum_{j=1}^n \sigma_T(p-s_j)=0.\)"
+   "\(\text{(S0): For } t\in T,\ t\neq t_k:\ \sum_{j=1}^n
+\sigma_T(t+s_k-s_j)=0.\)"
+   **Description:** **Critical Error.** These are introduced as "key equations"
+but are neither proved nor among the listed facts allowed from Subproblems 1-4.
+Worse, their stated hypotheses are not enough: \(p\notin T\) does **not** imply
+\(\sigma(p)=0\), and \(t\neq t_k\) does **not** imply \(t+s_k\) is not one of
+the exceptional nonzero-\(\sigma\) points. The later uses of (NL) and (S0)
+therefore lack a valid premise.
+
+3. **Location:** "take \(\beta\) normal to this boundary with \(\beta(a_2)=1>0\)."
+and later "\(F_1 \subseteq \{h=0\}\) by construction."
+   **Description:** **Justification Gap.** The proof never establishes that one
+can choose a single supporting functional \(\beta\) that simultaneously:
+   - makes all points of \(T\) satisfy \(h\ge 0\),
+   - has \(\beta(a_1)=0\),
+   - has \(\beta(a_2)=1\), and
+   - puts all of \(F_1\) at height \(0\).
+   These properties are used repeatedly, but the construction is not justified.
+
+4. **Location:** In Lemma hzero: "since \(c_j > 0\) for all \(j \geq 3\)" and
+the following Remark, especially "all other vertices \(x_j\) (\(j \geq 2\)) lie
+strictly on the positive side, so \(c_j = h(x_j) > 0\) for \(j \geq 2\).
+(We have \(c_2 = \cdots = 0\) by construction...)"
+   **Description:** **Justification Gap.** The positivity \(c_j>0\) for \(j\ge
+3\) is essential to the height arguments, but it is not rigorously established.
+The accompanying explanation is internally inconsistent (\(c_2>0\) is asserted
+and then immediately denied) and mixes the roles of \(x_j,s_j,t_j\).
+
+5. **Location:** "We check whether \(t'-a_1 \in T\). For \(T = F_1 \cup F_2
+\cup F_3\): ..." and later "If all \(m_j=0\): \(T=\{t_1\}\)."
+   **Description:** **Critical Error.** The proof repeatedly assumes that all
+of \(T\) lies on the boundary chains \(F_i\), i.e. \(T=\bigcup_i F_i\). That
+is not one of the allowed facts and is never proved. Therefore:
+   - checking \(t'-a_1\notin T\) by inspecting only \(F_1,F_2,F_3\), and
+   - concluding "all \(m_j=0\) implies \(T=\{t_1\}\)"
+   are both unsupported.
+
+6. **Location:** "Here \([u]=[v]\) iff \(u=\lambda v\) for some \(\lambda \neq
+0\) (same unoriented line through 0)."
+   **Description:** **Critical Error.** This changes the meaning of
+"edge-direction class." The problem defines direction classes using **positive**
+scalar multiples; the proof switches to an **unoriented** equivalence relation.
+The subsequent reduction to "\([a_3]\neq[a_1]\), i.e. \(a_1\not\parallel a_3\)"
+is therefore not justified from the actual hypothesis.
+
+7. **Location:** "If some \(m_j \geq 1\): by the above, \(h(t_j+a_j)=c_{j+1}>0\)
+for \(j \geq 3\) ..."
+   **Description:** **Critical Error.** This identity is not derived and is
+generally false from the preceding definitions. One has
+\(h(t_j+a_j)=h(t_j)+\beta(a_j)\), not automatically \(c_{j+1}\). This branch
+of Step 1 does not actually prove the existence of a positive-height point.
+
+8. **Location:** In Lemma hzero: "Iterating: \(\{\ldots,q-2a_1,q-a_1,q,q+a_1,
+q+2a_1,\ldots\} \subseteq T\) with alternating nonzero signs. Contradicts
+\(T\) finite."
+   **Description:** **Justification Gap.** The proof never shows that this
+iteration can continue indefinitely and avoid the excluded cases where the
+chosen instance of (S0) is unavailable. The contradiction from finiteness is
+asserted, not established.
+
+9. **Location:** In Case B: "So \(t''+a_1\) and \(t''-a_1\) are also
+nonzero-sign elements of \(T\) at height \(0\), i.e., in \(F_1\). Iterating:
+\(\{t''+ka_1 : k \in \mathbb{Z}\} \subseteq T \cap \{h=0\} = F_1\). But
+\(F_1\) is finite. Contradiction."
+   **Description:** **Critical Error.** This is not a valid contradiction. A
+finite arithmetic progression like \(F_1\) can contain only finitely many
+\(\pm a_1\)-steps before an endpoint is reached; the proof does not show any
+continuation past endpoints. No bi-infinite chain in \(F_1\) has been proved.
+
+10. **Location:** The entire passage beginning "\(\textbf{(Edge case }m_1=0,\
+t_1=t_2)\)" including:
+    - "Then \(J_0=\emptyset\) ... actually \(|J_0|\) can be \(\ge 2\) ..."
+    - "\(\ge 2-1=... \) hmm."
+    **Description:** **Critical Error.** This case split is unfinished and
+self-contradictory. The proof explicitly retracts one claim and leaves another
+computation incomplete, yet later says "In all sub-cases" a contradiction
+follows. The \(m_1=0\) case is not proved.
+
+11. **Location:** "If \(D_2=\pm1\): \(\sigma_T(t'+2a_1)=\sigma_T(t')\pm2\):
+outside \(\{-1,0,+1\}\) if \(\sigma_T(t')=\pm1\). Contradiction!"
+    **Description:** **Critical Error.** The arithmetic claim is false. For
+example, if \(\sigma_T(t')=1\) and \(D_2=-1\), then
+\(\sigma_T(t'+2a_1)=1-2=-1\), which is **inside** \(\{-1,0,+1\}\). So the
+stated contradiction does not follow.
+
+12. **Location:**
+    "So \(D_2\) for \(t'+a_1\) is \(-D_2\) (signs flipped from before)."
+    and later
+    "yielding \(D_2=0\) for even steps and \(D_2=\pm 2\varepsilon_1\) for odd
+steps — but \(\pm 2\varepsilon_1 \notin \{-1,0,+1\}\): contradiction ..."
+    **Description:** **Critical Error.** The update rule for \(D_2\) is not
+proved: boundary points of \(F_1\) may have no "next" element, and different
+\(j\) can contribute to the same height-0 point. Also, \(D_2\) is a **sum of
+contributions**, not itself a value of \(\sigma_T\), so comparing \(D_2\) to
+\(\{-1,0,+1\}\) is logically invalid.
+
+Because the proof contains multiple **Critical Errors** and **Justification
+Gaps**, it does **not** verify the statement.
+
+================================================================================
+APPENDIX C: Full output of verifier run 3
+(file: proof/verify_v15_pessimistic_run3.txt)
+================================================================================
+
+The solution is **not correct**. Here is a bug report.
+
+## Critical Errors
+
+1. **Location:**
+   "Fix \(n \ge 3\) and a convex \(n\)-gon \(x_1,\ldots,x_n\) (CCW) with sign
+function \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) supported on \(T =
+\{x_1,\ldots,x_n\}\) having both signs."
+
+   **Description:** **Critical Error.**
+   This changes the problem. In the stated problem, \(S\) is the convex
+\(n\)-point set, while \(T\) is an arbitrary finite signed set of translates.
+The proof instead assumes that **\(T\) itself is a convex \(n\)-gon with
+exactly \(n\) points** and then uses edge vectors of that polygon. So the
+argument is proving a different statement from the one asked. This also creates
+an internal inconsistency with later use of long chains \(F_i\), which can
+contain many points even though \(T\) was declared to have exactly \(n\)
+elements.
+
+2. **Location:**
+   "Here \([u] = [v]\) iff \(u = \lambda v\) for some \(\lambda \neq 0\) (same
+unoriented line through \(0\))."
+
+   **Description:** **Critical Error.**
+   The problem defines edge-direction classes using **positive** scalar multiples
+only. The proof silently changes this to **nonzero** scalar multiples,
+identifying antiparallel directions. That is a different equivalence relation,
+so the proof is not addressing the stated hypothesis.
+
+3. **Location:**
+   "So \(D_2\) for \(t'+a_1\) is \(-D_2\) (signs flipped from before)."
+
+   **Description:** **Critical Error.**
+   This is not generally true. A height-zero contributor may be an endpoint of
+\(F_1\) (for example \(t_2\)), and then shifting by \(a_1\) need not stay in
+\(T\); the contribution can become \(0\), not the negative of the old one.
+The subsequent computation of \(\sigma_T(t'+2a_1)\) therefore rests on a false
+claim.
+
+4. **Location:**
+   "If \(D_2=\pm 1\): \(\sigma_T(t'+2a_1)=\sigma_T(t')\pm 2\): outside
+\(\{-1,0,+1\}\) if \(\sigma_T(t')=\pm 1\). Contradiction!"
+
+   **Description:** **Critical Error.**
+   This arithmetic claim is false. For instance:
+   - if \(\sigma_T(t')=1\) and \(D_2=-1\), then \(\sigma_T(t'+2a_1)= -1\),
+which is allowed;
+   - if \(\sigma_T(t')=-1\) and \(D_2=1\), then \(\sigma_T(t'+2a_1)= 1\),
+also allowed.
+   So the claimed contradiction does not follow.
+
+## Justification Gaps
+
+5. **Location:**
+   "The key equations are:
+   \[
+   \text{(NL): ... } \sum_{j=1}^n \sigma_T(p-s_j)=0,\qquad
+   \text{(S0): ... } \sum_{j=1}^n \sigma_T(t+s_k-s_j)=0.
+   \]"
+
+   **Description:** **Justification Gap.**
+   These equations are not among the facts permitted from Subproblems 1-4, and
+they are not proved here. The proof relies on them throughout. Contradicting them
+proves nothing unless their validity under the present hypotheses is established.
+
+6. **Location:**
+   "Write \(a_i = x_{i+1}-x_i\), \(s_j=\sum_{i=1}^{j-1} a_i\),
+\(c_j=\beta(s_j)\) ... Note \(c_1=c_2=0\), \(c_3=1\)."
+   and
+   "Choose \(\beta\) ... take \(\beta\) normal to this boundary with
+\(\beta(a_2)=1>0\)."
+
+   **Description:** **Justification Gap.**
+   The proof never establishes that one can choose a single linear functional
+\(\beta\) with all properties it later uses simultaneously: \(h\ge 0\) on \(T\),
+\(\beta(a_1)=0\), and \(\beta(a_2)=1\). Those properties are essential for
+\(c_2=0\), \(c_3=1\), and for heights to be unchanged under \(\pm a_1\).
+
+7. **Location:**
+   Lemma hzero, ending with:
+   "Iterating: \(\{\ldots, q-2a_1, q-a_1, q, q+a_1, q+2a_1, \ldots\}\subseteq
+T\) with alternating nonzero signs. Contradicts \(T\) finite."
+
+   **Description:** **Justification Gap.**
+   Only \(q\pm a_1\in T\) were proved. No argument is given that the same
+reasoning can be iterated indefinitely, especially if an iterate hits a special
+point where the stated form of (S0) is not applicable. The bi-infinite chain is
+asserted, not established.
+
+8. **Location:**
+   In the \(n=3\) proof:
+   "We check whether \(t'-a_1\in T\). For \(T = F_1 \cup F_2 \cup F_3\): ..."
+
+   **Description:** **Justification Gap.**
+   The allowed facts only identify \(F_i\) as \(T\cap[t_i,t_{i+1}]\). They do
+**not** show that every point of \(T\) lies in one of these chains. So checking
+only \(F_1,F_2,F_3\) is insufficient to conclude \(t'-a_1\notin T\).
+
+9. **Location:**
+   "With \(\geq 3\) classes, this fails: either \(a_3 \not\parallel a_1\) or
+\(a_4 \not\parallel a_2\) (or both). By relabeling/symmetry we may assume
+\([a_3]\neq [a_1]\) ..."
+
+   **Description:** **Justification Gap.**
+   This reduction is asserted without proof. No argument is given that every
+polygon under the stated hypothesis can be relabeled so that this specific
+nonparallel relation holds, especially after the proof has changed the notion of
+direction class.
+
+10. **Location:**
+    Step 1 of Lemma min-height:
+    "If some \(m_j \ge 1\): by the above, \(h(t_j+a_j)=c_{j+1}>0\) for
+\(j\ge 3\) ..."
+
+    **Description:** **Justification Gap.**
+    The equality \(h(t_j+a_j)=c_{j+1}\) is not established in this general
+subcase; it would require prior proof that \(h(t_j)=0\). The "continuing"
+argument for existence of a positive-height point is incomplete.
+
+11. **Location:**
+    "(Edge case \(m_1=0\), \(t_1=t_2\)): ... actually \(|J_0|\) can be \(\ge
+2\), but the key point is ... hmm. Actually ... propagate. In all cases, chain
+or contradiction."
+
+    **Description:** **Justification Gap.**
+    This subcase is unfinished. The proof contains self-corrections and abandoned
+calculations instead of a complete argument, then jumps to the conclusion "In
+all cases, chain or contradiction" without justification.
+
+12. **Location:**
+    Final paragraph of Case B:
+    "In Case B with \(D_2 = 0\) ... subsequent steps have \(D=0\) ... yielding
+\(D_2=0\) for even steps and \(D_2=\pm 2\varepsilon_1\) for odd steps ..."
+
+    **Description:** **Justification Gap.**
+    The evolution of the lower-term sums is not proved. The set of contributing
+indices and endpoint effects are not analyzed, and the paragraph is internally
+inconsistent: it first says the later \(D\)-values are \(0\), then says they
+become \(\pm 2\varepsilon_1\) on odd steps.
+
+Because the proof contains multiple **Critical Errors** and several
+**Justification Gaps**, it does **not** verify the stated result.

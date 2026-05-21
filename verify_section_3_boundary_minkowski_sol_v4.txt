@@ -1,0 +1,18 @@
+**Bug report**
+
+1. **Location:**  
+   “The outer-normal rays of the edges \(E_1,\dots,E_n\) of \(P\) are cyclically ordered because the vertices \(s_1,\dots,s_n\) are cyclically ordered. The edge \(e_i\) has the same outer-normal ray as \(E_i\), so the edges
+   \[
+   e_1,e_2,\dots,e_n
+   \]
+   occur on the boundary of \(R\) in that same cyclic order.
+
+   Therefore the vertices of \(R\) are
+   \[
+   e_n\cap e_1,\ e_1\cap e_2,\ \dots,\ e_{n-1}\cap e_n.
+   \]”
+
+   **Description:** **Justification Gap.**  
+   This is the key step that identifies the boundary order of the edges \(e_i\), but the proof does not justify it. In particular, it does not establish the needed theorem that, for a convex polygon, the cyclic order of edge outer-normal rays determines the cyclic order of the edges along the boundary. Without that justification, the conclusion that \(e_{i-1}\) and \(e_i\) are consecutive boundary edges—and hence that the vertices are exactly \(x_1,\dots,x_n\) in cyclic order—is not fully proved.
+
+No **Critical Errors** found, but because of the above **Justification Gap**, the solution is **not fully verified** under the stated grading rules.

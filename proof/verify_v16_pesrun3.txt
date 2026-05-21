@@ -1,0 +1,81 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:** `Assume for contradiction that T has \geq 3 edge-direction classes and both signs.`
+   
+   **Issue:** **Critical Error.**  
+   The problem’s hypothesis is about the polygon \(P=\operatorname{conv}(S)\) having at least three edge-direction classes. The proof switches to a different claim about \(T\) having three edge-direction classes, without proving these are equivalent. That changes the statement being proved.
+
+2. **Location:**  
+   `%   x_1,...,x_n : vertices of a convex n-gon (CCW), n >= 3.`  
+   `%   T = {x_1,...,x_n} = supp(sigma_T).`  
+   `%   F_i = {t_i + k*a_i : 0 <= k <= m_i}: face chain on edge i,`
+   
+   **Issue:** **Critical Error.**  
+   This setup is internally inconsistent. If \(T=\{x_1,\dots,x_n\}\) is just the set of vertices of a convex \(n\)-gon, then \(T\) has no extra edge-interior points. But the proof later allows arbitrary \(m_i\), so \(F_i\) can contain additional points \(t_i+k a_i\) with \(0<k<m_i\). The object being studied is not coherently defined.
+
+3. **Location:** `%   s_j = x_j - x_1 = a_1 + ... + a_{j-1} (with s_1 = 0).`
+   
+   **Issue:** **Critical Error.**  
+   In the problem, \(s_1,\dots,s_n\) are the given points of \(S\). The proof redefines the \(s_j\) as differences of points of the newly introduced polygon on \(T\). This changes the meaning of every later formula involving \(s_j\), including the shifted sums used in \(\eqref{eq:S0}\).
+
+4. **Location:**  
+   `% KEY EQUATIONS:`  
+   `%   (NL) For p not in T:  sum_{j=1}^n sigma_T(p - s_j) = 0.`  
+   `%   (S0) For t in T, t != t_k:  sum_{j=1}^n sigma_T(t + s_k - s_j) = 0.`  
+   `%   Closure: sum_{i=1}^n m_i * a_i = 0,  sum_{i=1}^n m_i = n.`  
+   and later repeated uses such as `apply \eqref{eq:S0} ...`
+   
+   **Issue:** **Justification Gap.**  
+   These are substantial additional results, but the problem only permits two specific facts from Subproblems 1–4 to be used without proof. The proof never derives \((NL)\), \((S0)\), or \(\sum_i m_i=n\), yet relies on them throughout.
+
+5. **Location:** `Fix \beta with \beta(a_1)=0, \beta(a_2)=1, and h(p) = \beta(p-t_1) \geq 0$ for all $p \in T$ (possible since $t_1$ is a vertex of $\mathrm{conv}(T)$).`
+   
+   **Issue:** **Justification Gap.**  
+   The proof assumes, without derivation from the allowed facts, that \(t_1\) is a vertex of \(\operatorname{conv}(T)\) and that a supporting functional \(\beta\) can be chosen with all the stated properties. This is foundational for the rest of the argument.
+
+6. **Location:** `Repeating: for all $k \in \mathbb{Z}$, $\sigma_T(q + k a_1) = (-1)^k \sigma_T(q) \neq 0$`
+   
+   **Issue:** **Justification Gap.**  
+   Only the first forward/backward step is shown. The proof does not justify that the same recurrence can be applied at every later point \(q+ka_1\), especially when one of those points could hit exceptional points such as \(t_1\) or \(t_2\), where the chosen form of \(\eqref{eq:S0}\) is not available.
+
+7. **Location:** `But $\varepsilon_1 = (-1)^{3m}\varepsilon_1$ (closure of signs) forces $m$ odd; $m = 1$ is consistent.`
+   
+   **Issue:** **Critical Error.**  
+   This parity deduction is wrong. From \((-1)^{3m}=1\), one gets \(3m\) even, hence \(m\) even, not odd.
+
+8. **Location:** `Is $t' - a_1 \in T$? $T = F_1 \cup F_2 \cup F_3$.` and then `Therefore $t'-a_1 = t_1+a_2 \notin T$, so $\sigma_T(t'-a_1)=0$.`
+   
+   **Issue:** **Justification Gap.**  
+   The proof never established \(T=F_1\cup F_2\cup F_3\) (or \(T=\bigcup_i F_i\) in general). So checking that a point is not in those three chains does not prove it is not in \(T\).
+
+9. **Location:**  
+   `use $k=1$ instead; by symmetry the same argument applies`  
+   and later  
+   `then use $k=1$ instead of $k=2$ (identical argument by symmetry).`
+   
+   **Issue:** **Justification Gap.**  
+   These endpoint cases are not actually carried out. Under the stated rules, “by symmetry” is not a justification; the alternative equation and its consequences must be written explicitly.
+
+10. **Location:** `by $\sum m_i = n \geq 4$ and $m_i \geq 0$: some $m_j \geq 1$ for $j \neq 1$.`
+    
+    **Issue:** **Critical Error.**  
+    This inference is false. All of the sum could be concentrated in \(m_1\).
+
+11. **Location:** `The elements are $T = F_1 \cup \cdots \cup F_n$; since $T \neq F_1$, some $F_j$ ($j \geq 2$) contains an element not in $F_1$.`
+    
+    **Issue:** **Justification Gap.**  
+    The equality \(T=\bigcup_{i=1}^n F_i\) is used as if already known, but it is not among the permitted facts and is not proved in the solution.
+
+12. **Location:**  
+    `\emph{Sub-case B2: All $\delta_j = 0$ for $j \in J_0$.}`  
+    `Then $D_2 = D_1 = 0$: identical to Case A.`
+    
+    **Issue:** **Critical Error.**  
+    \(D_2\) is defined using the \(\delta_j\), but \(D_1\) is defined using different quantities \(\delta'_j=\sigma_T(t'-s_j)\). Vanishing of all \(\delta_j\) does **not** imply vanishing of all \(\delta'_j\). So Sub-case B2 is unsupported.
+
+13. **Location:** `\begin{corollary} For all $n \geq 3$: a finite signed measure supported on the $n$ vertices of a convex polygon...`
+    
+    **Issue:** **Critical Error.**  
+    The final conclusion is not the original statement. The problem concerns the extremal equality for the convolution-defined \(\sigma\) coming from \(S\) and \(T\); the proof ends with a different theorem about a signed measure on polygon vertices.
+
+Because the solution contains multiple **Critical Errors** and several **Justification Gaps**, it does **not** verify the stated problem.

@@ -1,1 +1,2 @@
-# d-p-gauss-variance-proof
+# cancel-convex-translated-copies
+Prove from scratch.

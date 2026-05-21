@@ -1,0 +1,24 @@
+% PROBLEM: section_5b_shared_translate
+% Let S⊂ℝ² be a finite set of n≥3 points in convex position, T⊂ℝ² a finite signed set
+% with both signs present, σ(p)=Σ_{t∈T, p−t∈S} σ(t), and assume |supp(σ)|=n.
+% Keep the notation from Subproblems 1–4: vertices s_1,…,s_n of P=conv(S),
+% exposed translates t_1,…,t_n∈T (vertices of Q=conv(T)),
+% edge vectors a_i=s_{i+1}−s_i, and face chains F_i={t_i+k·a_i : 0≤k≤m_i}
+% with alternating signs and t_{i+1}=t_i+m_i·a_i.
+%
+% LEMMA (Shared Translate):
+% Suppose two chains F_i and F_j (with i≠j, indices mod n) contain a common translate:
+% there exist integers 0≤p≤m_i and 0≤q≤m_j such that
+%   t_i + p·a_i = t_j + q·a_j  (call this common point t*).
+% Then σ(t_i)·(−1)^p = σ(t_j)·(−1)^q (sign consistency).
+%
+% Prove:
+% (1) The sign consistency follows immediately since t* is a single element of T.
+% (2) Rearranging the shared-point equation gives t_j − t_i = p·a_i − q·a_j.
+% (3) If p≥1 and q≥1 (t* is interior to both chains), this gives an affine relation
+%     between t_i and t_j in terms of a_i and a_j.
+% (4) Using the closure equation Σ_{k=1}^{n} m_k·a_k = 0 and t_j−t_i = p·a_i − q·a_j,
+%     show that if the overlap forces a sign contradiction then a_i ∥ a_j with positive
+%     proportionality (same direction class).
+%
+% Write a self-contained LaTeX proof (no \documentclass).

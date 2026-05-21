@@ -1,0 +1,41 @@
+The proof structure is **not fully valid as written**.
+
+At a high level, the decomposition is close: it has the right main stages  
+(lower bound → prove \(n\le 4\) → rule out \(n=3\) → classify \(n=4\)).  
+But there are structural issues.
+
+### Issues
+
+1. **Subproblem 2 uses an equality-case fact that has not been established yet.**  
+   The claims
+   \[
+   \sum_p \sigma(p)^2 = n
+   \quad\text{and}\quad
+   \sigma(p)\in\{\pm1\}\text{ on the support}
+   \]
+   do **not** follow from \(|\operatorname{supp}(\sigma)|=n\) alone.  
+   They need an explicit prior argument that every support point comes from a unique translate (or equivalent), which is only implicit in Subproblem 1. So the dependency from Subproblem 1 to Subproblem 2 is missing.
+
+2. **Subproblem 2 relies on a fact proved only later in Subproblem 3.**  
+   The bound
+   \[
+   n(k_1+k_2-1)\le 4k_1k_2-\sum_{\text{same}} m_{t_a-t_b}
+   \]
+   already uses \(m_v\le 2\), but that geometric bound is only established in Subproblem 3.  
+   So the order of dependencies is wrong.
+
+3. **Subproblem 6 introduces an unsupported step.**  
+   The conclusion “when \(n=4\), some \(v\neq 0\) must satisfy \(m_v=2\)” is not derived by the earlier subproblems as stated. The displayed inequality involving \(m_{v_{\max}}\) appears suddenly and is not one of the previously established lemmas.  
+   So the transition from the algebraic bounds to the geometric classification for \(n=4\) is structurally incomplete.
+
+4. **Subproblem 1 is not clearly integrated with the rest of the proof.**  
+   Its strong conclusion that \(U\) equals the vertex set of \(\operatorname{conv}(S+T)\) is only useful if it is explicitly used to justify the exact \(L^2\) identity in Subproblem 2.  
+   As written, that role is implicit; otherwise most of the “support = Minkowski vertices” part is redundant.
+
+5. **Subproblem 4 is stated generally, but its sketched case analysis is not clearly exhaustive.**  
+   The subproblem statement says it proves all cases \(n\ge 5\), but the outline only sketches a small borderline configuration (notably \(k_1=k_2=2\)). If the plan is to eliminate all admissible \((k_1,k_2)\), that should either be broken into additional sublemmas or stated more explicitly.
+
+### Verdict
+
+So the outline is **close, but not structurally sound as written**.  
+The main problems are **dependency/order issues** and one **missing bridge** in the \(n=4\) step.

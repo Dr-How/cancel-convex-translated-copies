@@ -1,0 +1,68 @@
+CONSOLIDATED PESSIMISTIC VERIFICATION REPORT
+=============================================
+Solution: proof/section_1_lonely_rigidity_sol_v3.tex
+Problem:  proof/section_1_lonely_rigidity.tex
+Mode:     pessimistic (3 independent verifier runs)
+Date:     2026-04-28
+
+VERDICT: ISSUES_FOUND
+  count=2, flagging_runs=1/3
+  top_issue="Finiteness of supp(σ) is asserted from vanishing outside S+T alone, without invoking the finiteness of S+T itself"
+
+Run summary
+-----------
+  Run 1: ISSUES_FOUND (2 justification gaps)
+  Run 2: CLEAN
+  Run 3: CLEAN
+
+Note: under pessimistic protocol, any run flagging issues triggers ISSUES_FOUND regardless of the other runs.
+
+Issue list (all from Run 1)
+----------------------------
+
+[Run 1 / Issue 1] JUSTIFICATION GAP
+  Location: "Since σ(p)=0 for every p∉S+T, the set supp(σ) is finite."
+  Description: The conclusion that supp(σ) is finite requires invoking the fact that S+T is
+  itself finite (which follows from S and T being finite). The sentence as written deduces
+  finiteness of supp(σ) solely from vanishing outside S+T, without establishing that S+T is
+  finite. This is a missing link in the chain of reasoning.
+
+[Run 1 / Issue 2] JUSTIFICATION GAP
+  Location (Part 2, section (a)): "For every r∈S\{s}, choose one lonely point ℓ_r = r+t_r
+  (where t_r∈T is the unique translate making r+t_r lonely)."
+  Description: At this point in the proof, uniqueness of the translate t_r for each r has not
+  yet been established — uniqueness is precisely what part (2a) is in the process of proving.
+  Asserting "the unique translate" is circular: it anticipates a conclusion that has not been
+  derived yet. The counting argument that follows only requires existence (not uniqueness) of
+  some lonely point for each r, so the word "unique" here is unsupported as stated.
+
+=============================================================================
+APPENDIX A — Full output of Run 1
+=============================================================================
+No **Critical Errors** found, but under the stated rubric the proof still has the following **Justification Gaps**.
+
+1. **Location:**
+   > "Since \(\sigma(p)=0\) for every \(p\notin S+T\), the set \(\operatorname{supp}(\sigma)\) is finite."
+
+   **Description — Justification Gap:**
+   This conclusion also requires the explicit fact that \(S+T\) is finite because \(S\) and \(T\) are finite. Vanishing outside \(S+T\) alone does not imply finiteness of the support.
+
+2. **Location:**
+   > "For every \(r\in S\setminus\{s\}\), choose one lonely point \(\ell_r=r+t_r\) (where \(t_r\in T\) is the unique translate making \(r+t_r\) lonely)."
+
+   **Description — Justification Gap:**
+   As written, this asserts uniqueness of the translate \(t_r\) for each \(r\) at a point where only existence of some lonely point for \(r\) has been established. That uniqueness is exactly what part \((2a)\) is trying to prove. The later counting argument only needs existence, so this is not a critical flaw, but the sentence is circular/unsupported as stated.
+
+=============================================================================
+APPENDIX B — Full output of Run 2
+=============================================================================
+No issues found.
+
+**Verdict:** The solution is correct. I found **no Critical Errors** and **no Justification Gaps**.
+
+=============================================================================
+APPENDIX C — Full output of Run 3
+=============================================================================
+**Bug report:** No issues found.
+
+The solution is correct: I found **no Critical Errors** and **no Justification Gaps**.

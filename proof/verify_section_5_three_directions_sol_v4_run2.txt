@@ -1,0 +1,78 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:**  
+   “*then \(S=\{O,A,R,B\}\), so \(P\) is the quadrilateral \(OARB\), i.e. a parallelogram. But the theorem assumes at least three edge-direction classes, so this is impossible.*”  
+   and later  
+   “*Hence the only surviving case is \(n=4\) and \(P\) has exactly two edge-direction classes, i.e. \(P\) is a parallelogram.*”
+
+   **Description — Critical Error:**  
+   The proof is treating opposite sides as the same “direction class.” But the statement’s formal definition says direction classes are taken **up to positive scalar multiples only**. Under that literal definition, a parallelogram does **not** have “exactly two” classes. So the proof is using a notion of direction class that does not match the stated definition, and the contradiction/exclusion of the parallelogram case is not valid relative to the formal statement.
+
+2. **Location:**  
+   Lemma 2.1:  
+   “*If some vertex \(z\) had smaller distance, a line parallel to \(L\) strictly between \(z\) and both \(x^{-},y^{+}\) would meet the boundary in at least four points, impossible for a convex polygon unless the line contained an edge.*”
+
+   **Description — Justification Gap:**  
+   The key geometric claim is asserted but not proved. The argument does not establish why that parallel line must intersect the boundary in four points, nor why this yields the desired contradiction in all cases. Since Lemma 2.1 is then used to prove Lemma 2.2, this is a real gap in the geometric part of the proof.
+
+3. **Location:**  
+   Lemma 3.1:  
+   “*The inclusion \(P\subset s_i+C_i\) is the usual tangent-cone statement at a vertex of a convex polygon.*”  
+   and  
+   “*Hence \(t-t_i\) lies in the polar cone of \(N_P(s_i)\), which is exactly \(C_i=\operatorname{cone}(a_i,-a_{i-1})\).*”
+
+   **Description — Justification Gap:**  
+   These are nontrivial convex-geometric facts invoked without proof or prior statement. The proof does not justify either the tangent-cone containment for \(P\) or the identity between the polar cone of \(N_P(s_i)\) and \(C_i\). Under the stated grading rules, this is an unstated-theorem gap.
+
+4. **Location:**  
+   Lemma 4.1:  
+   “*Since \(-a_i\) is one of the two edge directions at \(s_{i+1}\), we have \(c\cdot(-a_i)<0\).*”
+
+   **Description — Justification Gap:**  
+   This strict inequality is not justified. It requires an explicit use of the earlier fact that \(s_{i+1}\) is the unique maximizer of \(c\cdot s\) on \(S\), applied to \(s_i=s_{i+1}-a_i\). As written, the implication is asserted without argument.
+
+5. **Location:**  
+   Lemma 5.1:  
+   “*But any other vertex of \(S\) has \(y\ge 1\), hence within \([0,1]^2\) it must lie on the top edge \(y=1\). For a point \(X=(x,1)\), the required translate is \(t=t_i+(1-x)a_i\). If \(x<1\), this lies on the forbidden ray … Therefore the only possible vertices in a representation of \(q\) are \(A\) and \(O\).*”
+
+   **Description — Critical Error:**  
+   The case \(X=(1,1)=R\) is not excluded. Under the one-sided hypothesis \(E_i\le E_{i+1}\), Lemma 2.2 does **not** rule out \(R\in S\). If \(R\in S\), then \(q=R+t_i\) is another representation. So the conclusion that only \(A\) and \(O\) are possible is false as written, and the later uniqueness/noncancellation conclusion for \(q\) does not follow.
+
+6. **Location:**  
+   Lemma 5.1:  
+   “*\(w-t_i=a_i-a_{i-1}\) lies in the interior of \(C_i\), and it does **not** lie in \(C_{i+1}\), because these two cones occupy disjoint angular sectors for a convex polygon with at least three edge-direction classes.*”
+
+   **Description — Critical Error:**  
+   This claim is false in general. Adjacent cones \(C_i=\operatorname{cone}(a_i,-a_{i-1})\) and \(C_{i+1}=\operatorname{cone}(a_{i+1},-a_i)\) need not be disjoint; they can overlap. Therefore the exclusion of \(w\in T\) is not valid.
+
+7. **Location:**  
+   Lemma 5.2:  
+   “*Stripping such ends and repeating the same argument gives an inward induction along the block.*”
+
+   **Description — Critical Error:**  
+   This induction step is invalid. After stripping an endpoint from a constant block, the new endpoint generally has both neighboring \(m\)-values equal to \(0\), so the hypotheses of Lemma 5.1 (\(m_{j-1}>0,m_j=0\) or \(m_{j-1}=0,m_j>0\)) no longer hold. The “same argument” cannot be reapplied as claimed.
+
+8. **Location:**  
+   Lemma 5.2:  
+   “*At that central index the full empty-parallelogram lemma applies, and the same point-construction as in Lemma 5.1 forces the diagonal translate \(t_i+a_i-a_{i-1}\) to lie simultaneously in two incompatible adjacent tangent cones; this is impossible.*”
+
+   **Description — Critical Error:**  
+   This uses Lemma 5.1 outside its hypotheses. At a central index of a nontrivial constant block, one has \(m_{i-1}=m_i=0\), so the neighboring translates used in Lemma 5.1 are not known to exist. Also, “incompatible adjacent tangent cones” is not established and is false in general. So the contradiction claimed here is unsupported.
+
+9. **Location:**  
+   Section 7:  
+   “*Then  
+   \[
+   t-t_i=q-s_j-t_i=r_i-s_j+s_i.
+   \]*”  
+   and  
+   “*Then  
+   \[
+   r_i-s_j+s_i=(1-\alpha)a_i-(1-\beta)a_{i-1}.
+   \]*”
+
+   **Description — Critical Error:**  
+   This is an algebraic mistake. From \(q=t_i+r_i\), one gets \(t-t_i=q-s_j-t_i=r_i-s_j\), not \(r_i-s_j+s_i\). With the stated definition \(r_i=s_i+a_i-a_{i-1}\), the next displayed equation is also false as written. Therefore the deduction that \(s_j\in K_i\) does not follow from the written argument.  
+   Even aside from this, the proof would also need a separate argument to obtain the lower bounds on \(\alpha,\beta\); that is not supplied.
+
+Because of the critical errors in Lemma 5.1, Lemma 5.2, and Section 7, plus the earlier justification gaps, the solution does **not** verify the theorem.

@@ -1,0 +1,49 @@
+The solution is **not correct**. Bug report:
+
+1. **Location:** “Direction classes. \([a]=[b]\) iff \(b=\lambda a\) for some \(\lambda\ne0\). (A parallelogram has edges \(a_1,a_2,-a_1,-a_2\) giving exactly 2 classes.)”
+   
+   **Description:** **Critical Error.** The proof changes the problem’s formal notion of direction class. The statement defined classes using **positive** scalar multiples; the solution switches to arbitrary nonzero scalar multiples. The later argument, including the “parallelogram has 2 classes” remark, is then proving a different claim.
+
+2. **Location:** “By (F1)--(F2), each \(p_i=t_i+s_i\) satisfies \(\tilde\sigma(p_i)\ne 0\) … Since the \(p_i\) are distinct … \(\mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}\).”
+   
+   **Description:** **Justification Gap.** The allowed facts do not explicitly give the separation argument used to show all non-\(i\) terms vanish, nor do they state that the \(p_i\) are distinct. The phrase “the \(t_i\) come from disjoint normal cones” is not among the allowed facts and does not by itself justify distinctness of the sums \(t_i+s_i\). Many later contradictions rely on this unsupported identification of the full support.
+
+3. **Location:** “If \(m=0\): \(t_1=t_2=t_3\), so \(T\subseteq\{t_1\}\), contradicting both signs present.”
+   
+   **Description:** **Critical Error.** From \(m_1=m_2=m_3=0\) one gets \(F_i=\{t_i\}\), not \(T\subseteq\{t_1\}\). Extra elements of \(T\) outside those three edge chains are not ruled out. The case \(m=0\) is excluded without proof.
+
+4. **Location:** “Relabel so that \([a_1],[a_2],[a_3]\) are pairwise distinct direction classes … by cyclic relabeling we may take them to include edges \(1,2,3\).”
+   
+   **Description:** **Justification Gap.** Cyclic relabeling cannot in general make arbitrary three chosen edges consecutive. The proof does not justify that one may assume the specific consecutive edges \(a_1,a_2,a_3\) represent three distinct classes.
+
+5. **Location:** “The closure then reduces to \(m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0\), i.e. \(\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0\), forcing all \(m_i=0\).”
+   
+   **Description:** **Critical Error.** Even if all relevant \(a_i\) are collinear with \(a_1\), they need not equal \(a_1\); they may be different positive/negative scalar multiples. Replacing \(\sum m_i a_i\) by \((\sum m_i)a_1\) is invalid. Therefore the argument that \(T\not\subseteq F_1\), hence that a positive height \(h_0\) exists, is not established.
+
+6. **Location:** “For each \(j\) with \(c_j=h_0\), write \(t'-s_j=\lambda_j a_1+h_0 v\) … Then \(t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v\), which lies in \(F_1=\{t_1+ka_1:0\le k\le m_1\}\) iff …” and equation \((\ref{eq:Dform})\).
+   
+   **Description:** **Critical Error.** If \(c_j=h_0\), then \(h(t'-s_j)=h_0-c_j=0\), so \(t'-s_j\) lies on the height-zero line \(t_1+\mathbb Ra_1\), not on a translate by \(h_0v\). Also, the coefficient of \(v\) is not the height unless \(\beta(v)=1\), which was never shown. Thus the membership test for \(F_1\) and formula \((\ref{eq:Dform})\) do not follow.
+
+7. **Location:** “The \(j_0\)-term in \(D(t'+(R_{\max}+2)a_1)\) is … nonzero … In particular, \(|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1\)” and later “The \(j_0'\)-term in \(D(t'+(R_{\min}-2)a_1)\) is … So \(\sigma_T(t'+(R_{\min}-2)a_1)\ne0\).”
+   
+   **Description:** **Critical Error.** A single nonzero summand in \(D\) does not prevent cancellation with other \(D\)-terms. The proof treats “one nonzero term appears” as “the whole sum is nonzero,” which is false. These steps do not establish the new point lies in \(T\).
+
+8. **Location:** “By the same argument at \(t'+(R_{\min}-1)a_1\) … \(D(t'+(R_{\min}-1)a_1)=-\sigma_T(t'+R_{\min}a_1)\ne0\).”
+   
+   **Description:** **Critical Error.** This equation does not come from (VAN) at the stated point. For \(p=t'+(R_{\min}-1)a_1\), the \(j=1,2\) terms are \(\sigma_T(t'+(R_{\min}-1)a_1)\) and \(\sigma_T(t'+(R_{\min}-2)a_1)\), not \(\sigma_T(t'+R_{\min}a_1)\).
+
+9. **Location:** “This forces the \(j\)’s contributing to both D-sums to be the same vertex \(j_0=j_0'\) …” together with “\(j\) other, \(c_j=h_0\): by assumption (\(j_0\) is the unique index …) … hence \(=0\).”
+   
+   **Description:** **Critical Error.** The proof never establishes that the right-side and left-side contributors are the same vertex, nor that there is a unique contributing index. It also does not justify using integrality information about \(\lambda_j\) defined from \(t'-s_j\) to determine whether \(q^*-s_j\in F_1\). The subsequent computations of \(\tilde\sigma(q^*)\) and \(\tilde\sigma(q^*+a_1)\) are therefore unsupported.
+
+10. **Location:** “\(j=j_0\): \(\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1=-\varepsilon_1\) (position \(1\) on \(F_1\)).”
+    
+    **Description:** **Critical Error.** This requires \(m_1\ge1\), i.e. that \(t_1+a_1\in F_1\). The \(n\ge4\) argument never proves \(m_1\ge1\), so this term may not exist.
+
+11. **Location:** “But lonely points at height \(h_0\) must satisfy \(h(t_i)+c_i=h_0\) … So the only candidate is \(p_{j_0}=q^*\).”
+    
+    **Description:** **Critical Error.** This ignores the possibility that some \(p_i\) has height \(h_0\) with \(0<c_i<h_0\) and \(h(t_i)=h_0-c_i>0\). It also assumes uniqueness of the index with \(c_i=h_0\), which was never proved. So the contradiction \(q^*+a_1\ne p_{j_0}\) does not rule out \(q^*+a_1=p_i\) for some other \(i\).
+
+12. **Location:** “Sub-case L … By the same analysis as Sub-cases A, B1, B2 applied with \(R_{\max}\) replaced by \(R_{\max}+1\) (or the next non-lonely step), we obtain the same contradiction.”
+    
+    **Description:** **Critical Error.** The lonely-point case is not actually handled. Passing to a later non-lonely step changes the equation and removes the nonzero boundary term used in the generic case, so the earlier contradiction does not automatically persist. This is a hand-wave, not a proof.

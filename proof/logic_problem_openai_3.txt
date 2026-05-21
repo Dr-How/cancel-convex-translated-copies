@@ -1,0 +1,36 @@
+**Verdict:** The proof structure is **essentially valid for the stated conjecture** (the one-way implication: equality \(\Rightarrow n=4\) and \(S\) is a parallelogram), but it has a few **structural clean-up issues**.
+
+### What works structurally
+- The main dependency chain is sound:
+  - **Subproblem 1** gives the lower bound and the extremal interpretation of equality.
+  - **Subproblem 2** provides the geometric overlap cap.
+  - **Subproblem 3** reduces the general signed family to exactly two translates.
+  - **Subproblem 4** converts that reduction into the bound \(n\le 4\).
+  - Then the remaining small-\(n\) classification yields \(n=4\) and the quadrilateral structure.
+- There is **no obvious missing case** for the stated conjecture once \(n\ge 3\) is assumed.
+
+### Issues
+1. **Subproblem 5 is redundant.**  
+   From Subproblem 4, under equality,
+   \[
+   n = 2n - 2|S\cap(S+v)| \quad\Rightarrow\quad |S\cap(S+v)| = n/2.
+   \]
+   Together with Subproblem 2, this gives \(n/2\le 2\), hence \(n\le 4\), and also shows \(n\) must be even. Since the conjecture assumes \(n\ge 3\), this already forces \(n=4\). So the separate triangle exclusion is not needed.
+
+2. **Subproblem 6 is redundant as stated, given Subproblem 2.**  
+   The second clause of Subproblem 2 already says that if \(|S\cap(S+v)|=2\), the four involved points form a parallelogram. Once \(n=4\), those are all the points of \(S\), so Subproblem 6 is already implied.  
+   - If you want Subproblem 6 to be genuinely needed, then Subproblem 2 should be weakened to only the bound \(\le 2\).
+
+3. **The final sentence overstates the conclusion.**  
+   The integration sketch ends with:
+   > “Thus equality with both signs occurs exactly in the parallelogram case...”
+   
+   But the listed subproblems only prove the **necessary condition** in the conjecture. They do **not** include a converse/existence step showing that every parallelogram actually attains equality for some signed \(T\).  
+   - This does **not** hurt the proof of the stated conjecture.
+   - It only means the final sentence is stronger than what the outline has structurally established.
+
+### Bottom line
+- **For the stated conjecture:** the structure is **basically sound**.
+- **As written:** it is **not perfectly clean**, because of:
+  - redundant Subproblems **5** and **6**, and
+  - an **overstrong concluding claim** not justified by the listed steps.

@@ -1,0 +1,70 @@
+% SP2 solution v3.
+% Key fix: "opposite signs exist" now uses the counting identity (SP1 item 7) instead
+% of the broken surjectivity argument.  The rest is the same as v2.
+
+Let \(P:=\operatorname{conv}(S)\). Since \(S\) is in strict convex position,
+\(V(P)=S\) and \(|S|=n\). In the equality case we have from Subproblem~1:
+\[
+\operatorname{supp}(F)=\{\ell_s:s\in S\},\qquad F(\ell_s)=\sigma(s):=\varepsilon(t_s)\in\{\pm1\}.
+\]
+
+\medskip
+\textbf{1. Opposite signs occur.}
+
+By the counting identity (Subproblem~1, item~7),
+\[
+n_+ - n_- = n(k_1-k_2),
+\]
+where \(n_\pm = |\{s\in S:\sigma(s)=\pm1\}|\) and \(k_\pm = |\{t\in T:\varepsilon(t)=\pm1\}|\).
+
+Since \(k_1\ge1\) and \(k_2\ge1\) (both signs present in \(T\)), we have \(k_1-k_2\in\{-1,0,1\}\).
+
+\begin{itemize}
+\item \textbf{Case~0} (\(k_1=k_2\)): \(n_+=n_-=n/2\).  Since \(n\ge3\) and \(n\) must be even,
+  we have \(n\ge4\), \(n_+\ge2\), and \(n_-\ge2\).  \emph{In particular, both signs appear on \(S\).}
+\item \textbf{Cases~\(\pm n\)} (\(k_1-k_2=\pm1\)): either \(n_+=n\) (all signs \(+1\)) or
+  \(n_-=n\) (all signs \(-1\)).
+\end{itemize}
+
+\emph{For Subproblems~2--3 we assume Case~0.}  (Cases~\(\pm n\) are treated directly by
+the algebraic arguments of Subproblem~4 without needing the chain decomposition:
+the trinomial lemma handles \(n=3\); the Newton-polytope factorization handles \(n=4\).)
+
+In Case~0 there exist \(s_a,s_b\in S\) with \(\sigma(s_a)=+1\) and \(\sigma(s_b)=-1\). \qed
+
+\medskip
+\textbf{2. Boundary-chain decomposition.}
+
+Choose the pair \(s_a,s_b\) just found.  Since all inequalities defining ``\(s_a\) leftmost
+and \(s_b\) rightmost'' are strict and open, we may additionally perturb the coordinate
+direction so that no two vertices of \(P\) share the same \(x\)-coordinate and no edge of
+\(P\) is vertical, while keeping \(s_a\) leftmost and \(s_b\) rightmost.
+
+Removing \(s_a\) and \(s_b\) from \(\partial P\) splits the boundary into two arcs.
+Their closures are the \textbf{upper chain}
+\[
+U=(v_1=s_a,\,v_2,\,\dots,\,v_{m_U}=s_b)
+\]
+and the \textbf{lower chain}
+\[
+L=(v_1=s_a,\,v_2,\,\dots,\,v_{m_L}=s_b),
+\]
+each a strictly \(x\)-monotone convex polygonal arc from \(s_a\) to \(s_b\).
+
+\emph{Strict \(x\)-monotonicity:} For each \(c\in(x(s_a),x(s_b))\) the vertical line
+\(\lambda_c\) meets \(P\cap\partial P\) in exactly two points (one on \(U\), one on \(L\)),
+since \(P\) is convex and has no vertical edges.  Hence each chain meets \(\lambda_c\) in
+exactly one point, so the \(x\)-coordinate is strictly increasing along each chain.
+
+The vertex sets satisfy
+\[
+U\cup L=S,\qquad U\cap L=\{s_a,s_b\},
+\qquad |U|+|L|=n+2.
+\]
+This proves~(2). \qed
+
+\medskip
+\textbf{3. Each chain contains both signs.}
+
+Both \(U\) and \(L\) share the endpoints \(s_a\) (sign \(+1\)) and \(s_b\) (sign \(-1\)).
+Hence each chain contains both signs. \qed

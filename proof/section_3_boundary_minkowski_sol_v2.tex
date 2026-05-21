@@ -1,0 +1,449 @@
+The previous proof had the right geometric idea; the gaps are in a few standard facts. Here is a fully explicit proof.
+
+We work modulo \(n\) on the indices. For a nonzero vector \(u\) and a nonempty compact convex set \(K\subset \mathbb{R}^2\), write
+\[
+h_K(u):=\max_{x\in K}\langle u,x\rangle,
+\qquad
+F_K(u):=\{x\in K:\langle u,x\rangle=h_K(u)\}.
+\]
+
+## Preliminary facts
+
+### 1. \(P+Q\) is a polygon
+Since \(P=\operatorname{conv}(S)\) and \(Q=\operatorname{conv}(T)\), we have
+\[
+P+Q=\operatorname{conv}(S)+\operatorname{conv}(T)=\operatorname{conv}(S+T),
+\]
+where
+\[
+S+T:=\{s+t:s\in S,\ t\in T\}.
+\]
+
+Indeed, if
+\[
+p=\sum_{s\in S}\alpha_s s\in \operatorname{conv}(S),
+\qquad
+q=\sum_{t\in T}\beta_t t\in \operatorname{conv}(T),
+\]
+with \(\alpha_s,\beta_t\ge 0\) and \(\sum_s\alpha_s=\sum_t\beta_t=1\), then
+\[
+p+q=\sum_{s,t}\alpha_s\beta_t(s+t),
+\]
+so \(p+q\in \operatorname{conv}(S+T)\). Thus
+\[
+\operatorname{conv}(S)+\operatorname{conv}(T)\subseteq \operatorname{conv}(S+T).
+\]
+The reverse inclusion is immediate because \(S+T\subseteq P+Q\) and \(P+Q\) is convex.
+
+Hence \(P+Q\) is the convex hull of finitely many points, i.e. a convex polygon. Also \(P+Q\) is \(2\)-dimensional, because for any \(q\in Q\),
+\[
+P+q\subseteq P+Q,
+\]
+and \(P\) is a genuine \(n\)-gon.
+
+### 2. Support functions and exposed faces of Minkowski sums
+For compact convex \(A,B\subset\mathbb{R}^2\) and \(u\neq 0\),
+\[
+h_{A+B}(u)=h_A(u)+h_B(u).
+\]
+This is immediate:
+\[
+h_{A+B}(u)
+=\max_{a\in A,\ b\in B}\langle u,a+b\rangle
+=\max_{a,b}\bigl(\langle u,a\rangle+\langle u,b\rangle\bigr)
+=h_A(u)+h_B(u).
+\]
+
+From this one gets
+\[
+F_{A+B}(u)=F_A(u)+F_B(u).
+\]
+Proof: if \(a\in F_A(u)\) and \(b\in F_B(u)\), then
+\[
+\langle u,a+b\rangle=h_A(u)+h_B(u)=h_{A+B}(u),
+\]
+so \(a+b\in F_{A+B}(u)\). Thus
+\[
+F_A(u)+F_B(u)\subseteq F_{A+B}(u).
+\]
+Conversely, if \(z\in F_{A+B}(u)\), write \(z=a+b\) with \(a\in A\), \(b\in B\). Then
+\[
+h_A(u)+h_B(u)=h_{A+B}(u)=\langle u,z\rangle
+=\langle u,a\rangle+\langle u,b\rangle\le h_A(u)+h_B(u),
+\]
+so equality holds in both inequalities, hence
+\[
+a\in F_A(u),\qquad b\in F_B(u).
+\]
+Therefore \(z\in F_A(u)+F_B(u)\).
+
+### 3. Unique maximizers on \(T\) are also unique maximizers on \(Q=\operatorname{conv}(T)\)
+If \(t^\ast\in T\) is the unique maximizer of \(\langle u,\cdot\rangle\) on \(T\), then
+\[
+F_Q(u)=\{t^\ast\}.
+\]
+Indeed, for any
+\[
+q=\sum_{t\in T}\alpha_t t\in Q
+\qquad
+(\alpha_t\ge 0,\ \sum_t\alpha_t=1),
+\]
+we have
+\[
+\langle u,q\rangle=\sum_{t\in T}\alpha_t\langle u,t\rangle\le \langle u,t^\ast\rangle,
+\]
+with equality only if every \(t\) with \(\alpha_t>0\) also maximizes \(\langle u,\cdot\rangle\) on \(T\). By uniqueness, that forces \(q=t^\ast\).
+
+### 4. A singleton exposed face is a vertex
+Let \(K\) be a convex polygon. If \(F_K(u)=\{x\}\), then \(x\) is a vertex of \(K\).
+
+Proof: if
+\[
+x=\lambda a+(1-\lambda)b
+\qquad
+(0<\lambda<1,\ a,b\in K),
+\]
+then
+\[
+h_K(u)=\langle u,x\rangle
+=\lambda \langle u,a\rangle+(1-\lambda)\langle u,b\rangle
+\le \lambda h_K(u)+(1-\lambda)h_K(u)=h_K(u).
+\]
+So equality holds throughout, hence \(a,b\in F_K(u)=\{x\}\), and therefore \(a=b=x\). Thus \(x\) is extreme, i.e. a vertex.
+
+### 5. Every vertex of a convex polygon has an open cone of exposing directions
+Let \(K\) be a \(2\)-dimensional convex polygon and let \(y\) be a vertex. Let \(E^-\) and \(E^+\) be the two edges of \(K\) meeting at \(y\), and let \(n^-,n^+\) be outer normals to those edges. Then
+\[
+\langle n^-,z-y\rangle\le 0,\qquad \langle n^+,z-y\rangle\le 0
+\quad\text{for all }z\in K,
+\]
+with equality in the first exactly on \(E^-\), and equality in the second exactly on \(E^+\).
+
+Hence for every
+\[
+u=\alpha n^-+\beta n^+ \qquad (\alpha,\beta>0),
+\]
+and every \(z\in K\setminus\{y\}\), at least one of the two inequalities is strict, so
+\[
+\langle u,z-y\rangle<0.
+\]
+Therefore
+\[
+F_K(u)=\{y\}.
+\]
+So the set
+\[
+D_y:=\{\alpha n^-+\beta n^+:\alpha,\beta>0\}
+\]
+is a nonempty open cone of directions uniquely exposing \(y\).
+
+---
+
+## Part (2)
+
+Fix \(i\). Let
+\[
+E_i=[s_i,s_{i+1}],\qquad a_i:=s_{i+1}-s_i,
+\]
+and let \(u_i\) be an outer normal to \(E_i\). Set
+\[
+G_i:=F_Q(u_i).
+\]
+
+We will prove
+\[
+G_i=[t_i,t_{i+1}],
+\]
+and then deduce the direction statement.
+
+### Step 1: small perturbations of \(u_i\) enter the adjacent normal cones
+Because \(u_i\) is an outer normal to the edge \(E_i\),
+\[
+F_P(u_i)=E_i=[s_i,s_{i+1}],
+\]
+so
+\[
+\langle u_i,s_i\rangle=\langle u_i,s_{i+1}\rangle=h_P(u_i),
+\]
+and for every \(j\neq i,i+1\),
+\[
+\langle u_i,s_j\rangle<h_P(u_i).
+\]
+Define
+\[
+\delta_j:=h_P(u_i)-\langle u_i,s_j\rangle>0
+\qquad (j\neq i,i+1),
+\]
+and let
+\[
+\delta:=\min_{j\neq i,i+1}\delta_j>0.
+\]
+Also define
+\[
+M:=\max_{j\neq i,i+1}
+\max\Bigl\{
+|\langle a_i,s_i-s_j\rangle|,
+|\langle a_i,s_{i+1}-s_j\rangle|
+\Bigr\}.
+\]
+Choose \(0<\varepsilon<\delta/(M+1)\).
+
+Then for \(j\neq i,i+1\),
+\[
+\langle u_i-\varepsilon a_i,\ s_i-s_j\rangle
+=
+\delta_j-\varepsilon\langle a_i,s_i-s_j\rangle
+\ge \delta-\varepsilon M>0,
+\]
+and
+\[
+\langle u_i-\varepsilon a_i,\ s_i-s_{i+1}\rangle
+=
+-\varepsilon\langle a_i,a_i\rangle
+\cdot(-1)
+=
+\varepsilon\|a_i\|^2>0.
+\]
+So \(s_i\) is the unique maximizer of \(\langle u_i-\varepsilon a_i,\cdot\rangle\) on \(P\), i.e.
+\[
+u_i-\varepsilon a_i\in C_i.
+\]
+
+Similarly, for \(j\neq i,i+1\),
+\[
+\langle u_i+\varepsilon a_i,\ s_{i+1}-s_j\rangle
+=
+\delta_j+\varepsilon\langle a_i,s_{i+1}-s_j\rangle
+\ge \delta-\varepsilon M>0,
+\]
+and
+\[
+\langle u_i+\varepsilon a_i,\ s_{i+1}-s_i\rangle
+=
+\varepsilon\|a_i\|^2>0.
+\]
+Hence
+\[
+u_i+\varepsilon a_i\in C_{i+1}.
+\]
+
+So for all sufficiently small \(\varepsilon>0\),
+\[
+u_i-\varepsilon a_i\in C_i,
+\qquad
+u_i+\varepsilon a_i\in C_{i+1}.
+\]
+
+### Step 2: \(t_i,t_{i+1}\in G_i\)
+Take any sequence \(\varepsilon_m\downarrow 0\) such that
+\[
+u_i-\varepsilon_m a_i\in C_i.
+\]
+Since \(t_i\) is the unique maximizer on \(T\) for every direction in \(C_i\), for every \(t\in T\),
+\[
+\langle u_i-\varepsilon_m a_i,\ t_i-t\rangle\ge 0.
+\]
+Passing to the limit \(m\to\infty\) gives
+\[
+\langle u_i,\ t_i-t\rangle\ge 0
+\qquad \text{for all }t\in T.
+\]
+Thus \(t_i\) maximizes \(\langle u_i,\cdot\rangle\) on \(T\), hence on \(Q=\operatorname{conv}(T)\). Therefore
+\[
+t_i\in G_i.
+\]
+
+Exactly the same argument, using
+\[
+u_i+\varepsilon_m a_i\in C_{i+1},
+\]
+shows that
+\[
+t_{i+1}\in G_i.
+\]
+
+### Step 3: \(G_i\) is exactly the segment \([t_i,t_{i+1}]\)
+Since \(G_i=F_Q(u_i)\), it lies in the support line
+\[
+L_i:=\{q\in\mathbb{R}^2:\langle u_i,q\rangle=h_Q(u_i)\}.
+\]
+Because \(u_i\perp a_i\), the line \(L_i\) is parallel to \(a_i\). Hence \(G_i\) is a compact convex subset of a line parallel to \(a_i\), so \(G_i\) is either a point or a closed segment parallel to \(a_i\).
+
+Now fix a sufficiently small \(\varepsilon>0\) with
+\[
+u_i-\varepsilon a_i\in C_i,\qquad u_i+\varepsilon a_i\in C_{i+1}.
+\]
+
+For any \(q\in G_i\), since \(\langle u_i,q\rangle=h_Q(u_i)\),
+\[
+\langle u_i-\varepsilon a_i,q\rangle
+=
+h_Q(u_i)-\varepsilon\langle a_i,q\rangle.
+\]
+So **among points of \(G_i\)**, maximizing \(\langle u_i-\varepsilon a_i,\cdot\rangle\) is equivalent to minimizing \(\langle a_i,\cdot\rangle\).
+
+But \(u_i-\varepsilon a_i\in C_i\), so by Subproblem \(2\) and Preliminary Fact \(3\),
+\[
+F_Q(u_i-\varepsilon a_i)=\{t_i\}.
+\]
+Since \(t_i\in G_i\), it follows that \(t_i\) is the unique minimizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+Similarly, for \(q\in G_i\),
+\[
+\langle u_i+\varepsilon a_i,q\rangle
+=
+h_Q(u_i)+\varepsilon\langle a_i,q\rangle,
+\]
+so **among points of \(G_i\)**, maximizing \(\langle u_i+\varepsilon a_i,\cdot\rangle\) is equivalent to maximizing \(\langle a_i,\cdot\rangle\). Since
+\[
+F_Q(u_i+\varepsilon a_i)=\{t_{i+1}\},
+\]
+the point \(t_{i+1}\) is the unique maximizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+Therefore the two endpoints of the segment \(G_i\) are exactly \(t_i\) and \(t_{i+1}\). Hence
+\[
+G_i=[t_i,t_{i+1}].
+\]
+
+Since faces do not change when the normal is multiplied by a positive scalar, this holds for **any** outer normal to \(E_i\).
+
+### Step 4: direction of \(t_{i+1}-t_i\)
+Because \(G_i=[t_i,t_{i+1}]\) lies on a line parallel to \(a_i\), there exists \(\lambda_i\in\mathbb{R}\) such that
+\[
+t_{i+1}-t_i=\lambda_i a_i=\lambda_i(s_{i+1}-s_i).
+\]
+Also \(t_i\) is the minimum and \(t_{i+1}\) the maximum of \(\langle a_i,\cdot\rangle\) on \(G_i\), so
+\[
+\langle a_i,t_{i+1}-t_i\rangle\ge 0.
+\]
+Substituting \(t_{i+1}-t_i=\lambda_i a_i\) gives
+\[
+\lambda_i\|a_i\|^2\ge 0.
+\]
+Since \(a_i\neq 0\), we get
+\[
+\lambda_i\ge 0.
+\]
+
+This proves Part \((2)\).
+
+---
+
+## Part (1)
+
+Define
+\[
+x_i:=s_i+t_i.
+\]
+
+### Step 1: each \(x_i\) is a vertex of \(P+Q\)
+Fix \(i\) and let \(u\in C_i\). Then
+\[
+F_P(u)=\{s_i\},
+\]
+because \(u\) lies in the open normal cone of \(P\) at \(s_i\). By Subproblem \(2\) and Preliminary Fact \(3\),
+\[
+F_Q(u)=\{t_i\}.
+\]
+Therefore, by the face formula,
+\[
+F_{P+Q}(u)=F_P(u)+F_Q(u)=\{s_i+t_i\}=\{x_i\}.
+\]
+By Preliminary Fact \(4\), \(x_i\) is a vertex of \(P+Q\).
+
+Also, by Subproblems \(1\)–\(2\), the points \(\ell_i=x_i\) are the \(n\) support points in the extremal case, so they are pairwise distinct.
+
+### Step 2: there are no other vertices
+Let \(y\) be any vertex of \(P+Q\). By Preliminary Fact \(5\), there exists a nonempty open cone \(D_y\) such that
+\[
+F_{P+Q}(u)=\{y\}
+\qquad\text{for all }u\in D_y.
+\]
+
+For the polygon \(P\), every nonzero direction lies either in one of the open vertex cones \(C_1,\dots,C_n\), or on one of the \(n\) boundary rays determined by the edge normals \(u_1,\dots,u_n\). The union of those boundary rays has empty interior, so the open cone \(D_y\) meets some \(C_i\).
+
+Take \(u\in D_y\cap C_i\). Then
+\[
+\{y\}=F_{P+Q}(u)=\{x_i\},
+\]
+hence
+\[
+y=x_i.
+\]
+So every vertex of \(P+Q\) is one of the \(x_i\).
+
+Since each \(x_i\) is a vertex and there are no others, the vertices of \(P+Q\) are exactly
+\[
+x_1,\dots,x_n.
+\]
+
+### Step 3: cyclic order
+For the edge normal \(u_i\), Part \((2)\) and the face formula give
+\[
+F_{P+Q}(u_i)
+=
+F_P(u_i)+F_Q(u_i)
+=
+[s_i,s_{i+1}]+[t_i,t_{i+1}].
+\]
+Write
+\[
+t_{i+1}-t_i=\lambda_i a_i,\qquad \lambda_i\ge 0.
+\]
+Then
+\[
+[s_i,s_{i+1}]
+=
+\{s_i+\alpha a_i:0\le \alpha\le 1\},
+\]
+and
+\[
+[t_i,t_{i+1}]
+=
+\{t_i+\beta \lambda_i a_i:0\le \beta\le 1\}.
+\]
+Hence
+\[
+[s_i,s_{i+1}]+[t_i,t_{i+1}]
+=
+\{x_i+(\alpha+\lambda_i\beta)a_i:0\le \alpha,\beta\le 1\}
+=
+[x_i,x_{i+1}],
+\]
+because \(x_{i+1}=x_i+(1+\lambda_i)a_i\).
+
+So for each \(i\),
+\[
+F_{P+Q}(u_i)=[x_i,x_{i+1}],
+\]
+which is a boundary edge of \(P+Q\). Therefore \(x_i\) and \(x_{i+1}\) are adjacent vertices for every \(i\). Since the vertices are exactly the pairwise distinct points \(x_1,\dots,x_n\), this means they occur on the boundary in the cyclic order
+\[
+x_1,x_2,\dots,x_n.
+\]
+
+That proves Part \((1)\).
+
+---
+
+## Conclusion
+
+We have shown:
+
+\[
+\boxed{\text{The vertices of }P+Q\text{ are exactly }x_i=s_i+t_i\text{ in cyclic order.}}
+\]
+
+And for each \(i\), if \(u_i\) is any outer normal to the edge \([s_i,s_{i+1}]\) of \(P\), then
+\[
+\boxed{F_Q(u_i)=[t_i,t_{i+1}]}
+\]
+and
+\[
+\boxed{t_{i+1}-t_i=\lambda_i(s_{i+1}-s_i)\quad\text{for some }\lambda_i\ge 0.}
+\]
+
+So Part \((2)\) also says that the edge of \(P+Q\) corresponding to the edge \([s_i,s_{i+1}]\) of \(P\) is exactly
+\[
+[x_i,x_{i+1}],
+\]
+parallel to \([s_i,s_{i+1}]\).

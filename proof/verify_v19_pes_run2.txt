@@ -1,0 +1,79 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:**  
+   *“Direction classes. \([a]=[b]\) iff \(b=\lambda a\) for some \(\lambda\ne0\).”*  
+   **Description — Justification Gap:**  
+   The proof silently changes the notion of “direction class” from the statement’s version (positive scalar multiples) to classes modulo arbitrary nonzero scalars. Unless this change is justified, the proof is addressing a different claim.
+
+2. **Location:**  
+   *“Since the \(p_i\) are distinct (the \(s_i\) are distinct and the \(t_i\) come from disjoint normal cones) and \(|\mathrm{supp}(\tilde\sigma)|=n\):  
+   \[
+   \mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.
+   \]”*  
+   **Description — Critical Error:**  
+   The stated reason does **not** imply the points \(p_i=t_i+s_i\) are distinct. Distinct \(s_i\) and the origin of the \(t_i\) do not prevent \(t_i+s_i=t_j+s_j\). Also, the vanishing of the other summands at \(p_i\) is only asserted vaguely (“by linear-functional separation”). Therefore \(\eqref{eq:lonely}\) is not established, yet it is used throughout to decide when (VAN) applies.
+
+3. **Location:**  
+   *“If \(m=0\): \(t_1=t_2=t_3\), so \(T\subseteq\{t_1\}\), contradicting both signs present.”*  
+   **Description — Critical Error:**  
+   From \(t_1=t_2=t_3\) it does **not** follow that all of \(T\) equals \(\{t_1\}\). There could be additional translates in \(T\). Thus the exclusion of \(m=0\) in the triangle case is unsupported.
+
+4. **Location:**  
+   *“Relabel so that \([a_1],[a_2],[a_3]\) are pairwise distinct direction classes … by cyclic relabeling we may take them to include edges \(1,2,3\)”*  
+   and later  
+   *“For a CCW convex polygon …”*  
+   **Description — Justification Gap:**  
+   The proof does not justify that three distinct direction classes can be arranged as three **consecutive** edges \(1,2,3\), nor that the polygon has been reoriented CCW. The later height construction uses both facts.
+
+5. **Location:**  
+   *“By (F1), \(t_1\) is the unique maximiser of \(\langle\cdot,-v\rangle=-\beta(\cdot)\) over \(T\), i.e. \(t_1\) minimises \(\beta\) over \(T\).”*  
+   **Description — Critical Error:**  
+   Here \(-v\) is an outward normal to **edge** \(1\), not an interior normal of the vertex cone. Along this direction, every point of \(F_1=\{t_1,t_1+a_1,\dots,t_2\}\) has the same \(\beta\)-value, so \(t_1\) is not a unique maximizer when \(m_1>0\). Nothing in the allowed facts quoted here shows that all of \(T\) lies in \(\{h\ge0\}\). Thus Lemma `betamin` is not proved, and the later use of \(h\ge0\) is unsupported.
+
+6. **Location:**  
+   *“The closure \eqref{eq:closure} then reduces to \(m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0\), i.e. \(\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0\), forcing all \(m_i=0\).”*  
+   **Description — Critical Error:**  
+   If \(a_i\) is parallel to \(a_1\), one only knows \(a_i=\lambda_i a_1\) for some scalar \(\lambda_i\); it need not equal \(a_1\), and it may even point in the opposite direction. So the sum is not \((\sum m_i)a_1\). The claimed contradiction proving that some translate has \(h>0\) does not follow.
+
+7. **Location:**  
+   *“For each \(j\) with \(c_j=h_0\), write \(t'-s_j=\lambda_j a_1+h_0 v\) … Then \(t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v\), which lies in \(F_1\) iff …”*  
+   and the derived formula \(\eqref{eq:Dform}\).  
+   **Description — Critical Error:**  
+   If \(c_j=h_0\), then
+   \[
+   h(t'-s_j)=h(t')-c_j=h_0-h_0=0,
+   \]
+   so \(t'-s_j\) has height \(0\), not \(h_0\). The decomposition is wrong, and it also ignores the necessary translation by \(t_1\). Therefore the criterion for when \(t'+ra_1-s_j\in F_1\) is invalid, so \(\eqref{eq:Dform}\) and the later claim that \(D\) vanishes for large \(r\) are unsupported.
+
+8. **Location:**  
+   *“Hence \(\sigma_T(t'+(R_{\max}+2)a_1)=-D(t'+(R_{\max}+2)a_1)\) contains the nonzero summand \((-1)^{k_0}\varepsilon_1\)… In particular, \(|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1\).”*  
+   **Description — Critical Error:**  
+   A sum can contain a nonzero summand and still cancel to \(0\). No argument is given that the other terms in \(D\) have the same sign or cannot cancel the \(j_0\)-term. So the conclusion that \(t'+(R_{\max}+2)a_1\in T\) is unsupported.
+
+9. **Location:**  
+   *“The \(j_0'\)-term in \(D(t'+(R_{\min}-2)a_1)\) is \((-1)^{k_0'-1}\varepsilon_1\ne0\)… So \(\sigma_T(t'+(R_{\min}-2)a_1)\ne0\).”*  
+   **Description — Critical Error:**  
+   This repeats the same cancellation mistake as in Sub-case B1: one nonzero term in the sum \(D\) does not imply the entire sum is nonzero.
+
+10. **Location:**  
+    *“This forces the \(j\)’s contributing to both D-sums to be the same vertex \(j_0=j_0'\)”*  
+    and later  
+    *“by assumption (\(j_0\) is the unique index with \(c_j=h_0\) contributing to the D-sums …)”*  
+    **Description — Critical Error:**  
+    None of this is proved. Even if there is a contributor on the right and one on the left, it does not follow that they are the **same** vertex of \(S\). The later computation of \(q^*\) also assumes uniqueness of contributors and a specific sign \(\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1\) without establishing them. In the same subcase, the line
+    *“\(\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1\)”*
+    also presumes \(m_1\ge1\), which is not shown.
+
+11. **Location:**  
+    *“So the only candidate is \(p_{j_0}=q^*\).”*  
+    **Description — Critical Error:**  
+    This ignores lonely points with \(h(t_i)>0\) and \(0<c_i<h_0\), which can also satisfy \(h(t_i)+c_i=h_0\). Therefore the claim that \(q^*+a_1\) can only equal \(p_{j_0}\) does not follow.
+
+12. **Location:**  
+    *“Apply (VAN) at \(t'+(R_{\max}+2)a_1\) … not lonely … after possibly increasing the starting index by at most \(n\) steps”*  
+    and  
+    *“By the same analysis as Sub-cases A, B1, B2 applied with \(R_{\max}\) replaced by \(R_{\max}+1\) (or the next non-lonely step), we obtain the same contradiction.”*  
+    **Description — Critical Error:**  
+    The proof repeatedly shifts to a “next non-lonely step” without re-establishing the maximality/minimality properties or re-deriving the relevant equations for the shifted index. The special lonely-point case is therefore not actually proved; it is only asserted.
+
+Because the argument contains multiple **Critical Errors**, the solution is **incorrect**.

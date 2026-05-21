@@ -1,0 +1,125 @@
+Here is a complete proof.
+
+Let the vertices of $P=\operatorname{conv}(S)$ be $v_1,\dots,v_n$ in counterclockwise order, and let
+\[
+e_i:=v_{i+1}-v_i\qquad (1\le i\le n,\; v_{n+1}:=v_1,\; e_{n+1}:=e_1)
+\]
+be the directed edge vectors (all indices of vertices and edges are taken mod $n$).
+
+Let the two edge-direction classes be represented by nonparallel unit vectors $u$ and $w$; thus every $e_i$ is a nonzero scalar multiple of one of $u$ or $-u$, $w$ or $-w$.
+
+**Step $1$: adjacent edges are not parallel.**
+
+If $e_i$ and $e_{i+1}$ are parallel (meaning $e_{i+1}=\lambda e_i$ for some $\lambda\neq 0$), then
+\[
+v_{i+1}-v_i = e_i = \frac{1}{\lambda}e_{i+1},\qquad
+v_{i+2}-v_i = e_i+e_{i+1} = (1+\lambda)e_i,
+\]
+so $v_i$, $v_{i+1}$, $v_{i+2}$ are collinear (all differences are scalar multiples of $e_i$). Write the three points in the order they appear on the common line: since $v_{i+1}-v_i = e_i$ and $v_{i+2}-v_i=(1+\lambda)e_i$, the parameter values along the line are $0, 1, 1+\lambda$ (in units of $e_i$). If $\lambda=-1$, then $1+\lambda=0$, so $v_{i+2}=v_i$: two vertices of the polygon coincide. This contradicts the fact that $v_1,\dots,v_n$ are distinct (they are distinct elements of $S$). If $\lambda>0$ then $0<1<1+\lambda$, so $v_{i+1}$ lies strictly between $v_i$ and $v_{i+2}$. If $-1<\lambda<0$ then $0<1+\lambda<1$, so $v_{i+2}$ lies strictly between $v_i$ and $v_{i+1}$. If $\lambda<-1$ then $1+\lambda<0<1$, so $v_i$ lies strictly between $v_{i+2}$ and $v_{i+1}$. In each case one of the three vertices lies strictly between the other two, hence is a strict convex combination of two elements of $S$, and is therefore not extreme in $\operatorname{conv}(S)$. This contradicts every element of $S$ being extreme. Hence no two adjacent edges are parallel.
+
+Therefore the two direction classes must alternate around the boundary:
+\[
+[u],[w],[u],[w],\dots
+\]
+So $n$ is even.
+
+**Step $2$: in fact, $n\le 4$.**
+
+For each $i$, let $\varepsilon_i$ be the counterclockwise turning angle from $e_i$ to $e_{i+1}$ at the vertex $v_{i+1}$. Since $P$ is a convex polygon traversed counterclockwise, every interior angle at $v_{i+1}$ lies in $(0,\pi)$. The exterior angle $\varepsilon_i$ equals $\pi$ minus the interior angle at $v_{i+1}$, so
+\[
+\varepsilon_i = \pi - (\text{interior angle at }v_{i+1}) \in (0,\pi).
+\]
+In particular $\varepsilon_i>0$ (the turn is strictly counterclockwise) and $\varepsilon_i<\pi$ (the turn is strictly less than a half-turn). We also need $\varepsilon_i\neq 0$, which follows from $\varepsilon_i\in(0,\pi)$. Hence
+\[
+0<\varepsilon_i<\pi.
+\]
+The exterior angles of a convex polygon traversed counterclockwise sum to one full turn:
+\[
+\sum_{i=1}^n \varepsilon_i = 2\pi.
+\]
+
+Choose any real number $\theta_1$ such that $e_1=|e_1|(\cos\theta_1,\sin\theta_1)$ (i.e.\ $\theta_1$ is a branch of the argument of $e_1$ in $\mathbb{R}$), and define recursively
+\[
+\theta_{i+1}:=\theta_i+\varepsilon_i\qquad (1\le i\le n-1).
+\]
+Here we use $\mathbb{R}$-valued (lifted) arguments, not the standard $[0,2\pi)$-valued argument. We claim that $e_i = |e_i|(\cos\theta_i,\sin\theta_i)$ for all $i$ (i.e.\ $\theta_i$ is a consistent real-valued lift of the argument of $e_i$): the base case $i=1$ holds by construction. Inductively, if $\theta_i$ is a lift of $\arg(e_i)$, then since $\varepsilon_i$ is the counterclockwise turning angle from $e_i$ to $e_{i+1}$, the lift of $\arg(e_{i+1})$ consistent with $\theta_i$ is $\theta_i+\varepsilon_i=\theta_{i+1}$. So $\theta_i$ is a real-valued lift of $\arg(e_i)$ for every $i$.
+
+Therefore
+\[
+\theta_1<\theta_2<\cdots<\theta_n
+\]
+(since each $\varepsilon_i>0$), and also
+\[
+\theta_n
+=\theta_1+\sum_{i=1}^{n-1}\varepsilon_i
+<\theta_1+\sum_{i=1}^{n}\varepsilon_i
+=\theta_1+2\pi.
+\]
+So the real-valued lifts $\theta_1<\theta_2<\cdots<\theta_n$ are strictly increasing and all lie in $[\theta_1,\theta_1+2\pi)$. Since they all lie in the same period of length $2\pi$, no two are congruent modulo $2\pi$ (for $i\neq j$, $|\theta_i-\theta_j|<2\pi$ and $\theta_i\neq\theta_j$). Hence the directed edge directions $\arg(e_i)\equiv\theta_i\pmod{2\pi}$ are all distinct.
+
+But there are only two unoriented direction classes, namely $[u]$ and $[w]$. Hence the only possible **oriented** edge directions are
+\[
+u,\quad w,\quad -u,\quad -w,
+\]
+at most four distinct possibilities. Since the $n$ directed edge directions $e_1,\dots,e_n$ are all distinct, we get
+\[
+n\le 4.
+\]
+
+Combining this with $n\ge 3$ and with $n$ even, we conclude
+\[
+n=4.
+\]
+
+**Step $3$: the quadrilateral is a parallelogram.**
+
+Write the vertices as
+\[
+A:=v_1,\qquad B:=v_2,\qquad C:=v_3,\qquad D:=v_4.
+\]
+Because the direction classes alternate, the edges $AB$ and $CD$ belong to one class, while $BC$ and $DA$ belong to the other. Orient the representative vectors so that $u$ points in the same direction as $B-A$ and $w$ points in the same direction as $C-B$ (replacing $u$ by $-u$ or $w$ by $-w$ if necessary; this does not affect the direction classes $[u]$ and $[w]$). Then there exist positive scalars $a,b,c,d>0$ and signs $\sigma,\tau\in\{\pm1\}$ such that
+\[
+B-A=a\,u,\qquad C-B=b\,w,\qquad D-C=\sigma c\,u,\qquad A-D=\tau d\,w.
+\]
+(The signs $\sigma,\tau$ are needed because $D-C$ and $A-D$ are parallel to $u,w$ respectively but may be oriented in either direction.)
+Since the polygon closes,
+\[
+(B-A)+(C-B)+(D-C)+(A-D)=0.
+\]
+Therefore
+\[
+(a+\sigma c)u+(b+\tau d)w=0.
+\]
+Because $u$ and $w$ are nonparallel, they are linearly independent. Hence
+\[
+a+\sigma c=0,\qquad b+\tau d=0.
+\]
+As $a,b,c,d>0$, this forces
+\[
+\sigma=-1,\qquad \tau=-1,\qquad a=c,\qquad b=d.
+\]
+So
+\[
+D-C=-(B-A),\qquad A-D=-(C-B).
+\]
+Equivalently,
+\[
+AB\parallel CD,\qquad BC\parallel AD,
+\]
+and opposite sides are equal as vectors. Thus $ABCD$ is a parallelogram.
+
+Finally,
+\[
+B-A=C-D,
+\]
+so
+\[
+A+C=B+D.
+\]
+Thus the diagonals bisect each other.
+
+Hence
+\[
+n=4,
+\]
+and $S=\{A,B,C,D\}$ is the vertex set of a parallelogram.

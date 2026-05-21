@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 3 --- Boundary realization in the Minkowski sum.}
+
+\medskip
+\textbf{Setup.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 3$ points in convex position,
+let $T\subset\mathbb{R}^2$ be a finite signed set (signs $\sigma(t)\in\{+1,-1\}$,
+both values present), and define $\sigma(p)=\sum_{t\in T,\,p-t\in S}\sigma(t)$.
+
+Assume the \textbf{extremal equality} $|\{p:\sigma(p)\neq 0\}|=n$.
+
+Let $P=\operatorname{conv}(S)$, $Q=\operatorname{conv}(T)$, vertices of $P$ in cyclic order
+$s_1,\dots,s_n$, and let $t_i\in T$ be the unique translate associated to $s_i$ by
+Subproblems 1--2 (which may be used without proof): $t_i$ is the unique maximizer of
+every direction in the open normal cone $C_i$ of $P$ at $s_i$, and $\ell_i=s_i+t_i$
+is the $i$-th support point.
+
+\medskip
+\textbf{Statement.}
+\begin{enumerate}
+  \item The $n$ points $x_i:=s_i+t_i$ are the vertices of $P+Q$ in cyclic order.
+  \item For each $i$ (indices mod $n$), the face of $Q$ exposed by any outer normal to the
+        edge $[s_i,s_{i+1}]$ of $P$ is exactly the segment (possibly degenerate) $[t_i,t_{i+1}]$;
+        in particular, $t_{i+1}-t_i$ is a non-negative scalar multiple of $s_{i+1}-s_i$
+        (or $t_i=t_{i+1}$).
+\end{enumerate}
+
+\medskip
+\textbf{Hint.}
+Use support functions: the support function of $P+Q$ is $h_{P+Q}(u)=h_P(u)+h_Q(u)$.
+A direction $u$ in the open normal cone $C_i$ exposes $s_i$ on $P$ and $t_i$ on $Q$
+(by the definition of $t_i$ from Subproblem 2), hence exposes $x_i=s_i+t_i$ on $P+Q$.
+Varying $u$ continuously from $C_i$ to $C_{i+1}$ across the outer normal to edge
+$[s_i,s_{i+1}]$ shows that the exposed face of $Q$ for that edge normal must contain
+both $t_i$ and $t_{i+1}$, and that it is parallel to the edge $[s_i,s_{i+1}]$.
+
+\end{document}

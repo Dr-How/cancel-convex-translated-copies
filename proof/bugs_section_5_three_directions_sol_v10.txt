@@ -1,0 +1,461 @@
+CONSOLIDATED BUG REPORT
+Solution: proof/section_5_three_directions_sol_v10.tex
+Problem:  proof/section_5_three_directions.tex
+Mode:     pessimistic (3 independent verifier runs)
+Verdict:  ISSUES_FOUND — all three runs flagged critical errors and justification gaps.
+
+============================================================
+ISSUE LIST (run that first flagged each issue noted in brackets)
+============================================================
+
+--- Section 1 (n=3) ---
+
+[ALL RUNS] JustificationGap — "verified by direct substitution" for p:=s_3+(t*-a_2) notin {x_j}:
+  The three required case checks (j=1,2,3) are never carried out. Non-loneliness
+  of p is a prerequisite for applying eq:nonlonely, so this step is incomplete.
+
+[Run 3 only] JustificationGap — "Both t+a_2 and t+a_1+a_2 have height >= m+2.
+  By induction, T contains elements of arbitrarily large height": no induction
+  argument is written out.
+
+--- Section 2 setup (n=4) ---
+
+[Run 1, Run 3] CriticalError — "[a_4]=[a_2] <=> a_4 || a_2 <=> beta(a_4)=0":
+  With beta(a_1)=0 and beta(a_2)=1, the condition beta(v)=0 identifies v parallel
+  to a_1, NOT to a_2. The stated equivalence is false and breaks the case split on
+  the direction class of a_4.
+
+[Run 2 only] JustificationGap — "Since [a_3]=[a_1] <=> mu=beta(a_3)=0": from
+  mu=0 one only obtains collinearity with a_1; the sign/orientation information
+  needed for the direction-class condition is not justified.
+
+[ALL RUNS] CriticalError — Lemma "Height maximum for mu<=0": "h_max=m_2, achieved
+  uniquely at t_3": the proof itself computes h(t_4)=m_2+m_3*mu=m_2 when mu=0,
+  so uniqueness at t_3 fails whenever m_3>0. Every downstream use of "unique
+  element at height m_2" in the mu=0 branch is invalidated.
+
+[ALL RUNS] CriticalError — In the mu=0 sub-proof of that lemma: "apply k=4 at
+  t_*": eq:sigma0 with k=4 requires t_* != t_4, but the proof only assumed
+  t_* != t_3. The application is unjustified when t_*=t_4.
+
+[ALL RUNS] CriticalError — Lemma "nogaps": "Since mu is not a non-negative integer
+  and h_0 is not an integer, h_0-1-mu is not an integer": false. Counterexample:
+  h_0=3/2, mu=-1/2 gives h_0-1-mu=1. The vanishing argument for the lower-height
+  terms collapses.
+
+[ALL RUNS] JustificationGap — Special sub-case of Lemma nogaps: "Apply eq:sigma0
+  with k=1 at v (height 0, v != t_1 unless v=t_1)...Apply k=2 at v: similarly":
+  the proof explicitly acknowledges the problematic case v=t_1 (or v=t_2 for k=2)
+  but then proceeds as if the equation holds anyway. The excluded cases are never
+  handled.
+
+[Run 2, Run 3] CriticalError — Lemma "top" / lem:betamax4mu: "By induction on m_3
+  (or by the descending chain via the k=3 equation...) ...since all three
+  higher-height terms exceed h_max...Hence sigma_T(t+a_2)=0": no induction is
+  set up, no descending-chain argument is written out, and the inequality "all
+  three higher-height terms exceed h_max" is false for many (m_3, mu) (e.g.
+  m_3=2, mu=1.2 gives a term at height m_2+2.2 < h_max=m_2+2.4).
+
+[Run 1, Run 3] CriticalError — Lemma "top": "t+a_2 != t_4 since h(t_4)=m_2+m_3*mu
+  != m_2+1 for mu non-integer and m_3>=1" and "m_2+k*mu=m_2+1 would require
+  k=1/mu not in Z": both claims are false. Non-integer mu does not prevent
+  m_2+m_3*mu=m_2+1 (e.g. mu=1/2, m_3=2), and non-integer mu does not imply
+  1/mu not in Z (e.g. mu=1/2 gives 1/mu=2).
+
+--- Proposition prop:n4mu (n=4, mu not in Z_{>=0}, mu != 0) ---
+
+[ALL RUNS] JustificationGap/CriticalError — "for mu>1: ...by the s_1,s_2 equations
+  at any element at height mu (similar argument to Lemma nogaps...):
+  sigma_T(t-a_2)=0": this vanishing is asserted by reference to an unstated
+  "similar argument"; the mu<0 branch is not treated at all.
+
+[ALL RUNS] CriticalError — Sub-case m_2>=2, cross-point equations: "height argument
+  shows s_1+(t_1+2a_2) != x_4 for mu != 0" and the claim that the fourth term
+  (height 1-mu) vanishes; also, "Verify p_2 notin {x_j} by the same argument"
+  (fourth term of height -mu): the height computation for x_4 is incorrect, and
+  for mu<0 with |mu|<1 the heights 1-mu and -mu can lie inside the admissible range
+  so neither Lemma nogaps nor Lemma betamax4neg yields the claimed zero. Equations
+  cross1 and cross2 are therefore unjustified.
+
+[Run 3 only] JustificationGap — Sub-case m_1=0, m_2=1, m_3=0 is entirely omitted.
+
+[ALL RUNS] CriticalError — Sub-case m_2=0: "since all m_i=0, m_3=m_4=0, h_max=0":
+  only m_1=m_2=0 is known at that point. The closure relation m_3*mu=m_4*(1+mu)
+  does NOT force m_3=m_4=0 for nonzero non-integer mu (e.g. mu=1/2, m_3=3,
+  m_4=1 satisfies it). The entire sub-case is built on a false premise.
+
+--- Proposition prop:n4mu0 (n=4, mu=0) ---
+
+[ALL RUNS] CriticalError — "Heights: h(t_3)=m_2=h(t_4) (since mu=0). By
+  Lemma betamax4neg: h_max=m_2, unique at t_3": internal contradiction; the
+  same sentence states h(t_4)=m_2.
+
+[Run 1, Run 2] CriticalError — "j=3: p=x_3 iff t_1=t_3 iff m_2=0": since
+  t_3=t_1+m_1*a_1+m_2*a_2, the equality t_1=t_3 requires m_1=m_2=0, not merely
+  m_2=0. The non-loneliness check is wrong.
+
+[Run 1 only] CriticalError — "Since m_2>=1: t_1+a_2 in F_2 with sign -eps_1 != 0":
+  F_2 starts at t_2=t_1+m_1*a_1, so t_1+a_2 is in F_2 only when m_1=0, which
+  is not assumed.
+
+[ALL RUNS] CriticalError — "From k=2: sigma_T(t_1)+sigma_T(t_1-a_3)=0 =>
+  sigma_T(t_1-a_3)=-eps_1": misapplication of eq:sigma0. With t=t_1-a_3, the
+  k=2 equation starts with sigma_T(t_1-a_3+a_1), not sigma_T(t_1).
+
+[ALL RUNS] CriticalError — "Now apply k=2 at t_1+a_1+a_2 ...heights
+  1,1,0,-1-mu=0-1=-1<0": when mu=0 the fourth term has height
+  h(t_1+a_1+a_2-a_2-a_3)=h(t_1+a_1-a_3)=0, not -1. The displayed equation and
+  the vanishing conclusion are wrong. A similar wrong height appears at
+  "Apply k=1 at t_1+a_2-lambda*a_1 ...heights 1,1,0,-1<0".
+
+[Run 1, Run 2] CriticalError — "apply k=2 at t_1: ...": eq:sigma0 with k=2
+  requires t_1 != t_2; this fails when m_1=0.
+
+[Run 3 only] CriticalError — "apply the k=3 staircase equation eq:3term4 at height
+  1 (Lemma a3vanish with mu=0 ...but mu=0 in Z_{>=0}, so Lemma a3vanish does NOT
+  apply)": the proof explicitly acknowledges the lemma's hypotheses fail, then
+  proceeds anyway.
+
+[ALL RUNS] JustificationGap — Multiple placeholders in prop:n4mu0: "this gets
+  involved. We use instead...", "A detailed case analysis shows...", "the argument
+  goes through unchanged...", "Continue the staircase upward; the argument is the
+  same...": these are not proofs; essential branches are unestablished.
+
+[ALL RUNS] CriticalError — Sub-case m_2=0 in prop:n4mu0: "h_max=0 forces m_3=0":
+  when mu=0, beta(a_3)=0, so every point of F_3 has the same height as t_3;
+  h_max=0 does not constrain m_3.
+
+[Run 3 only] CriticalError — "j=4: ...the beta-heights give h(p-s_4)=h(t_4+a_3)=m_2,
+  while h(p-s_3)=0: these are equal iff m_2=0. So for m_2>=1: p != x_4": the
+  identity p-s_4=t_4+a_3 is not established and the height comparison is invalid.
+
+--- Sub-case mu in Z_{>0} ---
+
+[ALL RUNS] JustificationGap — "In all sub-cases of mu in Z_{>0}, a magnitude-2 or
+  sign contradiction is derived": the entire case is only outlined; no complete
+  deductive proof is given.
+
+--- Section 3 (n >= 5) ---
+
+[ALL RUNS] CriticalError — "For j>=5: c_j >= c_4+beta(a_4) > c_4":
+  the solution's own formulas give c_4=1+mu and beta(a_4)=-(1+mu), so
+  c_4+beta(a_4)=0, which is not > c_4. The monotonicity claim is algebraically
+  inconsistent with the solution's own setup, and all subsequent height estimates
+  for j>=5 collapse.
+
+[ALL RUNS] CriticalError — "for mu<=0: h+1-c_j <= h-mu <= h (since -mu >= 0)":
+  when mu<0, h-mu=h+|mu|>h, so the inequality h-mu<=h is false.
+
+[ALL RUNS] CriticalError/JustificationGap — The n>=5 reduction: "By the same
+  No-Gaps argument...", "the j>=4 terms all vanish", "the uniqueness of t_3
+  at height m_2...follows", "the starting-element argument...yields the sign
+  contradiction": the n=4 lemmas (betamin4, betamax4mu, betamax4neg, nogaps) are
+  all used for n>=5 without proving their n>=5 analogues. Vanishing of extra
+  terms and uniqueness of t_3 are asserted, not proved.
+
+============================================================
+SUMMARY
+============================================================
+Total distinct issues across all runs: ~28 (critical errors: ~19, justification gaps: ~9)
+
+Most critical issue (present in all three runs):
+  Lemma lem:betamax4neg claims h_max=m_2 is achieved UNIQUELY at t_3 for mu<=0,
+  but the proof itself computes h(t_4)=m_2 when mu=0. This false uniqueness claim
+  is the foundation of Section 2 and the entire mu=0 case; every argument that
+  eliminates a second maximiser at height m_2 is built on a false lemma.
+
+============================================================
+APPENDIX A — Run 1 full output
+(proof/verify_section_5_three_directions_sol_v10_run1.txt)
+============================================================
+
+Bug report — the solution is **not correct**.
+
+Section 1 (n=3)
+
+1. Location: "Check that p:=s_3+(t^*-a_2) notin {x_j}: for each j, p=x_j forces
+   h(t^*)>h^* (verified by direct substitution), contradiction."
+   Description: Justification Gap. The proof never actually carries out the
+   "direct substitution" for the three possible j. Since the non-loneliness of p
+   is essential to applying eq:nonlonely, this step is incomplete.
+
+Section 2 setup (n=4)
+
+2. Location: "[a_4]=[a_2] <=> a_4 || a_2 <=> beta(a_4)=0"
+   Description: Critical Error. With beta(a_1)=0 and beta(a_2)=1, the condition
+   beta(v)=0 says that v has zero a_2-component, i.e. is parallel to a_1, NOT to
+   a_2. This equivalence is false.
+
+Section 2 lemmas
+
+3. Location: Lemma [Height maximum for mu<=0]: "For mu<=0: h_max=m_2, achieved
+   uniquely at t_3."
+   Description: Critical Error. When mu=0, h(t_4)=m_2+m_3*mu=m_2, so t_4 is
+   also at height m_2. The lemma's uniqueness claim is false.
+
+4. Location: "For mu=0: ... apply k=4 at t_*"
+   Description: Critical Error. Eq:sigma0 with k=4 is only valid when t_* != t_4.
+   The proof only assumed t_* != t_3, so this application is unjustified exactly
+   in the case t_*=t_4.
+
+5. Location: "Apply eq:sigma0 with k=1 at v (height 0, v != t_1 unless v=t_1):
+   ... Apply k=2 at v: similarly ..."
+   Description: Critical Error. The proof explicitly acknowledges the exceptional
+   case v=t_1, but then proceeds as if eq:sigma0 were applicable anyway.
+
+6. Location: "By induction on m_3 (or by the descending chain via the k=3
+   equation applied to elements of height >m_2 as in Lemma lem:betamax4mu) ...
+   Hence sigma_T(t+a_2)=0, and similarly sigma_T(t+a_1+a_2)=0."
+   Description: Justification Gap. No induction is actually set up, and Lemma
+   lem:betamax4mu does not prove the stated "descending" property.
+
+Proposition prop:n4mu (mu not in Z_{>=0}, mu != 0)
+
+7. Location: "for mu>1 ... by the s_1,s_2 equations at any element at height mu
+   (similar argument to Lemma lem:nogaps ...): sigma_T(t-a_2)=0."
+   Description: Justification Gap. The mu<0 case is not handled at all, and the
+   mu>1 case is dismissed via an unspecified "similar argument."
+
+8. Location: "Sub-case m_2=0: ... Since all m_i=0: eps_i=eps_1 for all i, ...
+   h_max=0."
+   Description: Critical Error. Only m_1=m_2=0 has been shown. The closure
+   relation m_3*mu=m_4*(1+mu) does NOT force m_3=m_4=0 when mu>0.
+
+Proposition prop:n4mu0 (mu=0)
+
+9. Location: "Heights: h(t_1)=h(t_2)=0, h(t_3)=m_2=h(t_4) (since mu=0). By
+   Lemma lem:betamax4neg: h_max=m_2, unique at t_3."
+   Description: Critical Error. Internal contradiction: h(t_4)=m_2 is stated,
+   so uniqueness at t_3 cannot hold.
+
+10. Location: "j=3: p=x_3 iff t_1=t_3 iff m_2=0 (handled separately below)."
+    Description: Critical Error. t_1=t_3 requires m_1=m_2=0, not merely m_2=0.
+
+11. Location: "Since m_2>=1: t_1+a_2 in F_2 with sign -eps_1 != 0."
+    Description: Critical Error. F_2={t_2+k*a_2:0<=k<=m_2} where t_2=t_1+m_1*a_1.
+    t_1+a_2 need not lie in F_2 unless m_1=0.
+
+12. Location: "From k=2: sigma_T(t_1)+sigma_T(t_1-a_3)=0 =>
+    sigma_T(t_1-a_3)=-eps_1."
+    Description: Critical Error. Miswritten equation; the k=2 equation at t_1-a_3
+    has sigma_T(t_1-a_3+a_1) as the first term, not sigma_T(t_1).
+
+13. Location: "Now apply k=2 at t_1+a_1+a_2 ... heights 1,1,0,-1-mu=0-1=-1<0..."
+    Description: Critical Error. With mu=0 the fourth term has height 0, not -1.
+
+14. Location: "apply k=2 at t_1: sigma_T(t_1+a_1)+eps_1+sigma_T(t_1-a_2)+
+    sigma_T(t_1-a_2-a_3)=0"
+    Description: Critical Error. Requires t_1 != t_2, which fails when m_1=0.
+
+15. Location: "Then from k=1 at t_1+a_1+a_2: ... this gets involved. We use
+    instead: ... A detailed case analysis shows ... the argument goes through
+    unchanged ... Continue the staircase upward; the argument is the same ..."
+    Description: Justification Gap. Large parts of prop:n4mu0 are not proved;
+    replaced by placeholders.
+
+16. Location: "Sub-case m_2=0: All m_i=0 ... but h_max=0 forces m_3=0."
+    Description: Critical Error. When mu=0, h_max=0 does NOT force m_3=0 since
+    beta(a_3)=0 makes all F_3 elements have height 0.
+
+Sub-case mu in Z_{>0}
+
+17. Location: "In all sub-cases of mu in Z_{>0}, a magnitude-2 or sign
+    contradiction is derived."
+    Description: Justification Gap. Only sketched; no complete proof provided.
+
+Section 3 (n>=5)
+
+18. Location: "For j>=5: c_j >= c_4+beta(a_4) > c_4 ..."
+    Description: Critical Error. c_4+beta(a_4)=0, not > c_4.
+
+19. Location: "For mu<=0: heights h+1-c_j for j>=4 satisfy h+1-c_j<=h-mu<=h
+    (since -mu>=0...)"
+    Description: Critical Error. If mu<0 then h-mu=h+|mu|>h; inequality is false.
+
+20. Location: "By the same No-Gaps argument ... the k=3 equation reduces to ..."
+    and "the uniqueness of t_3 at height m_2 ... follows ..."
+    Description: Justification Gap. Section 3 imports n=4 lemmas to n>=5 without
+    proving analogues.
+
+============================================================
+APPENDIX B — Run 2 full output
+(proof/verify_section_5_three_directions_sol_v10_run2.txt)
+============================================================
+
+The solution is **not correct**.
+
+1. Location: "Check that p:=s_3+(t^*-a_2) notin {x_j}: for each j, p=x_j forces
+   h(t^*)>h^* (verified by direct substitution), contradiction."
+   Type: Justification Gap
+   Description: The proof never performs the case check j=1,2,3.
+
+2. Location: "Since [a_3]=[a_1] <=> mu=beta(a_3)=0 ..."
+   Type: Justification Gap
+   Description: From mu=0 one only gets collinearity with a_1; the equivalence
+   with the edge-direction-class condition is not justified.
+
+3. Location: Lemma [Height maximum for mu<=0]: "h_max=m_2, achieved uniquely at t_3."
+   Type: Critical Error
+   Description: The proof computed h(t_4)=m_2 when mu=0; uniqueness at t_3 is false.
+
+4. Location: "Since mu is not a non-negative integer and h_0 is not an integer,
+   h_0-1-mu is not an integer."
+   Type: Critical Error
+   Description: FALSE. Example: mu=-1/2, h_0=3/2 gives h_0-1-mu=1.
+
+5. Location: "Apply eq:sigma0 with k=1 at v ... Apply k=2 at v: similarly..."
+   Type: Justification Gap
+   Description: eq:sigma0 requires v != t_k; v!=t_1 and v!=t_2 are not established.
+
+6. Location: "t+a_2 != t_4 since h(t_4)=m_2+m_3*mu != m_2+1 for mu non-integer
+   and m_3>=1"
+   Type: Critical Error
+   Description: FALSE. Example: m_3=2, mu=1/2 gives h(t_4)=m_2+1.
+
+7. Location: "the k=4 equation at any element at height m_2+1 yields sigma_T=0
+   there, since all three higher-height terms exceed h_max ..."
+   Type: Critical Error
+   Description: FALSE for many parameter choices (e.g. m_3=3, mu=0.6: one term
+   has height m_2+1.6 < h_max=m_2+1.8).
+
+8. Location: "p_1 != x_4 for mu!=0 ... m_3*mu=0, impossible for mu!=0 and m_3>=0."
+   Type: Critical Error
+   Description: m_3=0 gives m_3*mu=0 regardless of mu. Proof fails to exclude p_1=x_4.
+
+9. Location: "(last term ... has height 1-mu; ... for mu<0 and |mu|<1: same ...)"
+   Type: Critical Error
+   Description: If mu<0 and |mu|<1, then 1-mu in (1,2). Claimed vanishing is
+   unjustified; eq:cross1 is unsupported.
+
+10. Location: "for mu>1: ... by the s_1,s_2 equations at any element at height mu
+    (similar argument to Lemma lem:nogaps): sigma_T(t-a_2)=0."
+    Type: Justification Gap
+    Description: No such argument is given; mu<0 branch is also unhandled.
+
+11. Location: "By Lemma lem:betamax4neg: h_max=m_2, unique at t_3." and later
+    unresolved branches.
+    Type: Justification Gap
+    Description: mu=0 case relies on the false uniqueness claim, and several
+    branches are replaced by informal remarks.
+
+12. Location: "For mu in Z_{>0} ... In all sub-cases, a magnitude-2 or sign
+    contradiction is derived."
+    Type: Justification Gap
+    Description: Only a sketch; no complete proof for any positive-integer mu sub-case.
+
+13. Location: "For j>=5: c_j >= c_4+beta(a_4) > c_4 ..."
+    Type: Critical Error
+    Description: Not proved and generally false.
+
+14. Location: "For mu<=0: heights h+1-c_j for j>=4 satisfy h+1-c_j<=h-mu<=h
+    (since -mu>=0 ...)"
+    Type: Critical Error
+    Description: If mu<=0, then h-mu>=h, not <=h. Inequality is backwards.
+
+15. Location: "By the same No-Gaps argument ... the j>=4 terms all vanish." and
+    "the uniqueness of t_3 at height m_2 ... follows ..."
+    Type: Justification Gap
+    Description: No analogue of no-gaps, height-maximum, or uniqueness lemmas
+    is proved for n>=5.
+
+============================================================
+APPENDIX C — Run 3 full output
+(proof/verify_section_5_three_directions_sol_v10_run3.txt)
+============================================================
+
+The solution is **not correct**.
+
+1. Location: "Check that p:=s_3+(t^*-a_2) notin {x_j}: for each j, p=x_j forces
+   h(t^*)>h^* (verified by direct substitution)"
+   Description: Justification Gap — required case-by-case verification is omitted.
+
+2. Location: "Both t+a_2 and t+a_1+a_2 have height >= m+2. By induction, T
+   contains elements of arbitrarily large height"
+   Description: Justification Gap — no induction argument is actually given.
+
+3. Location: "[a_4]=[a_2] <=> a_4 || a_2 <=> beta(a_4)=0"
+   Description: Critical Error — beta(v)=0 tests direction parallel to a_1, not
+   a_2. The characterisation of the direction-class condition is wrong.
+
+4. Location: Lemma (Height maximum for mu<=0) and its invocation in prop:n4mu0.
+   Description: Critical Error — the proof computes h(t_4)=m_2 when mu=0, yet
+   the lemma claims uniqueness of h_max at t_3. Also, applying k=4 at t_* is
+   invalid when t_*=t_4, a case not excluded.
+
+5. Location: "Since mu is not a non-negative integer and h_0 is not an integer,
+   h_0-1-mu is not an integer."
+   Description: Critical Error — FALSE: e.g. h_0=3/2, mu=-1/2 gives h_0-1-mu=1.
+
+6. Location: "Apply eq:sigma0 with k=1 at v (height 0, v!=t_1 unless v=t_1)...
+   Apply k=2 at v: similarly..."
+   Description: Justification Gap — eq:sigma0 requires v != t_k; not established
+   for k=1 or k=2.
+
+7. Location: "apply the k=4 equation at t+a_2 ... t+a_2 != t_4 since
+   h(t_4)=m_2+m_3*mu != m_2+1 for mu non-integer and m_3>=1" and "m_2+k*mu=m_2+1
+   would require k=1/mu not in Z."
+   Description: Critical Error — both claims are false (mu=1/2, m_3=2 is a
+   counterexample to the first; mu=1/2 gives 1/mu=2 in Z, refuting the second).
+
+8. Location: Under "Case m_1=0:" — only subcases m_2>=2, m_2=1 m_3>=1, m_2=0
+   are handled.
+   Description: Justification Gap — the subcase m_1=0, m_2=1, m_3=0 is omitted.
+
+9. Location: "for j=4: height argument shows s_1+(t_1+2a_2) != x_4 for mu!=0
+   (height h(x_4)=m_2+m_3*mu+... forces 0+m_2=m_2+m_3*mu...)" together with the
+   justification that the fourth term in eq:cross1 vanishes.
+   Description: Critical Error — height computation for x_4 is incorrect; the
+   case analysis for the fourth term's height 1-mu contains false inequalities.
+
+10. Location: "Verify p_2 notin {x_j} by the same argument ..." and "(last term
+    has height -mu<=0 for mu>=0; ... for |mu|>=1: 1-mu>=2, above h_max ...)"
+    Description: Critical Error — p_2 notin {x_j} is not correctly established;
+    height analysis is garbled.
+
+11. Location: "for mu>1: ... by the s_1,s_2 equations at any element at height mu
+    (similar argument to Lemma lem:nogaps): sigma_T(t-a_2)=0."
+    Description: Justification Gap — this "similar argument" is not provided; also
+    the mu<0 branch is unhandled.
+
+12. Location: "With all m_i=0: eps_i=eps_1 for all i" and "since all m_i=0,
+    m_3=m_4=0, h_max=0."
+    Description: Critical Error — only m_1=m_2=0 has been assumed; no valid
+    argument is given that m_3 and m_4 must vanish; h_max=0 does not force m_3=0
+    when beta(a_3)=0.
+
+13. Location: "j=4: ...the beta-heights give h(p-s_4)=h(t_4+a_3)=m_2+0=m_2, while
+    h(p-s_3)=0: these are equal iff m_2=0. So for m_2>=1: p != x_4."
+    Description: Critical Error — the identity p-s_4=t_4+a_3 is not established,
+    and the height comparison is invalid.
+
+14. Location: "apply the k=3 staircase equation eq:3term4 at height 1 (Lemma
+    a3vanish with mu=0 ...but mu=0 in Z_{>=0}, so Lemma a3vanish does NOT apply)."
+    And: "A detailed case analysis shows...", "the argument goes through unchanged...",
+    "Continue the staircase upward; the argument is the same..."
+    Description: Justification Gap — the proof explicitly acknowledges the needed
+    lemma does not apply, then replaces essential arguments by sketches.
+
+15. Location: "All m_i=0 (by closure with mu=0: 0=m_4*1, so m_4=0; similarly m_3=0
+    from m_2+m_3*0=m_4*1, giving 0=0, consistent with any m_3, but h_max=0 forces
+    m_3=0)."
+    Description: Critical Error — the closure equation with mu=0 gives no
+    information about m_3; h_max=0 does not force m_3=0 when beta(a_3)=0.
+
+16. Location: Entire subsection "Sub-case mu in Z_{>0}" ending with "In all
+    sub-cases of mu in Z_{>0}, a magnitude-2 or sign contradiction is derived."
+    Description: Justification Gap — only an outline; no complete proof given.
+
+17. Location: "For j>=5: c_j >= c_4+beta(a_4) > c_4 ..."
+    Description: Critical Error — this inequality is not proved and is generally
+    false.
+
+18. Location: "By the same No-Gaps argument ... the j>=4 terms all vanish."
+    Description: Justification Gap — the proof does not justify extending the n=4
+    no-gaps argument to n>=5.
+
+19. Location: "Lemma lem:betamin4 ... still guarantee h_min=0 and a well-defined
+    h_max." / "uniqueness of t_3 at height m_2 ... follows ..." / "With the
+    three-term staircase in place, the starting-element argument ... yields the
+    sign contradiction..."
+    Description: Justification Gap — all asserted without proof; needed n>=5
+    analogues never established.

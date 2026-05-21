@@ -1,0 +1,48 @@
+The solution is **not correct**. Bug report:
+
+1. **Location:** `Direction classes.  [a]=[b] iff b=\lambda a for some \lambda\ne0.`
+   **Description:** **Critical Error.** The statement defines edge-direction classes using **positive** scalar multiples, but the proof switches to equivalence under **any nonzero** scalar. Later steps use this altered meaning, e.g. identifying `a_i\in\mathbb R a_1` with `[a_i]=[a_1]`. So the proof is not addressing the stated notion of direction class.
+
+2. **Location:** `Since the p_i are distinct (the s_i are distinct and the t_i come from disjoint normal cones) ... \mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.`
+   **Description:** **Justification Gap.** The stated reason does not prove the points \(p_i=t_i+s_i\) are distinct, and it does not justify that these are **all** support points. This unsupported identification of the support is used repeatedly later to decide when VAN may be applied.
+
+3. **Location:** `By (F1), t_1 is the unique maximiser of \langle\cdot,-v\rangle=-\beta(\cdot) over T`
+   **Description:** **Justification Gap.** As written this is false when \(m_1>0\), because every point of \(F_1=\{t_1,t_1+a_1,\dots,t_1+m_1a_1\}\) has the same \(\beta\)-value. The needed conclusion \(h(t)\ge 0\) for all \(t\in T\) is not established by the argument given.
+
+4. **Location:** `If m=0: t_1=t_2=t_3, so T\subseteq\{t_1\}, contradicting both signs present.`
+   **Description:** **Critical Error.** From \(m=0\) one only gets \(F_1=F_2=F_3=\{t_1\}\). It does **not** follow that \(T\) has no other points. Therefore the proof does not establish \(m\ge1\), so the later use of \(m\ge2\) is unsupported.
+
+5. **Location:** `by cyclic relabeling we may take them to include edges 1,2,3`
+   **Description:** **Justification Gap.** Cyclic relabeling rotates the boundary order; it does not show that arbitrary chosen edges from three classes can be made consecutive. The later setup uses \(s_3=s_1+a_1+a_2\), so this adjacency matters.
+
+6. **Location:** `The closure \eqref{eq:closure} then reduces to ... \bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0, forcing all m_i=0`
+   **Description:** **Critical Error.** Even if each relevant \(a_i\) is parallel to \(a_1\), one only has \(a_i=\lambda_i a_1\) with possibly different scalars (and, under the proof’s own class definition, possibly opposite sign). Replacing \(\sum m_i a_i\) by \((\sum m_i)a_1\) is invalid.
+
+7. **Location:** `write t'-s_j=\lambda_j a_1+h_0 v ... Then t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v, which lies in F_1 iff ...`
+   **Description:** **Critical Error.** For \(c_j=h_0\), the point \(t'-s_j\) has height \(0\), not \(h_0\). The decomposition also omits the translation by \(t_1\). So the membership test for \(F_1\) and the derived formula \(\eqref{eq:Dform}\) are not justified.
+
+8. **Location:** `The j_0-term in D(t'+(R_{\max}+2)a_1) is ... \ne0 ... In particular, |\sigma_T(t'+(R_{\max}+2)a_1)|\ge1`
+   **Description:** **Critical Error.** A nonzero summand in a sum does not imply the whole sum is nonzero; other terms may cancel it. The conclusion that \(t'+(R_{\max}+2)a_1\in T\) does not follow.
+
+9. **Location:** `after possibly increasing the starting index by at most n steps` and later `provided we choose the next non-lonely step ... By the same analysis ...`
+   **Description:** **Justification Gap.** The proof never re-establishes the needed hypotheses after skipping ahead past lonely points. It does not show that the same \(j_0\), \(k_0\), or D-sum structure survives. So the lonely-point exception is not actually handled.
+
+10. **Location:** `By the same argument at t'+(R_{\min}-1)a_1 ... D(t'+(R_{\min}-1)a_1)=-\sigma_T(t'+R_{\min}a_1)\ne0.`
+    **Description:** **Critical Error.** This is the wrong VAN equation. At \(p=t'+(R_{\min}-1)a_1\), the \(j=1,2\) terms are \(\sigma_T(p)\) and \(\sigma_T(p-a_1)\), both left of the minimal chain element. The term \(\sigma_T(t'+R_{\min}a_1)\) does not appear there.
+
+11. **Location:** `The j_0'-term in D(t'+(R_{\min}-2)a_1) is ... \ne0. So \sigma_T(t'+(R_{\min}-2)a_1)\ne0`
+    **Description:** **Critical Error.** Same cancellation problem as in Sub-case B1: one nonzero contribution does not imply the whole D-sum is nonzero.
+
+12. **Location:** `This forces the j's contributing to both D-sums to be the same vertex j_0=j_0'` and later `j_0 is the unique index with c_j=h_0 ... only c_{j_0}=h_0 by assumption`
+    **Description:** **Justification Gap.** Neither \(j_0=j_0'\) nor uniqueness of a height-\(h_0\) contributor is proved. Multiple vertices may satisfy \(c_j=h_0\), and the later construction depends on this unsupported uniqueness.
+
+13. **Location:** `\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1 (chain element; \sigma_T(t'+R_{\min}a_1)=-\varepsilon_1 from \eqref{eq:Dleft})`
+    **Description:** **Critical Error.** Even if \(\eqref{eq:Dleft}\) were valid, it would only relate \(\sigma_T(t'+R_{\min}a_1)\) to an entire D-sum, not identify it as \(-\varepsilon_1\). The sign computation of \(\tilde\sigma(q^*+a_1)\) is unsupported.
+
+14. **Location:** `\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1` `(position 1 on F_1)`
+    **Description:** **Justification Gap.** This requires \(m_1\ge1\), but the proof never establishes \(m_1>0\) in the \(n\ge4\) case.
+
+15. **Location:** `So the only candidate is p_{j_0}=q^*. But q^*+a_1\ne q^*`
+    **Description:** **Critical Error.** Even if \(j_0\) were the only relevant index, \(p_{j_0}=t_{j_0}+s_{j_0}\) need not equal \(q^*=t_1+s_{j_0}\). That would require \(t_{j_0}=t_1\), which is never shown. So the final contradiction does not follow.
+
+Because of these issues, the proof does not verify the claim.

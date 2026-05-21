@@ -1,0 +1,369 @@
+CONSOLIDATED BUG REPORT — section_5_three_directions_sol_v15.tex
+Verification mode: pessimistic (3 independent runs)
+All 3 runs flagged issues. Verdict: ISSUES_FOUND.
+
+════════════════════════════════════════════════════════════
+CONSOLIDATED ISSUE LIST
+(prefixed with which run(s) flagged each item)
+════════════════════════════════════════════════════════════
+
+[RUNS 1,2,3] CRITICAL — Proof addresses a different statement from the one posed
+  Location: "Fix n >= 3 and a convex n-gon x_1,...,x_n (CCW) with sign function
+  sigma_T supported on T={x_1,...,x_n}..." and the final theorem "If T has >= 3
+  edge-direction classes..."
+  Description: The problem statement concerns S (a set of n points in convex
+  position), P = conv(S), and an arbitrary finite signed translate set T. The
+  proof instead assumes T itself is a convex n-gon and builds all edge vectors
+  from T. No justification is given for why T must be convex or why its edge
+  directions match those of P. The final conclusion restates the result in terms
+  of T rather than P = conv(S), so even if all internal steps were correct, the
+  proof would not establish the stated theorem.
+
+[RUNS 1,2,3] CRITICAL — Unoriented direction classes replace the problem's
+  oriented definition
+  Location: "Here [u]=[v] iff u = lambda*v for some lambda != 0 (same unoriented
+  line through 0)."
+  Description: The problem statement defines direction classes using positive
+  scalar multiples. The proof substitutes an unoriented equivalence identifying
+  opposite directions. This changes which polygons satisfy the "three edge-
+  direction classes" hypothesis, invalidating the case analysis that follows.
+
+[RUNS 1,2,3] JUSTIFICATION GAP — Key equations (NL) and (S0) assumed without
+  derivation
+  Location: "The key equations are: (NL): For p not in T, sum sigma_T(p-s_j)=0;
+  (S0): For t in T, t != t_k, sum sigma_T(t+s_k-s_j)=0."
+  Description: These equations are the main engine of the argument. They are
+  neither derived from the original definitions nor listed among the permitted
+  facts from Subproblems 1-4. Since virtually every subsequent contradiction
+  depends on (NL) and (S0), this is a foundational missing justification.
+
+[RUNS 1,2,3] CRITICAL — T assumed to equal the union of face chains without proof
+  Location: "For T = F_1 cup F_2 cup F_3:..." and "If m=0: T=F_1=F_2=F_3={t_1},
+  a single point."
+  Description: The proof repeatedly uses the fact that T is exhausted by the
+  chains F_i. The allowed facts only state F_i = T cap [t_i, t_{i+1}] for each
+  edge; they do not assert T = union F_i or that T has no other points. Any
+  element of T not on a face chain escapes all membership checks used to derive
+  contradictions in the n=3 and general cases.
+
+[RUNS 1,2,3] JUSTIFICATION GAP — Existence and consistency of the linear
+  functional beta is not established; internal contradiction about c_2
+  Location: Lemma betamin: "Choose beta to be the linear functional making t_1
+  the height-0 vertex and all other T-elements at height >= 0. ... take beta
+  normal to this boundary with beta(a_2)=1>0." And the Remark: "all other
+  vertices x_j (j >= 2) lie strictly on the positive side, so c_j > 0 for j >= 2.
+  (We have c_2 = ... = 0 by construction ...)"
+  Description: No argument is given that a single functional beta can
+  simultaneously satisfy: minimum at t_1, beta(a_1)=0, beta(a_2)=1, and h(t)>=0
+  for all t in T. The Remark is also internally contradictory: it first claims
+  c_j > 0 for j >= 2, then immediately states c_2 = 0. Later height-vanishing
+  arguments depend critically on c_j > 0 for j >= 3.
+
+[RUNS 2,3] JUSTIFICATION GAP — Bi-infinite chain from q is not established
+  Location: "Iterating: {..., q-2a_1, q-a_1, q, q+a_1, q+2a_1, ...} subset T
+  with alternating nonzero signs. Contradicts T finite."
+  Description: From the displayed equations the proof only obtains q +/- a_1 in T.
+  It does not justify that the same step can be reapplied at each new point,
+  particularly when those points coincide with t_1 or t_2, where the chosen
+  instance of (S0) is not valid. The bi-infinite chain and the contradiction with
+  finiteness of T are not established.
+
+[RUNS 1,3] CRITICAL — Unjustified identification h(t_j + a_j) = c_{j+1}
+  Location: "If some m_j >= 1: by the above, h(t_j+a_j) = c_{j+1} > 0 for j >= 3"
+  Description: No relation is proved between the height of the translate t_j+a_j
+  and the quantity c_{j+1} = beta(s_{j+1}). This branch is used to show that a
+  positive-height point exists; without it, the minimum-positive-height argument
+  is not grounded.
+
+[RUNS 1,2,3] CRITICAL — Sign-flip recurrence "D_2 for t'+a_1 is -D_2" is
+  unjustified
+  Location: "So D_2 for t'+a_1 is -D_2 (signs flipped from before). Equation:
+  sigma_T(t'+2a_1) + sigma_T(t'+a_1) + (-D_2) = 0."
+  Description: After shifting by a_1, the proof assumes the lower-height
+  contributions simply flip sign. But the shifted point may reach an endpoint of
+  F_1, may acquire new contributors, or may lose existing ones. No case analysis
+  of these boundary effects is performed. The recurrence
+  sigma_T(t'+2a_1) = sigma_T(t') + 2*D_2 is therefore unsupported.
+
+[RUNS 1,3] CRITICAL — Arithmetic contradiction is false
+  Location: "If D_2=+/-1: sigma_T(t'+2a_1) = sigma_T(t') +/- 2: outside
+  {-1,0,+1} if sigma_T(t')=+/-1. Contradiction!"
+  Description: This arithmetic is wrong. For example, if sigma_T(t') = -1 and
+  D_2 = 1, then sigma_T(t'+2a_1) = 1, which is inside {-1,0,+1}. The
+  contradiction does not follow in this sub-case.
+
+[RUNS 2,3] JUSTIFICATION GAP — Case B chain propagation silently reuses Case A
+  reasoning that no longer applies
+  Location: "If both values are in {-1,0,+1}: then either sigma_T(t'+a_1)!=0 or
+  sigma_T(t'-a_1)!=0 (or both), propagating the chain as in Case A."
+  Description: Case A succeeded because J_0 was empty, so all lower-height terms
+  vanished. In Case B, J_0 is nonempty by definition. The proof gives no valid
+  reason that the same propagation argument still applies when extra height-0
+  contributions are present.
+
+[RUNS 1,2,3] CRITICAL — Required subcase (m_1=0, t_1=t_2) left unresolved
+  Location: "(Edge case m_1=0, t_1=t_2): Then J_0=empty ... actually |J_0| can
+  be >= 2 ... hmm. Actually ... In all cases, chain or contradiction.)"
+  Description: The proof explicitly retracts its own claim about J_0 and replaces
+  the argument with informal phrases ("propagate", "In all cases") and unfinished
+  calculations ("hmm", trailing ellipses). Because the general n>=4 lemma depends
+  on this branch, the proof is incomplete.
+
+[RUN 2] JUSTIFICATION GAP — Symbols epsilon_i used without formal definition
+  Location: "sigma_T(t') = (-1)^1 * epsilon_2 = -epsilon_2 = -epsilon_1 ..."
+  Description: The symbols epsilon_i appear in the proof body without formal
+  definition in the same setup. Combined with inconsistent switching between x_i,
+  t_i, F_i, and T={x_i}, several deductions are formally ambiguous.
+
+════════════════════════════════════════════════════════════
+SUMMARY
+════════════════════════════════════════════════════════════
+Critical Errors:  8
+Justification Gaps: 6
+Total distinct issues flagged: 12
+
+Top issue: The proof addresses a fundamentally different statement — it assumes T
+itself is a convex polygon rather than working with the given S/P setup, and even
+its final conclusion is stated in terms of T rather than P = conv(S). No internal
+repair can salvage the proof without first correcting this foundational mismatch.
+
+════════════════════════════════════════════════════════════
+APPENDIX A — Full output of Run 1
+════════════════════════════════════════════════════════════
+
+The solution is **not correct**. I found the following issues.
+
+1. **Critical Error**
+   **Location:** "Fix \(n \geq 3\) and a convex \(n\)-gon \(x_1,\ldots,x_n\)
+   (CCW) with sign function \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) supported
+   on \(T = \{x_1,\ldots,x_n\}\) having both signs."
+   **Description:** This changes the problem's setup. The statement assumes S has
+   n points in convex position; T is an arbitrary finite signed translate set. The
+   proof instead assumes T itself is exactly an n-point convex polygon. Later it
+   also treats the chains F_i as containing additional points, which is
+   incompatible with T={x_1,...,x_n}. So the proof is not working under the
+   stated hypotheses.
+
+2. **Critical Error**
+   **Location:** "Here [u] = [v] iff u = lambda*v for some lambda != 0 (same
+   unoriented line through 0)."
+   **Description:** This explicitly changes the notion of "edge-direction class"
+   from the statement. The proof switches to unoriented classes (lambda != 0),
+   while the problem statement defined classes differently. That alters which
+   polygons fall under the hypothesis.
+
+3. **Justification Gap**
+   **Location:** (NL): For p not in T, sum sigma_T(p-s_j)=0; (S0): For t in T,
+   t != t_k, sum sigma_T(t+s_k-s_j)=0.
+   **Description:** These "key equations" are used throughout the proof, but they
+   are never derived in the writeup and are not among the allowed facts listed
+   from Subproblems 1-4.
+
+4. **Justification Gap**
+   **Location:** "Choose beta to be the linear functional making t_1 the height-0
+   vertex and all other T-elements at height >= 0. ... take beta normal to this
+   boundary with beta(a_2)=1>0." and later "F_1 subset {h=0} by construction."
+   **Description:** The proof never shows that one can choose a single linear
+   functional beta satisfying all the properties later used: h>=0 on T,
+   beta(a_1)=0 so that all of F_1 lies on height 0, and beta(a_2)=1. Also, the
+   claim that t_1 is a vertex of conv(T) is not among the explicitly permitted
+   facts.
+
+5. **Justification Gap**
+   **Location:** "since c_j > 0 for all j >= 3: the polygon vertex x_j lies
+   strictly above the h=0 baseline for j >= 3." Also in the remark: "all other
+   vertices x_j (j >= 2) lie strictly on the positive side, so c_j = h(x_j) > 0
+   for j >= 2. (We have c_2 = ... = 0 by construction...)"
+   **Description:** The crucial claim c_j>0 for j>=3 is not rigorously
+   established, and the remark is internally inconsistent about c_2 (first saying
+   c_j>0 for j>=2, then saying c_2=0).
+
+6. **Critical Error**
+   **Location:** "We check whether t'-a_1 in T. For T = F_1 cup F_2 cup F_3:..."
+   and also "If all m_j=0: T={t_1}."
+   **Description:** The proof repeatedly assumes that every point of T lies on the
+   boundary chains F_i, i.e. that T is exactly the union of those chains. That is
+   not one of the stated facts. The given facts only describe F_i = T cap [t_i,
+   t_{i+1}], not all of T.
+
+7. **Critical Error**
+   **Location:** "Case m >= 4 (even): t'-a_1 not in T, so sigma_T(t'-a_1) = 0."
+   **Description:** This conclusion is obtained only by checking F_1, F_2, F_3.
+   Without a proof that T = F_1 cup F_2 cup F_3, t'-a_1 could still be another
+   point of T. The contradiction in the n=3 case therefore does not follow.
+
+8. **Justification Gap**
+   **Location:** "If m_1=0: F_1={t_1} is a single point. Then J_0=empty ...
+   actually |J_0| can be >= 2 ..." and later "hmm. Actually if ..."
+   **Description:** This case is not actually proved. The writeup contains
+   abandoned assertions, self-corrections, and incomplete calculations rather than
+   a finished argument.
+
+9. **Critical Error**
+   **Location:** "So D_2 for t'+a_1 is -D_2 (signs flipped from before).
+   Equation: sigma_T(t'+2a_1) + sigma_T(t'+a_1) + (-D_2) = 0."
+   **Description:** This is not justified and is generally false. After shifting by
+   a_1, a height-0 contributor need not remain a contributor with opposite sign;
+   at an endpoint of F_1, it can disappear altogether. The subsequent formula for
+   sigma_T(t'+2a_1) therefore does not follow.
+
+10. **Justification Gap**
+    **Location:** "Thus sigma_T(t''+a_1) = -sigma_T(t'') != 0. Similarly
+    sigma_T(t''-a_1) = -sigma_T(t'') != 0."
+    **Description:** The second implication requires applying the k=1 version of
+    (S0), which is invalid if t''=t_1; similarly the first can fail at t''=t_2.
+    These endpoint cases are not fully handled before the proof claims a bi-
+    infinite chain.
+
+11. **Critical Error**
+    **Location:** Final theorem: "If T has >= 3 edge-direction classes and both
+    signs, then the nonlonely equations are contradicted."
+    **Description:** Even the final statement proved is not the original one. The
+    problem's claim is about P=conv(S) having at least three edge-direction
+    classes. The solution instead concludes something about T. So the proof does
+    not establish the stated theorem.
+
+Because of these Critical Errors and Justification Gaps, the solution is **not
+verified**.
+
+════════════════════════════════════════════════════════════
+APPENDIX B — Full output of Run 2
+════════════════════════════════════════════════════════════
+
+Bug report:
+
+1. **Location:** "Fix n >= 3 and a convex n-gon x_1,...,x_n (CCW) with sign
+   function sigma_T supported on T={x_1,...,x_n}..." and "If T has >= 3 edge-
+   direction classes..."
+   **Description:** Critical Error. This changes the problem's hypotheses. The
+   problem assumes S is a set of n points in convex position, while T is an
+   arbitrary finite signed translate set. The proof instead assumes T itself is a
+   convex n-gon and builds all edge vectors a_i from that new T.
+
+2. **Location:** "The key equations are: (NL)... (S0)..."
+   **Description:** Justification Gap. These equations are used throughout the
+   proof, but they are not derived from the stated setup and are not among the
+   facts allowed from Subproblems 1-4.
+
+3. **Location:** "Here [u]=[v] iff u=lambda*v for some lambda!=0 (same unoriented
+   line through 0)."
+   **Description:** Critical Error. This redefines the meaning of "direction
+   class." The problem statement defines parallel edges using positive scalar
+   multiples. The solution switches to unoriented directions, changing the case
+   distinction.
+
+4. **Location:** Lemma betamin: "Choose beta to be the linear functional making
+   t_1 the height-0 vertex... take beta normal to this boundary with beta(a_2)=1>0."
+   **Description:** Justification Gap. No argument is given that one can choose a
+   single beta satisfying all properties later used: support at t_1, beta(a_1)=0,
+   beta(a_2)=1, and h(t)>=0 for all t in T.
+
+5. **Location:** Lemma hzero: "since c_j>0 for all j>=3..." and the Remark:
+   "c_j>0 for j>=2. (We have c_2=...=0 by construction...)"
+   **Description:** Justification Gap. The proof repeatedly needs c_j>0 for j>=3,
+   but this is never rigorously established. The Remark is also internally
+   inconsistent about c_2.
+
+6. **Location:** "Iterating: {...,q-2a_1,q-a_1,q,q+a_1,q+2a_1,...} subset T with
+   alternating nonzero signs. Contradicts T finite."
+   **Description:** Justification Gap. From the displayed calculations, the proof
+   only obtains q+/-a_1 in T. It does not justify indefinite reapplication,
+   especially at t_1 or t_2 where (S0) is not valid.
+
+7. **Location:** "For T=F_1 cup F_2 cup F_3:..." and "If m=0: T=F_1=F_2=F_3={t_1}."
+   **Description:** Critical Error. The proof assumes T is exhausted by face
+   chains F_i. The allowed facts only say F_i = T cap [t_i,t_{i+1}]; T = union
+   F_i is not stated and never proved.
+
+8. **Location:** "If both values in {-1,0,+1}: propagating the chain as in Case A."
+   **Description:** Justification Gap. Case A worked because J_0=empty. In Case B,
+   J_0 is nonempty, so the same propagation does not automatically apply.
+
+9. **Location:** "So D_2 for t'+a_1 is -D_2 (signs flipped from before)."
+   **Description:** Critical Error. Shifting a height-0 contributing point by a_1
+   does not automatically produce a contribution with opposite sign. Endpoint
+   cases are not analyzed. The recurrence sigma_T(t'+2a_1)=sigma_T(t')+2D_2 is
+   unsupported.
+
+10. **Location:** "(Edge case m_1=0, t_1=t_2): Then J_0=empty... actually |J_0|
+    can be >= 2... hmm. In all cases, chain or contradiction.)"
+    **Description:** Justification Gap. This branch is not proved. The argument
+    is visibly unfinished and self-contradictory.
+
+11. **Location:** "sigma_T(t') = (-1)^1*epsilon_2 = -epsilon_2 = -epsilon_1 ..."
+    **Description:** Justification Gap. The symbols epsilon_i are used without
+    being properly defined in the same setup. The proof switches between x_i, t_i,
+    F_i, and T={x_i} without a coherent shared context.
+
+Conclusion: The solution is not correct. It contains multiple Critical Errors and
+several Justification Gaps.
+
+════════════════════════════════════════════════════════════
+APPENDIX C — Full output of Run 3
+════════════════════════════════════════════════════════════
+
+The solution is **not correct**. Bug report:
+
+1. Location: "Fix n >= 3 and a convex n-gon x_1,...,x_n (CCW) with sign function
+   sigma_T supported on T={x_1,...,x_n}..." and later "Consider t' := t_2 + a_2
+   in F_2"
+   Critical Error. The proof changes the problem's setup. In the statement, S is
+   the convex n-point set and T is an arbitrary finite signed translate set. Here
+   the proof instead makes T itself a convex n-gon / support of sigma_T. Later it
+   treats T as containing all points of the chains F_i, which is incompatible with
+   T={x_1,...,x_n} whenever some m_i>0.
+
+2. Location: "The key equations are: (NL)... (S0)..."
+   Justification Gap. These equations are asserted without proof and are not among
+   the facts from Subproblems 1-4 that the problem explicitly allows the solver to
+   use without proof. The rest of the argument repeatedly depends on them.
+
+3. Location: "Note c_1=c_2=0, c_3=1." and "Choose beta... take beta normal to
+   this boundary with beta(a_2)=1>0."
+   Justification Gap. The proof never establishes that one can choose a single
+   linear functional beta satisfying all required properties simultaneously:
+   beta(a_1)=0, beta(a_2)=1, and h(t)>=0 for all t in T.
+
+4. Location: "all other vertices x_j (j >= 2) lie strictly on the positive side,
+   so c_j = h(x_j) > 0 for j >= 2." followed by "(We have c_2 = h(x_2) = ... = 0
+   by construction, ...)"
+   Justification Gap. Internally contradictory: first claims c_j>0 for all j>=2,
+   then immediately states c_2=0.
+
+5. Location: "If m=0: T = F_1 = F_2 = F_3 = {t_1}" and "For T = F_1 cup F_2
+   cup F_3:"
+   Justification Gap. The proof repeatedly assumes T = union F_i. The problem only
+   states F_i = T cap [t_i, t_{i+1}] for each edge; T = union F_i is not stated
+   and not proved.
+
+6. Location: "Here [u] = [v] iff u = lambda*v for some lambda != 0 (same
+   unoriented line through 0)."
+   Critical Error. This changes the definition of edge-direction classes from the
+   one written in the problem statement, which uses positive scalar multiples.
+
+7. Location: "If m_2=m_3=0: similarly F_4 starts at t_4=t_3=t_2=t_1 ..." and
+   "If some m_j >= 1: by the above, h(t_j+a_j) = c_{j+1} > 0 for j >= 3"
+   Critical Error. From m_2=m_3=0 one gets t_4=t_3=t_2, not t_2=t_1. Also
+   h(t_j+a_j)=beta(a_j), not c_{j+1}=beta(s_{j+1}) in general. Step 1 does not
+   actually prove the existence of a positive-height point.
+
+8. Location: "If D_2=+/-1: sigma_T(t'+2a_1)=sigma_T(t')+/-2: outside {-1,0,+1}
+   if sigma_T(t')=+/-1. Contradiction!"
+   Critical Error. The arithmetic claim is false. For example, if sigma_T(t')=-1
+   and D_2=1, then sigma_T(t'+2a_1)=1, which is inside {-1,0,+1}. The
+   contradiction does not follow.
+
+9. Location: "the alternating chain argument gives bi-infinite chain (since
+   subsequent steps have D=0 for all steps ... yielding D_2=0 for even steps and
+   D_2=+/-2*epsilon_1 for odd steps ...)"
+   Justification Gap. This is speculative rather than proved. The claimed
+   recurrence of D-values is not justified, endpoint behavior in F_1 is ignored,
+   and the description is internally inconsistent ("D=0 for all steps" vs.
+   "D_2=+/-2*epsilon_1 for odd steps").
+
+10. Location: "(Edge case m_1=0, t_1=t_2): Then J_0=empty... actually |J_0| can
+    be >= 2 ... hmm. In all sub-cases, either ... propagate chain."
+    Critical Error. This subcase is unfinished. It contains contradictory
+    assertions, incomplete calculations, and hand-waving instead of a proof.
+
+Because of these errors and gaps, the solution does not verify the stated theorem.

@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 4 --- Small-case classification: triangles fail, and the only
+quadrilateral extremizer is a parallelogram.}
+
+\medskip
+\textbf{Context.}
+Use the full setup: $S\subset\mathbb{R}^2$ finite, $|S|\ge 3$, $S$ in convex
+position, $T$ a finite set with both signs, $\varepsilon:T\to\{+1,-1\}$,
+and define $F$ as before.  Write $P=\operatorname{conv}(S)$,
+$Q=\operatorname{conv}(T)$.
+
+By Subproblem~1 (which may be freely used), every vertex of $P+Q$ lies in
+$\operatorname{supp}(F)$, so $|\operatorname{supp}(F)|\ge|\operatorname{vert}(P+Q)|$.
+
+By Subproblem~3, if $|\operatorname{supp}(F)|=n$ then $n\le 4$ (may also be freely
+used).  Together with $n\ge 3$, we have $n\in\{3,4\}$.
+
+\medskip
+\textbf{Statement.}  Prove:
+\begin{enumerate}
+  \item \emph{(Triangle case impossible.)}  If $n=3$ (so $P$ is a triangle) and
+        $|T|\ge 2$, then $|\operatorname{vert}(P+Q)|\ge 4 > 3 = n$, so
+        $|\operatorname{supp}(F)|\ge 4$ and equality $|\operatorname{supp}(F)|=3$ is
+        impossible.
+  \item \emph{(Quadrilateral must be a parallelogram.)}  If $n=4$ (so $P$ is a
+        convex quadrilateral) and $|\operatorname{supp}(F)|=4$, then $S$ is the
+        vertex set of a parallelogram.
+\end{enumerate}
+
+\medskip
+\textbf{Hints for (1).}
+$P$ has exactly $3$ outer edge-normal directions.  $Q=\operatorname{conv}(T)$ is
+a non-degenerate convex set (since $T$ has at least $2$ points with $|T|\ge 2$).
+If $Q$ is a segment, its one edge-normal direction is either among the $3$
+normals of $P$ or is new.
+\begin{itemize}
+  \item \emph{New direction:} $P+Q$ has $3+2=5$ vertices $>3$.
+  \item \emph{Direction parallel to edge $e$ of $P$:} The Minkowski sum
+        $P+Q$ ``stretches'' edge $e$ but also creates \emph{two new vertices} at
+        the ends of the stretched edge (the two endpoints of $Q$ each combine
+        with the two endpoints of $e$, but only the outer two survive as new
+        vertices of the hull). Concretely, if $e=v_1v_2$ and $Q=[0,w]$ with $w$
+        parallel to $e$, the hull of $P+Q$ acquires the edge $v_1 v_1+w$ (or
+        $v_2 v_2+w$), giving $4$ vertices.
+\end{itemize}
+In all cases $|\operatorname{vert}(P+Q)|\ge 4$.
+If $Q$ is $2$-dimensional (a non-degenerate polygon), use the fact that a
+$2$-dimensional addend always contributes new edge-normal directions beyond
+those already in $P$ (a triangle), giving at least $4$ vertices.
+
+\medskip
+\textbf{Hints for (2).}
+Use the rigidity from Subproblem~1: $|\operatorname{supp}(F)|=4$ implies
+$|\operatorname{vert}(P+Q)|=4$.
+The number of vertices of the Minkowski sum of two convex polygons equals the
+number of distinct outer-normal directions in their combined normal fans.
+$P$ is a quadrilateral with $4$ outer-normal directions.  For $P+Q$ to have
+exactly $4$ vertices, $Q$ must contribute \emph{no new} outer-normal directions:
+every edge direction of $Q$ is parallel to some edge of $P$.
+
+In particular, $Q$ can be at most a \emph{centrally symmetric hexagon} (or
+degenerate versions thereof) whose edges are parallel to the edges of $P$.
+But examine what it means for the surviving lonely points to be exactly
+$4$: the four vertices of $P+Q$ must come from the four vertices of $P$
+each paired with a corresponding vertex of $Q$.  This forces the pairs to
+satisfy $v_1+q_1,\, v_2+q_2,\, v_3+q_3,\, v_4+q_4$ (in cyclic order), and the
+transition pattern between exposed $Q$-vertices around the boundary of
+$P+Q$ forces $Q$ to alternate between two vertices only (i.e.\ $Q$ is a
+segment).
+
+With $Q=[0,v]$ a segment parallel to edge $v_1v_2$ of $P$ (and also parallel to
+the opposite edge $v_3v_4$), the four surviving vertices of $P+Q$ are
+$v_1,\,v_2+v,\,v_3+v,\,v_4$ (or similar).  But for $P+Q$ to have only $4$
+vertices, the edge $v_2v_3$ of $P$ must be parallel to the edge $v_4v_1$
+(otherwise those edges' normal directions are new and create more vertices).
+Parallel opposite sides means $P$ is a parallelogram.
+
+\end{document}

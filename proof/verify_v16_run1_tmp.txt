@@ -1,0 +1,108 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:**  
+   “`T = {x_1,\dots,x_n} = supp(\sigma_T).`”  
+   and  
+   “`Assume for contradiction that T has \geq 3 edge-direction classes and both signs.`”
+
+   **Description:** **Critical Error.**  
+   The proof changes the problem. In the statement, \(n\) is the number of points of \(S\), the polygon is \(P=\operatorname{conv}(S)\), and \(T\) is an arbitrary finite signed translate set. The solution instead treats \(T\) itself as an \(n\)-vertex convex polygon and argues about its edge directions. That is a different claim from the one asked.
+
+2. **Location:**  
+   “`[u] = equivalence class of u under nonzero scalar multiples.`”
+
+   **Description:** **Critical Error.**  
+   This redefines the notion of direction class. The problem defines direction classes up to **positive** scalar multiples only; the solution uses **all nonzero** scalar multiples, which identifies opposite directions. This changes the hypothesis “at least three edge-direction classes” and affects later deductions.
+
+3. **Location:**  
+   “`KEY EQUATIONS:
+   (NL) For p not in T:  sum_{j=1}^n sigma_T(p - s_j) = 0.
+   (S0) For t in T, t != t_k:  sum_{j=1}^n sigma_T(t + s_k - s_j) = 0.`”  
+   and  
+   “`Closure: sum_{i=1}^n m_i * a_i = 0,  sum_{i=1}^n m_i = n.`”
+
+   **Description:** **Justification Gap.**  
+   These are taken as given but are not proved in the solution, and they are not among the two facts from Subproblems 1–4 that the problem explicitly allows without proof. The proof relies on them repeatedly, so the argument is incomplete.
+
+4. **Location:**  
+   “`Fix \beta with \beta(a_1)=0, \beta(a_2)=1, and h(p) = \beta(p-t_1) \geq 0$ for all
+   p \in T (possible since t_1 is a vertex of conv(T)).`”
+
+   **Description:** **Justification Gap.**  
+   The claim that \(t_1\) is a vertex of \(\operatorname{conv}(T)\), and that this gives the required supporting functional \(\beta\), is not established from the permitted assumptions.
+
+5. **Location:**  
+   “`Since |\{[a_1],\ldots,[a_n]\}| \geq 3, we may relabel so that [a_3] \neq [a_1],
+   giving \mu := \beta(a_3) \neq 0.`”
+
+   **Description:** **Critical Error.**  
+   Under the problem’s actual definition of direction class (positive multiples only), \([a_3]\neq[a_1]\) does **not** imply that \(a_3\) is not a negative multiple of \(a_1\). But \(\beta(a_1)=0\) vanishes on the entire line spanned by \(a_1\), so \(\beta(a_3)\) could still be \(0\). The inference to \(\mu\neq0\) is invalid.
+
+6. **Location:**  
+   “`For j \geq 3:
+   c_j = h(x_j) > 0 since x_j lies strictly above the line through x_1 parallel
+   to a_1 (by convexity of the polygon and the choice of \beta).`”
+
+   **Description:** **Justification Gap.**  
+   This strict positivity is asserted, not proved. It is then used to force many terms to vanish in Lemma `hzero` and later steps, so the downstream deductions are unsupported.
+
+7. **Location:**  
+   In Lemma `hzero`:  
+   “`apply \eqref{eq:S0} with k=2 at q`”,  
+   “`Apply \eqref{eq:S0} with k=1 at q`”, and  
+   “`Repeating: for all k \in \mathbb{Z}, \sigma_T(q + k a_1) = (-1)^k \sigma_T(q) \neq 0.`”
+
+   **Description:** **Justification Gap.**  
+   This argument depends on the unproved equation \((S0)\). Also, the indefinite iteration is not justified: the proof does not verify at each step that the hypotheses needed to reapply \((S0)\) still hold.
+
+8. **Location:**  
+   “`For n = 3: ... Since \sum m_i = n = 3 and all m_i = m: m = 1.`”
+
+   **Description:** **Justification Gap.**  
+   This uses the unproved identity \(\sum_i m_i = n\), which is not among the permitted facts. The triangle case depends on this step.
+
+9. **Location:**  
+   Step 1:  
+   “`Apply \eqref{eq:S0} k=2 at t' (valid since t' \neq t_2 — if t' = t_2 = t_1+m_1 a_1,
+   ... use k=1 instead; by symmetry the same argument applies)`”
+
+   **Description:** **Justification Gap.**  
+   The proof does not actually carry out the \(t'=t_2\) case; it only says “by symmetry.” Since the displayed \(k=2\) equation is invalid when \(t'=t_2\), that branch is left unproved.
+
+10. **Location:**  
+    Step 2:  
+    “`by \sum m_i = n \geq 4 and m_i \geq 0: some m_j \geq 1 for j \neq 1.`”
+
+    **Description:** **Critical Error.**  
+    This inference is false. Nonnegative numbers can sum to \(n\) with all mass in \(m_1\) and all other \(m_j=0\). The stated conclusion does not follow.
+
+11. **Location:**  
+    “`The elements are T = F_1 \cup \cdots \cup F_n`”  
+    and, in the \(n=3\) case, the membership check  
+    “`T = F_1 \cup F_2 \cup F_3.`”
+
+    **Description:** **Justification Gap.**  
+    The union \(T=\bigcup_i F_i\) is used several times, but it is not one of the stated facts from Subproblems 1–4 and is never proved here.
+
+12. **Location:**  
+    Step 5, Case B1:  
+    “`use k=1 if t'' = t_2, by symmetry`”  
+    and  
+    “`The exception is if t''+k a_1 = t_2 ... use k=1 instead (identical argument by symmetry).`”
+
+    **Description:** **Justification Gap.**  
+    These exceptional cases are not proved; they are only asserted. The iteration argument on height-zero points is therefore incomplete.
+
+13. **Location:**  
+    Step 5, Case B2:  
+    “`If all \delta_j = 0 for j \in J_0.
+    Then D_2 = D_1 = 0: identical to Case A.`”
+
+    **Description:** **Critical Error.**  
+    \(D_2\) and \(D_1\) are sums of different quantities:
+    \[
+    D_2=\sum_{j\in J_0}\delta_j,\qquad D_1=\sum_{j\in J_0}\delta'_j.
+    \]
+    From \(\delta_j=0\) for all \(j\), one may conclude \(D_2=0\), but nothing has been shown about \(\delta'_j\). So the deduction \(D_1=0\) is invalid, and Case B2 is not proved.
+
+Because of these issues, the solution does **not** verify the stated result.
