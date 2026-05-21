@@ -1,0 +1,19 @@
+**Bug report**
+
+1. **Location:** “Since \(T\) is finite, choose \(t_s\in T\) with
+   \[
+   \phi_s(t_s)=\max_{t\in T}\phi_s(t).
+   \]”
+
+   **Description — Critical Error:**  
+   This step silently assumes \(T\neq\varnothing\). Finiteness alone does **not** justify choosing an element of \(T\) or taking \(\max_{t\in T}\) if \(T\) may be empty. Under the stated hypotheses, \(T=\varnothing\) is not excluded. In that case this construction is impossible, and in fact the statements being proved are false (\(F\equiv 0\), so the lower bound \(|\{p:F(p)\neq 0\}|\ge n\) fails when \(n>0\)). The same hidden assumption reappears later when \(M_T\) and \(t^\ast\) are chosen in part (6).
+
+2. **Location:**  
+   - “The only standard convex-geometric input I use is that every vertex of a polyhedron is an exposed point…”  
+   - “For each \(s\in S\), choose a linear functional \(\phi_s\colon\mathbb R^2\to\mathbb R\) that is uniquely maximized at \(s\) on \(P=\operatorname{conv}(S)\)…”
+   - “choose a linear functional \(\psi:\mathbb R^2\to\mathbb R\) that is uniquely maximized at \(v\) on \(P+Q\).”
+
+   **Description — Justification Gap:**  
+   The cited external result does state that every vertex of a **polyhedron** is an exposed point. ([ms.uky.edu](https://www.ms.uky.edu/~Lee/ma714fa13/notes.pdf)) But the solution never explicitly verifies the hypotheses needed to apply that theorem to \(P=\operatorname{conv}(S)\) and especially to \(P+Q\). If the argument is relying on that external proposition, it must also justify that these sets are in the class covered by the theorem. As written, that applicability check is missing.
+
+Because of the critical error above, the solution is **not fully valid as written** under the stated hypotheses.

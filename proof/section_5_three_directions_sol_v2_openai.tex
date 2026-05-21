@@ -1,0 +1,430 @@
+The bug report is essentially right: the previous proof needed two repairs.
+
+1. The “lonely-point” facts must be derived from the stated “exposed translate on the normal cone” property.
+2. The claim about the parallelogram \(K_i\) needs a different proof; the connectedness argument was not valid.
+
+Here is a corrected proof.
+
+---
+
+Write the given sign of a translate \(t\in T\) as \(\varepsilon(t)\in\{+1,-1\}\), so that
+\[
+\sigma(p)=\sum_{t\in T,\;p-t\in S}\varepsilon(t).
+\]
+All indices are read modulo \(n\).
+
+Let
+\[
+a_i:=s_{i+1}-s_i,\qquad
+p_i:=s_i+t_i,
+\]
+and also
+\[
+r_i:=s_{i-1}+s_{i+1}-s_i=s_i+a_i-a_{i-1},
+\qquad
+K_i:=\operatorname{conv}(s_{i-1},s_i,s_{i+1},r_i).
+\]
+
+## 1. Preliminary consequences of the first allowed fact
+
+Fix \(i\), and let \(N_P(s_i)\) be the normal cone of \(P\) at \(s_i\).
+
+By the meaning of “\(t_i\) is the unique exposed translate on the normal cone”, for every \(c\in \operatorname{int}N_P(s_i)\),
+
+- \(c\cdot s\) is uniquely maximized on \(S\) at \(s_i\), and
+- \(c\cdot t\) is uniquely maximized on \(T\) at \(t_i\).
+
+Therefore \(p_i=s_i+t_i\) has a unique representation as \(s+t\) with \(s\in S\), \(t\in T\): indeed, if
+\[
+s+t=s_i+t_i,
+\]
+then
+\[
+c\cdot t=c\cdot(s_i+t_i)-c\cdot s.
+\]
+If \(s\neq s_i\), then \(c\cdot s<c\cdot s_i\), hence \(c\cdot t>c\cdot t_i\), contradicting the uniqueness of \(t_i\). So \(s=s_i\), and then \(t=t_i\).
+
+Thus
+\[
+\sigma(p_i)=\varepsilon(t_i)\neq 0.
+\]
+
+Also the points \(p_i\) are distinct. For if \(p_i=p_j\) with \(i\neq j\), choose \(c\in \operatorname{int}N_P(s_i)\). Then \(c\cdot s_i>c\cdot s_j\), so
+\[
+c\cdot t_j
+= c\cdot p_i-c\cdot s_j
+> c\cdot p_i-c\cdot s_i
+= c\cdot t_i,
+\]
+again contradicting the uniqueness of \(t_i\).
+
+So we already have \(n\) distinct points \(p_1,\dots,p_n\) with nonzero \(\sigma\). Since by hypothesis
+\[
+\bigl|\{p:\sigma(p)\neq 0\}\bigr|=n,
+\]
+it follows that
+\[
+\{p:\sigma(p)\neq 0\}=\{p_1,\dots,p_n\}.
+\]
+
+So to get a contradiction, it is enough to find one more point \(q\notin\{p_1,\dots,p_n\}\) with \(\sigma(q)\neq 0\).
+
+---
+
+## 2. A boundary-edge lemma
+
+We will need one elementary convex-geometric fact.
+
+### Lemma 1
+Let \([x,y]\) be an edge of a convex polygon, and let \(x^{-}\), \(y^{+}\) be the vertices adjacent to \(x\), \(y\), respectively. Among all triangles having base \([x,y]\) and third vertex any other vertex of the polygon, the minimum area is attained by one of the two ear triangles
+\[
+\triangle(x^{-},x,y),\qquad \triangle(x,y,y^{+}).
+\]
+
+### Proof
+Let \(L\) be the line through \([x,y]\). Since \([x,y]\) is an edge, \(L\) is a supporting line of the polygon.
+
+For any vertex \(z\), the area of \(\triangle(x,y,z)\) equals
+\[
+\frac12\,|x-y|\,h(z),
+\]
+where \(h(z)\) is the perpendicular distance from \(z\) to \(L\). So it suffices to show that
+\[
+h(z)\ge \min\bigl(h(x^-),h(y^+)\bigr)
+\]
+for every other vertex \(z\).
+
+Suppose not. Then some vertex \(z\) satisfies
+\[
+h(z)<\min\bigl(h(x^-),h(y^+)\bigr).
+\]
+Choose \(c\) with
+\[
+h(z)<c<\min\bigl(h(x^-),h(y^+)\bigr),
+\]
+and choose it so that the line \(L_c\) parallel to \(L\) at distance \(c\) contains no edge of the polygon.
+
+Now \(L_c\) meets the two adjacent edges \([x^-,x]\) and \([y,y^+]\) each once, because \(x,y\in L\) and \(x^-,y^+\) lie strictly on the interior side of \(L_c\).
+
+The opposite boundary chain from \(y^+\) to \(x^-\) has endpoints above \(L_c\), but it contains the vertex \(z\) below \(L_c\). Hence that chain crosses \(L_c\) at least twice.
+
+So \(L_c\) meets the boundary of the convex polygon in at least four points. But a line intersects a convex polygon in a (possibly empty) segment, so its boundary intersection has at most two points unless the line contains an edge, which we excluded by construction of \(c\). Contradiction.
+
+Hence the minimum area on the base \([x,y]\) is attained at \(x^{-}\) or \(y^{+}\). ∎
+
+---
+
+## 3. A minimum ear gives an empty parallelogram
+
+Choose \(i\) so that the ear
+\[
+\Delta_i:=\triangle(s_{i-1},s_i,s_{i+1})
+\]
+has minimum area among all ears.
+
+Because \(P\) has at least three edge-direction classes, it is **not** a parallelogram.
+
+### Lemma 2
+For this index \(i\),
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+
+### Proof
+Apply a nondegenerate affine map sending
+\[
+s_i\mapsto O:=(0,0),\qquad
+s_{i+1}\mapsto A:=(1,0),\qquad
+s_{i-1}\mapsto B:=(0,1).
+\]
+A nondegenerate affine map multiplies every area by the same factor \(|\det M|>0\), so area comparisons are preserved. Thus \(i\) is still a minimum-area ear after this normalization.
+
+In these coordinates,
+\[
+r_i\mapsto R:=(1,1),
+\qquad
+K_i\mapsto K=[0,1]^2,
+\]
+and
+\[
+\Delta_i\mapsto \triangle OAB,
+\qquad
+\operatorname{area}(\triangle OAB)=\frac12.
+\]
+
+Also, the line \(AB\) is \(x+y=1\). Since \(O\) is the vertex between \(B\) and \(A\), the opposite boundary arc from \(A\) to \(B\) lies in the half-plane
+\[
+x+y\ge 1.
+\]
+Therefore no vertex other than \(O,A,B\) lies in \(\triangle OAB\). So any extra vertex of \(K\) must lie in
+\[
+\triangle ABR.
+\]
+
+Now suppose some extra vertex \(X=(\alpha,\beta)\in S\cap K\setminus\{O,A,B\}\) exists.
+
+### First subcase: \(X\neq R\)
+
+Then either \(\beta<1\) or \(\alpha<1\).
+
+- If \(\beta<1\), then
+  \[
+  \operatorname{area}(\triangle OAX)=\frac{\beta}{2}<\frac12.
+  \]
+  By Lemma 1, applied to the edge \([O,A]\), the minimum area among triangles on base \([O,A]\) is attained by one of the two ear triangles there. One of them is \(\triangle BOA=\triangle OAB\), of area \(1/2\). Since \(\triangle OAX\) has smaller area, the other ear triangle at \(A\) must have area \(<1/2\), contradicting the minimality of \(\Delta_i\).
+
+- If \(\alpha<1\), the same argument applied to the edge \([B,O]\) gives a contradiction.
+
+So the only possible extra vertex of \(K\) is \(R\).
+
+### Second subcase: \(R\in S\)
+
+We claim this forces \(P\) to be the quadrilateral \(OARB\).
+
+Assume not. Then on the opposite boundary arc from \(A\) to \(B\), there is some vertex besides \(R\). So either there is an extra vertex on the subarc \(A\to R\), or on the subarc \(R\to B\).
+
+- Suppose first there is an extra vertex on \(A\to R\). Let \(A^+\) be the first such vertex after \(A\).  
+  Consider the chord \(RB\), which lies on the line \(y=1\). The boundary arc from \(B\) to \(R\) that contains \(O\) also contains the whole subarc \(A\to R\). For a convex polygon, one boundary arc determined by a chord lies in one closed half-plane bounded by the chord, and the other arc lies in the opposite half-plane. Since \(O\) lies below \(y=1\), that whole arc lies in \(y\le 1\). Hence
+  \[
+  y(A^+)<1.
+  \]
+  Therefore the ear at \(A\),
+  \[
+  \triangle OAA^+,
+  \]
+  has area
+  \[
+  \operatorname{area}(\triangle OAA^+)=\frac{y(A^+)}{2}<\frac12,
+  \]
+  again contradicting the minimality of \(\Delta_i\).
+
+- Suppose instead there is an extra vertex on \(R\to B\). Let \(B^-\) be the last such vertex before \(B\).  
+  Now use the chord \(AR\), which lies on the line \(x=1\). The boundary arc from \(A\) to \(R\) that contains \(O\) also contains the whole subarc \(R\to B\). Since \(O\) lies left of \(x=1\), that arc lies in \(x\le 1\). Hence
+  \[
+  x(B^-)<1.
+  \]
+  So the ear at \(B\),
+  \[
+  \triangle OB^-B,
+  \]
+  has area
+  \[
+  \operatorname{area}(\triangle OB^-B)=\frac{x(B^-)}{2}<\frac12,
+  \]
+  again a contradiction.
+
+So there are no extra vertices on either subarc. Hence the opposite boundary arc is exactly \(A,R,B\), and \(P\) is the quadrilateral \(OARB\), i.e. a parallelogram. But \(P\) has at least three edge-direction classes, so this is impossible.
+
+Therefore no extra vertex exists in \(K\), and after undoing the affine map we get
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+∎
+
+---
+
+## 4. Constructing an extra nonzero point
+
+Keep this index \(i\).
+
+By the second allowed fact,
+\[
+F_{i-1}=T\cap[t_{i-1},t_i],\qquad
+F_i=T\cap[t_i,t_{i+1}]
+\]
+are arithmetic progressions with common differences \(a_{i-1}\) and \(a_i\), respectively, and signs alternate along them. Hence
+\[
+u:=t_i-a_{i-1}\in F_{i-1},\qquad
+v:=t_i+a_i\in F_i,
+\]
+and
+\[
+\varepsilon(u)=\varepsilon(v)=-\varepsilon(t_i).
+\]
+
+Define
+\[
+q:=s_{i+1}+u=s_{i-1}+v=t_i+r_i.
+\]
+
+We will show:
+
+1. \(\sigma(q)\neq 0\);
+2. \(q\notin\{p_1,\dots,p_n\}\).
+
+That contradicts the extremal equality.
+
+---
+
+## 5. Which representations can \(q\) have?
+
+Let
+\[
+Q:=\operatorname{conv}(T).
+\]
+
+Because \(t_i\) is the exposed translate on the whole normal cone at \(s_i\), \(Q\) lies in the wedge at \(t_i\) bounded by the two support lines corresponding to the two edges through \(s_i\). Equivalently,
+\[
+Q\subset t_i+\operatorname{cone}(a_i,-a_{i-1}).
+\]
+Also, since \(P\) is convex,
+\[
+P\subset s_i+\operatorname{cone}(a_i,-a_{i-1}).
+\]
+
+Now suppose
+\[
+q=s_j+t
+\qquad\text{with }t\in T.
+\]
+Then
+\[
+t-t_i = q-s_j-t_i = r_i-s_j.
+\]
+Since \(t\in T\subset Q\subset t_i+\operatorname{cone}(a_i,-a_{i-1})\),
+\[
+r_i-s_j\in \operatorname{cone}(a_i,-a_{i-1}).
+\]
+
+Because \(a_i\) and \(a_{i-1}\) are nonparallel adjacent edge vectors, they form a basis. So we can write uniquely
+\[
+s_j=s_i+\alpha a_i-\beta a_{i-1}
+\qquad (\alpha,\beta\ge 0),
+\]
+and then
+\[
+r_i-s_j=(1-\alpha)a_i-(1-\beta)a_{i-1}.
+\]
+This belongs to \(\operatorname{cone}(a_i,-a_{i-1})\) iff
+\[
+0\le \alpha\le 1,\qquad 0\le \beta\le 1,
+\]
+i.e. iff
+\[
+s_j\in s_i+[0,1]a_i+[0,1](-a_{i-1})=K_i.
+\]
+
+By Lemma 2,
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+Therefore every representation of \(q\) uses one of those three vertices only.
+
+So the only possible contributions to \(\sigma(q)\) are:
+
+- from
+  \[
+  q=s_{i-1}+v,
+  \]
+  contributing \(\varepsilon(v)=-\varepsilon(t_i)\);
+
+- from
+  \[
+  q=s_{i+1}+u,
+  \]
+  contributing \(\varepsilon(u)=-\varepsilon(t_i)\);
+
+- possibly from
+  \[
+  q=s_i+w,\qquad w:=t_i+a_i-a_{i-1},
+  \]
+  if \(w\in T\), contributing \(\varepsilon(w)\in\{\pm1\}\).
+
+Hence
+\[
+\sigma(q)= -2\varepsilon(t_i)
+\quad\text{or}\quad
+\sigma(q)= -2\varepsilon(t_i)+\varepsilon(w).
+\]
+In either case,
+\[
+\sigma(q)\neq 0.
+\]
+
+---
+
+## 6. \(q\) is not one of the \(p_k\)
+
+Assume, for contradiction, that
+\[
+q=p_k=s_k+t_k
+\]
+for some \(k\).
+
+Then \(q=s_k+t_k\) is a representation of the type just analyzed, so \(s_k\in K_i\). By Lemma 2,
+\[
+k\in\{i-1,i,i+1\}.
+\]
+
+We now eliminate these three possibilities.
+
+- If \(k=i\), then
+  \[
+  s_i+t_i=q=s_i+(t_i+a_i-a_{i-1}),
+  \]
+  so
+  \[
+  a_i=a_{i-1},
+  \]
+  which is impossible because consecutive edges of a convex polygon are not parallel.
+
+- If \(k=i-1\), then
+  \[
+  t_{i-1}=v=t_i+a_i.
+  \]
+  But also, from the edge-chain structure,
+  \[
+  t_i=t_{i-1}+m_{i-1}a_{i-1}
+  \]
+  for some positive integer \(m_{i-1}\). Hence
+  \[
+  a_i=-m_{i-1}a_{i-1},
+  \]
+  again impossible.
+
+- If \(k=i+1\), similarly
+  \[
+  t_{i+1}=u=t_i-a_{i-1},
+  \]
+  while also
+  \[
+  t_{i+1}=t_i+m_i a_i,
+  \]
+  so
+  \[
+  -a_{i-1}=m_i a_i,
+  \]
+  impossible.
+
+Thus
+\[
+q\notin \{p_1,\dots,p_n\}.
+\]
+
+But we already proved \(\sigma(q)\neq 0\). This contradicts the fact from Section 1 that, under the extremal equality, the only points with nonzero \(\sigma\) are exactly \(p_1,\dots,p_n\).
+
+This contradiction proves the theorem.
+
+---
+
+## Conclusion
+
+If \(P=\operatorname{conv}(S)\) has at least three distinct edge-direction classes, then the extremal equality
+\[
+\bigl|\{p:\sigma(p)\neq 0\}\bigr|=n
+\]
+is impossible.
+
+Therefore:
+
+- every triangle is impossible;
+- every convex \(n\)-gon with \(n\ge 5\) is impossible;
+- every non-parallelogram convex quadrilateral is impossible.
+
+So the only remaining case is
+\[
+n=4
+\quad\text{with exactly two edge-direction classes, i.e. }P\text{ a parallelogram}.
+\]
+
+If you want, I can also compress this into a shorter “paper-style” proof.

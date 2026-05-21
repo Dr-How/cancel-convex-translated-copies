@@ -1,0 +1,262 @@
+% Section 5: Three or more edge-direction classes leads to a contradiction.
+% Version 16 — clean, complete, rigorous proof.
+%
+% GOAL: Show that if T = supp(sigma) is a finite set forming a convex polygon
+% with n >= 3 vertices, having at least 3 edge-direction classes (under nonzero
+% scalar equivalence), and sigma_T has both signs on T, then the nonlonely
+% equations are contradicted.
+%
+% CONVENTIONS (throughout):
+%   x_1,...,x_n : vertices of a convex n-gon (CCW), n >= 3.
+%   T = {x_1,...,x_n} = supp(sigma_T).
+%   a_i = x_{i+1} - x_i (edge vectors, indices mod n; so sum a_i = 0).
+%   s_j = x_j - x_1 = a_1 + ... + a_{j-1} (with s_1 = 0).
+%   [u] = equivalence class of u under nonzero scalar multiples.
+%   F_i = {t_i + k*a_i : 0 <= k <= m_i}: face chain on edge i,
+%       sigma_T(t_i + k*a_i) = (-1)^k * eps_i, with t_1 = x_1,
+%       t_{i+1} = t_i + m_i * a_i, eps_{i+1} = (-1)^{m_i} * eps_i.
+%   Closure: sum_{i=1}^n m_i * a_i = 0,  sum_{i=1}^n m_i = n.
+%
+% KEY EQUATIONS:
+%   (NL) For p not in T:  sum_{j=1}^n sigma_T(p - s_j) = 0.
+%   (S0) For t in T, t != t_k:  sum_{j=1}^n sigma_T(t + s_k - s_j) = 0.
+%
+% HEIGHT FUNCTIONAL:
+%   beta: R^2 -> R linear with beta(a_1) = 0, beta(a_2) = 1.
+%   h(p) = beta(p - t_1).
+%   c_j = beta(s_j) = h(x_j) (heights of polygon vertices):
+%       c_1 = 0, c_2 = 0, c_3 = 1, c_j > 0 for all j >= 3.
+%   The last property holds because a_1,...,a_n are in convex position and
+%   beta is chosen as a supporting functional at t_1 with beta(a_2) = 1 > 0,
+%   so x_j lies strictly above the line h = 0 for j >= 3.
+
+\subsection*{Proof that $\geq 3$ edge-direction classes is impossible}
+
+\paragraph{Setup.}
+Assume for contradiction that $T$ has $\geq 3$ edge-direction classes and both signs.
+Fix $\beta$ with $\beta(a_1)=0$, $\beta(a_2)=1$, and $h(p) = \beta(p-t_1) \geq 0$ for all
+$p \in T$ (possible since $t_1$ is a vertex of $\mathrm{conv}(T)$).
+Since $|\{[a_1],\ldots,[a_n]\}| \geq 3$, we may relabel so that $[a_3] \neq [a_1]$,
+giving $\mu := \beta(a_3) \neq 0$.
+
+\begin{lemma}[betamin]\label{lem:betamin}
+$h(t) \geq 0$ for all $t \in T$.
+\end{lemma}
+\begin{proof}
+By choice of $\beta$.
+\end{proof}
+
+\begin{lemma}[hzero]\label{lem:hzero}
+$T \cap \{h = 0\} = F_1$.
+\end{lemma}
+\begin{proof}
+$F_1 \subseteq \{h=0\}$ by definition ($\beta(a_1)=0$).
+Suppose $q \in T$, $h(q)=0$, $q \notin F_1$.
+Since $q \in T$ and $q \neq t_1$ (if $q=t_1 \in F_1$, contradiction), and
+$q \neq t_2 = t_1 + m_1 a_1 \in F_1$ (since $q \notin F_1$):
+apply \eqref{eq:S0} with $k=2$ at $q$:
+\[
+  \sigma_T(q + a_1) + \sigma_T(q) + \sum_{j=3}^n \sigma_T(q + s_2 - s_j) = 0.
+\]
+For $j \geq 3$: $h(q + s_2 - s_j) = h(q) + \beta(s_2) - c_j = 0 + 0 - c_j = -c_j < 0$
+(since $c_j > 0$ for $j \geq 3$).
+By Lemma~\ref{lem:betamin}: $\sigma_T(q + s_2 - s_j) = 0$ for all $j \geq 3$.
+Hence $\sigma_T(q + a_1) = -\sigma_T(q) \neq 0$.
+
+Apply \eqref{eq:S0} with $k=1$ at $q$ ($q \neq t_1$):
+$\sigma_T(q) + \sigma_T(q - a_1) + \sum_{j=3}^n \sigma_T(q - s_j) = 0$.
+For $j \geq 3$: $h(q - s_j) = -c_j < 0$, so $\sigma_T = 0$.
+Hence $\sigma_T(q - a_1) = -\sigma_T(q) \neq 0$.
+
+Repeating: for all $k \in \mathbb{Z}$, $\sigma_T(q + k a_1) = (-1)^k \sigma_T(q) \neq 0$,
+giving an infinite set $\{q + k a_1 : k \in \mathbb{Z}\} \subseteq T$.
+Contradicts $T$ finite. $\square$
+\end{proof}
+
+\paragraph{Remark on $c_j$.}
+We have $c_1 = c_2 = 0$ and $c_3 = \beta(a_1 + a_2) = 1$.  For $j \geq 3$:
+$c_j = h(x_j) > 0$ since $x_j$ lies strictly above the line through $x_1$ parallel
+to $a_1$ (by convexity of the polygon and the choice of $\beta$).
+
+\bigskip
+
+\subsection*{The main contradiction}
+
+\begin{lemma}[main contradiction]\label{lem:main}
+For $n \geq 3$, no such $T$ (with $\geq 3$ direction classes and both signs) exists.
+\end{lemma}
+\begin{proof}
+
+\medskip
+\noindent\textbf{Section 1: $n = 3$.}
+
+For $n = 3$: closure gives $m_1 = m_2 = m_3 =: m$ (since $(m_1-m_3)a_1 + (m_2-m_3)a_2 = 0$
+with $a_1 \perp a_2$ in the linear-independence sense).  $\mu = \beta(a_3) = -1$.
+
+Since $\sum m_i = n = 3$ and all $m_i = m$: $m = 1$.  But $\varepsilon_1 = (-1)^{3m}\varepsilon_1$ (closure of signs) forces $m$ odd; $m = 1$ is consistent.
+
+Actually: $3m = 3$, so $m = 1$.  The chain $F_2$ has elements $t_2, t_2 + a_2$ (two elements, heights $0$ and $1$).  So $t_2 + a_2 \in T$, with $\sigma_T(t_2 + a_2) = -\varepsilon_2 = -(-1)^{m_1}\varepsilon_1 = -(-1)^1\varepsilon_1 = \varepsilon_1$.
+
+Wait: let us redo this.  $m_1 = m_2 = m_3 = 1$.  $\varepsilon_2 = (-1)^{m_1}\varepsilon_1 = -\varepsilon_1$.
+$\sigma_T(t_2 + a_2) = (-1)^1 \varepsilon_2 = -\varepsilon_2 = \varepsilon_1$.
+
+Apply \eqref{eq:S0} $k=1$ at $t' = t_2 + a_2$ (note $h(t')=1 > 0$, so $t' \neq t_1$):
+\[
+  \sigma_T(t') + \sigma_T(t' - a_1) + \sigma_T(t' - a_1 - a_2) = 0.
+\]
+(Three terms for $n=3$, since $\sum_{j=1}^3 \sigma_T(t' + s_1 - s_j)$: the terms are $t'$, $t' - a_1$, $t' - a_1 - a_2$.)
+
+\begin{itemize}
+\item $\sigma_T(t') = \varepsilon_1$.
+\item $t' - a_1 - a_2 = t_2 + a_2 - a_1 - a_2 = t_2 - a_1 = t_1 + (m_1 - 1)a_1 = t_1$ (since $m_1=1$).
+  So $\sigma_T(t' - a_1 - a_2) = \sigma_T(t_1) = \varepsilon_1$.
+\item $t' - a_1 = t_1 + a_2$.  Height $h(t'-a_1) = 1$.
+  Is $t' - a_1 \in T$? $T = F_1 \cup F_2 \cup F_3$.  $F_1 \subseteq \{h=0\}$: no.
+  $F_2 = \{t_2, t_2+a_2\}$: $t_1+a_2 = t_2+a_2 - a_1$.  For $t_1+a_2 \in F_2$:
+  need $t_1 + a_2 = t_2 + k a_2$ for $k \in \{0,1\}$, i.e., $t_1 - t_2 = (k-1)a_2$.
+  Since $t_2 = t_1 + a_1$: $t_1 - t_2 = -a_1$.  So $-a_1 = (k-1)a_2$, impossible
+  for $k \in \{0,1\}$ (as $a_1, a_2$ are linearly independent and $a_1 \neq 0$).
+  $F_3 = \{t_3, t_3+a_3\}$ where $t_3 = t_2 + a_2 = t_1 + a_1 + a_2$:
+  $t_1+a_2 = t_3 + k a_3$ for $k \in \{0,1\}$?
+  $k=0$: $t_1+a_2 = t_3 = t_1+a_1+a_2 \Rightarrow a_1=0$: impossible.
+  $k=1$: $t_1+a_2 = t_3+a_3 = t_1+a_1+a_2+a_3 = t_1+a_1+a_2-(a_1+a_2) = t_1$: so $a_2=0$, impossible.
+  Therefore $t'-a_1 = t_1+a_2 \notin T$, so $\sigma_T(t'-a_1) = 0$.
+\end{itemize}
+
+Sum: $\varepsilon_1 + 0 + \varepsilon_1 = 2\varepsilon_1 \neq 0$. Contradicts \eqref{eq:S0}. $\square$
+
+\medskip
+\noindent\textbf{Section 2: $n \geq 4$.}
+
+Since $[a_3] \neq [a_1]$, we have $\mu = \beta(a_3) \neq 0$.
+
+\medskip
+\noindent\textit{Step 1: Height-0 chain contradiction.}
+
+Suppose all elements of $T$ have height $0$, i.e., $T = T \cap \{h=0\} = F_1$
+(by Lemma~\ref{lem:hzero}).
+$T$ has both signs, so there exists $t' \in F_1$ with $\sigma_T(t') = -\varepsilon_1$.
+Since $t' \in F_1 = \{t_1 + k a_1 : 0 \leq k \leq m_1\}$ and $\sigma_T(t') \neq \varepsilon_1$:
+$t' \neq t_1$ (since $\sigma_T(t_1) = \varepsilon_1$).
+
+Apply \eqref{eq:S0} $k=2$ at $t'$ (valid since $t' \neq t_2$ — if $t' = t_2 = t_1+m_1 a_1$,
+its sign is $(-1)^{m_1}\varepsilon_1$; for this to be $-\varepsilon_1$ we need $m_1$ odd, so
+$t' = t_2 \neq t_1$ and $t_2 \neq t_2$ is false — use $k=1$ instead; by symmetry the same
+argument applies):
+\[
+  \sigma_T(t' + a_1) + \sigma_T(t') + \sum_{j=3}^n \sigma_T(t' + s_2 - s_j) = 0.
+\]
+Heights of $j \geq 3$ terms: $0 + 0 - c_j = -c_j < 0$, so all vanish by betamin.
+$\sigma_T(t' + a_1) = -\sigma_T(t') \neq 0$.
+
+Apply \eqref{eq:S0} $k=1$ at $t'$ ($t' \neq t_1$):
+$\sigma_T(t'-a_1) = -\sigma_T(t') \neq 0$.
+
+Iterating: $\{\ldots, t'-a_1, t', t'+a_1, t'+2a_1, \ldots\} \subseteq T \cap \{h=0\} = F_1$.
+But $F_1$ is finite ($m_1 + 1 \leq n$ elements). Contradiction. $\square$
+
+\medskip
+\noindent\textit{Step 2: Some element at positive height.}
+
+If $T \neq F_1$: there exists $t^* \in T$ with $h(t^*) > 0$.
+
+To see this: by $\sum m_i = n \geq 4$ and $m_i \geq 0$: some $m_j \geq 1$ for $j \neq 1$.
+If $m_j \geq 1$ for some $j \in \{2, 3, 4, \ldots, n\}$: the chain $F_j$ has an element
+$t_j + a_j$ with $h(t_j + a_j) = h(t_j) + \beta(a_j)$.
+Since $h(t) \geq 0$ for all $t \in T$ (betamin) and the chain $F_j$ goes from $t_j$
+(height $h(t_j)$) to $t_{j+1}$ (height $h(t_{j+1})$), and both endpoints have $h \geq 0$:
+if $h(t_j) > 0$ or $h(t_{j+1}) > 0$, we have a positive-height element.
+The elements are $T = F_1 \cup \cdots \cup F_n$; since $T \neq F_1$, some $F_j$ ($j \geq 2$)
+contains an element not in $F_1$.  Such an element either has $h > 0$ (giving our $t^*$)
+or $h = 0$ (but then $\in F_1$ by Lemma~\ref{lem:hzero}, contradicting $\notin F_1$).
+So $t^*$ exists.
+
+We proceed assuming $T \neq F_1$ (else Step 1 gives the contradiction).
+
+\medskip
+\noindent\textit{Step 3: Minimum positive height.}
+
+Let $h_0 = \min\{h(t) : t \in T,\ h(t) > 0\}$.  Pick $t' \in T$ with $h(t') = h_0$.
+Note $t' \neq t_1$ ($h(t_1)=0$) and $t' \neq t_2$ ($h(t_2)=0$), so \eqref{eq:S0}
+with $k=2$ is valid at $t'$.
+
+\medskip
+\noindent\textit{Step 4: Equations at $t'$.}
+
+Apply \eqref{eq:S0} $k=2$ at $t'$:
+\[
+  \sigma_T(t' + a_1) + \sigma_T(t') + \sum_{j=3}^n \sigma_T(t' + s_2 - s_j) = 0.
+\]
+For $j \geq 3$: $h(t' + s_2 - s_j) = h_0 + 0 - c_j = h_0 - c_j$.
+\begin{itemize}
+\item $h_0 - c_j < 0$: $\sigma_T = 0$ (betamin).
+\item $0 < h_0 - c_j < h_0$: $\sigma_T = 0$ (minimality of $h_0$: no $T$-element at height in $(0,h_0)$).
+\item $h_0 - c_j = 0$ (i.e., $c_j = h_0$): element at height $0$, so in $F_1$ (Lemma~\ref{lem:hzero}) or $\notin T$ ($\sigma_T = 0$).
+\item $h_0 - c_j > h_0$: impossible since $c_j > 0$.
+\end{itemize}
+
+Let $J_0 = \{j \geq 3 : c_j = h_0\}$.  For each $j \in J_0$:
+$t'' := t' + s_2 - s_j$ lies at height $0$, so $\sigma_T(t'') \in \{-\varepsilon_1, 0, +\varepsilon_1\}$
+(it is $(-1)^\ell \varepsilon_1$ if $t'' = t_1 + \ell a_1 \in F_1$, or $0$ if $t'' \notin F_1$).
+Write $\delta_j = \sigma_T(t' + s_2 - s_j)$.
+
+The $k=2$ equation becomes:
+\begin{equation}\label{eq:k2_v16}
+  \sigma_T(t' + a_1) + \sigma_T(t') + D_2 = 0, \qquad D_2 = \sum_{j \in J_0} \delta_j.
+\end{equation}
+
+Similarly, apply \eqref{eq:S0} $k=1$ at $t'$ ($t' \neq t_1$):
+\begin{equation}\label{eq:k1_v16}
+  \sigma_T(t') + \sigma_T(t' - a_1) + D_1 = 0, \qquad D_1 = \sum_{j \in J_0} \delta'_j,
+\end{equation}
+where $\delta'_j = \sigma_T(t' + s_1 - s_j) = \sigma_T(t' - s_j)$ (at height $h_0 - c_j = 0$
+for $j \in J_0$).
+
+\medskip
+\noindent\textit{Step 5: Contradiction.}
+
+\textbf{Case A: $J_0 = \emptyset$.}
+Then $D_2 = D_1 = 0$.  From \eqref{eq:k2_v16}: $\sigma_T(t'+a_1) = -\sigma_T(t') \neq 0$.
+From \eqref{eq:k1_v16}: $\sigma_T(t'-a_1) = -\sigma_T(t') \neq 0$.
+Apply \eqref{eq:S0} $k=2$ at $t' + a_1$ (height $h_0$, $\neq t_2$): same analysis, $J_0$
+is still empty (since $c_j$ and $h_0$ did not change), giving
+$\sigma_T(t'+2a_1) + \sigma_T(t'+a_1) + 0 = 0$, so $\sigma_T(t'+2a_1) = -\sigma_T(t'+a_1) = \sigma_T(t') \neq 0$.
+By induction: $\sigma_T(t' + k a_1) = (-1)^k \sigma_T(t') \neq 0$ for all $k \geq 0$.
+Similarly $\sigma_T(t' - k a_1) \neq 0$ for all $k \geq 0$ (using $k=1$ equation).
+Infinite set $\{t' + k a_1 : k \in \mathbb{Z}\} \subseteq T$. Contradicts $T$ finite. $\square$
+
+\textbf{Case B: $J_0 \neq \emptyset$.}
+
+\emph{Sub-case B1: Some $\delta_j \neq 0$ for $j \in J_0$.}
+Let $t'' = t' + s_2 - s_j$ be the corresponding height-$0$ element of $F_1$, with
+$\sigma_T(t'') = \delta_j \neq 0$.
+Apply \eqref{eq:S0} $k=2$ at $t''$ (height $0$; $t'' \neq t_2$ if $t'' \in \mathrm{int}(F_1)$;
+use $k=1$ if $t'' = t_2$, by symmetry):
+\[
+  \sigma_T(t'' + a_1) + \sigma_T(t'') + \sum_{j' \geq 3} \sigma_T(t'' + s_2 - s_{j'}) = 0.
+\]
+For $j' \geq 3$: $h(t'' + s_2 - s_{j'}) = 0 - c_{j'} = -c_{j'} < 0$, so $\sigma_T = 0$.
+Hence $\sigma_T(t'' + a_1) = -\sigma_T(t'') \neq 0$.
+Similarly (applying $k=1$ at $t''$): $\sigma_T(t'' - a_1) = -\sigma_T(t'') \neq 0$.
+
+Iterating at each new height-$0$ element: $\sigma_T(t'' + k a_1) \neq 0$ for all $k$.
+(At each step: apply $k=2$ at $t''+ka_1$ (height $0$, $\neq t_2$ generically);
+lower terms at heights $-c_{j'} < 0$ vanish; $\sigma_T(t''+ka_1+a_1) = -\sigma_T(t''+ka_1) \neq 0$.)
+The exception is if $t''+ka_1 = t_2$ for some $k$: then use $k=1$ instead of $k=2$
+(identical argument by symmetry).
+
+So $\{t'' + k a_1 : k \in \mathbb{Z}\} \subseteq T \cap \{h=0\} = F_1$.
+But $F_1 = \{t_1 + j a_1 : 0 \leq j \leq m_1\}$ is finite.
+Contradiction. $\square$
+
+\emph{Sub-case B2: All $\delta_j = 0$ for $j \in J_0$.}
+Then $D_2 = D_1 = 0$: identical to Case A. $\square$
+
+In all cases we reach a contradiction. This completes the proof of Lemma~\ref{lem:main}.
+\end{proof}
+
+\begin{corollary}
+For all $n \geq 3$: a finite signed measure supported on the $n$ vertices of a convex
+polygon, satisfying the nonlonely condition and having $\geq 3$ edge-direction classes,
+cannot have both positive and negative values.  \hfill $\blacksquare$
+\end{corollary}

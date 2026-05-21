@@ -1,0 +1,36 @@
+% APPROACH HINT: counting/incidence approach: each point p in S+T with F(p)=0 must be covered by both a positive and a negative translate simultaneously; each such cancellation corresponds to p in (S+t+) cap (S+t-) for some t+ in T+, t- in T-; by the Overlap Bound, each pair (t+,t-) creates at most 2 cancellations; the total number of points in union_{t in T}(S+t) minus the n nonzero points equals the total number of cancellations needed; derive a contradiction if |T+|>1 or |T-|>1. Include explicit LaTeX with \begin{proof}...\end{proof} blocks.
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 3 --- Extremal equality forces exactly one positive and one negative translate.}
+
+\medskip
+\textbf{Setup.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 3$ points in convex position.
+Let $T\subset\mathbb{R}^2$ be a finite \emph{set} ($|T|\ge 2$), and let $\varepsilon:T\to\{+1,-1\}$ attain both values.
+Write $T^+ = \{t\in T:\varepsilon(t)=+1\}$ and $T^- = \{t\in T:\varepsilon(t)=-1\}$, so $T = T^+\sqcup T^-$ and both $T^+,T^-$ are non-empty.
+Define
+\[
+  F(p) = \sum_{\substack{t\in T\\ p-t\in S}} \varepsilon(t).
+\]
+Assume the \textbf{extremal equality} $|\{p : F(p)\neq 0\}| = n$.
+
+\medskip
+\textbf{The following two facts may be used without proof:}
+\begin{itemize}
+  \item \textbf{(Lonely Points Lemma)} For each $s\in S$ there exists a unique $t_s\in T$ such that the point $\ell_s = s+t_s\in S+T$ satisfies: if $\ell_s - t\in S$ for some $t\in T$ then $t = t_s$.  The points $\ell_s$ are pairwise distinct and $F(\ell_s) = \varepsilon(t_s)\neq 0$.  Under the extremal equality, $\{p : F(p)\neq 0\} = \{\ell_s : s\in S\}$.
+  \item \textbf{(Overlap Bound)} For any $v\neq 0$, $|S\cap(S+v)|\le 2$.
+\end{itemize}
+
+\medskip
+\textbf{Goal.}
+Prove that $|T^+| = |T^-| = 1$, i.e.\ $T$ has exactly one positive translate and exactly one negative translate (so $|T|=2$).
+
+\medskip
+\textbf{Hint.}
+Let $T^+ = \{t_1,\ldots,t_k\}$ and $T^- = \{u_1,\ldots,u_m\}$.
+Count the total number of incidences $I = |\{(p,t): t\in T,\; p-t\in S,\; F(p)=0\}|$ in two ways.
+Since equality holds, every point $p$ with $F(p)=0$ that lies in some $S+t$ must be covered by both a positive and a negative translate simultaneously.
+Use the Overlap Bound to show that each pair $(t^+, t^-)$ can contribute at most 2 cancellations.  Then count how many cancellations are needed (every non-lonely point in $\bigcup_{t\in T}(S+t)$ must be canceled) and derive a contradiction unless $k=m=1$.
+\end{document}

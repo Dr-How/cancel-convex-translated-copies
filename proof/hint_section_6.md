@@ -1,26 +1,15 @@
 ## Overall Insight
 
-Once n=4 is established, equality |{p:F(p)≠0}|=4 forces |S∩(S+v)|=2. The task is to show that a convex quadrilateral with two such overlap points must be a parallelogram.
+The right way to attack the equality case is not by trying to collapse to two translates or by using only a coarse L²-count, because those arguments lose too much structure when |T+| and |T−| are both larger than 1. Instead, the key idea is to exploit the full rigidity of equality in the Lonely Points Lemma. Once the exposed-translate assignment is in place, the problem reduces to the Minkowski-sum boundary structure: each edge of P+Q gives an alternating arithmetic chain, and three edge directions make these chains incompatible. Subproblem 5 therefore excludes all polygons with three or more edge directions. This subproblem finishes the classification by showing that the only remaining case is a parallelogram.
 
-### Subproblem 6: A convex quadrilateral with a two-point overlap is a parallelogram
+### Subproblem 6: Classification of the two-direction case
 
-**Statement**: Let S={A,B,C,D}⊂ℝ² be four points in convex position (vertices of a convex quadrilateral) in cyclic order. Let v∈ℝ²\{0}. Suppose |S∩(S+v)|=2. Prove S is a parallelogram (i.e., A+C=B+D, equivalently the diagonals bisect each other).
+**Statement**: Let S⊂ℝ² be a finite set of n≥3 points in convex position such that P=conv(S) has exactly two distinct edge-direction classes. Then n=4 and S is the vertex set of a parallelogram.
 
-**Approach**:
-- S∩(S+v)={P,Q} with P≠Q.
-- P∈S and P-v∈S; Q∈S and Q-v∈S.
-- The four points P,Q,P-v,Q-v are all in S={A,B,C,D}, hence (since v≠0, so P≠P-v and Q≠Q-v) they are four distinct elements.
-- So {P,Q,P-v,Q-v}={A,B,C,D}.
-- We have two "chords" in S: the chord P→(P-v) and the chord Q→(Q-v), both with the same vector v. So v = P-(P-v) = Q-(Q-v).
-- In a convex quadrilateral ABCD (cyclic order), two parallel chords of equal length must connect opposite vertices. Specifically: the two chords must be AB and DC (or AD and BC), i.e., they are opposite sides.
-- If the two chords are AB and CD with AB∥CD and |AB|=|CD| and pointing in the same direction, then ABDC or ABCD... check that this gives a parallelogram.
+**Approach**: In a convex polygon, no two adjacent edges are parallel (otherwise consecutive vertices would be collinear and the middle one would not be a vertex of the convex hull). So the edge directions must alternate between the two classes around the boundary. An alternating sequence of two symbols has even length, so n is even and n≥4. The edge vectors a_1,…,a_n satisfy: a_i and a_{i+2} are parallel (same direction class) for all i. Also Σa_i=0 (closed polygon). With two direction classes {[v],[w]}, the edges alternate as v,w,v,w,… (up to scaling). For n=4: two edges in direction v and two in direction w with opposite edges equal (from Σa_i=0). This is exactly a parallelogram. For n≥6: the vector equation Σa_i=0 with alternating directions of two classes forces all same-class edges to have equal length and direction (since the partial sums must close), giving a centrally symmetric polygon. But a centrally symmetric convex polygon with n≥6 vertices and only two edge directions would require vertices to come in antipodal pairs, which is consistent — EXCEPT that convex position forces the vertices to be the actual vertices of the hull, and with only two edge directions the hull has only 4 sides regardless of how many points are listed. So n=4 is forced.
 
-Key claim: in a convex quadrilateral with vertices in cyclic order A,B,C,D, if there is a vector v with v=B-A=C-D (i.e., A+C=B+D... wait, that's not right). Let me redo: v=P-(P-v). If P=B and P-v=A, then v=B-A. If Q=C and Q-v=D, then v=C-D. So B-A=C-D, giving AB∥DC and |AB|=|DC|: this is exactly the condition for a parallelogram (one pair of opposite sides equal and parallel).
-
-Check the other possible assignments (P=B, P-v=C, etc.) and show they either also give a parallelogram or contradict the convex cyclic ordering.
-
-**Difficulty**: medium
+**Difficulty**: easy
 
 ## Integration Sketch
 
-Subproblem 6 completes the proof: after Subproblems 3-5 establish n=4 and reduce to T={t⁺,t⁻} with |S∩(S+v)|=2 (where v=t⁺-t⁻), this subproblem shows S must be a parallelogram. The full proof: SP1→lower bound; SP2→overlap≤2; SP3→exactly 2 translates; SP4→n≤4; SP5→n≠3; SP6→parallelogram.
+Subproblem 1 gives the lower bound |supp(σ)|≥n and shows that equality means the support consists exactly of n lonely, uniquely represented points. Subproblem 2 then assigns to each vertex s_i of S a unique translate t_i exposed on the whole normal cone of s_i. Subproblem 3 upgrades that assignment to a boundary description of P+Q, where Q=conv(T): the support points are precisely the vertices x_i=s_i+t_i, and each edge of P corresponds to a face [t_i,t_{i+1}] of Q. Subproblem 4 shows that every such face is a full arithmetic progression with alternating signs. Subproblem 5 proves that these alternating face-chains cannot exist if P has at least three edge directions, so equality forces P to have only two edge directions. Finally, Subproblem 6 identifies the only convex-position set with exactly two edge directions as a 4-point parallelogram. Hence equality with both signs implies n=4 and S is the vertex set of a parallelogram.

@@ -1,0 +1,13 @@
+No **Critical Errors** found, but under the stated rubric the proof still has the following **Justification Gaps**.
+
+1. **Location:**  
+   > “Since \(\sigma(p)=0\) for every \(p\notin S+T\), the set \(\operatorname{supp}(\sigma)\) is finite.”
+
+   **Description — Justification Gap:**  
+   This conclusion also requires the explicit fact that \(S+T\) is finite because \(S\) and \(T\) are finite. Vanishing outside \(S+T\) alone does not imply finiteness of the support.
+
+2. **Location:**  
+   > “For every \(r\in S\setminus\{s\}\), choose one lonely point \(\ell_r=r+t_r\) (where \(t_r\in T\) is the unique translate making \(r+t_r\) lonely).”
+
+   **Description — Justification Gap:**  
+   As written, this asserts uniqueness of the translate \(t_r\) for each \(r\) at a point where only existence of some lonely point for \(r\) has been established. That uniqueness is exactly what part \((2a)\) is trying to prove. The later counting argument only needs existence, so this is not a critical flaw, but the sentence is circular/unsupported as stated.

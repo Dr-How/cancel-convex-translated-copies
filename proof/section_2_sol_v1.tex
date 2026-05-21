@@ -1,0 +1,96 @@
+There is a small logical point to flag first.
+
+From the excerpt of Subproblem \(1\) that you gave, I can rigorously justify parts \( (2)\) and \( (3)\) once an opposite-sign endpoint pair is chosen. But the hint for part \( (1)\) implicitly uses one extra fact that is **not** stated in your excerpt, namely that every translate \(t\in T\) actually occurs as some \(t_s\) (equivalently: every translate contributes at least one of the lonely points). Likewise, the “without loss of generality” in part \( (2)\) implicitly assumes that the chosen pair \((s_a,s_b)\) is an exposed pair of \(\operatorname{conv}(S)\). Under those intended extra facts, the proof is short and complete. I will write it that way. I also use the ambient hypothesis from the usual lonely-point-lemma setup that \(S\subset\mathbb{R}^2\) is in strictly convex position, so every point of \(S\) is a vertex of \(\operatorname{conv}(S)\). ([num.math.uni-goettingen.de](https://num.math.uni-goettingen.de/~hchen/documents/Balancing.pdf))
+
+Let
+\[
+P:=\operatorname{conv}(S).
+\]
+
+## \( (1)\) Opposite signs occur among the lonely points
+
+Assume, for contradiction, that all lonely-point values have the same sign.
+
+If they are all \(+1\), then for every \(s\in S\),
+\[
+F(\ell_s)=\varepsilon(t_s)=+1.
+\]
+Under the intended equality-case fact that every translate \(t\in T\) is equal to some \(t_s\), it follows that
+\[
+\varepsilon(t)=+1\qquad\text{for all }t\in T,
+\]
+contradicting the hypothesis that \(\varepsilon\) also attains the value \(-1\).
+
+The case where all \(F(\ell_s)=-1\) is identical.
+
+Hence the lonely-point signs are not all the same. Therefore there exist
+\[
+s_a,s_b\in S
+\]
+such that
+\[
+F(\ell_{s_a})=+1,\qquad F(\ell_{s_b})=-1.
+\]
+
+## \( (2)\) Boundary-chain decomposition
+
+Now choose the pair \((s_a,s_b)\) as in the statement, and use the intended “without loss of generality” step: choose affine coordinates so that
+\[
+x(s_a)<x(s)<x(s_b)\qquad\text{for every }s\in S\setminus\{s_a,s_b\}.
+\]
+Thus \(s_a\) is the unique leftmost vertex of \(P\), and \(s_b\) is the unique rightmost vertex of \(P\).
+
+Remove the two endpoints \(s_a,s_b\) from the boundary \(\partial P\). Since \(P\) is a convex polygon with at least \(3\) vertices, \(\partial P\setminus\{s_a,s_b\}\) has exactly two connected components. Adding the endpoints back gives two polygonal chains from \(s_a\) to \(s_b\); call them \(U\) and \(L\).
+
+### Strict \(x\)-monotonicity
+Fix \(c\in\mathbb{R}\). The vertical line \(x=c\) intersects the convex polygon \(P\) in either the empty set or a line segment. Therefore each of the two boundary chains can meet that line in at most one point. Hence each chain is \(x\)-monotone.
+
+Because the \(x\)-direction was chosen generic, no two vertices of \(S\) have the same \(x\)-coordinate. So the monotonicity is actually strict: along either chain, the \(x\)-coordinate strictly increases from \(s_a\) to \(s_b\).
+
+### Convex-arc property
+Each chain is a connected subarc of the boundary of the convex polygon \(P\). Therefore each is a convex polygonal arc from \(s_a\) to \(s_b\).
+
+### Counting vertices
+The vertex sets of \(U\) and \(L\) cover all of \(S\), and they intersect exactly in the two endpoints:
+\[
+U\cup L=S,\qquad U\cap L=\{s_a,s_b\}.
+\]
+Hence
+\[
+|U|+|L|
+=|U\cup L|+|U\cap L|
+=|S|+2
+=n+2.
+\]
+
+This proves part \( (2)\).
+
+## \( (3)\) Each chain contains both signs
+
+By construction, both chains \(U\) and \(L\) contain the endpoints \(s_a\) and \(s_b\). Their signs are
+\[
+\varepsilon(t_{s_a})=F(\ell_{s_a})=+1,\qquad
+\varepsilon(t_{s_b})=F(\ell_{s_b})=-1.
+\]
+Therefore on each chain, the sign assignment
+\[
+s\longmapsto \varepsilon(t_s)
+\]
+takes both values \(+1\) and \(-1\). In particular, it is not constant on either chain.
+
+So part \( (3)\) follows immediately.
+
+---
+
+### Conclusion
+Under the two implicit assumptions used by the hint,
+
+1. every \(t\in T\) occurs as some \(t_s\), and  
+2. the chosen pair \((s_a,s_b)\) is taken to be an exposed pair of \(P=\operatorname{conv}(S)\),
+
+the three assertions follow exactly as above.
+
+If you want, I can also help with one of two next steps:
+
+- rewriting this into a polished theorem-proof style suitable for your writeup, or
+- isolating exactly what additional lemma is needed to make part \( (1)\) completely rigorous from the equality case alone.

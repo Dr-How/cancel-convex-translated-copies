@@ -1,0 +1,68 @@
+**Proof.** Fix \(i\). For each \(u\in C_i\), let
+\[
+M(u):=\left\{t\in T:\; u\cdot t=\max_{r\in T} u\cdot r\right\}.
+\]
+Since \(T\) is finite, \(M(u)\neq\varnothing\). Also, by the definition of \(C_i\), the vertex \(s_i\) is the unique maximizer of \(u\cdot(\cdot)\) on \(S\).
+
+We first prove the key claim:
+
+> If \(u\in C_i\) and \(t\in M(u)\), then \(s_i+t\) is a lonely point.
+
+Indeed, suppose
+\[
+s_i+t=s_j+t'
+\]
+for some \(s_j\in S\) and \(t'\in T\). Since \(t\in M(u)\), we have
+\[
+u\cdot t' \le u\cdot t.
+\]
+If \(j\neq i\), then \(u\in C_i\) implies
+\[
+u\cdot s_j<u\cdot s_i.
+\]
+Therefore
+\[
+u\cdot(s_j+t')
+\le u\cdot s_j+u\cdot t
+< u\cdot s_i+u\cdot t
+= u\cdot(s_i+t),
+\]
+which contradicts \(s_i+t=s_j+t'\). Hence \(j=i\). Then
+\[
+s_i+t'=s_i+t,
+\]
+so \(t'=t\). Thus \(s_i+t\) has exactly one representation as \(s+t\) with \(s\in S\) and \(t\in T\), i.e. it is lonely.
+
+Now let
+\[
+\ell_{s_i}=s_i+t_{s_i}
+\]
+be the unique lonely point associated to \(s_i\) given by Subproblem 1. By the claim, every \(t\in M(u)\) produces a lonely point \(s_i+t\). Since \(s_i\) has only one lonely point, we must have
+\[
+s_i+t=\ell_{s_i}=s_i+t_{s_i},
+\]
+and hence
+\[
+t=t_{s_i}.
+\]
+
+So every element of \(M(u)\) is equal to \(t_{s_i}\). Because \(M(u)\neq\varnothing\), it follows that
+\[
+M(u)=\{t_{s_i}\}
+\qquad\text{for every }u\in C_i.
+\]
+
+Therefore the maximizing translate is independent of \(u\in C_i\). If we define
+\[
+t_i:=t_{s_i},
+\]
+then for every \(u\in C_i\),
+\[
+\operatorname*{arg\,max}_{t\in T} u\cdot t=\{t_i\}.
+\]
+Equivalently, \(t_i\) is the unique maximizer of \(u\cdot(\cdot)\) on \(T\) for every \(u\in C_i\). Moreover,
+\[
+\ell_{s_i}=s_i+t_i.
+\]
+
+This is exactly the desired statement. \(\square\)

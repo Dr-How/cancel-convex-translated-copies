@@ -1,0 +1,161 @@
+\begin{proof}
+Let
+\[
+P:=\operatorname{conv}(S)
+\qquad\text{and}\qquad
+Q:=\operatorname{conv}(T).
+\]
+Write the chosen chain in boundary order as
+\[
+C=(v_1,v_2,\dots,v_m),
+\]
+and assume that \(m\ge 4\).
+
+By Subproblem~2, \(C\) has an \emph{interior} sign change. Hence there exists an index
+\[
+i\in\{2,\dots,m-2\}
+\]
+such that
+\[
+\varepsilon(t_{v_i})\neq \varepsilon(t_{v_{i+1}}).
+\]
+In particular,
+\[
+t_{v_i}\neq t_{v_{i+1}}.
+\]
+
+We shall use the standard exposed-face description of Minkowski sums: for every outer normal \(u\),
+\[
+F_{P+Q}(u)=F_P(u)+F_Q(u),
+\]
+and therefore
+\[
+N_{P+Q}(F+G)=N_P(F)\cap N_Q(G).
+\]
+Equivalently, the normal fan \(\mathcal N(P+Q)\) is the common refinement of \(\mathcal N(P)\) and \(\mathcal N(Q)\), and every vertex of \(P+Q\) decomposes uniquely as a sum of a vertex of \(P\) and a vertex of \(Q\). ([cccg.ca](https://www.cccg.ca/proceedings/2005/44.pdf))
+
+Choose generic directions
+\[
+u_i\in \operatorname{relint}N_P(v_i),
+\qquad
+u_{i+1}\in \operatorname{relint}N_P(v_{i+1}).
+\]
+Then
+\[
+F_P(u_i)=\{v_i\},
+\qquad
+F_P(u_{i+1})=\{v_{i+1}\}.
+\]
+Hence
+\[
+F_{P+Q}(u_i)=\{v_i+q_i\},
+\qquad
+F_{P+Q}(u_{i+1})=\{v_{i+1}+q_{i+1}\}
+\]
+for some vertices \(q_i,q_{i+1}\) of \(Q\). By Subproblem~1, item~\(6\), these two vertices of \(P+Q\) belong to \(\operatorname{supp}(F)\), so by the equality-case assumptions they are lonely points. Since
+\[
+v_i+q_i\in v_i+T
+\qquad\text{and}\qquad
+v_{i+1}+q_{i+1}\in v_{i+1}+T,
+\]
+the uniqueness of the lonely point attached to a given \(s\in S\) yields
+\[
+v_i+q_i=\ell_{v_i}=v_i+t_{v_i},
+\qquad
+v_{i+1}+q_{i+1}=\ell_{v_{i+1}}=v_{i+1}+t_{v_{i+1}}.
+\]
+Therefore
+\[
+q_i=t_{v_i},
+\qquad
+q_{i+1}=t_{v_{i+1}}.
+\]
+
+Now let \(I\) be the open arc of outer normal directions swept when one moves from \(u_i\) to \(u_{i+1}\) along the chain \(C\). By the monotone normal-sweep statement from the hint, because
+\[
+t_{v_i}\neq t_{v_{i+1}},
+\]
+the exposed vertex of \(Q\) changes at some direction
+\[
+\eta\in I.
+\]
+Thus the restriction of \(\mathcal N(Q)\) to \(I\) has an interior wall. Since \(\mathcal N(P+Q)\) is the common refinement of \(\mathcal N(P)\) and \(\mathcal N(Q)\), the restriction of \(\mathcal N(P+Q)\) to \(I\) is a \emph{strict} refinement of the restriction of \(\mathcal N(P)\) to \(I\). ([cccg.ca](https://www.cccg.ca/proceedings/2005/44.pdf))
+
+For a polygon, maximal cones of the normal fan correspond, in cyclic order, to boundary vertices. Hence the boundary arc of \(P+Q\) corresponding to \(I\) contains at least one vertex
+\[
+w
+\]
+strictly between the endpoint vertices
+\[
+\ell_{v_i}=v_i+t_{v_i}
+\qquad\text{and}\qquad
+\ell_{v_{i+1}}=v_{i+1}+t_{v_{i+1}}.
+\]
+
+Again by Subproblem~1, item~\(6\),
+\[
+w\in \operatorname{supp}(F).
+\]
+We claim that \(w\) is \emph{not} one of the \(n\) lonely points \(\{\ell_s:s\in S\}\).
+
+Indeed, by the unique-decomposition statement above, there are unique vertices \(p\) of \(P\) and \(q\) of \(Q\) such that
+\[
+w=p+q.
+\]
+Because the normal cone of \(w\) lies on the boundary arc between the two consecutive chain vertices \(v_i\) and \(v_{i+1}\), the only possible \(P\)-vertices are
+\[
+p\in\{v_i,v_{i+1}\}.
+\]
+Since \(w\) is strictly between the endpoints of that arc, it is not equal to
+\[
+\ell_{v_i}=v_i+t_{v_i}
+\quad\text{or}\quad
+\ell_{v_{i+1}}=v_{i+1}+t_{v_{i+1}},
+\]
+so necessarily
+\[
+q\neq t_p.
+\]
+
+Suppose, for contradiction, that
+\[
+w=\ell_s=s+t_s
+\]
+for some \(s\in S\). Because every surviving point is lonely, there is exactly one translate \(S+t\) containing \(w\). But
+\[
+w=p+q\in S+q,
+\]
+so that unique translate must be \(S+q\). Hence
+\[
+t_s=q.
+\]
+Then
+\[
+s=w-q=p,
+\]
+and therefore
+\[
+w=\ell_p=p+t_p,
+\]
+contradicting \(q=t_s\neq t_p\). This proves that
+\[
+w\notin \{\ell_s:s\in S\}.
+\]
+
+Thus \(w\) is an additional surviving point beyond the \(n\) lonely points, so
+\[
+|\{x:F(x)\neq 0\}|\ge n+1,
+\]
+contrary to the equality-case assumption. Therefore no boundary chain can have \(m\ge 4\).
+
+Applying this to both chains gives
+\[
+|U|\le 3
+\qquad\text{and}\qquad
+|L|\le 3.
+\]
+Since \(U\) and \(L\) share exactly their two endpoints,
+\[
+n=|U|+|L|-2\le 3+3-2=4.
+\]
+\end{proof}

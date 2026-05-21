@@ -1,0 +1,66 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:** Lemma \(\ref{lem:n3m}\), in the \(m=0\) case:
+   > “For any direction \(u\), \(t_0\) is the unique maximiser of \(\langle\cdot,u\rangle\) over \(T\) (since \(u\) lies in the interior of some \(\mathcal N(s_i)\)...)... forcing \(t'=t_0\).”
+   
+   **Description — Critical Error:**  
+   This is false as written. A direction on the boundary between two normal cones does **not** lie in the interior of any \(\mathcal N(s_i)\). The proof never justifies why uniqueness on interior cone directions implies uniqueness for **every** direction, nor why that forces \(T=\{t_0\}\). So the exclusion of \(m=0\) is not proved.
+
+2. **Location:** Lemma \(\ref{lem:betamin}\), Step 2:
+   > “Apply \eqref{eq:s3} with \(t\) replaced by \(t^*-a_2\)...”
+   
+   **Description — Justification Gap:**  
+   Equation \(\eqref{eq:s3}\) was introduced only for \(t\in T\) with \(t\ne t_3\). But here the proof immediately uses that \(t^*-a_2\notin T\) (because it has height below \(\beta_{\min}\)). To use the identity at \(t^*-a_2\), the argument needed to re-derive it from \(\sigma(s_3+(t^*-a_2))=0\); that re-derivation is omitted.
+
+3. **Location:** Section 2, “Setup: bottom-edge basis”:
+   > “define the height function \(\beta(v):=\) coefficient of \(a_2\) when writing \(v-t_1=\alpha a_1+\beta a_2\)... With this choice: \(\beta(s_1)=\beta(s_2)=0\), and \(\beta(s_j)>0\) for all \(j\ge 3\)...”
+   
+   **Description — Critical Error:**  
+   The height function is defined as an **affine** coordinate centered at \(t_1\), but the rest of the proof treats \(\beta\) as a **linear** functional on vectors and point differences. Statements like \(\beta(s_1)=\beta(s_2)=0\), \(\beta(s_4)=1+\mu\), and later formulas such as
+   \[
+   \beta\bigl(t'+(s_2-s_j)\bigr)=\beta(t')-\beta(s_j)
+   \]
+   do not follow from the stated definition. This breaks the height computations throughout Sections 2–3. Also, the stated reason “otherwise \(s_1,s_2,s_j\) would be collinear” would at most rule out \(\beta(s_j)=0\), not \(\beta(s_j)<0\).
+
+4. **Location:** Lemma \(\ref{lem:mi1}\):
+   > “If \(t_k=t_j\) for all \(k\): \(T=\{t_j\}\)... Otherwise some \(t_k\ne t_l\), but then \(t_k\) must strictly dominate \(t_l\) in the direction \(u_k\), and by coverage this holds in every direction, again forcing \(T=\{t_k\}\)...”
+   
+   **Description — Critical Error:**  
+   This argument is invalid. Even if all exposed translates \(t_i\) coincide, it does **not** follow that \(T\) has only one element; \(T\) may contain other, non-exposed translates. More generally, from “\(t_k\) beats \(t_l\) in direction \(u_k\)” one cannot conclude a single translate dominates in **every** direction. The proof silently assumes every element of \(T\) must be exposed in some normal direction, which is not established and is false in general (interior chain points need not be exposed). Therefore Lemma \(\ref{lem:mi1}\) is not proved.
+
+5. **Location:** Lemma \(\ref{lem:cross}\):
+   > “Let \(x^*:=s_1+t_3\). Then \(x^*\notin\{x_j\}\), and
+   > \[
+   > \sigma(x^*)=2\varepsilon_3+\sigma_T(t_1+a_2)+\sigma_T(t_1-a_3)=0.
+   > \]”
+   and in the proof:
+   > “This is the general-\(m_i\) formula. Let us now specialize. **Case B: \(m_1=m_2=m_3=m_4=1\)**...”
+   
+   **Description — Critical Error:**  
+   The lemma is stated for general \(n=4\), but the proof only establishes the displayed identity in the special case \(m_1=m_2=m_3=m_4=1\). The general case is never proved. Later arguments in Case A explicitly rely on this “general formula,” so those arguments rest on an unproved lemma.
+
+6. **Location:** Proposition \(\ref{prop:n4B}\), subcase \(-1<\mu<0\):
+   > “Claim: \(\beta(t')\le 1\) for all \(t'\in T\), with unique maximum at \(t_3\)... by induction on height... Similarly, \(t_3\) is the unique element with \(\beta=1\) by the argument in Lemma~\ref{lem:betamax} applied here.”
+   
+   **Description — Justification Gap:**  
+   The “induction on height” is not set up: no base case is given, and the argument only gestures at an infinite-ascending-chain contradiction. The uniqueness of \(t_3\) at height \(1\) is also merely asserted by analogy with the triangle lemma, without checking that the triangle proof applies to the four-term equation here. This subcase is therefore incomplete.
+
+7. **Location:** Case A for \(n=4\), subcase \(\mu>0\):
+   > “With \(t_4\) as the target, the staircase from \(t^*\) reaches \(t_4\) after finitely many steps... for \(0<\mu<1\) a modified argument using the \(s_4\)-equation applies at each step... The sign at \(t_4\) from the staircase is \((-\varepsilon)(-1)^{\beta(t_4)}=(-\varepsilon)(-1)^{m_2+m_3\mu}\)... We omit the full case analysis here...”
+   
+   **Description — Critical Error:**  
+   This is not a proof. The “modified argument” is omitted, the staircase to \(t_4\) is never established, and the claimed sign formula is invalid: \(m_2+m_3\mu\) need not be an integer, so \((-1)^{m_2+m_3\mu}\) is not even meaningful. The decisive contradiction is explicitly omitted.
+
+8. **Location:** Case A for \(n=4\), subcases \(\mu=0\) and \(-1<\mu<0\):
+   > “the cross-point computation at \(x^*=s_1+t_3\) gives (using the general formula from Lemma~\ref{lem:cross}...) a sum that cannot be zero... both \(t_3\) and \(t_3-(a_1+a_2)\) are interior to their face chains with equal signs... (Full details: ...)”
+   
+   **Description — Critical Error:**  
+   This argument depends on the unproved general version of Lemma \(\ref{lem:cross}\), and it also asserts without proof that \(t_3-(a_1+a_2)\in T\) and has the same sign as \(t_3\). The “full details” are not given. So these subcases are unsupported.
+
+9. **Location:** Section 3, “Reduction for \(n\ge 5\)”:
+   > “For \(t\) with \(\beta\) near the minimum (specifically \(0\le\beta(t)<\mu\)), the terms \(j\ge 4\) all have \(\beta<0\)... This reduces the equation to three terms—exactly the \(n=3\) structure—and the staircase argument ... applies verbatim.”
+   
+   **Description — Critical Error:**  
+   This section is hand-wavy and incomplete. The parameter \(\mu\) is not properly defined here, the claim that all \(j\ge4\) terms have negative height is not proved, and no analogue of the triangle terminal-point argument is established for \(n\ge5\). Saying the triangle argument “applies verbatim” is not a justification.
+
+Because of these issues—especially the broken height setup, the invalid proof of Lemma \(\ref{lem:mi1}\), the unproved general cross-point lemma, and the omitted case analyses—the solution does **not** verify the statement.

@@ -1,0 +1,288 @@
+I checked whether there was a standard polytope lemma that would make this shorter; for context, Gao notes that in Grünbaum’s sense every plane polygon with more than three edges is homothetically decomposable, but I will not use that here. ([math.clemson.edu](https://www.math.clemson.edu/~sgao/papers/polytope_irr.pdf))
+
+Here is a complete proof.
+
+Let the indices be read modulo \(n\).  
+Write
+\[
+p_i:=s_i+t_i \qquad (1\le i\le n).
+\]
+These are the \(n\) lonely points coming from Subproblems \(1\)–\(4\). Since
+\[
+\bigl|\{p:\sigma(p)\neq 0\}\bigr|=n,
+\]
+they are in fact **all** the points with nonzero \(\sigma\).
+
+Also, as noted in the hint, going once around the boundary gives
+\[
+\sigma(t_{i+1})=(-1)^{m_i}\sigma(t_i),
+\]
+hence
+\[
+(-1)^{m_1+\cdots+m_n}=1,
+\]
+so \(\sum_i m_i\) is even. I record this, although the contradiction below will come from a more local argument.
+
+## Step \(1\): choose a minimal ear
+
+For each \(i\), define
+\[
+a_i=s_{i+1}-s_i,
+\]
+\[
+\Delta_i:=\operatorname{conv}(s_{i-1},s_i,s_{i+1}),
+\]
+and
+\[
+r_i:=s_i+a_i-a_{i-1}=s_{i-1}+s_{i+1}-s_i.
+\]
+Let
+\[
+K_i:=s_i+[0,1]a_i+[0,1](-a_{i-1})
+=\operatorname{conv}(s_{i-1},s_i,s_{i+1},r_i).
+\]
+Thus \(K_i\) is the parallelogram built on the two edges of \(P\) adjacent to \(s_i\).
+
+Choose \(i\) so that \(\operatorname{area}(\Delta_i)\) is minimal.
+
+### Claim
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+
+### Proof of the claim
+Assume not. Then some vertex of \(P\) distinct from \(s_{i-1},s_i,s_{i+1}\) lies in \(K_i\).
+
+Apply an affine map sending
+\[
+s_i\mapsto (0,0),\qquad s_{i+1}\mapsto (1,0),\qquad s_{i-1}\mapsto (0,1).
+\]
+In these coordinates,
+\[
+K_i=[0,1]^2,
+\]
+\[
+\Delta_i=\{(x,y):x\ge 0,\ y\ge 0,\ x+y\le 1\},
+\]
+and the complementary triangle in \(K_i\) is
+\[
+T_i:=\operatorname{conv}\bigl((1,0),(1,1),(0,1)\bigr).
+\]
+
+Because \(P\) is convex, the boundary arc of \(P\) from \(s_{i+1}\) to \(s_{i-1}\) not containing \(s_i\) is a convex chain; its intersection with the convex triangle \(T_i\) is therefore a connected subchain. Since we assumed there is another vertex of \(P\) in \(K_i\), and no other vertex can lie in \(\Delta_i\), this subchain contains an interior vertex \(v\) of \(P\). Let \(u\) and \(w\) be its two neighbors on \(P\). Then
+\[
+u,v,w\in T_i.
+\]
+Hence the ear triangle at \(v\),
+\[
+\operatorname{conv}(u,v,w),
+\]
+is contained in \(T_i\). Therefore
+\[
+\operatorname{area}\bigl(\operatorname{conv}(u,v,w)\bigr)
+\le \operatorname{area}(T_i)
+= \operatorname{area}(\Delta_i).
+\]
+
+If equality held, then \(\operatorname{conv}(u,v,w)=T_i\), so
+\[
+\{u,v,w\}=\{s_{i+1},r_i,s_{i-1}\}.
+\]
+That forces the opposite boundary arc from \(s_{i+1}\) to \(s_{i-1}\) to consist only of \(s_{i+1},r_i,s_{i-1}\). Thus
+\[
+P=\operatorname{conv}(s_{i-1},s_i,s_{i+1},r_i),
+\]
+which is a parallelogram. But \(P\) has at least three edge-direction classes, so \(P\) is not a parallelogram.
+
+So in fact
+\[
+\operatorname{area}\bigl(\operatorname{conv}(u,v,w)\bigr)
+< \operatorname{area}(\Delta_i),
+\]
+contradicting the minimal choice of \(i\).
+
+This proves the claim.
+
+---
+
+## Step \(2\): build an extra noncanceling point
+
+By the Subproblem \(4\) structure, the \(t_i\) are consecutive vertices of \(Q:=\operatorname{conv}(T)\), and
+\[
+t_{i+1}=t_i+m_i a_i
+\]
+with \(m_i\ge 1\). Hence
+\[
+t_i-a_{i-1}\in F_{i-1},\qquad t_i+a_i\in F_i.
+\]
+Set
+\[
+u:=t_i-a_{i-1},\qquad v:=t_i+a_i.
+\]
+Since signs alternate along each arithmetic progression,
+\[
+\sigma(u)=\sigma(v)=-\sigma(t_i).
+\]
+
+Now define
+\[
+q:=s_{i+1}+u=s_{i-1}+v=t_i+r_i.
+\]
+
+I will show that \(\sigma(q)\neq 0\), and that \(q\) is not one of the lonely points \(p_1,\dots,p_n\). This will contradict extremality.
+
+### Which representations can \(q\) have?
+
+Suppose
+\[
+q=s_j+t
+\qquad\text{for some }t\in T.
+\]
+Since \(t_i\) is a vertex of \(Q\), and the two edges of \(Q\) through \(t_i\) have directions \(a_i\) and \(-a_{i-1}\), convexity gives
+\[
+Q\subset t_i+\operatorname{cone}(a_i,-a_{i-1}).
+\]
+Therefore
+\[
+t-t_i=r_i-s_j\in \operatorname{cone}(a_i,-a_{i-1}).
+\]
+
+On the other hand, because \(P\subset s_i+\operatorname{cone}(a_i,-a_{i-1})\), we may write uniquely
+\[
+s_j=s_i+\alpha a_i-\beta a_{i-1}
+\qquad (\alpha,\beta\ge 0).
+\]
+Then
+\[
+r_i-s_j=(1-\alpha)a_i-(1-\beta)a_{i-1}.
+\]
+This belongs to \(\operatorname{cone}(a_i,-a_{i-1})\) iff
+\[
+0\le \alpha\le 1,\qquad 0\le \beta\le 1,
+\]
+i.e. iff \(s_j\in K_i\).
+
+By Step \(1\),
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+So any representation of \(q\) must use one of the three vertices
+\[
+s_{i-1},\ s_i,\ s_{i+1}.
+\]
+
+Thus the only possible contributions to \(\sigma(q)\) are:
+
+- from
+  \[
+  q=s_{i-1}+v,
+  \]
+  contributing \(\sigma(v)=-\sigma(t_i)\);
+
+- from
+  \[
+  q=s_{i+1}+u,
+  \]
+  contributing \(\sigma(u)=-\sigma(t_i)\);
+
+- possibly from
+  \[
+  q=s_i+w,
+  \qquad
+  w:=t_i+a_i-a_{i-1},
+  \]
+  if \(w\in T\), contributing \(\sigma(w)\in\{+1,-1\}\).
+
+Therefore
+\[
+\sigma(q)= -2\sigma(t_i)
+\quad\text{or}\quad
+\sigma(q)= -2\sigma(t_i)+\sigma(w).
+\]
+Either way,
+\[
+\sigma(q)\neq 0.
+\]
+
+---
+
+## Step \(3\): \(q\) is not one of the \(n\) lonely points
+
+Assume
+\[
+q=p_k=s_k+t_k
+\]
+for some \(k\). Then \(q=s_k+t_k\) is a representation of the form treated above, so \(s_k\in K_i\). Hence
+\[
+k\in\{i-1,i,i+1\}.
+\]
+
+But each possibility is impossible:
+
+- If \(k=i\), then
+  \[
+  t_i=t_i+a_i-a_{i-1},
+  \]
+  absurd.
+
+- If \(k=i-1\), then
+  \[
+  t_{i-1}=t_i+a_i.
+  \]
+  Yet also
+  \[
+  t_i=t_{i-1}+m_{i-1}a_{i-1},
+  \]
+  so
+  \[
+  t_{i-1}=t_i-m_{i-1}a_{i-1}.
+  \]
+  Since \(a_i\) and \(a_{i-1}\) are nonparallel adjacent edge vectors, this is impossible.
+
+- If \(k=i+1\), similarly
+  \[
+  t_{i+1}=t_i-a_{i-1}
+  \]
+  contradicts
+  \[
+  t_{i+1}=t_i+m_i a_i.
+  \]
+
+So
+\[
+q\notin\{p_1,\dots,p_n\}.
+\]
+
+But we have proved
+\[
+\sigma(q)\neq 0.
+\]
+Thus there is a nonzero point outside the \(n\) lonely points, contradicting
+\[
+\bigl|\{p:\sigma(p)\neq 0\}\bigr|=n.
+\]
+
+This contradiction proves the statement.
+
+## Conclusion
+
+If \(P=\operatorname{conv}(S)\) has at least three edge-direction classes, then the extremal equality
+\[
+\bigl|\{p:\sigma(p)\neq 0\}\bigr|=n
+\]
+is impossible.
+
+Hence:
+
+- every triangle is impossible;
+- every convex \(n\)-gon with \(n\ge 5\) is impossible;
+- every non-parallelogram convex quadrilateral is impossible.
+
+Therefore the only surviving case is
+\[
+n=4
+\quad\text{and}\quad
+P\text{ is a parallelogram.}
+\]
+
+If you want, I can also write this up in a shorter “paper style” proof with the two claims compressed into a single argument.

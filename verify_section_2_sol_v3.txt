@@ -1,0 +1,12 @@
+The solution is **not correct**.
+
+## Bug report
+
+| Location | Description |
+|---|---|
+| “From the equality case in Subproblem \(1\), we may use: … **and every translate \(t\in T\) occurs as \(t=t_s\) for some \(s\in S\)**.” and later “But every \(t\in T\) is equal to \(t_s\) for some \(s\)…” | **Justification Gap.** This additional fact is essential to the proof of part (1), but it is not stated among the equality-case consequences provided in the problem text. The argument that all \(\varepsilon(t)\) must have the same sign is therefore unsupported from the given setup. |
+| “So the geometric part of the argument needs the following extra input: **Exposed opposite-sign pair lemma**.” / “So I now prove \((2)\) and \((3)\) **from this precise missing lemma**…” / “Assume \(s_a,s_b\) and \(\phi\) satisfy…” | **Critical Error.** Parts (2) and (3) are proved only after introducing a new lemma that is neither proved in the solution nor included in the stated hypotheses. This changes the assumptions. A conditional argument from stronger assumptions does not prove the original statement. |
+| “If the full surrounding context does **not** provide that exposed-pair lemma, then item \((2)\) needs a slight restatement; it does not follow from the displayed hypotheses alone.” | **Critical Error.** This explicitly concedes that the displayed hypotheses may be insufficient for the claimed result. So the solution does not actually establish the problem’s statement as written. |
+| “Hence both \(U\) and \(L\) are strictly \(x\)-monotone polygonal arcs from \(s_a\) to \(s_b\)… This proves \((2)\).” | **Justification Gap.** Part (2) requires \(U\) and \(L\) to be **convex arcs**. The proof argues strict \(x\)-monotonicity, but it does not explicitly justify the convexity of the two chains. |
+
+Because there is a **Critical Error**, the solution is **not valid**.

@@ -1,0 +1,44 @@
+The solution is **not correct**.  
+Bug report:
+
+1. **Location:** “Since the \(p_i\) are distinct (the \(s_i\) are distinct and the \(t_i\) come from disjoint normal cones) and \(|\mathrm{supp}(\tilde\sigma)|=n\): \(\mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}\).”  
+   **Classification:** Justification Gap  
+   **Description:** The stated reason does **not** imply the sums \(t_i+s_i\) are distinct. Distinctness of the \(s_i\) and of the normal cones does not rule out \(t_i+s_i=t_j+s_j\). Since the equality \(\mathrm{supp}(\tilde\sigma)=\{p_i\}\) is used throughout, this step is not fully justified as written.
+
+2. **Location:** “If \(m=0\): \(t_1=t_2=t_3\), so \(T\subseteq\{t_1\}\), contradicting both signs present.”  
+   **Classification:** Critical Error  
+   **Description:** From \(m_1=m_2=m_3=0\), one only gets \(t_1=t_2=t_3\) and \(F_i=\{t_1\}\). The proof gives no reason that \(T\) has no other points outside these chains. Thus \(T\subseteq\{t_1\}\) does not follow, and the deduction \(m\ge 1\) is invalid.
+
+3. **Location:** “choose any three edges from distinct classes; by cyclic relabeling we may take them to include edges \(1,2,3\)”  
+   **Classification:** Justification Gap  
+   **Description:** Cyclic relabeling only rotates the edge sequence. No argument is given that three distinct direction classes can always be arranged as the consecutive edges \(a_1,a_2,a_3\). The later height construction uses \(s_3=a_1+a_2\), so this missing step matters.
+
+4. **Location:** In Lemma betamin: “The outward normal to edge \(a_1\) at \(s_1\) is \(-v\) ... By (F1), \(t_1\) is the unique maximiser of \(\langle\cdot,-v\rangle=-\beta(\cdot)\) over \(T\).”  
+   **Classification:** Critical Error  
+   **Description:** (F1) concerns the translate associated to the **vertex normal cone**. The vector \(-v\) is only shown to be an outward normal of the **edge** \([s_1,s_2]\), not a direction that uniquely exposes the vertex \(s_1\). In fact, if \(m_1>0\), then \(t_2=t_1+m_1a_1\) and \(\beta(t_2)=\beta(t_1)\), so \(t_1\) cannot be a unique minimizer of \(\beta\). Lemma betamin is therefore obtained by misapplying (F1), and everything depending on \(h(t)\ge 0\) is unsupported.
+
+5. **Location:** “The closure \eqref{eq:closure} then reduces to \(m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0\), i.e.\ \(\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0\), forcing all \(m_i=0\).”  
+   **Classification:** Critical Error  
+   **Description:** From \(a_i\in\mathbb{R}a_1\), one only gets \(a_i=\lambda_i a_1\) for some scalars \(\lambda_i\), not \(a_i=a_1\). So the closure relation becomes \((m_1+\sum \lambda_i m_i)a_1=0\), not \((\sum m_i)a_1=0\). The claimed contradiction does not follow. This leaves unproved the existence of any element of \(T\) with \(h>0\).
+
+6. **Location:** “For each \(j\) with \(c_j=h_0\), write \(t'-s_j=\lambda_j a_1+h_0 v\) ... Then \(t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v\), which lies in \(F_1=\{t_1+ka_1:0\le k\le m_1\}\) iff \((r+\lambda_j)=k\).”  
+   **Classification:** Critical Error  
+   **Description:** This coordinate setup is wrong. Points with \(h=0\) lie on the **affine** line \(t_1+\mathbb{R}a_1\), not on a vector line of the form \(\mathbb{R}a_1+h_0v\). The displayed formula ignores the shift by \(t_1\), and the coefficient of \(v\) is incorrectly identified with the height. As a result, the membership test for \(F_1\), formula \((\ref{eq:Dform})\), and the later bound \(R^*\) are unsupported.
+
+7. **Location:** “Hence for at most \(n\) values of \(R_{\max}\) the point is lonely. We handle these finitely many cases first (Sub-case L below). In the generic case ...” and later in Sub-case L: “choose the next non-lonely step ... apply the same analysis with \(R_{\max}\) replaced by \(R_{\max}+1\) (or the next non-lonely step)”  
+   **Classification:** Critical Error  
+   **Description:** \(R_{\max}\) is a fixed integer determined by \(t'\); it is not a free parameter. Showing loneliness can occur for only finitely many possible values does not justify ignoring the actual case. The later “fix” is also invalid: replacing \(R_{\max}\) by \(R_{\max}+1\) or another index destroys the defining maximality property of \(R_{\max}\). The same unresolved issue also infects the asserted leftward identity \((\ref{eq:Dleft})\), where no check is given that the relevant point is non-lonely.
+
+8. **Location:** In Sub-case B1: “The \(j_0\)-term in \(D(t'+(R_{\max}+2)a_1)\) is ... \(\ne0\). Hence \(\sigma_T(t'+(R_{\max}+2)a_1)=-D(t'+(R_{\max}+2)a_1)\) contains the nonzero summand ... In particular, \(|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1\).”  
+   **Classification:** Critical Error  
+   **Description:** A sum can contain a nonzero summand and still equal \(0\) because of cancellation with other summands. No argument is given that the remaining terms in \(D(t'+(R_{\max}+2)a_1)\) cannot cancel the \(j_0\)-term. Therefore the conclusion \(t'+(R_{\max}+2)a_1\in T\) is invalid.
+
+9. **Location:** In Sub-case B2: “The \(j_0'\)-term in \(D(t'+(R_{\min}-2)a_1)\) is ... \(\ne0\). So \(\sigma_T(t'+(R_{\min}-2)a_1)\ne0\).”  
+   **Classification:** Critical Error  
+   **Description:** This repeats the same invalid inference as in B1. One nonzero summand does not imply the entire \(D\)-sum is nonzero.
+
+10. **Location:** “This forces the \(j\)'s contributing to both D-sums to be the same vertex \(j_0=j_0'\) ...” and later “only \(c_{j_0}=h_0\) by assumption.”  
+    **Classification:** Critical Error  
+    **Description:** Neither claim is established. The fact that \(s_j\) and \(s_{j'}\) lie in the same set \(\{s_j:c_j=h_0\}\) does not imply they are equal, and no uniqueness of the \(c_j=h_0\) index is ever proved. The later computations of \(\tilde\sigma(q^*)\) and \(\tilde\sigma(q^*+a_1)\) suppress possible additional contributors, so the final contradiction in Sub-case B2 is not demonstrated.
+
+Because there are multiple **Critical Errors**, the solution does **not** verify the statement.

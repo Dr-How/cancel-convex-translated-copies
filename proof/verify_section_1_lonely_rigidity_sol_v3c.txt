@@ -1,0 +1,123 @@
+CONSOLIDATED BUG REPORT — PESSIMISTIC MODE
+==========================================
+Solution:  proof/section_1_lonely_rigidity_sol_v3.tex
+Problem:   proof/section_1_lonely_rigidity.tex
+Verdict:   ISSUES_FOUND (all 3 verifier runs flagged gaps)
+
+ISSUE LIST
+----------
+
+[Run 1] Justification Gap — "f(lambda) has a minimum at lambda=0. Hence f'(0+) >= 0."
+  The proof invokes the one-sided boundary-minimum principle (a minimum at the left
+  endpoint implies non-negative right derivative) without stating or justifying it.
+  This is the key step used to derive u_s · (y - x_s) <= 0, so the exposure argument
+  is incomplete.
+
+[Run 2] Justification Gap — "The map x -> s - x is continuous (it is a translation)."
+  The justification given is false: x -> s - x is a reflection composed with a
+  translation, NOT a translation. Continuity of the map may still hold, but the
+  stated reason does not support it.
+
+[Run 2] Justification Gap — "f(lambda) = ||s - (x_s + lambda(y - x_s))||^2 has a
+  minimum at lambda=0. Hence f'(0+) >= 0."
+  The proof does not justify (a) why minimising ||s - x|| implies minimising
+  ||s - x||^2, and (b) why a function attaining its minimum at the endpoint lambda=0
+  of [0,1] satisfies f'(0+) >= 0. Both are needed for the exposure argument.
+
+[Run 3] Justification Gap — "s notin conv(S \ {s}) = C_s" and "u_s = s - x_s != 0."
+  The proof jumps from the extreme-point definition (s cannot be written as a convex
+  combination of OTHER points of conv(S)) to the conclusion s notin conv(S \ {s})
+  without explaining why S \ {s} and (conv S) \ {s} yield the same convex hull
+  relationship here. It also asserts u_s != 0 (i.e. x_s != s) without justification,
+  and uses without comment that every s' != s lies in C_s.
+
+[Run 3] Justification Gap — "f'(0+) >= 0" (same location as Runs 1 and 2).
+  The one-sided derivative test at an endpoint is invoked without stating the
+  principle or establishing that the right derivative exists.
+
+SUMMARY OF DISTINCT GAPS (deduplicated)
+-----------------------------------------
+GAP-A  (flagged by Runs 1, 2, 3)  One-sided boundary-minimum principle — minimum at
+       lambda=0 implies f'(0+) >= 0 — is used without justification or citation.
+
+GAP-B  (flagged by Run 2)  The map x -> s - x is incorrectly called a "translation";
+       the stated reason for its continuity is false.
+
+GAP-C  (flagged by Run 2)  Equivalence of minimising ||s - x|| vs ||s - x||^2 is
+       assumed without justification.
+
+GAP-D  (flagged by Run 3)  The step s notin conv(S \ {s}) is asserted without
+       argument bridging the extreme-point definition and the set C_s = conv(S \ {s}).
+       Additionally, u_s != 0 and s' in C_s for all s' != s are used without proof.
+
+Most critical issue: GAP-A — the one-sided derivative inequality f'(0+) >= 0 is the
+  linchpin of the entire exposure argument; without it, the functional u_s is never
+  shown to separate s from C_s.
+
+==========================================================================
+APPENDIX A — Full output of Run 1
+(file: proof/verify_section_1_lonely_rigidity_sol_v3c_run1.txt)
+==========================================================================
+
+The solution is **not fully correct under the stated grading rules**: I found a **Justification Gap**.
+
+1. **Location:**
+   "\(f(\lambda)\) has a minimum at \(\lambda=0\). Hence
+   \[
+   f'(0^+)\ge 0.
+   \]"
+
+   **Description — Justification Gap:**
+   This step uses the calculus fact that if a function on \([0,1]\) attains a minimum at the boundary point \(0\), then its **right derivative** at \(0\) is nonnegative. That theorem is not explicitly stated or justified here. Since this inference is the key step used to derive
+   \[
+   u_s\cdot (y-x_s)\le 0
+   \quad\text{and hence}\quad
+   u_s\cdot y\le u_s\cdot x_s,
+   \]
+   the argument establishing that \(u_s\) exposes \(s\) is incomplete as written.
+
+No Critical Errors were found, but this Justification Gap means the proof does **not** meet the requirement of having zero gaps.
+
+==========================================================================
+APPENDIX B — Full output of Run 2
+(file: proof/verify_section_1_lonely_rigidity_sol_v3c_run2.txt)
+==========================================================================
+
+I found the following issues. No clear **Critical Errors** appeared, but the proof is **not correct as written** because it has **Justification Gaps**.
+
+1. **Location:**
+   "The function \(x\mapsto\|s-x\|\) is continuous: the map \(x\mapsto s-x\) is continuous (**it is a translation**), and the Euclidean norm \(v\mapsto\|v\|\) is continuous, so their composition is continuous."
+
+   **Description — Justification Gap:**
+   The parenthetical justification is false: \(x\mapsto s-x\) is **not** a translation. The continuity claim may still be true, but the stated reason does not justify it.
+
+2. **Location:**
+   "For \(0\le \lambda\le 1\), the point \(x_s+\lambda (y-x_s)\) lies in \(C_s\), so the function
+   \[
+   f(\lambda):=\|s-(x_s+\lambda(y-x_s))\|^2
+   \]
+   has a minimum at \(\lambda=0\). Hence
+   \[
+   f'(0^+)\ge 0.
+   \]"
+
+   **Description — Justification Gap:**
+   This step uses unstated results. The proof does not explicitly justify:
+   - why minimizing \(\|s-x\|\) implies minimizing the **squared** distance \(\|s-x\|^2\), and
+   - why a differentiable function on \([0,1]\) attaining a minimum at the endpoint \(0\) must satisfy \(f'(0^+)\ge 0\).
+
+   Since the exposing-functional argument depends on this inequality, the proof is incomplete as written.
+
+==========================================================================
+APPENDIX C — Full output of Run 3
+(file: proof/verify_section_1_lonely_rigidity_sol_v3c_run3.txt)
+==========================================================================
+
+The solution is **not fully correct under the stated grading standard**. I found **no Critical Errors**, but I did find the following **Justification Gaps**.
+
+| Location | Description |
+|---|---|
+| "An extreme point of a convex set \(K\) cannot be expressed as a convex combination of other points of \(K\); equivalently, \(s\notin \operatorname{conv}(K\setminus\{s\})\). Therefore \(s\notin C_s=\operatorname{conv}(S\setminus\{s\})\)." Also later: "Define \(u_s:=s-x_s\neq 0\)." and "In particular, \(u_s\cdot s>u_s\cdot s'\) for every \(s'\in S,\ s'\neq s\)." | **Justification Gap.** The proof does not explicitly justify the needed set-membership implications involving \(C_s\). It jumps from an extreme-point statement about \(\operatorname{conv}(S)\) to the conclusion \(s\notin \operatorname{conv}(S\setminus\{s\})\) without explanation. It also later uses, without explicit justification, that \(u_s\neq 0\) (which depends on \(x_s\neq s\)) and that each \(s'\neq s\) lies in \(C_s\). |
+| "\(f(\lambda)\) has a minimum at \(\lambda=0\). Hence \(f'(0^+)\ge 0\)." | **Justification Gap.** This uses the one-sided derivative test at an endpoint, but that principle is not explicitly stated, and the existence of the right derivative is not established before invoking it. Under the given rules, that is an incomplete justification. |
+
+So the solution has **Justification Gaps** and therefore does **not** meet the requirement of being fully correct.

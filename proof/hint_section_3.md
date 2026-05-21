@@ -1,32 +1,15 @@
 ## Overall Insight
 
-The key insight for the equality case is **rigidity**: if |{p:σ(p)≠0}|=n, every other incidence cancels perfectly. The crucial geometric bound is that two distinct translates of a convex set can share at most two points. This sharply limits opposite-sign cancellation and is what collapses the general configuration to a two-translate situation.
+The right way to attack the equality case is not by trying to collapse to two translates or by using only a coarse L²-count, because those arguments lose too much structure when |T+| and |T−| are both larger than 1. Instead, the key idea is to exploit the full rigidity of equality in the Lonely Points Lemma. Once that exposed-translate assignment is in place, the problem becomes a boundary-structure problem for the Minkowski sum P+Q, where P=conv(S) and Q=conv(T). Each edge of P+Q reduces to a one-dimensional cancellation problem, forcing the T-points on the corresponding face of Q to form a full alternating arithmetic progression.
 
-### Subproblem 3: Extremal equality forces exactly one positive and one negative translate
+### Subproblem 3: Boundary realization in the Minkowski sum
 
-**Statement**: Let S⊂ℝ² be a finite set of n≥3 points in convex position, let T⊂ℝ² be finite with |T|≥2, let ε:T→{+1,-1} attain both signs, and define F(p)=Σ_{t∈T,p∈S+t} ε(t). Assume |{p∈ℝ²:F(p)≠0}|=n.
+**Statement**: Under the extremal equality, with vertices s_1,…,s_n of P=conv(S) in cyclic order, Q=conv(T), and t_i∈T the unique exposed translate at s_i from SP2: (1) the n points x_i=s_i+t_i are the vertices of P+Q in cyclic order; (2) for each i the face of Q exposed by any outer normal to edge [s_i,s_{i+1}] of P is exactly the segment [t_i,t_{i+1}], and t_{i+1}−t_i is a non-negative scalar multiple of s_{i+1}−s_i (or t_i=t_{i+1}).
 
-The following two facts may be used as given:
-- (Lonely Points Lemma) Each s∈S has a lonely point ℓ_s=s+t_s∈S+T with F(ℓ_s)=ε(t_s)≠0; in the equality case {p:F(p)≠0}={ℓ_s:s∈S}.
-- (Overlap Bound) For any v≠0, |S∩(S+v)|≤2.
+**Approach**: Use support functions: h_{P+Q}(u)=h_P(u)+h_Q(u). A direction u∈C_i exposes s_i on P and t_i on Q (by SP2), hence exposes x_i=s_i+t_i on P+Q. As u moves across the boundary between C_i and C_{i+1} (the outer normal direction to edge [s_i,s_{i+1}]), the exposed face of P transitions from {s_i} to {s_{i+1}} while the exposed face of Q transitions from {t_i} to {t_{i+1}}, sweeping out the segment [t_i,t_{i+1}] at the edge normal. The exposed face of P+Q for the edge normal to [s_i,s_{i+1}] is therefore [s_i,s_{i+1}]+[t_i,t_{i+1}], which is parallel to a_i=s_{i+1}−s_i. Since [t_i,t_{i+1}] is also a face of Q exposed by that normal, it must be parallel to a_i, giving the direction constraint. The x_i are vertices of P+Q because they are exposed by directions in C_i, and distinct since |supp|=n.
 
-Prove: |T⁺|=|T⁻|=1.
-
-**Approach**:
-
-Write T⁺={t₁,...,t_k} and T⁻={u₁,...,u_m}.
-
-Key counting argument:
-1. By the Lonely Points Lemma in the equality case, every point p∈S+T with F(p)=0 must have incidences from BOTH positive and negative translates that cancel. Any point in S+t_i (for some t_i∈T⁺) that is NOT lonely must also lie in some S+u_j (for some u_j∈T⁻) to cancel.
-
-2. The total count of points in ∪_{t∈T}(S+t) is at most n·|T| - (number of overlaps). By the Overlap Bound, each pair (t_i,u_j) contributes at most 2 cancellations.
-
-3. Count total incidences: the sum Σ_p |{t∈T: p-t∈S}|=n|T|. For the support to have size n, we need n|T|-n points to "cancel" (in the sense of not contributing to the support), which requires n(|T|-1) cancellations total. But each pair of translates can create at most 2 cancellations, giving at most 2·|T⁺|·|T⁻| cancellations total. So n(|T|-1) ≤ 2|T⁺|·|T⁻|.
-
-4. Since |T|=|T⁺|+|T⁻|≥2 and n≥3, analyze when this inequality forces |T⁺|=|T⁻|=1.
-
-**Difficulty**: hard
+**Difficulty**: medium
 
 ## Integration Sketch
 
-Subproblem 3 uses the Lonely Points Lemma and Overlap Bound to show T has exactly one positive and one negative translate. After translating, the problem reduces to F=1_S - 1_{S+v}. Subproblem 4 gives |{p:F(p)≠0}|=2n-2|S∩(S+v)|≥2n-4, forcing n≤4. Subproblem 5 excludes n=3, so n=4. Subproblem 6 shows that |S∩(S+v)|=2 for a convex quadrilateral forces a parallelogram.
+Subproblem 1 gives the lower bound |supp(σ)|≥n and shows that equality means the support consists exactly of n lonely, uniquely represented points. Subproblem 2 then assigns to each vertex s_i of S a unique translate t_i exposed on the whole normal cone of s_i. Subproblem 3 upgrades that assignment to a boundary description of P+Q, where Q=conv(T): the support points are precisely the vertices x_i=s_i+t_i, and each edge of P corresponds to a face [t_i,t_{i+1}] of Q. Subproblem 4 shows that every such face is a full arithmetic progression with alternating signs. Subproblem 5 proves that these alternating face-chains cannot exist if P has at least three edge directions, so equality forces P to have only two edge directions. Finally, Subproblem 6 identifies the only convex-position set with exactly two edge directions as a 4-point parallelogram. Hence equality with both signs implies n=4 and S is the vertex set of a parallelogram.

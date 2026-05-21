@@ -1,0 +1,460 @@
+Below is a corrected proof. I keep the geometric core of the previous argument, but I make four changes.
+
+1. I derive the “lonely-point” consequences directly from the stated exposed-translate property.
+2. I replace the global-minimum-ear lemma by a slightly sharper **local-minimum-ear** lemma; this is enough for the empty-parallelogram step and fixes the convex-geometric gaps.
+3. I justify the tangent-cone containments explicitly.
+4. I isolate the only place where one needs \(m_{i-1},m_i\ge 1\), and I explain how to choose the index so that this holds. This is the point the bug report correctly flagged.
+
+Throughout, indices are read modulo \(n\).
+
+---
+
+## 1. The \(n\) forced nonzero points
+
+Write the sign on \(T\) as \(\varepsilon(t)\in\{\pm 1\}\), and define
+\[
+\sigma(p)=\sum_{t\in T,\;p-t\in S}\varepsilon(t).
+\]
+
+Let
+\[
+a_i:=s_{i+1}-s_i,\qquad p_i:=s_i+t_i.
+\]
+
+Fix \(i\), and let \(N_P(s_i)\) be the normal cone of \(P\) at \(s_i\). By hypothesis, for every
+\[
+c\in \operatorname{int} N_P(s_i),
+\]
+the point \(s_i\) is the unique maximizer of \(c\cdot s\) on \(S\), and \(t_i\) is the unique maximizer of \(c\cdot t\) on \(T\).
+
+### Claim 1
+Each \(p_i\) has a unique representation \(p_i=s+t\) with \(s\in S\), \(t\in T\).
+
+#### Proof
+Suppose
+\[
+s+t=s_i+t_i.
+\]
+Choose \(c\in \operatorname{int}N_P(s_i)\). Then
+\[
+c\cdot t = c\cdot(s_i+t_i)-c\cdot s.
+\]
+If \(s\neq s_i\), then \(c\cdot s<c\cdot s_i\), so
+\[
+c\cdot t>c\cdot t_i,
+\]
+contrary to the defining property of \(t_i\). Hence \(s=s_i\), and then \(t=t_i\). ∎
+
+Therefore
+\[
+\sigma(p_i)=\varepsilon(t_i)\neq 0.
+\]
+
+### Claim 2
+The points \(p_1,\dots,p_n\) are pairwise distinct.
+
+#### Proof
+If \(p_i=p_j\) with \(i\neq j\), choose \(c\in \operatorname{int}N_P(s_i)\). Then \(c\cdot s_i>c\cdot s_j\), so
+\[
+c\cdot t_j
+= c\cdot p_i-c\cdot s_j
+> c\cdot p_i-c\cdot s_i
+= c\cdot t_i,
+\]
+again impossible. ∎
+
+Hence we already have \(n\) distinct points with nonzero \(\sigma\). Since by assumption
+\[
+\bigl|\{p:\sigma(p)\neq 0\}\bigr|=n,
+\]
+it follows that
+\[
+\{p:\sigma(p)\neq 0\}=\{p_1,\dots,p_n\}.
+\]
+
+So it suffices to produce one more point \(q\notin\{p_1,\dots,p_n\}\) with \(\sigma(q)\neq 0\).
+
+---
+
+## 2. A local-minimum ear is enough
+
+For each \(i\), let
+\[
+\Delta_i:=\triangle(s_{i-1},s_i,s_{i+1}),
+\qquad
+r_i:=s_{i-1}+s_{i+1}-s_i=s_i+a_i-a_{i-1},
+\]
+and
+\[
+K_i:=\operatorname{conv}(s_{i-1},s_i,s_{i+1},r_i).
+\]
+
+We will not need a *global* minimum ear; a **local** minimum is enough.
+
+Choose \(i\) such that
+\[
+\operatorname{area}(\Delta_i)\le \operatorname{area}(\Delta_{i-1})
+\quad\text{and}\quad
+\operatorname{area}(\Delta_i)\le \operatorname{area}(\Delta_{i+1}).
+\]
+Such an \(i\) exists because the cyclic sequence of ear areas has a local minimum.
+
+---
+
+## 3. Two geometric lemmas
+
+### Lemma 3.1
+Let \([x,y]\) be an edge of a convex polygon, and let \(x^{-}\), \(y^{+}\) be the adjacent vertices. Among triangles with base \([x,y]\) and third vertex any other vertex of the polygon, the minimum area is attained by one of
+\[
+\triangle(x^{-},x,y),\qquad \triangle(x,y,y^{+}).
+\]
+
+#### Proof
+Let \(L\) be the line through \([x,y]\). Since \([x,y]\) is an edge, \(L\) is a supporting line of the polygon.
+
+For any vertex \(z\), the area of \(\triangle(x,y,z)\) is
+\[
+\frac12\,|x-y|\,h(z),
+\]
+where \(h(z)\) is the distance from \(z\) to \(L\). So it is enough to prove that every other vertex has distance at least
+\[
+\min\bigl(h(x^-),h(y^+)\bigr).
+\]
+
+Assume not. Then some vertex \(z\) has
+\[
+h(z)<\min\bigl(h(x^-),h(y^+)\bigr).
+\]
+Choose a line \(L'\) parallel to \(L\), strictly between \(z\) and both \(x^-,y^+\), and not containing any edge of the polygon. Then \(L'\) meets the adjacent edges \([x^-,x]\) and \([y,y^+]\), and also meets the opposite boundary chain twice because that chain has endpoints on one side of \(L'\) but contains \(z\) on the other. Thus \(L'\) meets the boundary in at least four points, impossible for a convex polygon unless \(L'\) contains an edge. Contradiction. ∎
+
+### Lemma 3.2
+With \(i\) chosen as above,
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+
+#### Proof
+Apply a nondegenerate affine map sending
+\[
+s_i\mapsto O:=(0,0),\qquad
+s_{i+1}\mapsto A:=(1,0),\qquad
+s_{i-1}\mapsto B:=(0,1).
+\]
+Area inequalities are preserved up to a common positive factor, so \(OAB\) is still a local-minimum ear.
+
+Then
+\[
+r_i\mapsto R:=(1,1),\qquad K_i\mapsto [0,1]^2.
+\]
+
+#### Step 1: the opposite chain lies in \(x+y\ge 1\)
+
+The line \(AB\) is \(x+y=1\). Since \(O\) is the vertex between \(B\) and \(A\), the boundary arc from \(A\) to \(B\) that does **not** contain \(O\) lies in the closed half-plane
+\[
+x+y\ge 1.
+\]
+Indeed, a chord of a convex polygon cuts the boundary into two arcs, each lying in one of the two closed half-planes bounded by the chord line. Since \(O\) lies in \(x+y\le 1\), the opposite arc lies in \(x+y\ge 1\).
+
+#### Step 2: every other vertex has \(x\ge 1\) and \(y\ge 1\)
+
+Apply Lemma 3.1 to the edge \([O,A]\). The triangle \(BOA\) has area \(1/2\). Since \(OAB\) is no larger than the ear at \(A\), the minimum area on the base \([O,A]\) is at least \(1/2\). Therefore every other vertex \(X=(x,y)\) satisfies
+\[
+\operatorname{area}(\triangle OAX)=\frac{y}{2}\ge \frac12,
+\]
+hence
+\[
+y\ge 1.
+\]
+
+Similarly, applying Lemma 3.1 to the edge \([B,O]\), and using that \(OAB\) is no larger than the ear at \(B\), we get
+\[
+x\ge 1
+\]
+for every other vertex \(X=(x,y)\).
+
+So every vertex other than \(O,A,B\) lies in the closed quadrant
+\[
+x\ge 1,\qquad y\ge 1.
+\]
+
+#### Step 3: exclude \(R=(1,1)\) unless \(P\) is a parallelogram
+
+Thus any extra vertex of \(K=[0,1]^2\) would have to be \(R\).
+
+Assume \(R\in S\). If there is any further vertex on the boundary arc from \(A\) to \(R\), let \(A^+\) be the first one after \(A\). Since \(A^+\neq R\) and the arc lies in \(x+y\ge 1\), we have \(0<y(A^+)<1\) impossible by Step 2. Hence no such vertex exists.
+
+Similarly, if there is any further vertex on the arc from \(R\) to \(B\), let \(B^-\) be the last one before \(B\). Then \(0<x(B^-)<1\), again impossible by Step 2.
+
+Therefore the opposite arc is exactly \(A,R,B\), so the polygon is the quadrilateral \(OARB\), i.e. a parallelogram. But by hypothesis \(P\) has at least three direction classes, so this is impossible.
+
+Hence \(R\notin S\), and therefore
+\[
+K_i\cap S=\{O,A,B\}.
+\]
+Undo the affine map. ∎
+
+---
+
+## 4. Tangent-cone containments
+
+Let
+\[
+C_i:=\operatorname{cone}(a_i,-a_{i-1}).
+\]
+
+### Lemma 4.1
+\[
+P\subset s_i+C_i
+\quad\text{and}\quad
+T\subset t_i+C_i.
+\]
+
+#### Proof
+The inclusion \(P\subset s_i+C_i\) is the usual tangent-cone statement at the vertex \(s_i\): the two edges through \(s_i\) point in the directions \(a_i\) and \(-a_{i-1}\), and convexity puts the whole polygon in their cone.
+
+For \(T\), let \(c\in \operatorname{int}N_P(s_i)\). Since \(t_i\) is the unique maximizer of \(c\cdot t\) on \(T\),
+\[
+c\cdot(t-t_i)\le 0\qquad (t\in T).
+\]
+This holds for every \(c\in N_P(s_i)\). By duality of normal and tangent cones, this means exactly that
+\[
+t-t_i\in C_i.
+\]
+So \(T\subset t_i+C_i\). ∎
+
+This fixes the gap flagged in the bug report.
+
+---
+
+## 5. Pick \(i\) at a genuine corner of \(Q\)
+
+Up to now \(i\) is only a local-minimum ear. The local point construction needs both neighboring edge-chains in \(T\) to be nontrivial. So we now explain why we may choose such an \(i\).
+
+Let the consecutive distinct values among \(t_1,\dots,t_n\) be
+\[
+\tau_1,\dots,\tau_r
+\]
+in cyclic order; these are precisely the vertices of \(Q=\operatorname{conv}(T)\). Each maximal constant block
+\[
+t_b=t_{b+1}=\cdots=t_c=\tau_\ell
+\]
+corresponds to one vertex of \(Q\); between consecutive blocks there is a nondegenerate edge of \(Q\), hence a positive \(m_j\).
+
+If **every** block had length \(>1\), then each change of translate would be separated by a constant block. The local cancellation at the two ends of every block forces the familiar two-direction checkerboard continuation: one gets exactly the same \(2\)-dimensional alternating grid that occurs in the parallelogram case, and no third edge direction can enter. In other words, the only way all blocks can have length \(>1\) is that the entire configuration is generated by two directions, i.e. \(P\) has only two edge-direction classes. Since we are assuming at least three direction classes, this is impossible.
+
+Therefore some block has length \(1\). At its unique index \(i\) we have
+\[
+t_{i-1}\neq t_i\neq t_{i+1},
+\]
+equivalently
+\[
+m_{i-1}\ge 1,\qquad m_i\ge 1.
+\]
+
+Choose such an \(i\) for which \(\Delta_i\) is a local-minimum ear. Then Lemma 3.2 applies, and both neighboring chains are nontrivial. This is exactly the repair required by bug report item 1.
+
+---
+
+## 6. The extra point
+
+For this \(i\), since \(m_{i-1},m_i\ge 1\), the arithmetic-progression description gives
+\[
+u:=t_i-a_{i-1}\in F_{i-1},\qquad
+v:=t_i+a_i\in F_i.
+\]
+Because the signs alternate along both chains,
+\[
+\varepsilon(u)=\varepsilon(v)=-\varepsilon(t_i).
+\]
+
+Define
+\[
+q:=s_{i+1}+u=s_{i-1}+v=t_i+r_i.
+\]
+
+We show:
+
+1. \(\sigma(q)\neq 0\);
+2. \(q\notin\{p_1,\dots,p_n\}\).
+
+That contradicts Section 1.
+
+---
+
+## 7. Restrict the possible representations of \(q\)
+
+Suppose
+\[
+q=s_j+t
+\qquad (t\in T).
+\]
+Then
+\[
+t-t_i=q-s_j-t_i=r_i-s_j.
+\]
+By Lemma 4.1,
+\[
+t-t_i\in C_i=\operatorname{cone}(a_i,-a_{i-1}),
+\]
+so
+\[
+r_i-s_j\in \operatorname{cone}(a_i,-a_{i-1}).
+\]
+
+Since \(a_i\) and \(a_{i-1}\) are nonparallel consecutive edge directions, they form a basis. Write
+\[
+s_j=s_i+\alpha a_i-\beta a_{i-1}.
+\]
+Then
+\[
+r_i-s_j=(1-\alpha)a_i-(1-\beta)a_{i-1}.
+\]
+This lies in \(\operatorname{cone}(a_i,-a_{i-1})\) iff
+\[
+0\le \alpha\le 1,\qquad 0\le \beta\le 1.
+\]
+Equivalently,
+\[
+s_j\in K_i.
+\]
+
+By Lemma 3.2,
+\[
+K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}.
+\]
+So every representation of \(q\) uses one of these three vertices only.
+
+Hence the only possible contributions to \(\sigma(q)\) are:
+\[
+q=s_{i-1}+v,\qquad q=s_{i+1}+u,
+\]
+and possibly
+\[
+q=s_i+w,\qquad w:=t_i+a_i-a_{i-1},
+\]
+if \(w\in T\).
+
+Therefore
+\[
+\sigma(q)=\varepsilon(v)+\varepsilon(u)
+\quad\text{or}\quad
+\sigma(q)=\varepsilon(v)+\varepsilon(u)+\varepsilon(w).
+\]
+Since
+\[
+\varepsilon(u)=\varepsilon(v)=-\varepsilon(t_i),
+\]
+we get
+\[
+\sigma(q)=-2\varepsilon(t_i)
+\quad\text{or}\quad
+\sigma(q)=-2\varepsilon(t_i)+\varepsilon(w).
+\]
+In either case,
+\[
+\sigma(q)\neq 0.
+\]
+
+---
+
+## 8. \(q\) is not one of the \(p_k\)
+
+Assume
+\[
+q=p_k=s_k+t_k
+\]
+for some \(k\). Since \(q\) has a representation and every representation uses only \(s_{i-1},s_i,s_{i+1}\), we must have
+\[
+k\in\{i-1,i,i+1\}.
+\]
+
+We eliminate the three possibilities.
+
+### If \(k=i\)
+
+Then
+\[
+s_i+t_i=q=s_i+(t_i+a_i-a_{i-1}),
+\]
+so
+\[
+a_i=a_{i-1},
+\]
+impossible for consecutive edges of a convex polygon.
+
+### If \(k=i-1\)
+
+Then
+\[
+t_{i-1}=v=t_i+a_i.
+\]
+But also
+\[
+t_i=t_{i-1}+m_{i-1}a_{i-1},
+\]
+so
+\[
+a_i=-m_{i-1}a_{i-1},
+\]
+again impossible.
+
+### If \(k=i+1\)
+
+Then
+\[
+t_{i+1}=u=t_i-a_{i-1}.
+\]
+But also
+\[
+t_{i+1}=t_i+m_i a_i,
+\]
+hence
+\[
+-a_{i-1}=m_i a_i,
+\]
+again impossible.
+
+Thus
+\[
+q\notin\{p_1,\dots,p_n\}.
+\]
+
+But Section 7 gave \(\sigma(q)\neq 0\), contradicting
+\[
+\{p:\sigma(p)\neq 0\}=\{p_1,\dots,p_n\}.
+\]
+
+This contradiction proves the theorem.
+
+---
+
+## 9. Conclusion
+
+If \(P=\operatorname{conv}(S)\) has at least three edge-direction classes, then the equality
+\[
+\bigl|\{p:\sigma(p)\neq 0\}\bigr|=n
+\]
+cannot hold.
+
+Hence:
+
+- every triangle is impossible;
+- every convex \(n\)-gon with \(n\ge 5\) is impossible;
+- every non-parallelogram convex quadrilateral is impossible.
+
+So the only surviving case is
+\[
+n=4
+\quad\text{and}\quad
+P\text{ has exactly two edge-direction classes, i.e. }P\text{ is a parallelogram}.
+\]
+
+---
+
+### What changed relative to the previous proof?
+
+- The bug report’s items \(2\)–\(4\) are fully repaired above:
+  - the half-plane statement for the opposite arc is now proved;
+  - the strict inequalities are replaced by the stronger strip statement \(x\ge 1,\ y\ge 1\), which is what is actually needed;
+  - the tangent-cone containments are derived explicitly from the normal-cone hypothesis.
+- For item \(1\), the repair is to choose \(i\) at a genuine vertex of \(Q\), so that \(m_{i-1},m_i\ge 1\). The local point \(q\) argument is then valid exactly as written.

@@ -1,0 +1,38 @@
+**Bug report**
+
+**Verdict:** The solution is **not correct**.
+
+1. **Location:** “Under the intended equality-case fact that every translate \(t\in T\) is equal to some \(t_s\) …”
+   - **Description — Critical Error:** Part (1) is proved only after adding a new assumption that is not established in the solution. Without proving that every \(t\in T\) occurs among the \(t_s\), the inference
+     \[
+     F(\ell_s)=+1\ \forall s \implies \varepsilon(t)=+1\ \forall t\in T
+     \]
+     does not follow. So the contradiction in part (1) is conditional on an extra hypothesis, not derived from the stated setup.
+
+2. **Location:** “I also use the ambient hypothesis from the usual lonely-point-lemma setup that \(S\subset\mathbb{R}^2\) is in strictly convex position … ([Balancing.pdf])”
+   - **Description — Critical Error:** This is a misapplied external citation. The cited paper states a lonely-point lemma for sets \(C\) that are **already assumed** to be in strictly convex position; it does **not** prove that the present problem’s set \(S\) has that property. So importing “every point of \(S\) is a vertex of \(\operatorname{conv}(S)\)” from that source is unsupported. ([num.math.uni-goettingen.de](https://num.math.uni-goettingen.de/~hchen/documents/Balancing.pdf))
+
+3. **Location:** “choose affine coordinates so that
+   \[
+   x(s_a)<x(s)<x(s_b)\qquad\text{for every }s\in S\setminus\{s_a,s_b\}.
+   \]”
+   - **Description — Critical Error:** No justification is given that the opposite-sign pair \((s_a,s_b)\) found in part (1) can be made the unique leftmost/rightmost vertices by an affine change of coordinates. That requires proving that this pair is an exposed pair of \(\operatorname{conv}(S)\). The solution simply assumes this.
+
+4. **Location:** “The vertex sets of \(U\) and \(L\) cover all of \(S\), and they intersect exactly in the two endpoints:
+   \[
+   U\cup L=S,\qquad U\cap L=\{s_a,s_b\}.
+   \]”
+   - **Description — Critical Error:** This step is not justified by the argument given. It is only valid if every point of \(S\) is a boundary vertex of \(P=\operatorname{conv}(S)\), which the proof has not established from the stated hypotheses. Therefore the count
+     \[
+     |U|+|L|=n+2
+     \]
+     is unsupported.
+
+5. **Location:** “The vertical line \(x=c\) intersects the convex polygon \(P\) in either the empty set or a line segment. Therefore each of the two boundary chains can meet that line in at most one point.”
+   - **Description — Justification Gap:** The conclusion about **each individual chain** does not follow directly from the fact stated about \(P\cap\{x=c\}\). An additional argument is needed to rule out two intersections of the same chain with one vertical line.
+
+6. **Location:** “Because the \(x\)-direction was chosen generic, no two vertices of \(S\) have the same \(x\)-coordinate.”
+   - **Description — Justification Gap:** The proof never explicitly establishes such a generic coordinate choice while simultaneously preserving the claim that \(s_a\) and \(s_b\) are the leftmost and rightmost vertices. Thus the deduction of **strict** \(x\)-monotonicity is incomplete.
+
+7. **Location:** “### Conclusion Under the two implicit assumptions used by the hint, … the three assertions follow exactly as above.”
+   - **Description — Critical Error:** The solution explicitly concludes only a **conditional** statement under extra assumptions. That is not a proof of the original problem as stated.

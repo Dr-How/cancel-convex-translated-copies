@@ -1,0 +1,53 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:** “Since the \(p_i\) are distinct (the \(s_i\) are distinct and the \(t_i\) come from disjoint normal cones) and \(|\mathrm{supp}(\tilde\sigma)|=n\): \(\mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}\).”  
+   **Description — Justification Gap:** The stated reason does **not** show the points \(p_i=t_i+s_i\) are distinct. Distinct \(s_i\) and different exposed translates do not imply distinct sums. This distinctness is needed to conclude \(\mathrm{supp}(\tilde\sigma)=\{p_i\}\), but it is not established here.
+
+2. **Location:** “If \(m=0\): \(t_1=t_2=t_3\), so \(T\subseteq\{t_1\}\)…”  
+   **Description — Justification Gap:** From \(t_1=t_2=t_3\) and the stated facts (F1)–(F2), it does not follow that all of \(T\) equals \(\{t_1\}\). This uses an unstated global fact about \(T\) that is not among the allowed facts. Hence the exclusion of the case \(m=0\) is not proved.
+
+3. **Location:** “choose any three edges from distinct classes; by cyclic relabeling we may take them to include edges \(1,2,3\)”  
+   **Description — Critical Error:** Cyclic relabeling cannot turn arbitrary chosen edges into three consecutive edges. The later argument uses \(a_1,a_2,a_3\) as consecutive boundary edges, so this relabeling claim is false as stated and the setup for the \(n\ge 4\) case is not justified.
+
+4. **Location:** “The closure then reduces to \(m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0\), i.e. \(\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0\), forcing all \(m_i=0\).”  
+   **Description — Critical Error:** From \([a_i]=[a_1]\) one only gets \(a_i=\lambda_i a_1\) for some nonzero scalar \(\lambda_i\); the vectors \(a_i\) need not equal \(a_1\). The displayed reduction drops these scalars (and possible opposite directions), so the conclusion is invalid. This breaks the proof that \(T\) contains a point with \(h>0\), hence \(h_0\) may not be defined.
+
+5. **Location:** “write \(t'-s_j=\lambda_j a_1+h_0 v\)… Then \(t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v\), which lies in \(F_1=\{t_1+ka_1:0\le k\le m_1\}\) iff \((r+\lambda_j)=k\)”  
+   **Description — Justification Gap:** \(F_1\) is an affine progression \(t_1+\{ka_1\}\), but the displayed coordinate decomposition omits the required \(t_1\)-shift. As written, the membership test for \(F_1\) and the formula for \(D\) are not derived.
+
+6. **Location:** “Let \(R^*=m_1+\max_j(|\lambda_j|+1)\)”  
+   **Description — Justification Gap:** The proof never handles the possibility that no index satisfies \(c_j=h_0\). In that case the set over which \(\max\) is taken is empty, so \(R^*\) is undefined.
+
+7. **Location:** Equations such as  
+   “\(0+\sigma_T(t'+R_{\max}a_1)+D(t'+(R_{\max}+1)a_1)=0\)”  
+   and similar reduced uses of (VAN).  
+   **Description — Justification Gap:** These formulas silently discard all terms with \(0<c_j<h_0\). To justify that reduction, the proof must explicitly state that those terms have height in \((0,h_0)\) and hence vanish by minimality of \(h_0\). That justification is omitted at these steps.
+
+8. **Location:** “Apply \eqref{eq:VAN} at \(t'+(R_{\max}+2)a_1\) … not lonely if \(R_{\max}+2>\) the value that would make it a lonely point, which holds after possibly increasing the starting index by at most \(n\) steps”  
+   **Description — Critical Error:** \(R_{\max}\) was defined as the maximal index with \(t'+R_{\max}a_1\in T\). One cannot “increase the starting index” afterward without changing the object being analyzed. So the non-lonely hypothesis needed to apply (VAN) at \(t'+(R_{\max}+2)a_1\) is not justified.
+
+9. **Location:** “The \(j_0\)-term in \(D(t'+(R_{\max}+2)a_1)\) is … \(\ne0\)… In particular, \(|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1\)”  
+   **Description — Critical Error:** A single nonzero summand in \(D\) does not imply \(D\neq 0\); other summands may cancel it. Saying the other terms have “definite sign from \(F_1\)” does not show they all have the same sign. Thus the contradiction in Sub-case B1 is not established.
+
+10. **Location:** “If \(k_0'\ge1\): Apply \eqref{eq:VAN} at \(t'+(R_{\min}-2)a_1\)… The \(j_0'\)-term … \(\ne0\). So \(\sigma_T(t'+(R_{\min}-2)a_1)\ne0\)”  
+    **Description — Critical Error:** This repeats the same flaw as in Sub-case B1: the proof neither justifies that (VAN) applies there nor rules out cancellation among the remaining \(D\)-terms.
+
+11. **Location:** “This forces the \(j\)’s contributing to both D-sums to be the same vertex \(j_0=j_0'\)”  
+    **Description — Critical Error:** No valid argument is given for identifying the rightward contributor with the leftward contributor. Membership in the same level set \(\{s_j:c_j=h_0\}\) does not imply equality of vertices.
+
+12. **Location:** “\(j\) other, \(c_j=h_0\): by assumption (\(j_0\) is the unique index with \(c_j=h_0\) contributing to the D-sums…)”  
+    **Description — Justification Gap:** Uniqueness of the \(h_0\)-level contributor is assumed but never proved. Earlier the argument established only existence of some contributor, not uniqueness.
+
+13. **Location:** “\(\sigma_T(t_1+s_{j_0}+a_1)=\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1\) (chain element; \(\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1\) from \eqref{eq:Dleft})”  
+    **Description — Justification Gap:** \(\eqref{eq:Dleft}\) only gives \(D(t'+(R_{\min}-1)a_1)=-\sigma_T(t'+R_{\min}a_1)\). It does **not** imply the exact value \(-\varepsilon_1\) unless one first proves the \(D\)-sum has exactly one contributor of sign \(+\varepsilon_1\). That proof is missing.
+
+14. **Location:** “\(j=j_0\): \(\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1=-\varepsilon_1\) (position \(1\) on \(F_1\))”  
+    **Description — Justification Gap:** This assumes \(t_1+a_1\in F_1\), i.e. \(m_1\ge1\), but the \(n\ge4\) argument never proves \(m_1\ge1\).
+
+15. **Location:** “only \(c_{j_0}=h_0\) by assumption. So the only candidate is \(p_{j_0}=q^*\).”  
+    **Description — Justification Gap:** The proof never established that \(j_0\) is the only index with \(c_i=h_0\) and \(h(t_i)=0\). Without that uniqueness, the final contradiction in Sub-case B2 does not follow.
+
+16. **Location:** “By the same analysis as Sub-cases A, B1, B2 applied with \(R_{\max}\) replaced by \(R_{\max}+1\) (or the next non-lonely step), we obtain the same contradiction.”  
+    **Description — Critical Error:** After moving to “the next non-lonely step,” the recurrence used earlier changes: the neighboring-term structure is no longer the same. So the previous case analysis cannot simply be reused by replacing \(R_{\max}\) with a later index.
+
+Because the proof contains multiple **Critical Errors** (notably items 3, 4, 8, 9, 10, 11, and 16), the solution does **not** verify the statement.

@@ -1,0 +1,86 @@
+I checked the external citation: the cited CCCG 2005 paper does state the Minkowski-sum facts about unique face decomposition, intersection of outer normal cones, and unique decomposition of vertices that the proof invokes. So the problems below are internal to the argument, not a misquoted source. ([cccg.ca](https://cccg.ca/proceedings/2005/?utm_source=openai))
+
+**Verdict:** the solution is **not correct**.
+
+## Bug report
+
+### 1. Critical Error
+**Location:**  
+> “because \(t_{v_i}\neq t_{v_{i+1}}\), the exposed vertex of \(Q\) changes at some direction  
+> \[
+> \eta\in I.
+> \]
+> Thus the restriction of \(\mathcal N(Q)\) to \(I\) has an interior wall. Since \(\mathcal N(P+Q)\) is the common refinement of \(\mathcal N(P)\) and \(\mathcal N(Q)\), the restriction of \(\mathcal N(P+Q)\) to \(I\) is a *strict* refinement of the restriction of \(\mathcal N(P)\) to \(I\).”
+
+**Description:**  
+A change in the exposed vertex of \(Q\) somewhere in \(I\) does **not** by itself imply that the common refinement is **strict**. The wall of \(\mathcal N(Q)\) could coincide with the already existing wall of \(\mathcal N(P)\) between the cones of \(v_i\) and \(v_{i+1}\). In that case, no extra cone and no extra vertex of \(P+Q\) follow. The proof never excludes this possibility, so the existence of the new vertex \(w\) is not established. Everything after this point depends on that unsupported step.
+
+---
+
+### 2. Justification Gap
+**Location:**  
+> “Choose generic directions
+> \[
+> u_i\in \operatorname{relint}N_P(v_i),
+> \qquad
+> u_{i+1}\in \operatorname{relint}N_P(v_{i+1}).
+> \]
+> …
+> Hence
+> \[
+> F_{P+Q}(u_i)=\{v_i+q_i\},
+> \qquad
+> F_{P+Q}(u_{i+1})=\{v_{i+1}+q_{i+1}\}
+> \]
+> for some vertices \(q_i,q_{i+1}\) of \(Q\).”
+
+**Description:**  
+The proof does not justify that such “generic” choices exist inside those normal cones with \(F_Q(u_i)\) and \(F_Q(u_{i+1})\) both being single vertices rather than edges. Without that, \(F_{P+Q}(u_i)\) and \(F_{P+Q}(u_{i+1})\) need not be vertices.
+
+---
+
+### 3. Justification Gap
+**Location:**  
+> “For a polygon, maximal cones of the normal fan correspond, in cyclic order, to boundary vertices. Hence the boundary arc of \(P+Q\) corresponding to \(I\) contains at least one vertex
+> \[
+> w
+> \]
+> strictly between the endpoint vertices…”
+
+**Description:**  
+This fan/boundary correspondence is used as a theorem but is neither proved nor cited. The inference from a subdivision of the normal-direction interval to the existence of a boundary vertex \(w\) relies on this unstated result.
+
+---
+
+### 4. Justification Gap
+**Location:**  
+> “Because the normal cone of \(w\) lies on the boundary arc between the two consecutive chain vertices \(v_i\) and \(v_{i+1}\), the only possible \(P\)-vertices are
+> \[
+> p\in\{v_i,v_{i+1}\}.
+> \]”
+
+**Description:**  
+This restriction on \(p\) is asserted without proof. The argument would need to show that a supporting direction for \(w\) in that interval can expose only \(v_i\) or \(v_{i+1}\) in \(P\), and cannot correspond to some other face in a way compatible with \(w\) being a vertex of \(P+Q\).
+
+---
+
+### 5. Justification Gap
+**Location:**  
+> “Since
+> \[
+> v_i+q_i\in v_i+T
+> \qquad\text{and}\qquad
+> v_{i+1}+q_{i+1}\in v_{i+1}+T,
+> \]”
+
+and later
+
+> “But
+> \[
+> w=p+q\in S+q,
+> \]
+> so that unique translate must be \(S+q\).”
+
+**Description:**  
+These steps silently use that a vertex of \(Q=\operatorname{conv}(T)\) is actually an element of \(T\), and later that a vertex of \(P=\operatorname{conv}(S)\) is actually an element of \(S\). Those facts are not stated or justified in the proof.
+

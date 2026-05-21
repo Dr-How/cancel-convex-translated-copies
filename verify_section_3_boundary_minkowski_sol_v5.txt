@@ -1,0 +1,14 @@
+**Bug report**
+
+No **Critical Errors** found, but the proof has the following **Justification Gaps**, so under the stated grading standard it is **not fully correct**.
+
+1. **Location:** “By Lemma §1.6 applied to the convex polygon \(P\) (**whose vertices \(s_1,\dots,s_n\) are in counterclockwise order**)…”
+   
+   **Description — Justification Gap:**  
+   The setup only says that \(s_1,\dots,s_n\) are in **cyclic order**. The proof never justifies that this indexing is specifically counterclockwise, nor does it say that the order is reversed if necessary before applying Lemma §1.6. So the hypothesis needed for that application is not established.
+
+2. **Location:** “Since \(t_i\in G_i\), it follows that \(t_i\) is the unique minimizer of \(\langle a_i,\cdot\rangle\) on \(G_i\). Likewise … \(t_{i+1}\) is the unique maximizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).”
+   
+   **Description — Justification Gap:**  
+   Up to this point, the proof has shown that \(F_Q(u_i-\varepsilon a_i)=\{t_i\}\) and \(F_Q(u_i+\varepsilon a_i)=\{t_{i+1}\}\), i.e. \(t_i\) and \(t_{i+1}\) are unique maximizers of the perturbed linear functionals on **all of \(Q\)**.  
+   The proof does not explicitly justify the needed intermediate step that, because \(\langle u_i,\cdot\rangle\) is constant on \(G_i\), maximizing \(\langle u_i-\varepsilon a_i,\cdot\rangle\) on \(G_i\) is equivalent to minimizing \(\langle a_i,\cdot\rangle\) on \(G_i\), and similarly for \(u_i+\varepsilon a_i\). That restricted-domain argument is required before concluding the min/max statements on \(G_i\).

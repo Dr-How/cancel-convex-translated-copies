@@ -1,0 +1,28 @@
+The solution is **not correct**. I found the following issues.
+
+1. **Location:** “**Repeating the same argument at the next corner point** forces either  
+   - the next diagonal translate in the same staircase, or  
+   - continuation of the constant block of exposed translates.”
+
+   **Description:** **Critical Error.**  
+   The “same argument” up to this point depends on the special **local-minimum ear** \(i\), via Lemma 5 (\(K_i\cap S=\{s_{i-1},s_i,s_{i+1}\}\)). But Lemma 5 was proved only for that chosen index \(i\). No argument is given that the **next** corner point satisfies the same empty-ear property, or any analogous hypothesis. So the proof’s propagation step applies the previous local argument at indices where its hypotheses have not been established.
+
+2. **Location:** “The **cancellation of \(q_0\)** can then only happen by forcing the ‘diagonal’ translate  
+   \[
+   \tau+a_i-a_{i-1}
+   \]
+   to exist.”
+
+   **Description:** **Justification Gap.**  
+   At this point the proof has **not shown that \(q_0\notin\{p_1,\dots,p_n\}\)**, so it has not justified that \(q_0\) must cancel under the extremal assumption. The extremal hypothesis only forces cancellation for points outside the already-known \(n\) nonzero points. Also, even if cancellation were required, mere existence of the diagonal translate is not enough; the needed **sign** of that translate is never analyzed.
+
+3. **Location:** “Iterating, one gets a finite ‘**checkerboard propagation**’ along the boundary of \(P\): whenever one side-chain is missing, cancellation pushes one step farther either in \(T\) (creating the next staircase point) or in the constant block of exposed translates. Because \(T\) is finite, the staircase cannot continue indefinitely; because \(P\) is finite, the constant block cannot continue indefinitely around the polygon. **The only way the propagation can terminate** without creating an extra nonzero point is that after some step the boundary of \(P\) uses only the two directions \(a_i\) and \(a_{i-1}\).”
+
+   **Description:** **Justification Gap.**  
+   This is the core combinatorial step, and it is still not proved. The proof does not define the propagation precisely, does not give an inductive rule, does not rule out cycling on the finite polygon, and does not prove the asserted termination alternative. In particular, the leap from an informal propagation picture to “all edges of \(P\) lie in the two direction classes \([a_i],[a_{i-1}]\)” is unsupported. Therefore the crucial conclusion
+   \[
+   m_{i-1}\ge 1,\qquad m_i\ge 1
+   \]
+   is not established.
+
+Because of these issues, especially the failure of Section 6 to rigorously prove the singleton-block claim, the argument does not verify the theorem.

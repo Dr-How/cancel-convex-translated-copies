@@ -1,0 +1,321 @@
+\[
+\text{Let } \operatorname{supp}(\sigma):=\{p\in\mathbb{R}^2:\sigma(p)\neq 0\}.
+\]
+Also write
+\[
+S+T:=\{s+t:s\in S,\ t\in T\}.
+\]
+Since \(\sigma(p)=0\) for every \(p\notin S+T\), the set \(\operatorname{supp}(\sigma)\) is finite.
+
+Since both signs occur in \(T\), the set \(T\) is nonempty; we use this below without adding it as a separate hypothesis.
+
+Call a point \(p\in S+T\) **lonely** if it has a unique representation \(p=s+t\) with \(s\in S\) and \(t\in T\).
+
+## Lonely points lemma
+
+**Claim.** For every \(s\in S\), there exists at least one \(t_s\in T\) such that
+\[
+\ell_s:=s+t_s
+\]
+is lonely. Moreover:
+
+1. every lonely point \(p\) satisfies \(\sigma(p)\in\{\pm 1\}\), hence \(p\in\operatorname{supp}(\sigma)\);
+2. lonely points arising from different elements of \(S\) are distinct.
+
+### Proof of the claim
+
+Fix \(s\in S\).
+
+### Step \(1\): find a linear functional exposing \(s\)
+
+- If \(n=1\), then \(S=\{s\}\), and this step is unnecessary.
+- Assume \(n\ge 2\).
+
+Set
+\[
+C_s:=\operatorname{conv}(S\setminus\{s\}).
+\]
+Since \(S\) is in convex position, every element of \(S\) is a vertex of \(\operatorname{conv}(S)\). A vertex of a convex set is an extreme point: it cannot be written as a convex combination of other points of that set (this is the standard definition of vertex for a convex polytope). Applying this to \(K:=\operatorname{conv}(S)\), the point \(s\) is an extreme point of \(K\), so
+\[
+s\notin \operatorname{conv}(K\setminus\{s\}).
+\]
+Now \(S\setminus\{s\}\subseteq K\setminus\{s\}=\operatorname{conv}(S)\setminus\{s\}\). Every convex combination of points in \(S\setminus\{s\}\) is a convex combination of points in \(K\setminus\{s\}\) (since \(S\setminus\{s\}\subseteq K\setminus\{s\}\)), so
+\[
+\operatorname{conv}(S\setminus\{s\})\subseteq\operatorname{conv}(K\setminus\{s\}).
+\]
+Since \(s\notin\operatorname{conv}(K\setminus\{s\})\supseteq\operatorname{conv}(S\setminus\{s\})\), we conclude \(s\notin C_s=\operatorname{conv}(S\setminus\{s\})\).
+
+Since \(n\ge 2\), the set \(S\setminus\{s\}\) is nonempty, so \(C_s\) is nonempty. The convex hull of finitely many points is compact (it is a continuous image of the compact simplex), so \(C_s\) is compact. The function \(x\mapsto\|s-x\|\) is continuous: the map \(x\mapsto s-x\) is continuous (it is an affine map, being the composition of negation \(x\mapsto -x\) and translation \(v\mapsto v+s\), both of which are continuous), and the Euclidean norm \(v\mapsto\|v\|\) is continuous, so their composition is continuous. Since \(\|s-x\|\ge 0\) and the square-root function is strictly increasing, minimizing \(\|s-x\|\) over \(C_s\) is equivalent to minimizing \(\|s-x\|^2\) over \(C_s\) (the same point achieves either infimum). By the extreme value theorem (a continuous real-valued function on a compact nonempty set attains its infimum), the function \(x\mapsto\|s-x\|^2\) attains its minimum on \(C_s\); let \(x_s\in C_s\) be a minimizer (of \(\|s-x\|^2\), equivalently of \(\|s-x\|\)). Define
+\[
+u_s:=s-x_s\neq 0.
+\]
+
+Now let \(y\in C_s\). For \(0\le \lambda\le 1\), the point
+\[
+x_s+\lambda (y-x_s)
+\]
+lies in \(C_s\), so the function
+\[
+f(\lambda):=\|s-(x_s+\lambda(y-x_s))\|^2
+\]
+has a minimum at \(\lambda=0\) (over the interval \([0,1]\)). Since \(f(\lambda)\ge f(0)\) for all \(\lambda\in[0,1]\), we have for every \(\lambda\in(0,1]\):
+\[
+\frac{f(\lambda)-f(0)}{\lambda}\ge 0.
+\]
+Taking \(\lambda\to 0^+\) (noting that \(f\) is a polynomial in \(\lambda\), hence differentiable, so the right derivative equals the ordinary derivative at \(0\)):
+\[
+f'(0^+)\ge 0.
+\]
+Computing,
+\[
+f'(0^+)=-2\,u_s\cdot (y-x_s),
+\]
+so
+\[
+u_s\cdot (y-x_s)\le 0,
+\qquad\text{i.e.}\qquad
+u_s\cdot y\le u_s\cdot x_s.
+\]
+Therefore
+\[
+u_s\cdot s
+=
+u_s\cdot x_s+\|u_s\|^2
+>
+u_s\cdot x_s
+\ge
+u_s\cdot y
+\]
+for every \(y\in C_s\). In particular,
+\[
+u_s\cdot s>u_s\cdot s'
+\qquad\text{for every } s'\in S,\ s'\neq s.
+\]
+
+So \(u_s\) uniquely exposes \(s\).
+
+### Step \(2\): choose a maximizing translate
+
+Since \(T\) contains both a positive and a negative element, \(T\) is nonempty and finite.
+
+**Case \(n=1\)**: \(S=\{s\}\). Pick any \(t_s\in T\), and set \(\ell_s:=s+t_s\). Every representation \(\ell_s=s'+t'\) with \(s'\in S\) forces \(s'=s\) (the only element of \(S\)), and then \(t'=t_s\). So \(\ell_s\) is lonely.
+
+**Case \(n\ge 2\)**: The vector \(u_s\) was constructed in Step 1 (uniquely exposing \(s\) on \(S\)). Since \(T\) is finite and nonempty, there exists \(t_s\in T\) such that
+\[
+u_s\cdot t_s=\max_{t\in T} u_s\cdot t.
+\]
+Let
+\[
+\ell_s:=s+t_s.
+\]
+
+We claim that \(\ell_s\) is lonely. Suppose
+\[
+\ell_s=s'+t'
+\]
+with \(s'\in S\) and \(t'\in T\). Then
+\[
+u_s\cdot \ell_s
+=
+u_s\cdot s+u_s\cdot t_s
+=
+u_s\cdot s'+u_s\cdot t'
+\le
+u_s\cdot s+u_s\cdot t_s.
+\]
+Now \(u_s\) uniquely exposes \(s\) on \(S\), so \(u_s\cdot s'\le u_s\cdot s\) for all \(s'\in S\), with equality iff \(s'=s\). Likewise \(t_s\) maximizes \(u_s\) on \(T\), so \(u_s\cdot t'\le u_s\cdot t_s\) for all \(t'\in T\). Adding these two inequalities:
+\[
+u_s\cdot s'+u_s\cdot t'\le u_s\cdot s+u_s\cdot t_s.
+\]
+But we also have equality (from the equation above). Hence both individual inequalities must be equalities: if \(u_s\cdot s' < u_s\cdot s\), then \(u_s\cdot s'+u_s\cdot t' < u_s\cdot s+u_s\cdot t_s\), contradicting the equation above; and similarly \(u_s\cdot t' < u_s\cdot t_s\) leads to a contradiction. Therefore \(u_s\cdot s'=u_s\cdot s\), which (by uniqueness of the maximum) forces
+\[
+s'=s.
+\]
+Then
+\[
+s+t_s=s+t'
+\]
+implies
+\[
+t'=t_s.
+\]
+Thus \(\ell_s\) has the unique representation \((s,t_s)\), so \(\ell_s\) is lonely.
+
+This proves existence of at least one lonely point for each \(s\in S\).
+
+### Step \(3\): lonely points contribute \(\pm 1\)
+
+Let \(p=s+t\) be lonely. Then the only \(t'\in T\) with \(p-t'\in S\) is \(t\). Hence
+\[
+\sigma(p)
+=
+\sum_{\substack{t'\in T\\ p-t'\in S}} \sigma(t')
+=
+\sigma(t)\in\{\pm 1\}.
+\]
+So \(p\in\operatorname{supp}(\sigma)\).
+
+### Step \(4\): lonely points from different \(s\)'s are distinct
+
+Suppose
+\[
+\ell_s=s+t_s=\ell_{s'}=s'+t_{s'}.
+\]
+Since \(\ell_s\) is lonely, its representation is unique, so
+\[
+(s,t_s)=(s',t_{s'}).
+\]
+In particular,
+\[
+s=s'.
+\]
+Therefore lonely points associated to different elements of \(S\) are distinct.
+
+This proves the claim. \(\square\)
+
+---
+
+## Part \(1\): lower bound
+
+For each \(s\in S\), choose one lonely point \(\ell_s\) given by the claim. Each \(\ell_s\) lies in \(\operatorname{supp}(\sigma)\), and the \(\ell_s\)'s are pairwise distinct. Hence
+\[
+|\operatorname{supp}(\sigma)|\ge |S|=n.
+\]
+
+This proves
+\[
+|\{p\in\mathbb{R}^2:\sigma(p)\neq 0\}|\ge n.
+\]
+
+---
+
+## Part \(2\): extremal rigidity
+
+Now assume
+\[
+|\operatorname{supp}(\sigma)|=n.
+\]
+
+### \((a)\) For each \(s\in S\), there is a unique lonely point of the form \(s+t_s\)
+
+Existence is already given by the claim.
+
+To prove uniqueness, suppose some fixed \(s\in S\) had two different lonely points
+\[
+s+t
+\qquad\text{and}\qquad
+s+t'
+\]
+with \(t\neq t'\). These are distinct points. For every \(r\in S\setminus\{s\}\), choose one lonely point \(\ell_r=r+t_r\) (where \(t_r\in T\) is some translate for which \(r+t_r\) is lonely; such a \(t_r\) exists by the claim, which guarantees at least one lonely point for each element of \(S\)). We verify all these points are distinct from each other and from \(s+t\) and \(s+t'\):
+\begin{itemize}
+\item \(\ell_r\neq s+t\): if \(r+t_r=s+t\), then the lonely point \(\ell_r\) would have two representations \((r,t_r)\) and \((s,t)\) with \(r\neq s\), contradicting that \(\ell_r\) is lonely (which by definition means it has a \emph{unique} representation).
+\item \(\ell_r\neq s+t'\): the same argument with \(t'\) in place of \(t\).
+\item For \(r\neq r'\) in \(S\setminus\{s\}\): if \(\ell_r=\ell_{r'}\), i.e.\ \(r+t_r=r'+t_{r'}\), then the lonely point \(\ell_r\) has two representations \((r,t_r)\) and \((r',t_{r'})\) with \(r\neq r'\), again contradicting loneliness.
+\end{itemize} Thus \(\operatorname{supp}(\sigma)\) would contain at least
+\[
+(n-1)+2=n+1
+\]
+distinct points, contradicting
+\[
+|\operatorname{supp}(\sigma)|=n.
+\]
+So for each \(s\in S\) there is exactly one \(t_s\in T\) such that
+\[
+\ell_s:=s+t_s
+\]
+is lonely.
+
+This proves \((a)\).
+
+### \((b)\) The lonely points are pairwise distinct and exhaust the support
+
+Pairwise distinctness was proved in the claim.
+
+Also, each \(\ell_s\) belongs to \(\operatorname{supp}(\sigma)\), and there are exactly \(n\) of them. Since \(|\operatorname{supp}(\sigma)|=n\), we must have
+\[
+\operatorname{supp}(\sigma)=\{\ell_s:s\in S\}.
+\]
+
+This proves \((b)\).
+
+### \((c)\) Each lonely point has value \(\pm 1\), namely the sign of its unique translate
+
+By the claim, for each \(s\in S\),
+\[
+\sigma(\ell_s)=\sigma(t_s)\in\{\pm 1\}.
+\]
+
+This proves \((c)\).
+
+### \((d)\) The signs in \(T\) are almost balanced
+
+Because all sums are finite,
+\[
+\sum_{p\in S+T}\sigma(p)
+=
+\sum_{p\in S+T}\ \sum_{\substack{t\in T\\ p-t\in S}} \sigma(t).
+\]
+Re-indexing: for each fixed \(t\in T\), the inner sum \(\sum_{\substack{p\in S+T\\ p-t\in S}}\sigma(t)\) runs over \(p=s+t\) as \(s\) ranges over \(S\). The map \(s\mapsto s+t\) is injective (if \(s+t=s'+t\), then \(s=s'\)), so these \(n\) values of \(p\) are all distinct; there are exactly \(|S|=n\) of them. Therefore
+\[
+\sum_{p\in S+T}\sigma(p)
+=
+\sum_{t\in T}\ \sum_{s\in S}\sigma(t)
+=
+n\sum_{t\in T}\sigma(t).
+\]
+Since
+\[
+\sum_{t\in T}\sigma(t)=|T_+|-|T_-|,
+\]
+we obtain
+\[
+\sum_{p\in S+T}\sigma(p)=n\bigl(|T_+|-|T_-|\bigr).
+\]
+
+Under the equality hypothesis, part \((b)\) says that
+\[
+\operatorname{supp}(\sigma)=\{\ell_s:s\in S\},
+\]
+so
+\[
+\sum_{p\in S+T}\sigma(p)
+=
+\sum_{s\in S}\sigma(\ell_s).
+\]
+By part \((c)\), each \(\sigma(\ell_s)\) is either \(+1\) or \(-1\). Equivalently, if
+\[
+A:=\#\{s\in S:\sigma(t_s)=+1\},
+\qquad
+B:=\#\{s\in S:\sigma(t_s)=-1\},
+\]
+then
+\[
+A+B=n
+\]
+and
+\[
+\sum_{s\in S}\sigma(\ell_s)=A-B.
+\]
+Hence
+\[
+\left|\sum_{s\in S}\sigma(\ell_s)\right|\le n.
+\]
+Therefore
+\[
+n\bigl||T_+|-|T_-|\bigr|
+=
+\left|\sum_{p\in S+T}\sigma(p)\right|
+=
+\left|\sum_{s\in S}\sigma(\ell_s)\right|
+\le n.
+\]
+Since \(n\ge 1\), dividing by \(n\) yields
+\[
+\bigl||T_+|-|T_-|\bigr|\le 1.
+\]
+
+This proves \((d)\).
+
+---
+
+Thus all statements are proved.

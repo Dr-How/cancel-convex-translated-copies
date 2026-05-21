@@ -1,0 +1,30 @@
+**Verdict:** **Not fully valid as written.**
+
+The high-level strategy is reasonable, but there are a few structural issues.
+
+1. **Missing bridge from “extra point outside \(L\)” to contradiction.**  
+   The outline repeatedly aims to produce a point \(p\in (S+T)\setminus L\) with \(\sigma(p)\neq 0\), where \(L=\{s_i+t_i\}\). But for that to contradict \(|\{p:\sigma(p)\neq 0\}|=n\), one needs an explicit prior fact that the \(n\) points in \(L\) are already the \(n\) distinct “lonely” noncanceling points. That fact is not proved in the outline and is not among the explicitly listed usable facts.  
+   Relatedly, Subproblem 2 only analyzes cancellation along the exposed chains \(F_i\); it does **not** by itself rule out extra contributions coming from interior points of \(T\).
+
+2. **Subproblem 4 does not line up cleanly with Subproblem 3.**  
+   Subproblem 3’s matching condition is about the lines in **\(S+T\)**:
+   \[
+   s_i+u_i+\mathbb Ra=s_j+u_j+\mathbb Ra.
+   \]
+   But Subproblem 4 only tracks the displacement inside **\(T\)**:
+   \[
+   t_j-t_i=\sum_{r=i}^{j-1} m_r a_r.
+   \]
+   Those are not the same quantity. To get the contradiction promised by Subproblem 3, one must also account for the vertex displacement \(s_j-s_i\), and also for the fact that the second edge in the same parallelism class may be oppositely oriented, so the relevant chain start may be \(u_j\), not \(t_j\). As stated, that dependency is not fully aligned.
+
+3. **The notion of “direction class” needs clarification.**  
+   The outline’s pairing argument only makes sense if a direction class means **parallel up to sign** (unoriented parallelism), so that one class can occur twice on opposite sides. But the problem text/notation uses positive scalar multiples, which is an oriented notion. Without clarifying this, Subproblems 3 and 4 are not formally well-posed.
+
+4. **One part of Subproblem 1 is redundant.**  
+   The parity conclusion
+   \[
+   \sum_i m_i \equiv 0 \pmod 2
+   \]
+   is not used later in the outline. The closure relation is relevant; the parity part appears unnecessary.
+
+So the decomposition is **close**, but **not structurally complete as written**. The main fixes are: explicitly import the “\(n\) lonely vertices” fact, and reformulate Subproblem 4 so it targets the same geometric object that Subproblem 3 requires.

@@ -1,0 +1,351 @@
+VERDICT: ISSUES_FOUND
+count=24
+mode=pessimistic (3 independent verifier runs)
+solution=proof/section_5_three_directions_sol_v14.tex
+problem=proof/section_5_three_directions.tex
+top_issue="Global setup error: the proof redefines T as the convex n-point support of sigma_T and works
+with edge vectors of that set, rather than the original convex set S and translate set T from the
+problem. Every subsequent argument is about the wrong object. The final conclusion 'T can have at most
+2 edge-direction classes' confirms this: the theorem to be proved concerns P=conv(S), not T."
+
+All three verifier runs independently flagged the solution as NOT VERIFIED.
+No run was CLEAN. Under pessimistic mode rules, one flagged run suffices;
+here all three agree, identifying overlapping sets of critical errors and
+justification gaps.
+
+=============================================================================
+CONSOLIDATED ISSUE LIST
+(each line prefixed with which runs flagged it)
+=============================================================================
+
+--- CRITICAL ERRORS ---
+
+[Run1,Run2,Run3] CE-01: Wrong object studied throughout.
+  Location: Opening setup -- "We have x_1,...,x_n in convex position (CCW),
+  sigma_T finitely supported on T = {x_1,...,x_n}."
+  The problem has S as the convex n-gon and T as the signed translate set.
+  The proof identifies T with the convex polygon and with the support of sigma.
+  Every subsequent deduction is about the wrong object.
+
+[Run2,Run3] CE-02: Direction class definition silently widened.
+  Location: "The direction class [a_i] is the equivalence class under nonzero
+  scalar multiples."
+  The problem uses positive scalar multiples. Enlarging to all nonzero multiples
+  is not proved equivalent and changes the count.
+
+[Run1,Run2,Run3] CE-03: (S0) equation for n=3 has wrong (extra) term count.
+  Location: n=3 lemma, equation applied with k=2:
+    sigma_T(t'+a_1)+sigma_T(t')+sigma_T(t'-a_2)+sigma_T(t'-a_2-a_3)=0.
+  For n=3, (S0) has only THREE summands. The proof inserts a fourth, and since
+  t'-a_2-a_3=t'+a_1 the claimed coefficient-2 relation is doubly invalid.
+  This error appears at least twice in the n=3 section.
+
+[Run1,Run2,Run3] CE-04: n=3 case split abandoned; existence of opposite-sign
+  point at positive height not established.
+  Location: "This is getting complicated. Let me use the cleaner approach: for
+  n=3, ANY t' in T with h(t')>0 works."
+  The h(t')=0 sub-case is never resolved. The proof asserts but does not prove
+  that an opposite-sign point with h(t')>0 exists. Case split is incomplete.
+
+[Run1,Run2,Run3] CE-05: Lemma hzero (n=4): invalid vanishing of fourth term
+  when mu<0.
+  Location: "For n=4: sigma_T(q+a_1)+sigma_T(q)+0+0=0 (heights 0,0,-1,-1-mu)."
+  If mu<0, then -1-mu can be 0 or positive; the fourth term cannot be discarded.
+  The two-term relation that drives subsequent contradiction is derived from a
+  truncated equation.
+
+[Run1,Run2,Run3] CE-06: Lemma cross -- cross-point computed at wrong location.
+  Location: "apply (NL) at p = s_1+(t_2+a_2) = t_1+a_2."
+  Since t_2=t_1+m_1*a_1, we have s_1+(t_2+a_2)=t_1+m_1*a_1+a_2 for m_1>=1,
+  not t_1+a_2. The cross-point equation is evaluated at the wrong point.
+
+[Run1,Run2,Run3] CE-07: (NL) applied without establishing p lies outside support.
+  Location: Lemma cross -- "possible but a degenerate subcase; in the non-
+  degenerate case p not in T."
+  The proof explicitly admits p may lie in the support T. The hypothesis of (NL)
+  is never satisfied; degenerate cases are silently dropped without analysis.
+
+[Run2] CE-08: Same paragraph identifies t_1+a_2 = t_2+a_2 when m_1>=1.
+  Location: Lemma cross -- "sigma_T(t_1+a_2) = sigma_T(t_2+a_2)."
+  The same paragraph notes t_1+a_2 != t_2+a_2 when m_1>=1. The identification
+  is contradicted by the proof's own statement.
+
+[Run1,Run2,Run3] CE-09: Lemmas cross and cross1 stated for all mu, proved only
+  for mu>0, then cited for all non-integer mu.
+  Location: "So Lemma cross1 is proved for mu>0. (The case mu<0 is handled in
+  Prop n4muZ.)" -- but Prop n4muZ handles only integer mu, leaving negative
+  non-integer mu entirely uncovered. Prop n4mu then cites these lemmas as if
+  fully proved.
+
+[Run2,Run3] CE-10: False arithmetic claim in Prop n4mu (m_1=0, m_2=0 sub-case).
+  Location: "If mu is rational non-integer: mu=p/q with q>=2; then
+  mu=1/(k_0-1-j) requires q=1: contradiction."
+  Counterexample: mu=1/2 is rational non-integer and equals 1/(k_0-1-j) for
+  k_0-1-j=2. The supposed contradiction does not exist.
+
+[Run3] CE-11: Prop n4muZ closure -- false geometric inference.
+  Location: "From beta(a_3)=-ell the proof concludes a_3 is a scalar multiple
+  of a_1."
+  A linear functional taking the same value on two vectors does not imply they
+  are parallel.
+
+[Run1,Run2,Run3] CE-12: Lemma hzero-n (n>=5): c_j>0 does not give -c_j<=-1.
+  Location: "extra j>=5 terms have heights -c_j<=-1<0 (for mu<0: c_j>0 by
+  convexity)."
+  c_j>0 only gives -c_j<0, not -c_j<=-1. The vanishing of extra terms in the
+  n>=5 case is therefore not established for mu<0.
+
+[Run1,Run2,Run3] CE-13: (NL) applied at point whose non-membership in support
+  is only "likely" or "in general."
+  Location: Lemma cross1 -- "for generic mu these are not in T" / "likely not
+  in T." Genericity or likelihood is not a proof of the required hypothesis.
+
+[Run1,Run2,Run3] CE-14: Final conclusion addresses the wrong object.
+  Location: "Therefore, T can have at most 2 edge-direction classes."
+  The theorem concerns P=conv(S). This is both a standalone error and a
+  confirmation that the global object confusion pervades the proof.
+
+--- JUSTIFICATION GAPS ---
+
+[Run1,Run2,Run3] GAP-01: T = F_1 union ... union F_n never proved.
+  Location: "So T = F_1 cup ... cup F_n (with endpoints shared)."
+  The allowed facts establish what each F_i looks like; they do not guarantee
+  the F_i cover all of T. This coverage is used repeatedly.
+
+[Run1,Run2,Run3] GAP-02: (NL) applicability condition never verified for (S0).
+  Location: "(S0) derivation -- applying (NL) with p=t+s_k for t != t_k."
+  The condition t != t_k does not imply p lies outside the support. The
+  equivalence is never established, invalidating the core equation (S0).
+
+[Run1,Run2,Run3] GAP-03: Lemma betamin4 existence claim unsupported.
+  Location: "Choose beta with beta(a_1)=0, beta(a_2)=1, AND h(p)>=0 for all
+  p in T (possible because t_1 is a vertex of conv(T))."
+  Neither the vertex claim for t_1 in conv(T) nor the simultaneous satisfiability
+  of all three beta conditions is proved. All subsequent height-vanishing
+  arguments rest on this.
+
+[Run1,Run2,Run3] GAP-04: Lemma betamax4 is a placeholder with no proof.
+  Location: "(Analogous to hzero argument, applying the equation at an element
+  above height m_2+m_3*mu and deriving a contradiction via infinite chain.)"
+  No proof is given.
+
+[Run1,Run2,Run3] GAP-05: Lemma facechain -- induction on height not established.
+  Location: "By induction on height, lower terms vanish."
+  Heights are real-valued; no well-ordering is established. The claim that lower
+  heights are not realised on face chains is not proved. No base case given.
+
+[Run1,Run2,Run3] GAP-06: Lemma nogaps not proved.
+  Location: "This is getting complex. The key point: ... In all cases we get a
+  contradiction. This completes the proof of Lemma nogaps."
+  Multiple sub-cases are replaced by informal summaries rather than derivations.
+
+[Run1,Run3] GAP-07: Lemma a3vanish: cited lemmas (nogaps, facechain) are both
+  unproved.
+  Location: "Follows from Lemma nogaps and Lemma facechain."
+  Both cited lemmas have been shown above to be unjustified.
+
+[Run1,Run2,Run3] GAP-08: Prop n4muZ case analysis not performed.
+  Location: "This case analysis, while extensive, always yields a contradiction.
+  The key point: ..."
+  Several integer-mu cases are asserted to yield a contradiction without
+  derivation.
+
+[Run1,Run2,Run3] GAP-09: Rational non-integer mu sub-case postponed and dropped.
+  Location: "(For rational mu we handle the cases more carefully... For the main
+  argument assume the face-chain height condition fails.)"
+  The postponed sub-case is never returned to; vanishing is simply assumed.
+
+[Run1,Run2,Run3] GAP-10: n>=5 reduction to n=4 asserted, not proved.
+  Location: "In all cases, the n>=5 argument reduces to the n=4 argument with
+  the extra j>=5 terms vanishing or contributing known values."
+  The extra terms are not systematically computed or shown to vanish.
+
+=============================================================================
+ISSUE COUNTS
+=============================================================================
+
+Critical errors:   14 (CE-01 through CE-14)
+Justification gaps: 10 (GAP-01 through GAP-10)
+Total distinct issues: 24
+
+=============================================================================
+APPENDIX A -- Full output of verifier run 1
+(output file: proof/verify_v14_run1.txt)
+=============================================================================
+
+The solution is **not correct**. Here is a bug report.
+
+1. Location: "Let n >= 3. We have x_1,...,x_n in convex position (CCW),
+   sigma_T finitely supported on T = {x_1,...,x_n}..."
+   Classification: Critical Error
+   Description: This replaces the problem's data with different objects. In the
+   problem, S is the n-point convex set, T is a finite set of translating vectors,
+   and sigma(p) is derived from S and T. The proof instead identifies T with the
+   n convex-position points and studies edges of that set.
+
+2. Location: "Face chains: F_i = {t_i + k a_i : 0 <= k <= m_i} ... So T = F_1
+   cup ... cup F_n"
+   Classification: Justification Gap
+   Description: The allowed facts state what each F_i looks like, but do not
+   state that the F_i cover all of T. Many later height arguments use this coverage.
+
+3. Location: "(eq:sigma0) For t in T, t != t_k (applying eq:nonlonely with
+   p=t+s_k)"
+   Classification: Justification Gap
+   Description: To apply (NL) at p=t+s_k, one must prove p is outside the
+   exceptional set. The proof only assumes t != t_k, never establishing equivalence.
+
+4. Location: "This is getting complicated. Let me use the cleaner approach: for
+   n=3, ANY t' in T with h(t')>0 works."
+   Classification: Critical Error
+   Description: The proof abandons the h(t')=0 case without resolving it or
+   proving it cannot occur.
+
+5. Location: n=3 equation with four terms and subsequent coefficient-2 relation.
+   Classification: Critical Error
+   Description: For n=3, (S0) has only three terms. The proof adds a fourth and
+   double-counts because t'-a_2-a_3=t'+a_1.
+
+6. Location: Lemma betamin4 existence claim.
+   Classification: Justification Gap
+   Description: Abandoned and replaced by an unsupported claim that t_1 is a
+   vertex of conv(T).
+
+7. Location: Lemma hzero, four-term equation reduced to two terms.
+   Classification: Critical Error
+   Description: For mu<0, -1-mu can be nonneg; the fourth term cannot be dropped.
+
+8. Location: Lemma betamax4 proof placeholder.
+   Classification: Justification Gap
+   Description: Placeholder only, no proof.
+
+9. Location: Lemma facechain -- "By induction on height, lower terms vanish."
+   Classification: Justification Gap
+   Description: No valid induction set up; neither claim is proved.
+
+10. Location: Lemma nogaps closure.
+    Classification: Justification Gap
+    Description: Not actually proved; several sub-cases are replaced by summary
+    assertions.
+
+11. Location: Lemma cross -- cross-point computation.
+    Classification: Critical Error
+    Description: s_1+(t_2+a_2)=t_1+m_1*a_1+a_2, not t_1+a_2.
+
+12. Location: Lemma cross -- "possible but a degenerate subcase; in the
+    non-degenerate case p not in T."
+    Classification: Critical Error
+    Description: (NL) is applied even though the proof admits p may lie in the
+    support.
+
+13. Location: Lemma cross1 proved only for mu>0, used for all mu not in Z.
+    Classification: Critical Error
+    Description: Prop n4muZ handles integer mu, so negative non-integer mu is
+    left uncovered.
+
+14. Location: Rational non-integer mu sub-case postponed.
+    Classification: Justification Gap
+
+15. Location: Proposition n4muZ -- "always yields a contradiction."
+    Classification: Justification Gap
+
+16. Location: Lemma hzero-n -- c_j>0 but -c_j<=-1 claimed.
+    Classification: Critical Error
+
+17. Location: n>=5 reduction asserted without proof.
+    Classification: Justification Gap
+
+18. Location: Final conclusion about T instead of conv(S).
+    Classification: Critical Error
+
+=============================================================================
+APPENDIX B -- Full output of verifier run 2
+(output file: proof/verify_v14_run2.txt)
+=============================================================================
+
+VERDICT: ISSUES_FOUND
+Mode: pessimistic (3 independent verifier runs)
+All three runs independently flagged critical errors and justification gaps.
+Result: NOT VERIFIED
+
+Top issue: The entire proof studies the wrong object -- it assumes the translate
+set T is itself the convex n-gon and identifies T with supp(sigma), whereas the
+problem gives S as the convex n-gon and T as a separate signed translation set.
+
+[Run1,Run2,Run3] ISSUE-01: Wrong object studied throughout.
+[Run2,Run3] ISSUE-02: Direction class definition silently widened.
+[Run1,Run2,Run3] ISSUE-03: (S0) equation has wrong term count for n=3.
+[Run1,Run2,Run3] ISSUE-04: n=3 case split abandoned.
+[Run1,Run2,Run3] ISSUE-05: Invalid vanishing of last term in Lemma hzero (n=4).
+[Run1,Run2,Run3] ISSUE-06: (NL) applied at point miscomputed in Lemma cross.
+[Run1,Run2,Run3] ISSUE-07: (NL) applied without establishing p not in support.
+[Run2] ISSUE-08: Proof identifies t_1+a_2 = t_2+a_2 when m_1>=1.
+[Run1,Run2,Run3] ISSUE-09: Lemmas cross and cross1 stated for all mu but proved
+  only for mu>0.
+[Run2,Run3] ISSUE-10: False arithmetic claim in Prop n4mu.
+[Run1,Run2,Run3] ISSUE-11: c_j>0 does not imply -c_j<=-1 (n>=5 section).
+[Run1,Run2,Run3] ISSUE-12: Final conclusion addresses wrong object.
+[Run1,Run2,Run3] GAP-01: T = F_1 union ... union F_n never proved.
+[Run1,Run2,Run3] GAP-02: (NL) applicability condition never verified for (S0).
+[Run1,Run2,Run3] GAP-03: Lemma betamin4 existence claim is unsupported.
+[Run1,Run2,Run3] GAP-04: Lemma betamax4 is a placeholder only.
+[Run1,Run2,Run3] GAP-05: Lemma facechain -- induction on height not set up.
+[Run1,Run2,Run3] GAP-06: Lemma nogaps is not proved.
+[Run1,Run2,Run3] GAP-07: Proposition n4muZ case analysis is not performed.
+[Run1,Run2,Run3] GAP-08: Rational non-integer mu sub-case postponed and dropped.
+[Run1,Run2,Run3] GAP-09: n>=5 reduction to n=4 is asserted, not proved.
+[Run2] GAP-10: betamin-n and hzero-n rely on unproved geometric claims.
+
+=============================================================================
+APPENDIX C -- Full output of verifier run 3
+(output file: proof/verify_v14_run3_raw.txt)
+=============================================================================
+
+The solution is **not correct**. Bug report:
+
+1. Critical Error: Wrong object -- T identified as convex n-gon and support of
+   sigma simultaneously. Not the problem's setup.
+
+2. Justification Gap: T = F_1 cup ... cup F_n not proved.
+
+3. Justification Gap: (NL) applicability -- t!=t_k does not guarantee p outside
+   support.
+
+4. Critical Error: n=3 case abandoned (h(t')=0 sub-case unresolved; existence
+   of opposite-sign point at positive height not shown).
+
+5. Critical Error: n=3 (S0) expanded to four terms instead of three;
+   coefficient-2 relation invalid.
+
+6. Justification Gap: Lemma betamin4 abandoned; existence of beta unproved.
+
+7. Critical Error: Lemma hzero -- fourth term dropped without justification for
+   mu<0.
+
+8. Justification Gap: Lemma betamax4 is a placeholder.
+
+9. Justification Gap: Lemma facechain -- "By induction on height" not set up.
+
+10. Justification Gap: Lemma nogaps -- sub-cases replaced by assertions.
+
+11. Critical Error: Cross-point in Lemma cross miscomputed
+    (t_1+m_1*a_1+a_2 vs t_1+a_2).
+
+12. Critical Error: (NL) applied at p that proof admits may lie in support.
+
+13. Critical Error: Lemma cross1 proved for mu>0 only; used for all mu not in Z
+    (negative non-integers left uncovered).
+
+14. Justification Gap: Rational non-integer mu sub-case postponed and dropped.
+
+15. Justification Gap: Prop n4muZ -- "always yields contradiction" without proof.
+
+16. Critical Error: Prop n4muZ closure: from beta(a_3)=-ell concludes a_3
+    parallel to a_1 -- false inference.
+
+17. Critical Error: c_j>0 claimed to give -c_j<=-1 (requires c_j>=1, not just
+    c_j>0).
+
+18. Justification Gap: n>=5 reduction to n=4 asserted not proved.
+
+19. Critical Error: Final conclusion about T not conv(S).

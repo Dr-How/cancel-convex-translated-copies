@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 6 --- Classification of the two-direction case.}
+
+\medskip
+\textbf{Statement.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 3$ points in convex position such that
+$P=\operatorname{conv}(S)$ has exactly two distinct edge-direction classes
+(i.e.\ every edge direction appears paired with a parallel opposite edge, and there are
+exactly two such pairs).
+
+Then $n=4$ and $S$ is the vertex set of a parallelogram.
+
+\medskip
+\textbf{Hint.}
+In a convex polygon, no two \emph{adjacent} edges are parallel (otherwise two vertices would
+coincide or the polygon would be degenerate).
+If there are exactly two edge-direction classes, then the edges alternate between the two
+directions around the polygon.  An alternating sequence of two directions has even length,
+so $n$ is even.
+The shortest such polygon has $n=4$.  For $n\ge 6$, the two direction classes each appear
+at least twice, and one checks that the only convex polygon (in convex position) with this
+property and $n=4$ has opposite sides parallel and equal --- i.e.\ is a parallelogram.
+(For $n\ge 6$: two edges of the same direction class that are not adjacent produce a
+re-entrant angle or a non-convex arrangement, since the edge vectors must sum to zero around
+the polygon and with only two direction classes the sum forces all edges in each class to be
+equal and parallel, giving a centrally symmetric polygon; but then $S$ being in convex position
+with $n\ge 6$ points from only two edge directions forces repeated vertices, contradiction.)
+
+Conclude: $n=4$ and $P$ is a parallelogram, so $S=\{A,B,C,D\}$ with
+$A+C=B+D$ (diagonals bisect each other).
+
+\end{document}

@@ -1,0 +1,555 @@
+The main strategy of the current solution is correct; the bug report is also fair that some standard convex-geometric facts were used without being written out. I will keep the same proof idea, but make those points explicit.
+
+Throughout, indices are taken modulo \(n\), and for a nonzero vector \(u\) and a compact convex set \(K\subset \mathbb R^2\) I write
+\[
+F_K(u):=\{x\in K:\langle u,x\rangle=h_K(u)\}
+\]
+for the exposed face of \(K\) with outer normal \(u\).
+
+I will use the standard planar convention:
+
+- a **vertex** of a polygon is a \(0\)-dimensional face;
+- an **edge** of a polygon is a nondegenerate \(1\)-dimensional face.
+
+So once we know an exposed face is a singleton, it is a vertex; and once we know it is a nondegenerate segment, it is an edge.
+
+Set
+\[
+E_i:=[s_i,s_{i+1}],\qquad a_i:=s_{i+1}-s_i,\qquad R:=P+Q,\qquad x_i:=s_i+t_i .
+\]
+
+---
+
+## 1. Preliminary facts
+
+### 1.1. \(P\) and \(R\) are genuine polygons
+
+Because \(S\) is in convex position and \(n\ge 3\), the points of \(S\) cannot all be collinear: if they were, every point of \(S\) except the two extreme ones on that line would lie in the convex hull of the others, contradicting convex position. Hence \(P=\operatorname{conv}(S)\) is \(2\)-dimensional.
+
+Also, every vertex of \(\operatorname{conv}(S)\) belongs to \(S\), and every point of \(S\) is extreme because \(S\) is in convex position. Therefore the vertices of \(P\) are exactly
+\[
+s_1,s_2,\dots,s_n
+\]
+in the given cyclic order, and the edges of \(P\) are exactly
+\[
+E_i=[s_i,s_{i+1}].
+\]
+
+Next, for any finite sets \(A,B\subset \mathbb R^2\),
+\[
+\operatorname{conv}(A)+\operatorname{conv}(B)=\operatorname{conv}(A+B),
+\qquad A+B:=\{a+b:a\in A,\ b\in B\}.
+\]
+
+#### Proof
+First, \(A+B\subset \operatorname{conv}(A)+\operatorname{conv}(B)\), and the right-hand side is convex, so
+\[
+\operatorname{conv}(A+B)\subseteq \operatorname{conv}(A)+\operatorname{conv}(B).
+\]
+
+Conversely, let
+\[
+x\in \operatorname{conv}(A)+\operatorname{conv}(B).
+\]
+Then
+\[
+x=\sum_i \alpha_i a_i+\sum_j \beta_j b_j
+\]
+for some \(a_i\in A\), \(b_j\in B\), with \(\alpha_i,\beta_j\ge 0\), \(\sum_i\alpha_i=\sum_j\beta_j=1\). Hence
+\[
+x=\sum_{i,j}\alpha_i\beta_j(a_i+b_j),
+\]
+and the coefficients \(\alpha_i\beta_j\) are nonnegative and sum to
+\[
+\sum_{i,j}\alpha_i\beta_j=\Bigl(\sum_i\alpha_i\Bigr)\Bigl(\sum_j\beta_j\Bigr)=1.
+\]
+So \(x\in \operatorname{conv}(A+B)\). Thus
+\[
+\operatorname{conv}(A)+\operatorname{conv}(B)=\operatorname{conv}(A+B).
+\]
+\(\square\)
+
+Applying this with \(A=S\), \(B=T\), we get
+\[
+R=P+Q=\operatorname{conv}(S+T).
+\]
+Since \(S+T\) is finite, \(R\) is the convex hull of finitely many points.
+
+Also \(T\neq \varnothing\) (both signs occur), so choose \(t_0\in T\). Then
+\[
+P+t_0\subseteq P+Q=R.
+\]
+Because \(P+t_0\) is \(2\)-dimensional, \(R\) is \(2\)-dimensional as well. Therefore \(R\) is a genuine convex polygon.
+
+---
+
+### 1.2. Exposed faces of a convex hull of finitely many points
+
+Let \(A\subset \mathbb R^2\) be finite and \(K=\operatorname{conv}(A)\). Define
+\[
+M_A(u):=\{a\in A:\langle u,a\rangle=\max_{x\in A}\langle u,x\rangle\}.
+\]
+Then
+\[
+F_K(u)=\operatorname{conv}(M_A(u)).
+\]
+
+#### Proof
+Let
+\[
+m:=\max_{x\in A}\langle u,x\rangle .
+\]
+If \(x=\sum_{a\in A}\lambda_a a\in K\), with \(\lambda_a\ge 0\) and \(\sum_a\lambda_a=1\), then
+\[
+\langle u,x\rangle=\sum_{a\in A}\lambda_a\langle u,a\rangle\le \sum_{a\in A}\lambda_a m=m.
+\]
+Hence \(h_K(u)=m\).
+
+Equality holds iff every \(a\) with \(\lambda_a>0\) satisfies \(\langle u,a\rangle=m\), i.e. iff \(x\in \operatorname{conv}(M_A(u))\). So
+\[
+F_K(u)=\operatorname{conv}(M_A(u)).
+\]
+\(\square\)
+
+Two consequences will be used repeatedly:
+
+- if one point of \(A\) strictly beats all others for \(\langle u,\cdot\rangle\), then \(F_K(u)\) is that singleton;
+- if \(a\in A\) is a maximizer, then \(a\in F_K(u)\).
+
+---
+
+### 1.3. Exposed faces of a Minkowski sum
+
+For nonempty compact convex sets \(A,B\subset \mathbb R^2\),
+\[
+F_{A+B}(u)=F_A(u)+F_B(u).
+\]
+
+#### Proof
+First,
+\[
+h_{A+B}(u)=\max_{a\in A,\ b\in B}\langle u,a+b\rangle
+=\max_{a,b}\bigl(\langle u,a\rangle+\langle u,b\rangle\bigr)
+=h_A(u)+h_B(u).
+\]
+If \(a\in F_A(u)\) and \(b\in F_B(u)\), then
+\[
+\langle u,a+b\rangle=h_A(u)+h_B(u)=h_{A+B}(u),
+\]
+so
+\[
+F_A(u)+F_B(u)\subseteq F_{A+B}(u).
+\]
+
+Conversely, if \(z\in F_{A+B}(u)\), write \(z=a+b\) with \(a\in A\), \(b\in B\). Then
+\[
+h_A(u)+h_B(u)=h_{A+B}(u)=\langle u,z\rangle
+=\langle u,a\rangle+\langle u,b\rangle\le h_A(u)+h_B(u),
+\]
+so both inequalities are equalities:
+\[
+a\in F_A(u),\qquad b\in F_B(u).
+\]
+Hence
+\[
+z\in F_A(u)+F_B(u).
+\]
+Thus
+\[
+F_{A+B}(u)=F_A(u)+F_B(u).
+\]
+\(\square\)
+
+---
+
+### 1.4. Exposed faces in the plane
+
+If \(K\subset \mathbb R^2\) is compact, convex, and \(2\)-dimensional, then for every nonzero \(u\),
+\[
+F_K(u)=K\cap L_u,\qquad L_u:=\{x:\langle u,x\rangle=h_K(u)\}.
+\]
+Since \(L_u\) is a line, \(F_K(u)\) is a compact convex subset of a line; therefore \(F_K(u)\) is either
+
+- a point, or
+- a compact segment.
+
+If \(K\) is a polygon, the point case is a vertex, and the nondegenerate segment case is an edge.
+
+In particular, for our polygon \(P\), every exposed face \(F_P(u)\) is either
+
+- \(\{s_i\}\) for some \(i\), or
+- \(E_i=[s_i,s_{i+1}]\) for some \(i\).
+
+---
+
+### 1.5. Compact convex subsets of a line
+
+Let \(a\neq 0\), and let \(G\) be a nonempty compact convex subset of a line parallel to \(a\). If \(p,q\in G\) are respectively the minimum and maximum points of \(\langle a,\cdot\rangle\) on \(G\), then
+\[
+G=[p,q].
+\]
+
+#### Proof
+Write the line as \(x_0+\mathbb Ra\). Since \(G\) is compact and convex,
+\[
+G=\{x_0+\tau a:\tau\in[\alpha,\beta]\}
+\]
+for some \(\alpha\le \beta\). Then
+\[
+\langle a,x_0+\tau a\rangle=\langle a,x_0\rangle+\tau\|a\|^2,
+\]
+which is strictly increasing in \(\tau\). So the minimum occurs at \(\tau=\alpha\), the maximum at \(\tau=\beta\), and therefore \(G=[p,q]\).
+\(\square\)
+
+---
+
+## 2. Proof of statement (2)
+
+Fix \(i\), and let \(u_i\) be an outer normal to the edge
+\[
+E_i=[s_i,s_{i+1}].
+\]
+Then
+\[
+F_P(u_i)=E_i,
+\]
+so
+\[
+\langle u_i,s_i\rangle=\langle u_i,s_{i+1}\rangle=h_P(u_i),
+\]
+and for every \(j\neq i,i+1\),
+\[
+\langle u_i,s_j\rangle<h_P(u_i).
+\]
+
+Let
+\[
+G_i:=F_Q(u_i).
+\]
+
+We will prove
+\[
+G_i=[t_i,t_{i+1}].
+\]
+
+### Step 1: small perturbations of \(u_i\) enter the adjacent cones
+
+For \(j\neq i,i+1\), set
+\[
+\delta_j:=\langle u_i,s_i-s_j\rangle=\langle u_i,s_{i+1}-s_j\rangle>0,
+\qquad
+\delta:=\min_{j\neq i,i+1}\delta_j>0.
+\]
+Also set
+\[
+M:=\max_{j\neq i,i+1}\max\Bigl(
+|\langle a_i,s_i-s_j\rangle|,\ |\langle a_i,s_{i+1}-s_j\rangle|
+\Bigr).
+\]
+Choose
+\[
+0<\varepsilon<\frac{\delta}{M+1}.
+\]
+
+Because \(u_i\perp a_i\), for \(j\neq i,i+1\) we have
+\[
+\langle u_i-\varepsilon a_i,s_i-s_j\rangle
+=\delta_j-\varepsilon\langle a_i,s_i-s_j\rangle
+\ge \delta-\varepsilon M>0,
+\]
+and
+\[
+\langle u_i-\varepsilon a_i,s_i-s_{i+1}\rangle
+=-\varepsilon\langle a_i,s_i-s_{i+1}\rangle
+=\varepsilon\|a_i\|^2>0.
+\]
+So \(s_i\) strictly beats every other vertex of \(P\) for the functional \(\langle u_i-\varepsilon a_i,\cdot\rangle\). By §1.2,
+\[
+F_P(u_i-\varepsilon a_i)=\{s_i\},
+\]
+hence
+\[
+u_i-\varepsilon a_i\in C_i.
+\]
+
+Similarly,
+\[
+\langle u_i+\varepsilon a_i,s_{i+1}-s_j\rangle\ge \delta-\varepsilon M>0
+\quad (j\neq i,i+1),
+\]
+and
+\[
+\langle u_i+\varepsilon a_i,s_{i+1}-s_i\rangle
+=\varepsilon\|a_i\|^2>0.
+\]
+Therefore
+\[
+F_P(u_i+\varepsilon a_i)=\{s_{i+1}\},
+\]
+so
+\[
+u_i+\varepsilon a_i\in C_{i+1}.
+\]
+
+---
+
+### Step 2: \(t_i,t_{i+1}\in G_i\)
+
+Take a sequence \(\varepsilon_m\downarrow 0\) such that
+\[
+u_i-\varepsilon_m a_i\in C_i,\qquad u_i+\varepsilon_m a_i\in C_{i+1}
+\]
+for every \(m\).
+
+Since \(t_i\) is the unique maximizer of every direction in \(C_i\), for every \(t\in T\),
+\[
+\langle u_i-\varepsilon_m a_i,\ t_i-t\rangle\ge 0.
+\]
+Letting \(m\to\infty\) gives
+\[
+\langle u_i,\ t_i-t\rangle\ge 0\qquad(\forall t\in T).
+\]
+Thus \(t_i\) maximizes \(\langle u_i,\cdot\rangle\) on \(T\), so by §1.2,
+\[
+t_i\in F_Q(u_i)=G_i.
+\]
+
+The same argument with \(C_{i+1}\) gives
+\[
+t_{i+1}\in G_i.
+\]
+
+---
+
+### Step 3: \(G_i\) is exactly \([t_i,t_{i+1}]\)
+
+Because
+\[
+G_i=F_Q(u_i)\subset \{q:\langle u_i,q\rangle=h_Q(u_i)\},
+\]
+the set \(G_i\) lies in a line orthogonal to \(u_i\), hence parallel to \(a_i\).
+
+Now fix \(\varepsilon>0\) as in Step 1. For \(q\in G_i\), we have \(\langle u_i,q\rangle=h_Q(u_i)\), so
+\[
+\langle u_i-\varepsilon a_i,q\rangle=h_Q(u_i)-\varepsilon\langle a_i,q\rangle.
+\]
+Therefore, **on \(G_i\)**, maximizing \(\langle u_i-\varepsilon a_i,\cdot\rangle\) is equivalent to minimizing \(\langle a_i,\cdot\rangle\).
+
+But \(u_i-\varepsilon a_i\in C_i\), and \(t_i\) is the unique maximizer of that direction on \(T\). By §1.2,
+\[
+F_Q(u_i-\varepsilon a_i)=\{t_i\}.
+\]
+Since \(t_i\in G_i\), it follows that \(t_i\) is the unique minimizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+Likewise, because \(u_i+\varepsilon a_i\in C_{i+1}\),
+\[
+F_Q(u_i+\varepsilon a_i)=\{t_{i+1}\},
+\]
+and on \(G_i\),
+\[
+\langle u_i+\varepsilon a_i,q\rangle=h_Q(u_i)+\varepsilon\langle a_i,q\rangle,
+\]
+so \(t_{i+1}\) is the unique maximizer of \(\langle a_i,\cdot\rangle\) on \(G_i\).
+
+Now \(G_i\) is a compact convex subset of a line parallel to \(a_i\), and \(t_i,t_{i+1}\) are respectively the minimum and maximum points of \(\langle a_i,\cdot\rangle\) on \(G_i\). By §1.5,
+\[
+G_i=[t_i,t_{i+1}].
+\]
+
+Since multiplying \(u_i\) by a positive scalar does not change the exposed face, this is true for **any** outer normal to \(E_i\).
+
+---
+
+### Step 4: direction of \(t_{i+1}-t_i\)
+
+Because \(G_i=[t_i,t_{i+1}]\) lies in a line parallel to \(a_i\), there exists \(\lambda_i\in\mathbb R\) such that
+\[
+t_{i+1}-t_i=\lambda_i a_i=\lambda_i(s_{i+1}-s_i).
+\]
+Also \(t_i\) is the minimum and \(t_{i+1}\) the maximum of \(\langle a_i,\cdot\rangle\) on \(G_i\), so
+\[
+\langle a_i,t_{i+1}-t_i\rangle\ge 0.
+\]
+Substituting \(t_{i+1}-t_i=\lambda_i a_i\) gives
+\[
+\lambda_i\|a_i\|^2\ge 0.
+\]
+Since \(a_i\neq 0\), we obtain
+\[
+\lambda_i\ge 0.
+\]
+
+This proves statement (2).
+
+---
+
+## 3. Proof of statement (1)
+
+Recall
+\[
+x_i=s_i+t_i.
+\]
+
+### Step 1: each \(x_i\) is a vertex of \(R\)
+
+If \(u\in C_i\), then by definition of \(C_i\),
+\[
+F_P(u)=\{s_i\}.
+\]
+By the Subproblem 1–2 input, \(t_i\) is the unique maximizer of that same direction on \(T\); by §1.2,
+\[
+F_Q(u)=\{t_i\}.
+\]
+Hence by §1.3,
+\[
+F_R(u)=F_P(u)+F_Q(u)=\{s_i+t_i\}=\{x_i\}.
+\]
+This is a singleton exposed face of the polygon \(R\), so \(x_i\) is a vertex of \(R\).
+
+---
+
+### Step 2: for each \(i\), \([x_i,x_{i+1}]\) is an edge of \(R\)
+
+From statement (2),
+\[
+F_Q(u_i)=[t_i,t_{i+1}],
+\qquad
+t_{i+1}-t_i=\lambda_i a_i
+\quad\text{with }\lambda_i\ge 0.
+\]
+Therefore
+\[
+E_i=s_i+[0,1]a_i,
+\qquad
+[t_i,t_{i+1}]=t_i+[0,\lambda_i]a_i.
+\]
+Using §1.3,
+\[
+F_R(u_i)=F_P(u_i)+F_Q(u_i)=E_i+[t_i,t_{i+1}]
+= x_i+[0,1+\lambda_i]a_i.
+\]
+But
+\[
+x_{i+1}
+=s_{i+1}+t_{i+1}
+=(s_i+a_i)+(t_i+\lambda_i a_i)
+=x_i+(1+\lambda_i)a_i.
+\]
+So
+\[
+F_R(u_i)=[x_i,x_{i+1}].
+\]
+Since \(1+\lambda_i>0\) and \(a_i\neq 0\), this segment is nondegenerate. Hence it is an edge of \(R\).
+
+Let me denote it by
+\[
+e_i:=[x_i,x_{i+1}]=F_R(u_i).
+\]
+
+---
+
+### Step 3: these are all the edges of \(R\)
+
+Let \(e\) be any edge of \(R\), and let \(u\) be an outer normal to \(e\). Then
+\[
+e=F_R(u).
+\]
+
+By §1.4, \(F_P(u)\) is either a point or a segment.
+
+- If \(F_P(u)\) is a point, then it must be \(\{s_i\}\) for some \(i\). Hence \(u\in C_i\), so
+  \[
+  F_Q(u)=\{t_i\}
+  \]
+  and therefore
+  \[
+  F_R(u)=\{x_i\},
+  \]
+  a point. But \(e\) is an edge, so this is impossible.
+
+- Therefore \(F_P(u)\) is a nondegenerate segment. Since the edges of \(P\) are exactly the \(E_i\), we must have
+  \[
+  F_P(u)=E_i
+  \]
+  for some \(i\). Then statement (2) gives
+  \[
+  F_Q(u)=[t_i,t_{i+1}],
+  \]
+  and so
+  \[
+  e=F_R(u)=E_i+[t_i,t_{i+1}]=[x_i,x_{i+1}]=e_i.
+  \]
+
+Thus every edge of \(R\) is one of
+\[
+e_1,e_2,\dots,e_n.
+\]
+
+---
+
+### Step 4: distinctness and cyclic order
+
+We now justify carefully that the vertices are exactly \(x_1,\dots,x_n\) in cyclic order.
+
+First, the edges \(e_i\) are pairwise distinct. Indeed, each nondegenerate edge has a unique outer-normal ray. The outer-normal ray of \(e_i\) is the same as that of \(u_i\). If \(e_i=e_j\), then \(u_i\) and \(u_j\) would determine the same outer-normal ray. But then that ray would expose both \(E_i\) and \(E_j\) on \(P\), impossible unless \(E_i=E_j\), i.e. \(i=j\).
+
+So \(R\) has exactly \(n\) edges:
+\[
+e_1,e_2,\dots,e_n.
+\]
+
+Now, the boundary of a convex polygon is a simple closed polygonal chain. Hence a polygon with \(n\) edges has exactly \(n\) vertices, namely the intersections of consecutive edges in boundary order.
+
+The outer-normal rays of the edges \(E_1,\dots,E_n\) of \(P\) are cyclically ordered because the vertices \(s_1,\dots,s_n\) are cyclically ordered. The edge \(e_i\) has the same outer-normal ray as \(E_i\), so the edges
+\[
+e_1,e_2,\dots,e_n
+\]
+occur on the boundary of \(R\) in that same cyclic order.
+
+Therefore the vertices of \(R\) are
+\[
+e_n\cap e_1,\ e_1\cap e_2,\ \dots,\ e_{n-1}\cap e_n.
+\]
+But by definition,
+\[
+x_i\in e_{i-1}\cap e_i
+\]
+for every \(i\). Since consecutive edges of a polygon meet in exactly one vertex, we get
+\[
+e_{i-1}\cap e_i=\{x_i\}.
+\]
+Thus the boundary vertices of \(R\) are exactly
+\[
+x_1,x_2,\dots,x_n
+\]
+in cyclic order. In particular, they are pairwise distinct.
+
+This proves statement (1).
+
+---
+
+## Conclusion
+
+For each \(i\),
+
+1. the point
+   \[
+   x_i=s_i+t_i
+   \]
+   is a vertex of \(P+Q\), and the vertices of \(P+Q\) are exactly
+   \[
+   x_1,x_2,\dots,x_n
+   \]
+   in cyclic order;
+
+2. for any outer normal \(u\) to the edge \([s_i,s_{i+1}]\) of \(P\),
+   \[
+   F_Q(u)=[t_i,t_{i+1}],
+   \]
+   and therefore
+   \[
+   t_{i+1}-t_i=\lambda_i(s_{i+1}-s_i)
+   \qquad\text{for some }\lambda_i\ge 0.
+   \]
+
+So both requested statements are proved.

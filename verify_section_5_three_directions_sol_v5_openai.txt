@@ -1,0 +1,72 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:**  
+   “Convexity gives  
+   \[
+   0=u_0<u_1<\cdots<u_m<u_{m+1}=1,
+   \]
+   and the slopes of successive edges on that opposite chain are strictly decreasing. Hence the piecewise-linear graph through the \(v_j\)'s is concave.”
+
+   **Description:** **Justification Gap.**  
+   These are the key geometric facts used to prove Lemma 2.1, but they are only asserted. No proof is given that the opposite chain is \(u\)-monotone or that its successive slopes are strictly decreasing.
+
+2. **Location:**  
+   “By Lemma 2.1 applied to the base \([O,A]\), the only vertices on the line \(y=1\) are \(B\), and possibly \(s_{i+2}\).”
+
+   **Description:** **Justification Gap.**  
+   Lemma 2.1 only states that a minimum-area third vertex can be chosen among the two adjacent vertices on the opposite chain. It does **not** prove that no other vertex can have the same minimum height. The later restriction of possible representations of \(q_r\) relies on this stronger claim.
+
+3. **Location:**  
+   “\(X=B\) would require
+   \[
+   \tau=t+r a_i.
+   \]
+   But \(m_i=0\), so there is no positive point on the ray \(t+\lambda a_i\) (\(\lambda>0\)); this is exactly the easy ‘forbidden ray’ argument.”  
+   and  
+   “Again the forbidden-ray argument shows this is impossible unless \(\tau=t\).”
+
+   **Description:** **Critical Error.**  
+   From the allowed facts, \(m_i=0\) only implies \(t_i=t_{i+1}=t\) and
+   \[
+   T\cap[t_i,t_{i+1}] = T\cap\{t\}=\{t\}.
+   \]
+   It does **not** imply that no element of \(T\) lies farther out on the ray \(t+\lambda a_i\). The proof uses a stronger “forbidden ray” statement that is neither given nor proved here. Therefore the exclusions of the \(X=B\) and \(X=s_{i+2}\) cases do not follow.
+
+4. **Location:**  
+   “But then
+   \[
+   q_r=s_{i+2}+t
+   \]
+   would be one of the forced points \(p_k\)...”
+
+   **Description:** **Critical Error.**  
+   The forced points are specifically \(p_k=s_k+t_k\). From \(q_r=s_{i+2}+t\), one cannot conclude \(q_r=p_k\) unless it is shown that \(t=t_{i+2}\), which is not established. So this does not rule out the representation with \(X=s_{i+2}\) and \(\tau=t\).
+
+5. **Location:**  
+   “By reflecting the picture across the diagonal \(x=y\), we get the symmetric version.”
+
+   **Description:** **Justification Gap.**  
+   Lemma 5.2 is asserted by symmetry without proving that the reflection preserves all hypotheses and yields the stated conclusion.
+
+6. **Location:**  
+   “Now use the staircase step iteratively along the two monotone halves of the block. … Starting from the left boundary translate \(t-a_{b-1}\in T\) and moving inward along the half
+   \[
+   b+1,\dots,i,
+   \]
+   we obtain
+   \[
+   t-a_{i-1}\in T.
+   \]
+   Starting from the right boundary translate \(t+a_c\in T\) and moving inward along the half
+   \[
+   c-1,\dots,i,
+   \]
+   we obtain
+   \[
+   t+a_i\in T.
+   \]”
+
+   **Description:** **Critical Error.**  
+   Lemmas 5.1 and 5.2 do not prove this propagation rule. Their hypotheses require one adjacent \(m\)-value to be positive (\(m_{j-1}>0,m_j=0\) or \(m_{j-1}=0,m_j>0\)), but at interior indices of a constant block one has \(m_{j-1}=m_j=0\). Also, the actual construction in Lemma 5.1 produces translates of the form \(t+a_j-a_{j-1}\), not \(t-a_j\) or \(t+a_j\). So the claimed inward iteration is unsupported. Consequently Lemma 6.1 fails, and the later deduction \(m_{i-1}\ge1\) and \(m_i\ge1\) is not established.
+
+Because of the **Critical Errors** in items 3, 4, and 6, the proof does not verify the theorem.

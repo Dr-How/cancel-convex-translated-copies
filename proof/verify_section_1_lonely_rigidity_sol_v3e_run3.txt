@@ -1,0 +1,9 @@
+**Bug report**
+
+1. **Location:**  
+   “For every \(r\in S\setminus\{s\}\), choose one lonely point \(\ell_r=r+t_r\) **(where \(t_r\in T\) is the unique translate making \(r+t_r\) lonely)**.”
+
+   **Description:** **Justification Gap.**  
+   At this point in the proof, the earlier claim established only **existence** of at least one lonely point for each \(r\in S\), not **uniqueness** of the translate producing a lonely point. But part \((a)\) is precisely where that uniqueness is being proved. So the parenthetical asserts an unproved uniqueness statement (effectively presupposing the conclusion for those \(r\)). The later counting argument only needs an arbitrary chosen lonely point for each \(r\), but **as written** this uniqueness claim is unsupported.
+
+Because the rubric requires **zero** justification gaps, the solution is **not fully correct** under the stated grading standard.

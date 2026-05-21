@@ -1,0 +1,132 @@
+% PROBLEM: section_5c_unique_direction
+% Keep the notation of SP1–4: P=conv(S) has vertices s_1,…,s_n, edge vectors
+% a_i=s_{i+1}−s_i, exposed translates t_i∈T, chains F_i with
+% t_{i+1}=t_i+m_i·a_i and alternating signs.
+% The closure equation is Σ_{i=1}^{n} m_i·a_i = 0, with all m_i≥0 integers.
+%
+% Say that an edge direction class [a_k] is UNMATCHED if no other edge of P has
+% a direction positively proportional to a_k (i.e., no j≠k with a_j = λ·a_k
+% for any λ>0).  Note: P is a convex polygon, so its edge vectors are NOT all
+% required to be in distinct directions (opposite edges can be antiparallel).
+%
+% LEMMA (Unmatched Direction Forces Zero Multiplicity):
+% If direction class [a_k] is unmatched (no j≠k with a_j = λ a_k, λ>0), AND
+% the direction −a_k also does not appear among {a_j : j≠k} (i.e., a_k has no
+% parallel counterpart of either sign among the other edges), then m_k = 0.
+%
+% More precisely: suppose that for all j≠k, a_j is NOT a positive scalar
+% multiple of a_k AND NOT a negative scalar multiple of a_k
+% (equivalently, a_j is not parallel to a_k for any j≠k).
+% Then the closure equation Σ_{i=1}^{n} m_i·a_i = 0, with all m_i ≥ 0,
+% forces m_k = 0.
+%
+% PROOF STRATEGY:
+% Project the closure equation onto the unit vector â_k = a_k/|a_k|.
+% This gives: m_k |a_k| + Σ_{j≠k} m_j (a_j · â_k) = 0.
+% Since m_k ≥ 0 and |a_k| > 0, we need Σ_{j≠k} m_j (a_j · â_k) ≤ 0.
+% Now note: since P is a convex polygon traversed counterclockwise,
+% its edge vectors span all directions around the circle.  In particular,
+% there must exist at least one edge a_j with a_j · â_k < 0 (pointing
+% "backward" relative to a_k) and at least one with a_j · â_k > 0.
+% However, the key constraint is: since no a_j is parallel to a_k
+% (i.e., no a_j = ±λ a_k), we have a_j · â_k ∈ (−|a_j|, |a_j|) strictly
+% for all j≠k (no edge is perfectly aligned or anti-aligned with a_k).
+%
+% The decisive step: project onto the direction PERPENDICULAR to a_k,
+% namely n_k = a_k^⊥ / |a_k| (the outer normal to edge k).
+% For any j≠k: n_k · a_j = 0 iff a_j ∥ a_k.  By hypothesis, no a_j is
+% parallel to a_k, so n_k · a_j ≠ 0 for all j≠k.  Projecting the closure
+% equation onto n_k: Σ_{j≠k} m_j (n_k · a_j) = 0 (since n_k · a_k = 0).
+% This is a NON-NEGATIVE integer combination (m_j ≥ 0) of NONZERO reals
+% summing to zero — which forces each m_j (n_k · a_j) = 0, hence m_j = 0
+% for all j≠k... but wait, this is too strong (it would force all m_j=0).
+%
+% CORRECT APPROACH (self-contained, rigorous):
+% Use the following fact from convex polygon geometry: since P is a convex
+% polygon with vertices traversed counterclockwise and edge vectors
+% a_1, …, a_n, each consecutive pair (a_i, a_{i+1}) makes a left turn,
+% meaning the cross product a_i × a_{i+1} > 0.  The edge vectors are in
+% strictly increasing angular order modulo 2π.
+%
+% Now suppose for contradiction that m_k > 0 with a_k having no parallel
+% counterpart.  Project the closure equation Σ m_i a_i = 0 onto â_k.
+% The sign of a_j · â_k is positive for j in the arc of edges "before k"
+% (in angular terms) and negative for j in the arc "after k" — specifically,
+% since a_j is not parallel to ±a_k, the projections a_j · â_k are all
+% strictly nonzero except for a_j ⊥ a_k edges.  The m_k a_k · â_k = m_k|a_k|>0
+% term must be cancelled, requiring at least one j with m_j > 0 and a_j·â_k<0,
+% i.e., a_j has a negative component along a_k.  This alone doesn't give
+% contradiction without further sign constraints.  The correct argument uses
+% BOTH projections (onto â_k and onto â_k^⊥) together with the polygon's
+% convexity to produce a contradiction via the following lemma on non-negative
+% combinations: a non-negative combination Σ m_i a_i = 0 with all a_i being
+% edge vectors of a convex polygon is possible only with specific structure
+% (multiples of 1,1,...,1 up to direction grouping).
+%
+% WRITE THE FULL RIGOROUS PROOF using the projection method: project Σ m_i a_i=0
+% onto â_k, obtaining m_k|a_k| = −Σ_{j≠k} m_j(a_j·â_k). Then project onto â_k^⊥,
+% obtaining Σ_{j≠k} m_j(a_j·â_k^⊥) = 0.  Use the fact that all a_j with j≠k
+% are not parallel to a_k to analyse the signs of a_j·â_k^⊥, and use the
+% convexity (angular ordering) of the edge vectors to show the second projection
+% forces contradictory sign requirements on m_j.
+%
+% Alternatively, use the following clean linear-algebra argument:
+% The edge vectors of any convex polygon satisfy: for any nonzero vector v,
+% the set {i : a_i · v > 0} and {i : a_i · v < 0} are both nonempty.
+% Moreover, if Σ m_i a_i = 0 with m_i ≥ 0 not all zero, then both sets must
+% be nonempty AND contribute equally. If a_k is the UNIQUE edge in its
+% half-plane (no other a_j has a_j · â_k ≥ 0 with a_j ∥ a_k ... actually
+% this isn't right either.
+%
+% FINAL CLEAN VERSION TO PROVE:
+% Lemma: Let a_1,...,a_n be the edge vectors of a convex polygon (n ≥ 3),
+% and m_1,...,m_n ≥ 0 integers with Σ m_i a_i = 0.
+% Suppose for some index k, the vector a_k is not parallel to a_j for any j≠k
+% (i.e., a_k has no parallel edge in the polygon).
+% Then m_k = 0.
+%
+% Proof: Suppose m_k > 0. Project the equation Σ m_i a_i = 0 onto â_k = a_k/|a_k|.
+% We get: m_k|a_k| + Σ_{j≠k} m_j(a_j·â_k) = 0, so Σ_{j≠k} m_j(a_j·â_k) = −m_k|a_k| < 0.
+% Hence there exists j≠k with m_j > 0 and a_j · â_k < 0.
+% Next project onto the unit vector ê = â_k^⊥ (rotate â_k by 90° counterclockwise).
+% We get: Σ_i m_i (a_i · ê) = 0, and since a_k · ê = 0 (a_k ⊥ ê by definition),
+% this gives: Σ_{j≠k} m_j (a_j · ê) = 0.
+% Now use the angular ordering of edges: since a_k has no parallel edge,
+% all edges a_j (j≠k) lie in directions strictly different from a_k and −a_k.
+% In the convex polygon, the edge directions increase monotonically around the circle.
+% The edges with a_j · â_k < 0 are those in the "back half" of the circle
+% (directions between a_k + π/2 and a_k + 3π/2, not including ±a_k).
+% Their ê = â_k^⊥ components are a_j · ê, which can be positive or negative.
+% However, the key point: since a_k has no antiparallel edge (−a_k is not among the a_j),
+% the "back half" edges with a_j·â_k < 0 do not reach exactly the angle a_k + π.
+% Therefore both a_j · ê > 0 and a_j · ê < 0 must appear among back-half edges to
+% satisfy Σ_{j≠k} m_j(a_j·ê) = 0... The argument becomes involved.
+%
+% THE SIMPLEST PROOF: Use a support function / Farkas-type argument.
+% Since a_k is not parallel to any other a_j, a_k is "exposed" in the set
+% {a_1,...,a_n} in the following sense: there exists a linear functional ℓ
+% such that ℓ(a_k) > 0 and ℓ(a_j) ≤ 0 for all j≠k... but this is NOT
+% guaranteed since the polygon has edges going "all the way around".
+%
+% ACTUAL SIMPLEST PROOF: By Carathéodory / cone arguments:
+% The only non-negative integer combination of edge vectors of a convex polygon
+% that sums to 0 has the property that each direction class contributes equally
+% to cancellation. Formally, group edges by direction class: let D be the set of
+% direction classes, and for each class [v]∈D let E([v])={i: a_i=λ_i v, λ_i>0}.
+% The equation Σ m_i a_i = 0 can be written Σ_{[v]∈D} (Σ_{i∈E([v])} m_i λ_i) v̂ = 0
+% where v̂ is the unit vector in direction [v].
+% But also, for each direction class, the antiparallel class [−v̂] must exist
+% (since edge vectors go around the full circle for a convex polygon) and must
+% provide exactly cancelling contribution. Hence: if [a_k] has no antiparallel
+% class (no edges pointing in direction −â_k), then (Σ_{i∈E([a_k])} m_i |a_i|) â_k
+% cannot be cancelled, forcing Σ_{i∈E([a_k])} m_i = 0, hence m_k = 0.
+% But [a_k] is unmatched means no OTHER edge is in class [a_k], so E([a_k])={k}.
+% If additionally there is no antiparallel class, then m_k = 0.
+%
+% WRITE THE FULL PROOF of this lemma now. Be rigorous and self-contained.
+% Use the "project onto â_k" argument combined with the observation that
+% cancellation of the â_k component requires an antiparallel contribution,
+% which by hypothesis does not exist, giving m_k = 0 when a_k has no parallel
+% edge (in either direction) among the other edges.
+%
+% Write a self-contained LaTeX proof (no \documentclass needed).

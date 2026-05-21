@@ -1,0 +1,624 @@
+PESSIMISTIC VERIFICATION — CONSOLIDATED REPORT
+Solution: proof/section_5_three_directions_sol_v9.tex
+Problem:  proof/section_5_three_directions.tex
+Runs:     3 independent verifier calls
+Verdict:  ISSUES_FOUND
+
+All three verifier runs independently returned "not correct." Under pessimistic mode,
+ANY run flagging issues yields ISSUES_FOUND. The verdict is unanimous.
+
+================================================================
+CONSOLIDATED ISSUE LIST
+================================================================
+
+Each issue is prefixed by the run(s) that flagged it.
+C = Critical Error, G = Justification Gap.
+
+--- FOUNDATIONAL / SETUP ---
+
+[Run1,Run2,Run3] G-1: SIGMA0 inference gap.
+  Location: "since u_j is in the interior of N(s_j) ... so <s_k+t, u_j> < <s_j+t_j, u_j>"
+  The inequality for sums does not follow from comparing only the s-terms. The additional
+  fact <t, u_j> <= <t_j, u_j> for all t in T is required but never stated, making the
+  derivation of eq:sigma0 unjustified.
+
+[Run1,Run2,Run3] G-2: Face-chain maximizer claim unjustified.
+  Location: "Since m_k=0, the face chain F_k={t_k}={t_0}, so t_0 maximises <·,u> over T"
+  The setup only gives uniqueness of t_i for a specific interior-normal u_i. No result
+  shows that for an arbitrary u in the closed normal cone the maximizers are exactly the
+  points of F_k. The conclusion T={t_0} is therefore unsupported.
+
+--- N=3 SECTION ---
+
+[Run1,Run2,Run3] C-1: SPURIOUS FOURTH TERM in Lemma lem:step. (MOST CRITICAL)
+  Location: "Apply eq:nonlonely to p=s_3+t:
+             sigma_T(t+a1+a2) + sigma_T(t+a2) + sigma(t) + sigma_T(t+a3) = 0"
+  For n=3 the sum over j=1,2,3 has exactly three terms; sigma_T(t+a3) is a spurious
+  fourth term with no source in eq:nonlonely. The staircase lemma and the n=3
+  contradiction are built on this incorrect equation.
+
+[Run3] G-3: Iteration hypotheses not re-verified.
+  Location: "Repeating: t*+ka1 in T for all k>=0" and "by induction T contains elements
+             of arbitrarily large height"
+  Each step of the iteration applies a previous argument without re-checking that its
+  hypotheses hold at the new step.
+
+--- SECTION 2 (HEIGHT-SET / NO-GAPS) ---
+
+[Run1,Run2,Run3] C-2: Height set H only valid for n=4, not all n>=4.
+  Location: "H := {0,...,m2} union {m2+k*mu} union {(m4-k)(1+mu)} ...
+             beta(a4) = beta(-(a1+a2+a3)) = -(1+mu)"
+  The identity a4 = -(a1+a2+a3) holds only when n=4. For n>=5 the definition of H
+  omits chains F5,...,Fn and the beta-closure identity is false.
+
+[Run1,Run2,Run3] C-3: Induction on real-valued heights is invalid.
+  Location: "By induction on h (base case h in (0,1) handled below)"
+  Heights are real numbers; no discrete well-ordered parameter is specified. Ordinary
+  induction on arbitrary reals is not valid.
+
+[Run1,Run2,Run3] C-4: "h - c_j not in H" asserted without proof and is false in general.
+  Location: "for h not in H and c_j>=1, we have h-c_j not in H by the structure of H"
+  A number outside H can become a number inside H after subtracting c_j. The vanishing
+  of lower-height terms in Lemma lem:nogaps therefore does not follow.
+
+[Run1,Run2,Run3] G-4: Base case of No-Gaps induction missing for mu<=0.
+  Location: "Base case h in (0, min(mu_+, 1)) where mu_+ := min{mu,1}"
+  If mu<=0 then mu_+<=0 and this interval is empty, providing no base case. Yet the
+  No-Gaps lemma is later applied for mu=0 and mu<0.
+
+[Run1,Run2,Run3] G-5: Arithmetic needed for eq:a3vanish explicitly omitted.
+  Location: "For mu in Q_{>0} \ Z: one checks ... we omit the arithmetic details.
+             Therefore: eq:a3vanish."
+  The key arithmetic for the exclusion h-mu not in H is never supplied; subsequent
+  arguments depend on eq:a3vanish as if it were proved.
+
+[Run1,Run2,Run3] C-5: Claim "m2+1 not a face-chain height for mu not in Z_{>0}" is false.
+  Location: Lemma lem:top, "m2+1 is not a face-chain height ... so sigma_T terms vanish"
+  Counterexample: mu=1/2, m3>=2 gives m2+1 = m2+2*mu, which IS a height on F3.
+  The vanishing of the height-(m2+1) and height-(m2-mu) terms is invalid.
+
+[Run2] G-6 (also Run1): m2-mu exclusion argument incomplete.
+  Location: "The height m2-mu ... m2-mu not in H (by the same closure analysis)"
+  No complete argument is given; the reference is to "closure analysis" which was
+  itself not fully carried out.
+
+[Run1,Run2] G-7: c_j >= 1 not established; only c_j > 0 was proved.
+  Location: Lemma lem:betamin4, "heights h*-c_j <= h*-1 < h* = h_min, so terms vanish"
+  The bound c_j>=1 is stronger than what was established; the vanishing is unjustified.
+
+--- SECTION 3 (n=4, mu>0 non-integer) ---
+
+[Run1,Run2,Run3] C-6: "1 - mu < 0" false when 0 < mu < 1.
+  Location: "Heights: 2, 2, 1, 1-mu<0 (since mu>0, last term = 0)"
+  For 0<mu<1 one has 1-mu>0, not <0. The contradiction in this subcase is invalid.
+
+[Run1,Run2,Run3] C-7: No-Gaps misapplied at height 0 (which is IN H).
+  Location: "Since t1-a1 not in T (height 0 and t1-a1 != t1: only t1 at height 0 by
+             No-Gaps)"
+  Lemma lem:nogaps only excludes heights outside H; since 0 in H it says nothing
+  about uniqueness at height 0. This is an invalid use of the lemma.
+
+[Run1,Run2,Run3] C-8: Case mu>1 (non-integer) left completely unhandled.
+  Location: "The height mu>0 is not in H for mu<1 ... By No-Gaps: sigma_T(t3+a3-a2)=0"
+  The proposition covers all 0<mu not in Z_{>0}, but the argument only addresses mu<1.
+  No argument is given for mu>1.
+
+[Run1,Run2,Run3] C-9: Collapse m1=m2=0 => all four chains degenerate is unjustified.
+  Location: "Case m1=0, m2=0. All face chains F1={t1},F2={t2},F3={t3},F4={t4} with
+             t1=t2=t3=t4=:t0."
+  From m1=0 and m2=0 one gets t2=t1 and t3=t2, but nothing forces m3=m4=0 or t4=t3.
+
+--- SECTION 3 (n=4, mu=0) ---
+
+[Run1,Run2,Run3] G-8: Reference to nonexistent Lemma lem:cross.
+  Location: "Consider x*:=s1+t3 not in {x_j} (same non-lonely check as Lemma lem:cross)"
+  No such lemma is established in the proof. The non-lonely verification for x* is absent.
+
+[Run1,Run2,Run3] C-10: No-Gaps misapplied at height 0 again in Prop prop:n4mu0.
+  Location: "The element t1+|lambda|a1: height 0, so in F1 only if |lambda|<=m1=1 ...
+             or more carefully by the No-Gaps Lemma applied at height 0"
+  0 is in H; the No-Gaps lemma cannot exclude elements at height 0.
+
+[Run1,Run2,Run3] G-9: General mu=0 case deferred and never proved.
+  Location: "The argument in full generality follows the same case split ... we omit
+             the repetition."
+  Proposition prop:n4mu0 is not actually proved in general.
+
+--- SECTION 3 (n=4, -1<mu<0) ---
+
+[Run1,Run2,Run3] G-10: Key steps in prop:n4muneg only sketched.
+  Location: "the same argument as Lemma lem:betamax adapted ... shows ..." and
+             "The general case m2>=2 follows by the same argument inductively ...
+             We omit the repetition."
+  Uniqueness of the height-maximum and the final contradiction are asserted but not
+  established.
+
+--- SECTION 4 (n>=5 reduction) ---
+
+[Run1,Run2,Run3] C-11: c_j >= 2 for j>=4 is false in general.
+  Location: "For j>=4: c_j = beta(s_j - s1) >= 2"
+  For example c_4 = 1+mu, which lies in (1,2) when 0<mu<1. The vanishing estimates
+  for j>=4 terms collapse.
+
+[Run1,Run2,Run3] C-12: h(t) - mu < 0 does not follow from h(t) < m2.
+  Location: "the terms j>=4 have heights h(t)+1-c_j <= h(t)-mu < 0"
+  This bound is not justified and is generally false.
+
+[Run1,Run2,Run3] C-13: Prop n=3 invoked "verbatim" inside n>=5, but global hypotheses fail.
+  Location: "The s3-equation then has exactly three nonzero terms (as in n=3), and
+             Proposition prop:n3 applies verbatim."
+  Prop n=3 uses triangle-global facts (m1=m2=m3, parity, a1+a2+a3=0) that do not
+  hold for a 3-element subsystem inside a larger polygon.
+
+[Run1,Run2] G-11: mu<=0 branch of n>=5 reduction given no proof.
+  Location: "For mu<=0: analogous reduction."
+  No argument is supplied.
+
+--- CONCLUSION ---
+
+[Run1,Run2,Run3] G-12: Case n=4, mu in Z_{>0} is asserted but never proved.
+  Location: "n=4, mu in Z_{>0}: the No-Gaps Lemma holds equally, and the staircase
+             argument extends ... with minor modifications ..."
+  This subcase appears only in the conclusion; no proof is provided.
+
+--- DIRECTION-CLASS INCONSISTENCY ---
+
+[Run1] C-14: Direction class [a3]=[a1] incorrectly concluded from a3=-a1.
+  Location: "Sub-case mu=0 (trapezoid: [a3]=[a1])" and "|lambda|=1 means a3=-a1,
+             i.e. [a3]=[a1]"
+  The problem defines direction classes via POSITIVE scalar multiples. Under that
+  definition a3=-a1 does NOT imply [a3]=[a1]; the direction-class counting is
+  inconsistent with the stated definition.
+
+================================================================
+ISSUE COUNTS BY RUN
+================================================================
+Run 1: 9 Critical Errors + 9 Justification Gaps  (24 total issues listed)
+Run 2: 9 Critical Errors + 10 Justification Gaps (19 total issues listed)
+Run 3: 13 Critical Errors + 8 Justification Gaps (21 total issues listed)
+All runs: ISSUES_FOUND
+
+================================================================
+APPENDIX A — FULL OUTPUT: RUN 1
+================================================================
+
+The solution is **not correct**. I found multiple **Critical Errors** and **Justification Gaps**.
+
+## Bug report
+
+### Foundational issues
+
+1. **Location:**
+   > "For j≠k: since u_j is in the interior of N(s_j) and s_k≠s_j, we have <s_k,u_j><<s_j,u_j>, so <s_k+t,u_j><<s_j+t_j,u_j>=<x_j,u_j>, giving s_k+t≠x_j."
+
+   **Description — Justification Gap:**
+   The displayed inequality for the sums does NOT follow from comparing only the s-terms. One also needs the fact that <t,u_j><=<t_j,u_j> for all t in T. That comparison is not stated here, yet it is essential for the conclusion s_k+t≠x_j. This gap affects the derivation of eq:sigma0, which is used throughout the proof.
+
+2. **Location:**
+   > "Since m_k=0, the face chain F_k={t_k}={t_0}, so t_0 maximises <·,u> over T (the maximiser is achieved by F_k)."
+
+   **Description — Justification Gap:**
+   This uses a stronger statement than the allowed facts provide. The setup gives uniqueness of t_i for a chosen interior normal u_i, but here the proof needs that for an arbitrary u in the closed normal cone, the maximizers over T are exactly the chain F_k. That result is not established.
+
+---
+
+### Section 1: n=3
+
+3. **Location:**
+   > "Apply eq:nonlonely to p=s_3+t:
+   > sigma_T(t+a1+a2)+sigma_T(t+a2)+sigma(t)+sigma_T(t+a3)=0."
+
+   **Description — Critical Error:**
+   For n=3, the sum over j=1,2,3 has only three terms:
+   sigma_T(t+a1+a2)+sigma_T(t+a2)+sigma(t).
+   The extra sigma_T(t+a3) term does not come from eq:nonlonely. This is a wrong expansion.
+
+---
+
+### Section 2: general n>=4
+
+4. **Location:**
+   > "The face-chain height set is
+   > H := {0,1,...,m2} union {m2+k*mu: k=1,...,m3}
+   > union {(m4-k)(1+mu): k=0,...,m4},
+   > ... and beta(a4)=beta(-(a1+a2+a3))=-(1+mu)."
+
+   **Description — Critical Error:**
+   The identity a4=-(a1+a2+a3) is true only when n=4. Section 2 is stated for all n>=4, and later Section 4 uses this H for n>=5. For n>4, this definition of H is invalid.
+
+5. **Location:**
+   > "For j>=3: heights h*-c_j<=h*-1<h*=h_min, so terms vanish."
+
+   **Description — Justification Gap:**
+   Earlier the proof only established c_j>0, not c_j>=1. The bound h*-c_j<=h*-1 is unjustified.
+
+6. **Location:**
+   > "By induction on h (base case h in (0,1) handled below) ..."
+
+   **Description — Justification Gap:**
+   The proof attempts induction on a real-valued height h without specifying any well-founded order or reducing to a finite ordered list of heights. As written, this is not a valid induction argument.
+
+7. **Location:**
+   > "for h not in H and c_j>=1, we have h-c_j not in H by the structure of H."
+
+   **Description — Critical Error:**
+   This claim is false in general. A number outside H can become an element of H after subtracting c_j. The vanishing of the lower-height terms in Lemma lem:nogaps therefore does not follow.
+
+8. **Location:**
+   > "Base case h in (0,min(mu_+,1)) where mu_+ := min{mu,1} ..."
+
+   **Description — Justification Gap:**
+   Lemma lem:nogaps is stated for all n>=4, but this base case only addresses mu>0. If mu<0, then mu_+<0 and the interval is empty, so no base case is actually supplied.
+
+9. **Location:**
+   > "For mu in Q_{>0} \ Z: one checks ... and we omit the arithmetic details. Therefore: eq:a3vanish."
+
+   **Description — Justification Gap:**
+   The key arithmetic verification needed for eq:a3vanish is explicitly omitted.
+
+10. **Location:**
+    > "Since mu not in Z_{>0}: m2+1 is not a face-chain height ... By the No-Gaps Lemma, no T-element at height m2+1."
+
+    **Description — Critical Error:**
+    This claim is false. For example, if mu=1/2 and m3>=2, then m2+1 = m2+2*mu,
+    so m2+1 IS a height on F3. The vanishing of the m2+1 terms in Lemma lem:top is
+    therefore unsupported. The same paragraph also leaves the vanishing of the m2-mu
+    term unproved.
+
+---
+
+### Section 3: n=4, 0<mu not in Z_{>0}
+
+11. **Location:**
+    > "Heights: 2, 2, 1, 1-mu<0 (since mu>0, last term =0)."
+
+    **Description — Critical Error:**
+    From mu>0 one cannot conclude 1-mu<0. This is false whenever 0<mu<1.
+
+12. **Location:**
+    > "Since t1-a1 not in T (height 0 and t1-a1≠t1: only t1 at height 0 by No-Gaps), sigma_T(t1-a1)=0."
+
+    **Description — Critical Error:**
+    The No-Gaps lemma only excludes heights outside H; it does not imply uniqueness of a point at a height in H, and 0 in H. This vanishing does not follow.
+
+13. **Location:**
+    > "The height mu>0 is not in H for mu<1 ... By the No-Gaps Lemma: sigma_T(t3+a3-a2)=0."
+
+    **Description — Critical Error:**
+    This only discusses the subcase mu<1, but Proposition prop:n4mu claims to treat all 0<mu not in Z_{>0}. No argument is given for mu>1 non-integer.
+
+14. **Location:**
+    > "Case m1=0, m2=0. All face chains F1={t1},F2={t2},F3={t3},F4={t4} with t1=t2=t3=t4=:t0."
+
+    **Description — Critical Error:**
+    From m1=0 and m2=0, one gets t2=t1 and t3=t2, but nothing here implies m3=0, m4=0, or t4=t1. The conclusion that all four chains degenerate is unsupported.
+
+---
+
+### Section 3: n=4, mu=0
+
+15. **Location:**
+    > "Consider x*:=s1+t3 not in {x_j} (same non-lonely check as Lemma lem:cross)."
+
+    **Description — Critical Error:**
+    There is no Lemma lem:cross, and the non-lonely check is not supplied. Moreover, the proof has not ruled out t3=t1, in which case x*=x1. The subsequent use of eq:nonlonely at x* is therefore invalid.
+
+16. **Location:**
+    > "The element t1+|lambda|a1: height 0, so in F1 only if |lambda|<=m1=1, i.e. |lambda|=1. ... So |lambda|≠1, giving sigma_T(t1+|lambda|a1)=0."
+
+    **Description — Critical Error:**
+    Even if t1+|lambda|a1 is not on F1, that does not imply it is not in T. The proof gives no valid reason for this term to vanish.
+
+17. **Location:**
+    > "The argument in full generality follows the same case split as Proposition prop:n4mu with mu=0; we omit the repetition."
+
+    **Description — Justification Gap:**
+    Proposition prop:n4mu0 is not fully proved; the general mu=0 case is deferred but not actually given.
+
+---
+
+### Section 3: n=4, -1<mu<0
+
+18. **Location:**
+    > "the same argument as Lemma lem:betamax adapted to positive a3-direction shows t3 is the unique height-maximum ..."
+    > "The general case m2>=2 follows by the same argument inductively ... We omit the repetition."
+
+    **Description — Justification Gap:**
+    The key claims in Proposition prop:n4muneg are only sketched. The proof does not actually establish the uniqueness of the maximum-height element or the final contradiction.
+
+---
+
+### Section 4: n>=5
+
+19. **Location:**
+    > "For j>=4: c_j=beta(s_j-s_1)>=2 ... while vertices s_5,...,s_n lie on the strictly increasing part of the boundary so c_j>=1+mu for j>=4."
+
+    **Description — Critical Error:**
+    These geometric claims are false in general. Heights c_j need not be integers, c_4=1+mu need not be at least 2, and along a convex polygon the heights do not stay on a "strictly increasing part" all the way from s_5 to s_n.
+
+20. **Location:**
+    > "the terms j>=4 have heights h(t)+1-c_j<=h(t)-mu<0 ... By the same No-Gaps Lemma ..."
+
+    **Description — Critical Error:**
+    The inequality h(t)-mu<0 does not follow from h(t)<m2, and the vanishing of all extra j>=4 terms is not proved.
+
+21. **Location:**
+    > "The s3-equation then has exactly three nonzero terms (as in n=3), and Proposition prop:n3 applies verbatim."
+
+    **Description — Critical Error:**
+    Proposition prop:n3 uses triangle-specific facts, especially Lemma lem:n3m, which depends on a1+a2+a3=0 and forces m1=m2=m3. Those hypotheses do not hold for a general n>=5 polygon, so the n=3 argument cannot be imported verbatim.
+
+22. **Location:**
+    > "For mu<=0: analogous reduction."
+
+    **Description — Justification Gap:**
+    No proof is given for the mu<=0 branch of the n>=5 reduction.
+
+---
+
+### Conclusion / omitted case
+
+23. **Location:**
+    > "n=4, mu in Z_{>0}: the No-Gaps Lemma holds equally, and the staircase argument extends ... with minor modifications ..."
+
+    **Description — Justification Gap:**
+    This entire subcase is asserted in the conclusion but never actually proved.
+
+---
+
+### Direction-class inconsistency
+
+24. **Location:**
+    > "Sub-case mu=0 (trapezoid: [a3]=[a1])."
+    > "|lambda|=1 means a3=-a1, i.e. [a3]=[a1]."
+
+    **Description — Critical Error:**
+    The problem statement defines direction classes using POSITIVE scalar multiples. Under that definition, a3=-a1 does NOT imply [a3]=[a1]. The proof's direction-class counting is inconsistent with the stated definition.
+
+---
+
+Because the solution contains multiple Critical Errors and many Justification Gaps, it does NOT verify the statement.
+
+================================================================
+APPENDIX B — FULL OUTPUT: RUN 2
+================================================================
+
+The solution is **not correct**. It contains multiple **Critical Errors** and **Justification Gaps**.
+
+## Bug report
+
+1. **Location:**
+   "Since m_k=0, the face chain F_k={t_k}={t_0}, so t_0 maximises <·,u> over T (the maximiser is achieved by F_k)."
+   **Description — Justification Gap:**
+   The allowed facts only give uniqueness of t_i for a specific u_i in the interior of the normal cone, plus the arithmetic-progression description of F_i. No result is stated showing that for an arbitrary u in N(s_k), the maximizers of <·,u> over T lie on F_k. This step is used to prove T={t_0}, but it is not justified.
+
+2. **Location:**
+   In Lemma lem:step:
+   sigma_T(t+a1+a2)+sigma_T(t+a2)+sigma(t)+sigma_T(t+a3)=0.
+   **Description — Critical Error:**
+   This is the n=3 case. Applying eq:nonlonely to p=s_3+t should produce only three terms (for j=1,2,3). The displayed equation has a spurious fourth term sigma_T(t+a3). The staircase lemma and the subsequent contradiction for n=3 are built on this incorrect equation.
+
+3. **Location:**
+   In Lemma lem:betamin4:
+   "For j>=3: heights h*-c_j<=h*-1<h*=h_min, so terms vanish."
+   **Description — Justification Gap:**
+   Earlier, the proof explicitly established only c_j>0 in general, not c_j>=1. The displayed inequality uses an unproved stronger bound.
+
+4. **Location:**
+   "The face-chain height set is
+   H := {0,1,...,m2} union {m2+k*mu: k=1,...,m3} union {(m4-k)(1+mu): k=0,...,m4},
+   ... By the beta-closure: m2+m3*mu=m4*(1+mu) ... and beta(a4)=beta(-(a1+a2+a3))."
+   **Description — Critical Error:**
+   Section 2 is stated for all n>=4, but this formula assumes a4=-(a1+a2+a3), which is true only when n=4. For n>=5, the definition of H omits the later chains F5,...,Fn, and the cited closure identity is false.
+
+5. **Location:**
+   In Lemma lem:nogaps:
+   "By induction on h ... Base case h in (0,min(mu_+,1)) ... Inductive step: Assume no T-elements at heights in (0,h0) \ H ..."
+   **Description — Justification Gap:**
+   This is not a valid induction scheme as written. Heights are real numbers, and no well-ordered discrete parameter is specified.
+
+6. **Location:**
+   In Remark (1):
+   "For mu in Q_{>0}\Z: one checks that the resulting k exceeds m4 or is negative ... and we omit the arithmetic details. Therefore: eq:a3vanish."
+   **Description — Justification Gap:**
+   The proof explicitly omits the arithmetic needed to establish eq:a3vanish, yet later arguments rely on it as if it were proved.
+
+7. **Location:**
+   In Lemma lem:top:
+   "For mu not in Z_{>0}: m2+1 is not a face-chain height ... so both sigma_T(t+a2)=sigma_T(t+a1+a2)=0."
+   **Description — Critical Error:**
+   This claim is false in general. For example, if mu=1/2 and m3>=2, then m2+1=m2+2*mu, which is a height on F3, so m2+1 in H.
+
+8. **Location:**
+   Also in Lemma lem:top:
+   "The height m2-mu ... in either case m2-mu not in H (by the same closure analysis), so sigma_T(t-a3)=0."
+   **Description — Justification Gap:**
+   No complete argument is given for m2-mu not in H.
+
+9. **Location:**
+   In Proposition prop:n4mu, case "m1=0, m2>=2":
+   "Heights: 2, 2, 1, 1-mu<0 (since mu>0, last term =0)."
+   **Description — Critical Error:**
+   From mu>0 it does NOT follow that 1-mu<0. This is false when 0<mu<1.
+
+10. **Location:**
+    In the same case:
+    "Since t1-a1 not in T (height 0 and t1-a1≠t1: only t1 at height 0 by No-Gaps) ..."
+    **Description — Critical Error:**
+    Lemma lem:nogaps excludes heights outside H, but 0 in H. So "only t1 at height 0 by No-Gaps" does not follow.
+
+11. **Location:**
+    In Proposition prop:n4mu, case "m1=0, m2=1, m3>=1":
+    "The height mu>0 is not in H for mu<1 ... By the No-Gaps Lemma: sigma_T(t3+a3-a2)=0."
+    **Description — Critical Error:**
+    The proposition is supposed to treat all 0<mu not in Z_{>0}, but this argument only addresses the subcase mu<1.
+
+12. **Location:**
+    In Proposition prop:n4mu, case "m1=0, m2=0":
+    "All face chains F1={t1},F2={t2},F3={t3},F4={t4} with t1=t2=t3=t4=:t0."
+    **Description — Critical Error:**
+    From m1=0 and m2=0, one gets t2=t1 and t3=t2, but nothing here shows m3=m4=0 or t4=t3.
+
+13. **Location:**
+    In Proposition prop:n4mu0:
+    "Consider x*:=s1+t3 not in {x_j} (same non-lonely check as Lemma lem:cross)."
+    **Description — Justification Gap:**
+    There is no Lemma lem:cross in the proof.
+
+14. **Location:**
+    In Proposition prop:n4mu0:
+    "suppose sigma_T(t1+|lambda|a1)=0 (which holds when |lambda| not in {0,1,...,m1} or more carefully by the No-Gaps Lemma applied at height 0)."
+    **Description — Critical Error:**
+    The No-Gaps Lemma cannot be used to exclude height 0, because 0 in H.
+
+15. **Location:**
+    End of Proposition prop:n4mu0:
+    "The argument in full generality follows the same case split as Proposition prop:n4mu with mu=0; we omit the repetition."
+    **Description — Justification Gap:**
+    The general mu=0 case is not proved.
+
+16. **Location:**
+    In Proposition prop:n4muneg:
+    "the same argument as Lemma lem:betamax adapted ... shows ..." and later "We omit the repetition."
+    **Description — Justification Gap:**
+    The proof for -1<mu<0 is only sketched.
+
+17. **Location:**
+    In Section 4:
+    "For j>=4: c_j=beta(s_j-s1)>=2" and "the terms j>=4 have heights h(t)+1-c_j<=h(t)-mu<0."
+    **Description — Critical Error:**
+    Neither claim is justified; c_4=1+mu can lie in (1,2) for 0<mu<1.
+
+18. **Location:**
+    In Section 4:
+    "By the same No-Gaps Lemma (proved in Section 2 for all n) ... Proposition prop:n3 applies verbatim."
+    **Description — Critical Error:**
+    Section 2 did not validly prove No-Gaps for n>=5, and Proposition prop:n3 is a theorem for an actual triangle, not a 3-point subsystem inside a larger polygon.
+
+19. **Location:**
+    In the conclusion:
+    "n=4, mu in Z_{>0}: the No-Gaps Lemma holds equally, and the staircase argument extends ... with minor modifications ..."
+    **Description — Justification Gap:**
+    This entire case is only asserted. No proof is provided.
+
+Because the solution contains Critical Errors and multiple Justification Gaps, it does NOT verify the statement.
+
+================================================================
+APPENDIX C — FULL OUTPUT: RUN 3
+================================================================
+
+The solution is **not correct**. It contains multiple **Critical Errors** and several **Justification Gaps**.
+
+## Bug report
+
+1. **Location:**
+   "since u_j is in the interior of N(s_j) and s_k≠s_j, we have <s_k,u_j><<s_j,u_j>, so <s_k+t,u_j><<s_j+t_j,u_j>"
+   **Description: Justification Gap.**
+   The displayed inequality does NOT follow from <s_k,u_j><<s_j,u_j> alone; it also needs the fact that t_j maximizes <·,u_j> over T, i.e. <t,u_j><=<t_j,u_j>. That step is omitted, yet it is essential for the conclusion s_k+t≠x_j and thus for eq:sigma0.
+
+2. **Location:**
+   "Since m_k=0, the face chain F_k={t_k}={t_0}, so t_0 maximises <·,u> over T (the maximiser is achieved by F_k)."
+   **Description: Justification Gap.**
+   The allowed facts do not state that for an arbitrary u in N(s_k), the maximizers of <·,u> over T are exactly the points of F_k.
+
+3. **Location:**
+   "Repeating: t*+ka1 in T for all k>=0." and "Both t+a2, t+a1+a2 have height >=m+2; by induction T contains elements of arbitrarily large height"
+   **Description: Justification Gap.**
+   In both places, an iteration is asserted without re-verifying the hypotheses needed to reapply the previous argument at the next step.
+
+4. **Location:**
+   "Apply eq:nonlonely to p=s_3+t:
+   sigma_T(t+a1+a2)+sigma_T(t+a2)+sigma(t)+sigma_T(t+a3)=0."
+   **Description: Critical Error.**
+   For n=3, the sum over j=1,2,3 has only three terms: sigma_T(t+a1+a2)+sigma_T(t+a2)+sigma_T(t).
+   The extra term sigma_T(t+a3) has no source. Lemma lem:step is therefore derived from an incorrect equation.
+
+5. **Location:**
+   "The face-chain height set is H := {0,...,m2} union {m2+k*mu} union {(m4-k)(1+mu)},
+   ... By the beta-closure: m2+m3*mu=m4*(1+mu) ... and beta(a4)=beta(-(a1+a2+a3))."
+   **Description: Critical Error.**
+   This is only valid when n=4. For n>=5 one does NOT have a4=-(a1+a2+a3), and heights coming from F5,...,Fn are ignored entirely.
+
+6. **Location:**
+   "By induction on h (base case h in (0,1) handled below) ..."
+   **Description: Critical Error.**
+   The proof attempts induction on a real-valued height h without any well-ordering/discretization. Ordinary induction on arbitrary real numbers is invalid.
+
+7. **Location:**
+   "for h not in H and c_j>=1, we have h-c_j not in H by the structure of H"
+   **Description: Critical Error.**
+   This claim is not proved and is false in general. A number outside H can become a number inside H after subtracting c_j.
+
+8. **Location:**
+   "Base case h in (0,min(mu_+,1)) where mu_+ := min{mu,1}"
+   **Description: Justification Gap.**
+   If mu<=0, then mu_+<=0, so this interval is empty and the induction never starts. Yet the No-Gaps lemma is later applied for mu=0 and mu<0.
+
+9. **Location:**
+   "For mu in Q_{>0}\Z: one checks that the resulting k exceeds m4 or is negative ... and we omit the arithmetic details. Therefore ... sigma_T(t-a3)=0."
+   **Description: Justification Gap.**
+   The crucial exclusion h-mu not in H is not proved; the proof explicitly omits the needed arithmetic.
+
+10. **Location:**
+    "For mu not in Z_{>0}: m2+mu≠m2+1 (since mu≠1), so m2+1≠m2+k*mu for k=1 unless mu=1. Since mu not in Z_{>0}: m2+1 is not a face-chain height ..."
+    **Description: Critical Error.**
+    This only checks k=1. It is false as stated: for mu=1/2, m2+1=m2+2*mu, so m2+1 IS an F3-height.
+
+11. **Location:**
+    "Heights: 2,2,1,1-mu<0 (since mu>0, last term =0)."
+    **Description: Critical Error.**
+    In the case 0<mu<1, one has 1-mu>0, not <0.
+
+12. **Location:**
+    "Since t1-a1 not in T (height 0 and t1-a1≠t1: only t1 at height 0 by No-Gaps)"
+    **Description: Critical Error.**
+    The No-Gaps lemma only excludes heights OUTSIDE H. Since 0 in H, it says nothing about uniqueness at height 0.
+
+13. **Location:**
+    "The height mu>0 is not in H for mu<1 ... By the No-Gaps Lemma: sigma_T(t3+a3-a2)=0."
+    **Description: Critical Error.**
+    This case analysis covers only mu<1, but the proposition is stated for all 0<mu not in Z_{>0}.
+
+14. **Location:**
+    "Case m1=0, m2=0. All face chains F1={t1},F2={t2},F3={t3},F4={t4} with t1=t2=t3=t4=:t0."
+    **Description: Critical Error.**
+    From m1=0 and m2=0, one gets t2=t1 and t3=t2, but nothing here forces m3=m4=0 or t4=t3.
+
+15. **Location:**
+    "Consider x*:=s1+t3 not in {x_j} (same non-lonely check as Lemma lem:cross)."
+    **Description: Justification Gap.**
+    No such lemma has been established in the solution, and the non-lonely verification is not given here.
+
+16. **Location:**
+    "The element t1+|lambda|a1: height 0, so in F1 only if |lambda|<=m1=1 ... So |lambda|≠1, giving sigma_T(t1+|lambda|a1)=0."
+    and "or more carefully by the No-Gaps Lemma applied at height 0"
+    **Description: Critical Error.**
+    A point of height 0 need not lie on F1, and the No-Gaps lemma does NOT apply at height 0 because 0 in H.
+
+17. **Location:**
+    "The argument in full generality follows the same case split as Proposition prop:n4mu with mu=0; we omit the repetition."
+    **Description: Justification Gap.**
+    This leaves the general mu=0 proposition unproved.
+
+18. **Location:**
+    "the same argument as Lemma lem:betamax adapted to positive a3-direction shows t3 is the unique height-maximum ..."
+    and "The general case m2>=2 follows by the same argument inductively ... We omit the repetition."
+    **Description: Justification Gap.**
+    The proof of the -1<mu<0 case is only sketched; the key argument is not carried out.
+
+19. **Location:**
+    "For j>=4: c_j=beta(s_j-s1)>=2"
+    **Description: Critical Error.**
+    This is false in general; for instance c_4=1+mu, which can lie in (1,2) when 0<mu<1.
+
+20. **Location:**
+    "The s3-equation then has exactly three nonzero terms (as in n=3), and Proposition prop:n3 applies verbatim."
+    **Description: Critical Error.**
+    Proposition n=3 used global triangle-specific facts such as m1=m2=m3, parity, and the triangle closure. A local three-term equation inside an n>=5 polygon does not establish those hypotheses, so Proposition prop:n3 cannot be invoked "verbatim."
+
+21. **Location:**
+    "n=4, mu in Z_{>0}: the No-Gaps Lemma holds equally, and the staircase argument extends ... the key -2*epsilon contradiction still arises."
+    **Description: Justification Gap.**
+    This entire case is only asserted, not proved.
+
+Because of the critical errors above, the solution does NOT verify the statement.

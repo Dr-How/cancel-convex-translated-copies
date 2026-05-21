@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 4 --- One-dimensional alternating chains on exposed faces.}
+
+\medskip
+\textbf{Setup.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 3$ points in convex position,
+let $T\subset\mathbb{R}^2$ be a finite signed set (signs $\sigma(t)\in\{+1,-1\}$,
+both values present), and define $\sigma(p)=\sum_{t\in T,\,p-t\in S}\sigma(t)$.
+
+Assume the \textbf{extremal equality} $|\{p:\sigma(p)\neq 0\}|=n$.
+
+Label vertices of $P=\operatorname{conv}(S)$ in cyclic order $s_1,\dots,s_n$ and let
+$t_1,\dots,t_n\in T$ be the associated exposed translates from Subproblems 1--3
+(which may be used without proof).
+For each $i$, write $a_i=s_{i+1}-s_i$ and let
+\[
+  F_i \;=\; T\cap [t_i,t_{i+1}]
+\]
+be the set of translates lying on the exposed face of $Q=\operatorname{conv}(T)$
+corresponding to edge $[s_i,s_{i+1}]$.
+
+\medskip
+\textbf{Statement.}
+For each $i$ there exists a non-negative integer $m_i$ such that
+\[
+  F_i \;=\; \bigl\{t_i + k\,a_i : 0\le k\le m_i\bigr\},
+  \qquad
+  t_{i+1} = t_i + m_i\,a_i,
+\]
+and the signs alternate:
+\[
+  \sigma(t_i + k\,a_i) \;=\; (-1)^k\,\sigma(t_i)
+  \qquad (0\le k\le m_i).
+\]
+In particular every face $F_i$ is a full arithmetic progression in direction $a_i$
+with alternating signs.
+
+\medskip
+\textbf{Hint.}
+Fix $i$ and work on the edge of $P+Q$ from $x_i=s_i+t_i$ to $x_{i+1}=s_{i+1}+t_{i+1}$.
+By Subproblem 3, this edge has direction $a_i=s_{i+1}-s_i$ and its interior points
+all cancel ($\sigma=0$) by the extremal equality.
+A point $p$ on this edge with $p-t\in S$ can only have $p-t\in\{s_i,s_{i+1}\}$ (since $p$
+is on the boundary of $P+Q$ and $t\in[t_i,t_{i+1}]$ by the face description).
+Write $p=s_i+t+j\,a_i$ for $t\in F_i$ and $j\in\{0,1\}$.
+The cancellation condition $\sigma(p)=0$ for every interior point of the edge then
+forces the alternating-sign pattern and the arithmetic-progression structure.
+
+\end{document}

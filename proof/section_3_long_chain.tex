@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 3 --- Long chains force extra surviving points, hence $n\le 4$.}
+
+\medskip
+\textbf{Context.}
+Use the same setup and equality-case assumptions as Subproblems~1--2, whose
+results may be freely used.  In particular: every surviving point is lonely
+($F(\ell_s)=\varepsilon(t_s)\in\{\pm1\}$), the boundary of $\operatorname{conv}(S)$
+splits into an upper chain $U$ and a lower chain $L$, and every vertex of
+$\operatorname{conv}(S)+\operatorname{conv}(T)$ lies in the support of $F$.
+
+\medskip
+\textbf{Statement.}  Let $C\in\{U,L\}$ be one of the two boundary chains with
+$m = |C|$ vertices ($m\ge 2$ since $C$ shares its two endpoints with the other
+chain).  Prove: if $m\ge 4$, then the number of surviving points
+$|\{p:F(p)\neq 0\}|$ is strictly greater than $n$, giving a contradiction.
+Hence both $|U|\le 3$ and $|L|\le 3$, and therefore $n = |U|+|L|-2 \le 4$.
+
+\medskip
+\textbf{Key idea.}
+On each strictly convex arc $C$, the outer unit-normal direction sweeps
+monotonically.  As the normal direction rotates from $s_a$-end to $s_b$-end
+along $C$, the exposed vertex of $\operatorname{conv}(T)$ also traces a monotone
+path among the vertices of $\operatorname{conv}(T)$.  If $C$ has sign changes
+(which it does, by Subproblem~2), these sign changes force new \emph{vertices}
+of $P+Q$ that are not among the $n$ lonely points, contradicting the equality.
+Specifically: each \emph{sign change} along the chain (from $+$ to $-$ or
+$-$ to $+$) combined with the strict convexity of the chain and the monotone
+motion of the exposed $T$-vertex forces at least one extra vertex of $P+Q$
+to appear between the two adjacent chain vertices.  A chain of length $m\ge 4$
+has at least one interior sign change, hence at least one such extra vertex,
+giving $|\operatorname{supp}(F)|\ge n+1$.
+
+\medskip
+\textbf{Hint.}
+The vertices of $P+Q$ are in bijection with the \emph{edge-normal directions} of
+$P+Q$, which are all normal directions appearing in $P$ or $Q$.  Between two
+consecutive vertices $v_i, v_{i+1}$ of $C$ with $\varepsilon(t_{v_i})\neq
+\varepsilon(t_{v_{i+1}})$ (a sign change), the corresponding exposed
+translate in $T$ must change: there is a direction in the normal-cone interval
+$[n_i, n_{i+1}]$ (the normal directions of the edge $v_iv_{i+1}$ of $P$) at
+which the exposed vertex of $Q$ transitions.  This transition produces a new
+vertex of $P+Q$ in the interior of the edge $v_iv_{i+1}+(t_{v_i},t_{v_{i+1}})$
+that is not one of the $n$ lonely points.  Since vertices of $P+Q$ always have
+$F\neq 0$ (Subproblem~1, item~6), this gives an extra nonzero point.
+
+\end{document}

@@ -1,0 +1,33 @@
+**Verdict:** **Not fully valid as written.**  
+The overall strategy is plausible, but there are structural gaps.
+
+### Issues
+
+1. **Mismatch in the notion of “direction class”.**  
+   The problem statement formally defines parallel edges via **positive scalar multiples** (an oriented notion), while Subproblems 2–3 switch to **unoriented line directions**. The classification in Subproblem 3 and the listed corollaries only work for the unoriented notion. So the outline is not fully aligned with the statement as written.
+
+2. **The key step is not actually decomposed.**  
+   Subproblem 2 essentially says: from three direction classes, parity, and the closure relation, a contradiction follows. But that is the heart of the theorem itself. The outline does not isolate the missing intermediate claims that would make this implication structurally clear.
+
+3. **Missing bridge from geometry of \(T\) to extra nonzero \(\sigma\)-points.**  
+   The conclusion in Subproblem 2 is about producing an extra point \(p\) with \(\sigma(p)\neq 0\), but no separate lemma explains why an overlap/repetition phenomenon among the chains \(F_i\) forces such a point. That conversion is a real logical step and is currently skipped.
+
+4. **Subproblem 2 relies on unsupported dependencies.**  
+   Its approach appeals to “linear independence of the distinct direction classes” and to detailed geometry of \(Q=\operatorname{conv}(T)\). Those facts are not supplied by Subproblems 1–4 as stated, and the claimed independence mechanism is not a structurally valid resource in \(\mathbb R^2\). So the dependency chain is not correctly specified.
+
+5. **“Repeated translate in \(T\)” is not automatically a contradiction.**  
+   Since \(T\) is a set, equal points are simply the same element; shared endpoints between adjacent chains are already expected. The outline needs a sharper statement about what kind of overlap is forbidden and why it contradicts extremality.
+
+### Relevance
+
+- **Subproblem 1** is relevant.  
+- **Subproblem 3** is relevant for the “in particular” classification, though not needed for the core obstruction itself.  
+- There is no major redundancy; the main problem is the missing structure inside Subproblem 2.
+
+### Bottom line
+
+The plan is **close in spirit**, but **not structurally sound yet**.  
+To make it valid, the hard middle part should be split into at least two explicit lemmas:
+
+- one deriving a concrete geometric overlap/coincidence phenomenon from “three direction classes,” and  
+- one showing that this phenomenon necessarily creates an extra non-canceling point (or otherwise violates the extremal setup).

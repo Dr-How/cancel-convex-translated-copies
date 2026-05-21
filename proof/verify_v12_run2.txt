@@ -1,0 +1,95 @@
+The solution is **not correct**. Here is a bug report.
+
+## Section 1: \(n=3\)
+
+1. **Location:** “Suppose \(m=0\). … pick \(t'\in T\) with \(\sigma(t')\ne\varepsilon_1\). … *Case \(h(t')=0\).* … *Case \(h(t')>0\).*”
+   - **Type:** Justification Gap
+   - **Description:** The proof never treats the case \(h(t')<0\). Since \(t'\) was arbitrary among opposite-sign translates, the contradiction for \(m=0\) is incomplete.
+
+2. **Location:** “The term at height \(-1<0\) vanishes (since \(t_0\) is the only \(T\)-element in this degenerate case; any \(T\)-element at height \(<0\) would, by the same argument below, generate an infinite chain).”
+   - **Type:** Critical Error
+   - **Description:** \(m=0\) implies only \(t_1=t_2=t_3=t_0\), not that \(T=\{t_0\}\). The vanishing of the height-\(-1\) term is not established, and the parenthetical appeal to “the same argument below” is circular.
+
+## Section 2 preliminaries
+
+3. **Location:** “Note \(j\ge 0\) (since \(h_0>0\), \(\mu>-1\), so \(h_0-1-\mu>-(1+\mu)>-2\), and \(j\) integer \(\ge 0\)).”
+   - **Type:** Critical Error
+   - **Description:** From \(j>-2\) and \(j\in\mathbb Z\), one gets only \(j\ge -1\), not \(j\ge 0\). The missing case \(j=-1\) is possible and is not handled.
+
+4. **Location:** “So in the surviving case: \(\gamma=-\sigma(t')\) and \(\gamma'=-\sigma(t')\), \(\sigma_T(t'+a_1)=0\), \(\sigma_T(t'-a_1)=0\).”
+   - **Type:** Justification Gap
+   - **Description:** The proof never eliminates the admissible subcases \(\gamma=0\) and/or \(\gamma'=0\). It jumps to one branch without justification.
+
+5. **Location:** “A parallelogram has exactly 2 direction classes… \(P\) is a parallelogram iff \([a_3]=[a_1]\) and \([a_4]=[a_2]\), i.e. \(a_3=\lambda a_1\) for some \(\lambda>0\)…”
+   - **Type:** Justification Gap
+   - **Description:** This geometric discussion is internally inconsistent with the later statement that convexity forces \(a_3\) to be anti-parallel to \(a_1\). The case distinction for quadrilaterals is not cleanly justified.
+
+6. **Location:** In Lemma `cross`: “\(\sigma_T(t_2+a_2)=(-1)^1\varepsilon_2=-\varepsilon_2\).”
+   - **Type:** Critical Error
+   - **Description:** This assumes \(t_2+a_2\in F_2\), i.e. \(m_2\ge 1\). But Lemma `cross` assumes only \(m_1\ge 1\), and later uses of the lemma do not add \(m_2\ge 1\). If \(m_2=0\), this sign computation is invalid.
+
+## Section 2 casework: \(n=4\)
+
+7. **Location:** Proposition `n4mu`, case “\(m_1=0,\ m_2=1,\ m_3\ge 1\)”:
+   > “\(\sigma_T(t_3+a_3-a_2)\) at height \(\mu\): non-integer and \(<m_2+m_3\mu=h_{\max}\) (for \(\mu>0\), \(m_3\ge 1\)), … in both cases \(\sigma_T=0\) by Lemma~\ref{lem:nogaps} or betamin4.”
+   - **Type:** Critical Error
+   - **Description:** For \(\mu>1\) non-integer and \(m_2=1\), the height \(\mu\) is **not** in \((0,m_2)\). Lemma `nogaps` does not apply there. Being below \(h_{\max}\) does not force vanishing.
+
+8. **Location:** Proposition `n4mu`, case “\(m_1=0,\ m_2=0\)”:
+   > “Apply \eqref{eq:sigma0} with \(k=2\) at \(t'\)… Hence \(\sigma_T(t'+a_1)=-\sigma(t')=\varepsilon_1\) and \(\sigma_T(t'-a_1)=\varepsilon_1\)…”
+   - **Type:** Critical Error
+   - **Description:** The \(k=2\) equation contains \(t'+a_1,\ t',\ t'-a_2,\ t'-a_2-a_3\); it does **not** contain \(t'-a_1\). Also, minimality was chosen only among points of sign \(-\varepsilon_1\), which does not imply the lower-height terms vanish.
+
+9. **Location:** Proposition `n4mu0`, case “\(m_1=0,\ m_2=1\)”:
+   > “From \(k=2\) at any \(t\in F_3\), \(t\ne t_3=t_1+a_2\): heights \(0,0,-1,-1\) (since \(\mu=0\))…”
+   - **Type:** Critical Error
+   - **Description:** Here \(h(t_3)=m_2=1\), and \(\mu=0\), so every point of \(F_3\) has height \(1\), not \(0\). The claimed heights are wrong; the lower terms are at height \(0\), not negative, so the vanishing argument collapses.
+
+10. **Location:** Same case:
+    > “\(t_1+a_2+a_4=t_1+a_2-(a_1+a_2+0)=t_1-a_1\).”
+    - **Type:** Critical Error
+    - **Description:** When \(\mu=0\), one has \(a_3=\lambda a_1\), not \(a_3=0\). So \(a_4=-(a_1+a_2+a_3)\), and the displayed computation incorrectly drops the \(a_3\)-term.
+
+11. **Location:** Proposition `n4mu0`, case “\(m_1=0,\ m_2=0\)”:
+    > “\(m_4=0\), \(t_2=t_3=t_4=t_1\). \(T=F_1\cup F_3\). … pick \(t'\in F_3\), \(t'\ne t_1\)…”
+    - **Type:** Critical Error
+    - **Description:** With \(m_2=0\) and \(m_4=0\), the chain relations give \(t_3=t_1\) and \(t_4=t_1\), hence \(m_3a_3=t_4-t_3=0\), so \(m_3=0\) and \(F_3=\{t_1\}\). The chosen \(t'\in F_3\setminus\{t_1\}\) cannot exist. Also, the claim \(T=F_1\cup F_3\) was never proved from the allowed facts.
+
+12. **Location:** Proposition `n4muZ`, case “\(m_1=0,\ m_2=1,\ m_3\ge 1\)”:
+    > “The only \(T\)-elements at height \(\mu\) come from face chains… not generally an integer… Hence \(\sigma_T(t_3+a_3-a_2)=0\).”
+    - **Type:** Critical Error
+    - **Description:** This is not a proof. It assumes without justification that every height-\(\mu\) point lies on a face chain, then uses “not generally an integer”/“generic” reasoning. For specific parameters the claimed obstruction fails (e.g. the \(F_4\) height equation can be integral). The later \(\mu=1\) subargument is also invalid: the appeal to “the same argument as Lemma~\ref{lem:hzero} at height 1” ignores the extra height-\(0\) term in the \(k=2\) equation. So the vanishing of \(\sigma_T(t_3+a_3-a_2)\) is unsupported.
+
+13. **Location:** Proposition `n4muZ`, case “\(m_1=0,\ m_2=0\)”:
+    > “From \(k=2\) at \(t'\)… \(\sigma_T(t'+a_1)+\sigma_T(t'-a_1)=-2\sigma(t')=2\varepsilon_1\)…”
+    - **Type:** Critical Error
+    - **Description:** Again, the \(k=2\) equation does not contain \(t'-a_1\). The same passage also incorrectly uses minimality among one sign to force all lower-height terms to vanish.
+
+14. **Location:** Proposition `n4mu`, case “\(m_1=0,\ m_2=0\)” and Proposition `n4muZ`, case “\(m_1=0,\ m_2=0\)”:
+    > “\(t_2=t_3=t_1,\) all \(\varepsilon_i=\varepsilon_1\).”  
+    > “All \(t_i=t_1\) with \(\varepsilon_i=\varepsilon_1\).”
+    - **Type:** Critical Error
+    - **Description:** These bookkeeping statements are false. From \(m_1=m_2=0\), one gets \(t_2=t_3=t_1\), but \(t_4\) and \(\varepsilon_4\) are not determined in general.
+
+## Section 3: \(n\ge 5\)
+
+15. **Location:** “Sub-case B generalizes… the same magnitude-2 argument applies… The formal structure of Sub-cases A and B goes through unchanged.”
+   - **Type:** Justification Gap
+   - **Description:** For \(n\ge 5\), the \(k=1,2\) equations have extra lower-height terms. The text does not actually prove that these terms can be controlled as in the \(n=4\) argument, so the extension of Lemma `nogaps` is unproved.
+
+16. **Location:** 
+   > “For \(c_j=1\) (\(j\ge 5\)) or \(c_j\in(0,1)\) with \(\mu\in\mathbb{Z}_{\ge 0}\): additional terms contribute \(\delta_j\in\{-1,0,+1\}\) at height~\(0\).”
+   - **Type:** Critical Error
+   - **Description:** If \(c_j\in(0,1)\), the corresponding height is \(1-c_j\in(0,1)\), not \(0\). This is a direct height-calculation error in the \(n\ge 5\) cross-point analysis.
+
+17. **Location:** 
+   > “If \(\delta_5=\pm\varepsilon_1\): … \emph{consistent?} Hmm --- so for \(n=5\), there is a specific scenario where \(\delta_5\) could cancel the magnitude-2 term. We must rule this out. Rather than working through all \(n\ge 5\) sub-cases…”
+   - **Type:** Critical Error
+   - **Description:** The proof explicitly identifies a potentially consistent \(n=5\) configuration and never resolves it. The contradiction is not obtained.
+
+18. **Location:** 
+   > “we can use a \emph{second} cross-point… This telescoping argument… yields a contradiction… The height-maximum lemmas … ensure the telescoping terminates.”
+   - **Type:** Justification Gap
+   - **Description:** No second cross-point computation or telescoping proof is actually carried out. Also, the cited height-maximum lemmas were proved only for \(n=4\), not for \(n\ge 5\). So the \(n\ge 5\) conclusion is unsupported.
+
+Because of these issues, the solution does **not** verify the statement.

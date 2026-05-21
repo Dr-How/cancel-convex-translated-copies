@@ -1,0 +1,154 @@
+**Bug report: the solution is not correct.**
+
+## Global setup / model of the problem
+
+1. **Location:**  
+   “`supp(sigma) = {x_1,...,x_n}`”, “`T := supp(sigma)`”, and later  
+   “`Let n \geq 3. We have x_1,\ldots,x_n in convex position (CCW), ... finitely supported on T = \{x_1,\ldots,x_n\}`”.
+
+   **Description — Critical Error:**  
+   The proof replaces the original objects by a different model. In the problem, \(S\) is the convex \(n\)-point set, \(T\) is the finite signed translate set, and \(\{p:\sigma(p)\neq 0\}\) is a third set of size \(n\). The solution identifies these as one set \(T=\operatorname{supp}(\sigma)=\{x_i\}\) in convex position. That is not the stated problem, and all later uses of edge vectors \(a_i=x_{i+1}-x_i\), shifts \(s_j=x_j-x_1\), and geometric arguments about \(T\) are built on this misidentification.
+
+2. **Location:**  
+   “`The direction class [a_i] is the equivalence class of a_i under nonzero scalar multiples (i.e., [u]=[v] iff u = \lambda v, \lambda \neq 0...)`”
+
+   **Description — Critical Error:**  
+   This silently changes the written definition in the problem, which uses positive scalar multiples. The proof is therefore working with a different notion of “direction class” than the one stated.
+
+3. **Location:**  
+   “`So T = F_1 \cup \cdots \cup F_n (with endpoints shared: ...)`”
+
+   **Description — Justification Gap:**  
+   The allowed facts state the structure of each \(F_i=T\cap[t_i,t_{i+1}]\), but do not state that the \(F_i\) cover all of \(T\), nor that only consecutive chains meet at shared endpoints. This coverage is used throughout the proof.
+
+---
+
+## \(n=3\) section
+
+4. **Location:**  
+   In Lemma `n3 contradiction`:  
+   “`Apply \eqref{eq:S0} k=2 at t' ...`” followed by  
+   \[
+   \sigma_T(t'+a_1)+\sigma_T(t')+\sigma_T(t'-a_2)+\sigma_T(t'-a_2-a_3)=0.
+   \]
+
+   **Description — Critical Error:**  
+   For \(n=3\), the \(k=2\) instance of \(\eqref{eq:S0}\) has only three terms:
+   \(\sigma_T(t+a_1)+\sigma_T(t)+\sigma_T(t-a_2)=0\).
+   The extra term \(\sigma_T(t-a_2-a_3)\) does not exist. The later “\(2\sigma_T(t'+a_1)+\cdots=0\)” contradiction is based on this false equation.
+
+5. **Location:**  
+   “`For t' = t_2 ... This is getting complicated. Let me use the cleaner approach: for n=3, ANY t' \in T with h(t')>0 works.`”
+
+   **Description — Justification Gap:**  
+   The proof initially splits into cases \(h(t')=0\) and \(h(t')>0\) for a point \(t'\) of sign \(-\varepsilon_1\), but the \(h(t')=0\) case is abandoned rather than completed. The argument also never proves that an opposite-sign point with positive height exists.
+
+6. **Location:**  
+   “`This again has two sub-subcases; iterating this creates a bi-infinite chain ... ✓`”  
+   and  
+   “`The analysis confirms contradiction in all sub-subcases. ✓`”
+
+   **Description — Justification Gap:**  
+   Essential subcases are asserted, not proved. No complete case analysis or chain argument is supplied, so Lemma `n3 contradiction` is incomplete even apart from the false equation above.
+
+---
+
+## \(n=4\) section
+
+7. **Location:**  
+   In Lemma `betamin4`:  
+   “`Actually, Lemma betamin4 as stated may not hold in full generality... Let me just state: choose β with β(a_1)=0, β(a_2)=1, AND h(p) \ge 0 for all p \in T ... With this choice, Lemma betamin4 holds by construction.`”
+
+   **Description — Critical Error:**  
+   The proof explicitly concedes the lemma was not proved, then replaces \(\beta\) by one with an additional property that is not established. It is not shown that a linear functional can simultaneously satisfy \(\beta(a_1)=0\), \(\beta(a_2)=1\), and \(h\ge 0\) on all of \(T\). This lemma is used repeatedly to force terms to vanish.
+
+8. **Location:**  
+   In Lemma `betamax4`:  
+   “`(Analogous to hzero argument, applying the equation at an element above height ... )`”
+
+   **Description — Justification Gap:**  
+   This is a placeholder, not a proof.
+
+9. **Location:**  
+   In Lemma `facechain`:  
+   “`By induction on height, lower terms vanish. Hence ...`”  
+   and in Lemma `nogaps`:  
+   “`The key point: in all cases ... contradiction.`”
+
+   **Description — Justification Gap:**  
+   Both lemmas are only sketched. The induction in `facechain` is never set up, and `nogaps` contains multiple abandoned branches and summary assertions instead of completed proofs. These are load-bearing lemmas later used to eliminate terms and force infinite chains.
+
+10. **Location:**  
+    In Lemma `cross`:  
+    “`apply \eqref{eq:NL} at p = ... t_1+a_2 ... possible but a degenerate subcase; in the non-degenerate case p \notin T`”  
+    and at the end:  
+    “`For the purposes of Lemma~\ref{lem:cross}: we handle \mu > 0 here ... and delegate \mu < 0 to Proposition~\ref{prop:n4muZ}.`”  
+    Similarly, in Lemma `cross1`:  
+    “`So Lemma~\ref{lem:cross1} is proved for \mu>0.`”  
+    and in Lemma `cross0`:  
+    “`... it is handled there.`”  
+    Then in Proposition `n4mu`:  
+    “`Case m_1 \ge 1, m_2 \ge 1: Lemma~\ref{lem:cross}. ✓`”,  
+    “`Case m_1 \ge 1, m_2 = 0: Lemma~\ref{lem:cross1}. ✓`”,  
+    “`Case m_1 = 0, m_2 \ge 1: Lemma~\ref{lem:cross0}. ✓`”.
+
+    **Description — Critical Error:**  
+    These lemmas do not prove the cases Proposition `n4mu` claims. They explicitly handle only restricted sign ranges of \(\mu\) (mainly \(\mu>0\)) and leave other cases to different arguments. Yet Proposition `n4mu` cites them as if they settled all \(\mu\notin\mathbb Z\).
+
+11. **Location:**  
+    In Proposition `n4mu`:  
+    “`For this to equal j\mu (face-chain height): (k_0-1-j)\mu=1, i.e., \mu=1/(k_0-1-j)... If \mu is rational non-integer: \mu=p/q with q\ge 2; then \mu=1/(k_0-1-j) requires q=1: contradiction.`”
+
+    **Description — Critical Error:**  
+    This arithmetic claim is false. Rational nonintegers of the form \(1/m\) (e.g. \(1/2,1/3,\dots\)) do satisfy \(\mu=1/(k_0-1-j)\) with denominator \(q>1\). The contradiction claimed here does not follow.
+
+12. **Location:**  
+    In Proposition `n4muZ`, e.g.  
+    “`This grows complicated... we use a descent argument.`”  
+    “`This case analysis, while extensive, always yields a contradiction.`”  
+    “`... some value equals ±2 (contradiction) or ±1 (chain). ✓`”
+
+    **Description — Justification Gap:**  
+    Major parts of the integer-\(\mu\) case are only narrated, not proved. The proposition is an outline with check marks, not a complete argument.
+
+---
+
+## \(n\ge 5\) section
+
+13. **Location:**  
+    In Lemma `betamin-n`:  
+    “`(by choosing β so that t_1 is the h-minimum vertex of the convex polygon, as in Lemma~\ref{lem:betamin4})`”  
+    and in Lemma `hzero-n`:  
+    “`... by convexity and our choice of β, all c_j\ge 0, and for j\ge 3 the angles increase so c_j>0.`”
+
+    **Description — Justification Gap:**  
+    This repeats the unproved \(\beta\)-construction from the \(n=4\) section and adds new unproved claims about the signs of the \(c_j\). No justification is given for the asserted inequalities.
+
+14. **Location:**  
+    In Proposition `n\ge5 contradiction`, e.g.  
+    “`if t_1+a_2\notin T (generic case)`”,  
+    “`For \mu>0 ... the same contradiction is derived. ✓`”,  
+    “`c_j\ge c_5>h_0 in typical cases`”,  
+    “`In the worst case ... The equations remain solvable and always yield ... ✓`”,  
+    and  
+    “`For \mu\in\mathbb Z\setminus\{0\} ... direct computation shows contradiction. ✓`”
+
+    **Description — Justification Gap:**  
+    The \(n\ge5\) argument is only a sketch. It relies on “generic case,” “typical cases,” and “same argument” language without proving that the extra \(j\ge5\) terms vanish or are harmless in all cases. The claimed reduction to the \(n=4\) argument is not established.
+
+---
+
+## Additional internal inconsistency
+
+15. **Location:**  
+    In the pre-restart proof attempt for Lemma `n3m`:  
+    “`m_1 = 0: t_2 = t_1, \varepsilon_2 = -\varepsilon_1 ... but t_2 is shared so \varepsilon_2 = ... = \varepsilon_1.`”
+
+    **Description — Critical Error:**  
+    This is a direct contradiction inside the proof text. Although the solution later says it is restarting, the submitted argument contains an invalid proof attempt rather than a coherent finished proof.
+
+---
+
+## Conclusion
+
+The solution contains multiple **Critical Errors** and many **Justification Gaps**. It is **not correct**.

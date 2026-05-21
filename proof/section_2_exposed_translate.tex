@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 2 --- One exposed translate per vertex cone.}
+
+\medskip
+\textbf{Setup.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n\ge 3$ points in convex position,
+let $T\subset\mathbb{R}^2$ be a finite signed set (signs $\sigma(t)\in\{+1,-1\}$,
+both values present), and define $\sigma(p)=\sum_{t\in T,\,p-t\in S}\sigma(t)$.
+
+Assume the \textbf{extremal equality}
+\[
+  |\{p\in\mathbb{R}^2:\sigma(p)\neq 0\}| \;=\; n.
+\]
+
+By Subproblem 1 (which may be used without proof), in the equality case:
+each $s\in S$ has a unique lonely point $\ell_s=s+t_s$; the $\ell_s$ are the entire support;
+$\sigma(\ell_s)=\sigma(t_s)\in\{\pm 1\}$.
+
+Let $P=\operatorname{conv}(S)$ and label the vertices of $P$ in cyclic order
+$s_1,s_2,\dots,s_n$ (indices modulo $n$).
+For each $i$, let $C_i\subset(\mathbb{R}^2)^*$ denote the \emph{open normal cone} of $P$ at $s_i$:
+\[
+  C_i \;=\; \{u\in\mathbb{R}^2 : u\cdot s_i > u\cdot s_j \text{ for all } j\neq i\}.
+\]
+
+\medskip
+\textbf{Statement.}
+For each $i$ there is a unique translate $t_i\in T$ such that
+\[
+  \text{for every } u\in C_i,\quad t_i = \operatorname*{arg\,max}_{t\in T}\; u\cdot t.
+\]
+(That is, $t_i$ is the unique maximizer of $u\cdot(\cdot)$ on $T$ for every direction
+$u$ in the normal cone of $s_i$.)
+Moreover, $t_i=t_s$ is the lonely translate associated to $s_i$ by Subproblem 1,
+so $\ell_{s_i}=s_i+t_i$.
+
+\end{document}

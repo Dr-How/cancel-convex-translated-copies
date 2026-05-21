@@ -1,0 +1,233 @@
+I follow the hint. The only standard convex-geometric input I use is that every vertex of a polyhedron is an exposed point, i.e. it is the unique maximizer of some linear functional; see Proposition \(3.3\) in the cited notes. ([ms.uky.edu](https://www.ms.uky.edu/~Lee/ma714fa13/notes.pdf))
+
+For each \(s\in S\), choose a linear functional \(\phi_s:\mathbb R^2\to\mathbb R\) that is uniquely maximized at \(s\) on \(P=\operatorname{conv}(S)\), hence also on \(S\). Since \(T\) is finite, choose \(t_s\in T\) with
+\[
+\phi_s(t_s)=\max_{t\in T}\phi_s(t),
+\]
+and define
+\[
+\ell_s:=s+t_s.
+\]
+
+Now prove the six assertions.
+
+---
+
+### \(1.\) Lonely points exist
+
+Fix \(s\in S\). I claim that \(\ell_s\) is lonely.
+
+Indeed, suppose
+\[
+\ell_s=s'+t'
+\qquad\text{for some }s'\in S,\ t'\in T.
+\]
+Applying \(\phi_s\), we get
+\[
+\phi_s(s)+\phi_s(t_s)
+=\phi_s(\ell_s)
+=\phi_s(s')+\phi_s(t').
+\]
+But by construction,
+\[
+\phi_s(s')\le \phi_s(s)
+\quad\text{and}\quad
+\phi_s(t')\le \phi_s(t_s).
+\]
+Hence equality must hold in both inequalities. Since \(s\) is the **unique** maximizer of \(\phi_s\) on \(S\), we obtain
+\[
+s'=s.
+\]
+Therefore
+\[
+t'=\ell_s-s=t_s.
+\]
+So there is a unique \(t\in T\) with \(\ell_s-t\in S\), namely \(t=t_s\). Thus \(\ell_s\) is lonely.
+
+Notice that this did **not** require \(t_s\) to be a unique maximizer of \(\phi_s\) on \(T\).
+
+---
+
+### \(2.\) Distinctness
+
+Suppose
+\[
+\ell_{s_1}=\ell_{s_2}.
+\]
+Then this common point has two representations:
+\[
+\ell_{s_1}=s_1+t_{s_1}=s_2+t_{s_2}.
+\]
+By part \(1\), the point \(\ell_{s_1}\) is lonely, so its translation vector is unique. Hence
+\[
+t_{s_1}=t_{s_2}.
+\]
+Subtracting, we get
+\[
+s_1=s_2.
+\]
+Therefore the points \(\ell_s\) are pairwise distinct.
+
+Since \(|S|=n\), the set
+\[
+L:=\{\ell_s:s\in S\}
+\]
+has exactly \(n\) elements.
+
+---
+
+### \(3.\) Non-vanishing
+
+By part \(1\), the only \(t\in T\) for which \(\ell_s-t\in S\) is \(t=t_s\). Therefore
+\[
+F(\ell_s)
+=
+\sum_{\substack{t\in T\\ \ell_s-t\in S}} \varepsilon(t)
+=
+\varepsilon(t_s).
+\]
+Since \(\varepsilon(t_s)\in\{+1,-1\}\), we have
+\[
+F(\ell_s)=\varepsilon(t_s)\neq 0.
+\]
+
+---
+
+### \(4.\) Lower bound
+
+Let
+\[
+N:=\{p\in\mathbb R^2:F(p)\neq 0\}.
+\]
+By part \(3\), every \(\ell_s\) lies in \(N\). By part \(2\), the points \(\ell_s\) are pairwise distinct. Hence
+\[
+|N|\ge |L|=n.
+\]
+
+This is exactly the desired lower bound:
+\[
+|\{p\in\mathbb R^2:F(p)\neq 0\}|\ge n.
+\]
+
+---
+
+### \(5.\) Rigidity in the equality case
+
+Assume now that
+\[
+|N|=n.
+\]
+From part \(4\), we already know that
+\[
+L\subseteq N
+\quad\text{and}\quad
+|L|=n.
+\]
+Since also \(|N|=n\), it follows that
+\[
+N=L.
+\]
+So
+\[
+\{p\in\mathbb R^2:F(p)\neq 0\}
+=
+\{\ell_s:s\in S\}.
+\]
+
+In particular, if \(p\in S+T\) is not of the form \(\ell_s\), then \(p\notin N\), hence
+\[
+F(p)=0.
+\]
+
+---
+
+### \(6.\) Vertices survive
+
+In fact, I will prove the stronger statement that **every vertex of \(P+Q\) already satisfies \(F(v)\neq 0\)**, even without assuming \(|N|=n\). The stated conclusion then follows immediately.
+
+Let \(v\) be a vertex of \(P+Q\). Again using the exposed-point fact for vertices, choose a linear functional \(\psi:\mathbb R^2\to\mathbb R\) that is uniquely maximized at \(v\) on \(P+Q\). ([ms.uky.edu](https://www.ms.uky.edu/~Lee/ma714fa13/notes.pdf))
+
+Set
+\[
+M_S:=\max_{s\in S}\psi(s),
+\qquad
+M_T:=\max_{t\in T}\psi(t),
+\]
+and choose \(s^\ast\in S\), \(t^\ast\in T\) such that
+\[
+\psi(s^\ast)=M_S,
+\qquad
+\psi(t^\ast)=M_T.
+\]
+
+Now take any \(x\in P+Q\). Then \(x=p+q\) for some \(p\in P\), \(q\in Q\). Since \(p\in\operatorname{conv}(S)\), \(p\) is a convex combination of points of \(S\), so
+\[
+\psi(p)\le M_S.
+\]
+Similarly,
+\[
+\psi(q)\le M_T.
+\]
+Therefore
+\[
+\psi(x)=\psi(p)+\psi(q)\le M_S+M_T
+=\psi(s^\ast+t^\ast).
+\]
+Thus \(s^\ast+t^\ast\) is a maximizer of \(\psi\) on \(P+Q\). By uniqueness of the maximizer,
+\[
+v=s^\ast+t^\ast.
+\]
+
+Next I claim that \(s^\ast\) is the unique maximizer of \(\psi\) on \(S\). If there were some \(s'\neq s^\ast\) with
+\[
+\psi(s')=M_S,
+\]
+then
+\[
+\psi(s'+t^\ast)=M_S+M_T=\psi(v),
+\]
+so \(s'+t^\ast\) would also be a maximizer of \(\psi\) on \(P+Q\). But
+\[
+s'+t^\ast\neq s^\ast+t^\ast=v,
+\]
+contradicting uniqueness. Hence \(s^\ast\) is unique. The same argument shows that \(t^\ast\) is the unique maximizer of \(\psi\) on \(T\).
+
+Now suppose
+\[
+v=s'+t'
+\qquad\text{with }s'\in S,\ t'\in T.
+\]
+Then
+\[
+\psi(v)=\psi(s')+\psi(t')\le M_S+M_T=\psi(v),
+\]
+so equality holds in both inequalities. Hence
+\[
+\psi(s')=M_S
+\quad\text{and}\quad
+\psi(t')=M_T.
+\]
+By uniqueness of the maximizers on \(S\) and \(T\), this forces
+\[
+s'=s^\ast,
+\qquad
+t'=t^\ast.
+\]
+Thus \(v\) is lonely. Consequently,
+\[
+F(v)=\varepsilon(t^\ast)\neq 0.
+\]
+
+So every vertex \(v\) of \(P+Q\) lies in \(N\). Under the hypothesis
+\[
+|N|=n,
+\]
+part \(5\) gives
+\[
+N=\{\ell_s:s\in S\},
+\]
+hence every vertex of \(P+Q\) belongs to \(\{p:F(p)\neq 0\}\), as required.
+
+---
+
+Thus all six statements are proved.

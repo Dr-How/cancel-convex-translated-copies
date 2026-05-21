@@ -1,0 +1,50 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:** “Fix \(n \geq 3\) and a convex \(n\)-gon \(x_1,\ldots,x_n\) (CCW) with sign function \(\sigma_T\) supported on \(T=\{x_1,\ldots,x_n\}\) having both signs.”
+   
+   **Description:** **Critical Error.** This changes the problem’s setup. In the statement, \(S\) is the \(n\)-point set in convex position, while \(T\) is an arbitrary finite signed translate set. Here the proof assumes \(T\) itself is an \(n\)-point convex polygon. After that, the proof switches to \(t_i\) and \(F_i\) without identifying them with the \(x_i\). So the argument is no longer proving the stated problem.
+
+2. **Location:** “The key equations are:
+   \[
+   \text{(NL): For } p\notin T:\ \sum_{j=1}^n \sigma_T(p-s_j)=0,\qquad
+   \text{(S0): For } t\in T,\ t\neq t_k:\ \sum_{j=1}^n \sigma_T(t+s_k-s_j)=0.
+   \]”
+   
+   **Description:** **Critical Error.** These equations are asserted without derivation, and they are not among the facts allowed from Subproblems 1–4. They also do not match the original notation: the problem defines \(\sigma(p)\) as a convolution-type sum, whereas here \(\sigma_T\) is a sign function supported on \(T\), and \((\mathrm{NL})\) treats “\(p\notin T\)” as if \(T\) were the support of \(\sigma\). Also, \(t_k\) has not been defined in this setup. Since the rest of the proof depends on \((\mathrm{NL})\) and \((\mathrm{S0})\), the logical chain breaks here.
+
+3. **Location:** “Choose \(\beta\) to be the linear functional making \(t_1\) the height-\(0\) vertex and all other \(T\)-elements at height \(\ge 0\). This is possible: \(t_1\) is a vertex of \(\mathrm{conv}(T)\), so there exists a half-plane containing \(T\) with \(t_1\) on its boundary; take \(\beta\) normal to this boundary with \(\beta(a_2)=1>0\).”
+   
+   **Description:** **Justification Gap.** None of this is established from the stated setup. In particular, the proof does not justify that the relevant \(t_1\) is a vertex of \(\mathrm{conv}(T)\) in the current framework, nor that one may simultaneously choose the supporting functional with all the required normalizations.
+
+4. **Location:** In Lemma hzero: “since \(c_j > 0\) for all \(j \geq 3\)” and the later remark “all other vertices \(x_j\) (\(j \geq 2\)) lie strictly on the positive side, so \(c_j=h(x_j)>0\) for \(j\geq 2\). (We have \(c_2=\cdots=0\) by construction...)”
+   
+   **Description:** **Justification Gap.** The claim \(c_j>0\) for \(j\ge 3\) is used crucially to make all \(j\ge 3\) terms vanish, but the supplied justification is not valid. It is self-contradictory (“strictly positive for \(j\ge2\)” and simultaneously \(c_2=0\)) and then replaced by a circular restatement of the conclusion. This key height fact is never rigorously proved.
+
+5. **Location:** “Iterating: \(\{\ldots, q-2a_1,q-a_1,q,q+a_1,q+2a_1,\ldots\}\subseteq T\) with alternating nonzero signs. Contradicts \(T\) finite.”
+   
+   **Description:** **Justification Gap.** The iteration is not justified. Each step requires reapplying \((\mathrm{S0})\) at the newly produced point and re-checking that all other terms still vanish, including endpoint cases such as hitting \(t_1\) or \(t_2\). None of that is shown.
+
+6. **Location:** “We check whether \(t'-a_1\in T\). For \(T=F_1\cup F_2\cup F_3\): …” and later “If all \(m_j=0\): \(T=\{t_1\}\), single point…”
+   
+   **Description:** **Critical Error.** The proof repeatedly assumes that \(T\) is exactly the union of the boundary arithmetic progressions \(F_i\). But the allowed facts only say \(F_i=T\cap[t_i,t_{i+1}]\); they do **not** say that every element of \(T\) lies on one of those segments. Membership tests and contradictions in both the \(n=3\) and \(n\ge4\) parts rely on this unsupported assumption.
+
+7. **Location:** “Here \([u]=[v]\) iff \(u=\lambda v\) for some \(\lambda\neq 0\) (same unoriented line through \(0\)).”
+   
+   **Description:** **Critical Error.** This changes the problem’s definition of direction class. The statement defined direction classes using **positive** scalar multiples. Replacing that by arbitrary nonzero multiples changes what counts as “two” or “three” direction classes, so the later case split is about a different notion than the one in the problem.
+
+8. **Location:** The \(m_1=0\) branch in Case B, e.g.
+   “If \(m_1=0\): \(F_1=\{t_1\}\) is a single point. Then \(J_0=\emptyset\) (since … actually \(|J_0|\) can be \(\ge 2\), but the key point is: …)”  
+   and  
+   “If \(|J_0'|\geq 2\) or \(|J_0''|\geq 2\): magnitude of \(\sigma_T(t'\pm a_1)\ge \cdots \ge 2-1=\ldots\) hmm. Actually …”
+   
+   **Description:** **Critical Error.** This is not a completed proof. The argument retracts earlier claims, contains unfinished inequalities and “hmm/actually” placeholders, and never establishes a contradiction for this branch. Since Case B is necessary for the \(n\ge4\) argument, the proof fails.
+
+9. **Location:** “So \(D_2\) for \(t'+a_1\) is \(-D_2\) (signs flipped from before). Equation: \(\sigma_T(t'+2a_1)= -\sigma_T(t'+a_1)+D_2 = \sigma_T(t')+2D_2\).”
+   
+   **Description:** **Justification Gap.** No proof is given that every height-\(0\) contribution simply shifts to the “next” point of \(F_1\) and flips sign. Endpoint effects and possible collisions are ignored. The displayed recurrence and the contradiction derived from it are therefore unsupported.
+
+10. **Location:** Final theorem: “If \(T\) has \(\geq 3\) edge-direction classes and both signs, then the nonlonely equations are contradicted. Hence no such \(T\) exists.”
+    
+    **Description:** **Critical Error.** Even the conclusion is not the stated theorem. The problem asks about \(P=\operatorname{conv}(S)\) having at least three edge-direction classes; this theorem instead speaks about \(T\) having edge-direction classes. So the proof does not actually conclude the claim it was supposed to prove.
+
+Because of these issues, the solution does **not** verify the statement.

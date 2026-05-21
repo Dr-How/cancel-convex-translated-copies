@@ -1,0 +1,129 @@
+The solution is **not correct**. It contains multiple **Critical Errors** and **Justification Gaps**.
+
+## Bug report
+
+1. **Location:**  
+   “Since \(m_k=0\), the face chain \(F_k=\{t_k\}=\{t_0\}\), so \(t_0\) maximises \(\langle\cdot,u\rangle\) over \(T\) (the maximiser is achieved by \(F_k\)).”  
+   **Description — Justification Gap:**  
+   The allowed facts only give uniqueness of \(t_i\) for a specific \(u_i\) in the **interior** of the normal cone, plus the arithmetic-progression description of \(F_i\). No result is stated showing that for an **arbitrary** \(u\in \mathcal N(s_k)\), the maximizers of \(\langle\cdot,u\rangle\) over \(T\) lie on \(F_k\). This step is used to prove \(T=\{t_0\}\), but it is not justified.
+
+2. **Location:**  
+   In Lemma \(\ref{lem:step}\):  
+   \[
+   \sigma_T(t+a_1+a_2)+\sigma_T(t+a_2)+\sigma(t)+\sigma_T(t+a_3)=0.
+   \]  
+   **Description — Critical Error:**  
+   This is the \(n=3\) case. Applying \(\eqref{eq:nonlonely}\) to \(p=s_3+t\) should produce only **three** terms (for \(j=1,2,3\)). The displayed equation has a spurious fourth term \(\sigma_T(t+a_3)\). The staircase lemma and the subsequent contradiction for \(n=3\) are built on this incorrect equation.
+
+3. **Location:**  
+   In Lemma \(\ref{lem:betamin4}\):  
+   “For \(j\ge 3\): heights \(h^*-c_j\le h^*-1<h^*=h_{\min}\), so terms vanish.”  
+   **Description — Justification Gap:**  
+   Earlier, the proof explicitly established only \(c_j>0\) in general, not \(c_j\ge 1\). The displayed inequality uses an unproved stronger bound. As written, the vanishing of the \(j\ge 3\) terms is not justified.
+
+4. **Location:**  
+   “The face-chain height set is
+   \[
+   \mathcal H:=\{0,1,\dots,m_2\}\cup\{m_2+k\mu: k=1,\dots,m_3\}
+   \cup\{(m_4-k)(1+\mu): k=0,\dots,m_4\},
+   \]
+   ... By the \(\beta\)-closure: \(m_2+m_3\mu=m_4(1+\mu)\) ... and
+   \(\beta(a_4)=\beta(-(a_1+a_2+a_3))\).”  
+   **Description — Critical Error:**  
+   Section 2 is stated for all \(n\ge 4\), but this formula assumes \(a_4=-(a_1+a_2+a_3)\), which is true only when \(n=4\). For \(n\ge 5\), the definition of \(\mathcal H\) omits the later chains \(F_5,\dots,F_n\), and the cited closure identity is false.
+
+5. **Location:**  
+   In Lemma \(\ref{lem:nogaps}\):  
+   “By induction on \(h\) ... Base case \(h\in(0,\min(\mu_+,1))\) ... Inductive step: Assume no \(T\)-elements at heights in \((0,h_0)\setminus\mathcal H\) ...”  
+   **Description — Justification Gap:**  
+   This is not a valid induction scheme as written. Heights are real numbers, and no well-ordered discrete parameter is specified. The proof also mixes this with unproved assertions such as “\(h-c_j\notin\mathcal H\) by the structure of \(\mathcal H\).”
+
+6. **Location:**  
+   In Remark (1):  
+   “For \(\mu\in\mathbb{Q}_{>0}\setminus\mathbb{Z}\): one checks that the resulting \(k\) exceeds \(m_4\) or is negative ... and we omit the arithmetic details. Therefore:
+   \[
+   \eqref{eq:a3vanish}.
+   \]”  
+   **Description — Justification Gap:**  
+   The proof explicitly omits the arithmetic needed to establish \(\eqref{eq:a3vanish}\), yet later arguments rely on \(\eqref{eq:a3vanish}\) as if it were proved.
+
+7. **Location:**  
+   In Lemma \(\ref{lem:top}\):  
+   “For \(\mu\notin\mathbb{Z}_{>0}\): \(m_2+1\) is not a face-chain height ... so both \(\sigma_T(t+a_2)=\sigma_T(t+a_1+a_2)=0\).”  
+   **Description — Critical Error:**  
+   This claim is false in general. For example, if \(\mu=\tfrac12\) and \(m_3\ge 2\), then \(m_2+1=m_2+2\mu\), which is a height on \(F_3\), so \(m_2+1\in\mathcal H\). The vanishing of the height-\(m_2+1\) terms is therefore invalid.
+
+8. **Location:**  
+   Also in Lemma \(\ref{lem:top}\):  
+   “The height \(m_2-\mu\) ... in either case \(m_2-\mu\notin\mathcal H\) (by the same closure analysis), so \(\sigma_T(t-a_3)=0\).”  
+   **Description — Justification Gap:**  
+   No complete argument is given for \(m_2-\mu\notin\mathcal H\). The proof merely refers back to earlier “closure analysis,” which itself was not fully carried out.
+
+9. **Location:**  
+   In Proposition \(\ref{prop:n4mu}\), case “\(m_1=0,\ m_2\ge 2\)”:  
+   “Heights: \(2,\ 2,\ 1,\ 1-\mu<0\) (since \(\mu>0\), last term \(=0\)).”  
+   **Description — Critical Error:**  
+   From \(\mu>0\) it does **not** follow that \(1-\mu<0\). This is false when \(0<\mu<1\). The contradiction in this case uses an incorrect vanishing claim.
+
+10. **Location:**  
+   In the same case:  
+   “Since \(t_1-a_1\notin T\) (height \(0\) and \(t_1-a_1\ne t_1\): only \(t_1\) at height~\(0\) by No-Gaps) ...”  
+   **Description — Critical Error:**  
+   Lemma \(\ref{lem:nogaps}\) excludes heights outside \(\mathcal H\), but \(0\in\mathcal H\). So “only \(t_1\) at height 0 by No-Gaps” does not follow.
+
+11. **Location:**  
+   In Proposition \(\ref{prop:n4mu}\), case “\(m_1=0,\ m_2=1,\ m_3\ge 1\)”:  
+   “The height \(\mu>0\) is not in \(\mathcal H\) for \(\mu<1\) ... By the No-Gaps Lemma: \(\sigma_T(t_3+a_3-a_2)=0\).”  
+   **Description — Critical Error:**  
+   The proposition is supposed to treat all \(0<\mu\notin\mathbb Z_{>0}\), but this argument only addresses the subcase \(\mu<1\). No argument is given for \(\mu>1\).
+
+12. **Location:**  
+   In Proposition \(\ref{prop:n4mu}\), case “\(m_1=0,\ m_2=0\)”:  
+   “All face chains \(F_1=\{t_1\},F_2=\{t_2\},F_3=\{t_3\},F_4=\{t_4\}\) with \(t_1=t_2=t_3=t_4=:t_0\).”  
+   **Description — Critical Error:**  
+   From \(m_1=0\) and \(m_2=0\), one gets \(t_2=t_1\) and \(t_3=t_2\), but nothing here shows \(m_3=m_4=0\) or \(t_4=t_3\). The claimed collapse to a single translate is unsupported.
+
+13. **Location:**  
+   In Proposition \(\ref{prop:n4mu0}\):  
+   “Consider \(x^*:=s_1+t_3\notin\{x_j\}\) (same non-lonely check as Lemma~\ref{lem:cross}).”  
+   **Description — Justification Gap:**  
+   There is no Lemma~\ref{lem:cross} in the proof. The non-lonely check for \(x^*\) is therefore missing.
+
+14. **Location:**  
+   In Proposition \(\ref{prop:n4mu0}\):  
+   “suppose \(\sigma_T(t_1+|\lambda|a_1)=0\) (which holds when \(|\lambda|\notin\{0,1,\dots,m_1\}\) or more carefully by the No-Gaps Lemma applied at height~0).”  
+   **Description — Critical Error:**  
+   The No-Gaps Lemma cannot be used to exclude height \(0\), because \(0\in\mathcal H\). This justification for \(\sigma_T(t_1+|\lambda|a_1)=0\) is invalid.
+
+15. **Location:**  
+   End of Proposition \(\ref{prop:n4mu0}\):  
+   “The argument in full generality follows the same case split as Proposition~\ref{prop:n4mu} with \(\mu=0\); we omit the repetition.”  
+   **Description — Justification Gap:**  
+   The general \(\mu=0\) case is not proved; only a partial discussion is given.
+
+16. **Location:**  
+   In Proposition \(\ref{prop:n4muneg}\):  
+   “the same argument as Lemma~\ref{lem:betamax} adapted ... shows ...” and later “We omit the repetition.”  
+   **Description — Justification Gap:**  
+   The proof for \(-1<\mu<0\) is only sketched. Essential steps are asserted but not established.
+
+17. **Location:**  
+   In Section 4:  
+   “For \(j\ge 4\): \(c_j=\beta(s_j-s_1)\ge 2\) ...” and  
+   “the terms \(j\ge 4\) have heights \(h(t)+1-c_j\le h(t)-\mu<0\).”  
+   **Description — Critical Error:**  
+   Neither claim is justified, and both are generally false. After normalizing \(c_3=1\), there is no reason all later \(c_j\) must be at least \(2\). Also \(h(t)-\mu<0\) does not follow from \(h(t)<m_2\).
+
+18. **Location:**  
+   In Section 4:  
+   “By the same No-Gaps Lemma (proved in Section~2 for all \(n\)) ... Proposition~\ref{prop:n3} applies verbatim.”  
+   **Description — Critical Error:**  
+   Section 2 did not validly prove No-Gaps for \(n\ge 5\), and Proposition \(\ref{prop:n3}\) is a theorem for an actual triangle \(S=\{s_1,s_2,s_3\}\), not for a 3-point subsystem inside a larger polygon. The reduction is not justified.
+
+19. **Location:**  
+   In the conclusion:  
+   “\(n=4\), \(\mu\in\mathbb{Z}_{>0}\): the No-Gaps Lemma holds equally, and the staircase argument extends ... with minor modifications ...”  
+   **Description — Justification Gap:**  
+   This entire case is only asserted in the conclusion. No proof is provided for positive integer \(\mu\).
+
+Because the solution contains **Critical Errors** and multiple **Justification Gaps**, it does **not** verify the statement.

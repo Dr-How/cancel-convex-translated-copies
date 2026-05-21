@@ -1,0 +1,46 @@
+The solution is **not correct as written**. Bug report:
+
+1. **Location:**  
+   “Now  
+   \[
+   A_2-A_1=e_1=-e_3=A_4-A_3,
+   \]
+   and  
+   \[
+   A_3-A_2=e_2=-e_4=A_4-A_1.
+   \]”
+
+   **Description — Critical Error:**  
+   The first displayed equality is false. Since \(e_3=A_4-A_3\), we have
+   \[
+   -e_3=A_3-A_4,
+   \]
+   not \(A_4-A_3\). So the chain
+   \[
+   e_1=-e_3=A_4-A_3
+   \]
+   is incorrect. As written, this does **not** establish the claimed vector relation for one pair of opposite sides, and the statement “indeed equal as vectors” is not justified.
+
+2. **Location:**  
+   “Suppose, for contradiction, that \(e_i\) and \(e_{i+1}\) are parallel for some \(i\).”  
+   “The segments \([A_i,A_{i+1}]\) and \([A_{i+1},A_{i+2}]\)…”  
+   “For each \(i\), let \(\tau_i\) be the exterior turning angle from \(e_i\) to \(e_{i+1}\) at the vertex \(A_{i+1}\). Then
+   \[
+   \tau_i=\pi-\alpha_{i+1}.
+   \]”  
+   “Define recursively
+   \[
+   \varphi_{i+1}:=\varphi_i+\tau_i \qquad (1\le i\le n).
+   \]”
+
+   **Description — Justification Gap:**  
+   The proof uses cyclic indexing beyond what was defined. Only \(A_{n+1}=A_1\) was set. But these steps require, at minimum, explicit meaning for the wrap-around cases involving \(A_{n+2}\), \(e_{n+1}\), and \(\alpha_{n+1}\). Without that, the proof does not formally cover the adjacent pair \((e_n,e_1)\), and \(\tau_n\) / \(\varphi_{n+1}\) are not properly defined. This affects Step 1, the alternation argument in Step 2, and the turning-angle argument in Step 3.
+
+3. **Location:**  
+   “Now triangulate the convex \(n\)-gon \(A_1A_2\cdots A_n\) from \(A_1\). This gives \(n-2\) triangles, hence
+   \[
+   \sum_{i=1}^n \alpha_i=(n-2)\pi.
+   \]”
+
+   **Description — Justification Gap:**  
+   This invokes the polygon angle-sum result without explicitly justifying it. The step from “\(n-2\) triangles” to “\(\sum \alpha_i=(n-2)\pi\)” relies on the triangle angle-sum theorem and on the fact that the triangulation’s angles add exactly to the polygon’s interior-angle sum. Those ingredients are not explicitly stated or verified here.

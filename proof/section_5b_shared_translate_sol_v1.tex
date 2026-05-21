@@ -1,0 +1,116 @@
+```latex
+\textbf{Proof.}
+For each \(r\), the alternating-sign property on
+\[
+F_r=\{\,t_r+k a_r:0\le k\le m_r\,\}
+\]
+means that
+\[
+\sigma(t_r+k a_r)=\sigma(t_r)(-1)^k \qquad (0\le k\le m_r).
+\]
+Let
+\[
+t^*:=t_i+p a_i=t_j+q a_j.
+\]
+
+\begin{enumerate}
+\item Since \(t^*\) is a single element of \(T\), it has a unique sign. Hence
+\[
+\sigma(t_i)(-1)^p=\sigma(t^*)=\sigma(t_j)(-1)^q.
+\]
+This is exactly the asserted sign consistency.
+
+\item Rearranging the equality
+\[
+t_i+p a_i=t_j+q a_j
+\]
+gives
+\[
+t_j-t_i=p a_i-q a_j.
+\]
+
+\item If \(p\ge 1\) and \(q\ge 1\), then both directions occur nontrivially, and we may write
+\[
+t_j=t_i+p a_i-q a_j.
+\]
+Equivalently,
+\[
+t_i=t^*-p a_i,
+\qquad
+t_j=t^*-q a_j.
+\]
+Thus \(t_i\) and \(t_j\) are affinely related through the two edge directions \(a_i\) and \(a_j\).
+
+\item Put
+\[
+E_r:=[t_r,t_{r+1}]
+=\{\,t_r+\lambda a_r:0\le \lambda\le m_r\,\}.
+\]
+Because
+\[
+t_{r+1}-t_r=m_r a_r
+\]
+for every \(r\), and because
+\[
+\sum_{r=1}^n m_r a_r=0,
+\]
+the segments \(E_1,\dots,E_n\) form the boundary edges of the convex polygon
+\[
+Q=\operatorname{conv}(T),
+\]
+listed in cyclic order.
+
+Also, at the level of signs,
+\[
+\sigma(t_{r+1})
+=\sigma(t_r+m_r a_r)
+=\sigma(t_r)(-1)^{m_r},
+\]
+so along the cyclic boundary arc from \(t_i\) to \(t_j\) one gets
+\[
+\sigma(t_j)=\sigma(t_i)(-1)^{m_i+\cdots+m_{j-1}}.
+\]
+Hence a ``sign contradiction'' can only mean a disagreement between this boundary parity and the local parity from part \(1\). Such a disagreement cannot come from a mere shared endpoint, so the only relevant case is the genuine interior-overlap case
+\[
+0<p<m_i,
+\qquad
+0<q<m_j.
+\]
+Then
+\[
+t^*\in \operatorname{relint}(E_i)\cap \operatorname{relint}(E_j).
+\]
+
+After cyclic relabeling, we may assume that \(i<j\). Along the boundary of \(Q\),
+\[
+t_j-t_i
+=\sum_{k=i}^{j-1}(t_{k+1}-t_k)
+=\sum_{k=i}^{j-1}m_k a_k.
+\]
+Combining this with part \(2\), namely
+\[
+t_j-t_i=p a_i-q a_j,
+\]
+yields
+\[
+(m_i-p)a_i+\sum_{k=i+1}^{j-1}m_k a_k+q a_j=0.
+\]
+Geometrically, this is exactly the vector equation of the boundary subchain
+\[
+t^*\to t_{i+1}\to t_{i+2}\to \cdots \to t_j\to t^*.
+\]
+
+But the boundary of a convex polygon is a simple polygonal curve, and the relative interiors of distinct boundary edges are disjoint. Therefore a proper boundary subchain can close up only if its first and last edge pieces lie on the same supporting line. Consequently \(E_i\) and \(E_j\) must have the same direction. Since both are oriented by the cyclic order of \(\partial Q\), their direction vectors are positive multiples of one another:
+\[
+a_j=\lambda a_i
+\qquad\text{for some }\lambda>0.
+\]
+Equivalently,
+\[
+a_i\parallel a_j
+\]
+with positive proportionality, i.e. \(a_i\) and \(a_j\) lie in the same direction class.
+
+This proves the claim.
+\hfill\(\square\)
+```

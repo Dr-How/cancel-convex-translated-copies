@@ -1,0 +1,54 @@
+The solution is **not correct**. Bug report:
+
+1. **Location:** `\paragraph{Direction classes.} $[a]=[b]$ iff $b=\lambda a$ for some $\lambda\ne0$. (A parallelogram has edges $a_1,a_2,-a_1,-a_2$ giving exactly 2 classes.)`  
+   **Type:** Critical Error  
+   **Description:** This changes the problem’s definition. The statement defines edge-direction classes using **positive** scalar multiples; the proof identifies vectors differing by any nonzero scalar, so opposite directions are merged. That is a different equivalence relation, so the proof is not addressing the stated hypothesis as written.
+
+2. **Location:** `By (F1)--(F2), each $p_i=t_i+s_i$ satisfies ... Since the $p_i$ are distinct ... and $|\mathrm{supp}(\tilde\sigma)|=n$: \[\mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.\]`  
+   **Type:** Critical Error  
+   **Description:** This foundational claim is not established from the allowed facts.  
+   - The statement that all other terms at \(p_i\) vanish uses an unstated separation argument not included in (F1)–(F2).  
+   - The claim that the \(p_i\) are distinct because the \(s_i\) are distinct and the \(t_i\) come from disjoint normal cones is invalid; distinct summands do not imply distinct sums.  
+   Therefore \(\mathrm{supp}(\tilde\sigma)=\{p_i\}\) is unproved, and many later uses of VAN rely on an unsupported premise.
+
+3. **Location:** `If $m=0$: $t_1=t_2=t_3$, so $T\subseteq\{t_1\}$, contradicting both signs present.`  
+   **Type:** Critical Error  
+   **Description:** From \(t_1=t_2=t_3\) and the listed facts about the chains \(F_i\), it does **not** follow that all of \(T\) is \(\{t_1\}\). Extra translates outside those degenerate chains are not ruled out. So the case \(m=0\) is not actually eliminated.
+
+4. **Location:** `Relabel so that $[a_1],[a_2],[a_3]$ are pairwise distinct direction classes (choose any three edges from distinct classes; by cyclic relabeling we may take them to include edges $1,2,3$...)`  
+   **Type:** Justification Gap  
+   **Description:** Cyclic relabeling only rotates the boundary order; it does not make arbitrary chosen edges become the consecutive edges \(1,2,3\). The proof never shows that one can arrange for the first three **consecutive** edges to have three distinct classes.
+
+5. **Location:** `The closure \eqref{eq:closure} then reduces to ... i.e.\ $\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0$, forcing all $m_i=0$.`  
+   **Type:** Critical Error  
+   **Description:** This algebra is wrong. If \(a_i\) is parallel to \(a_1\), then \(a_i=\lambda_i a_1\) for some scalar \(\lambda_i\), not necessarily \(a_i=a_1\). The closure relation becomes \((m_1+\sum \lambda_i m_i)a_1=0\), not \((\sum m_i)a_1=0\). So the conclusion “all \(m_i=0\)” does not follow. Consequently, the proof has not established \(T\not\subseteq F_1\), so the later choice of a positive height \(h_0\) is not justified.
+
+6. **Location:** `For each $j$ with $c_j=h_0$, write $t'-s_j=\lambda_j a_1+h_0 v$ ... Then $t'+ra_1-s_j=(r+\lambda_j)a_1+h_0 v$, which lies in F_1=\{t_1+ka_1:0\le k\le m_1\} iff ...`  
+   **Type:** Critical Error  
+   **Description:** This decomposition is incorrect for two separate reasons.  
+   - Heights are defined by \(h(x)=\beta(x-t_1)\), so the relevant line is the affine line through \(t_1\); the displayed formula omits the base point \(t_1\).  
+   - The coefficient of \(v\) in the basis \(\{a_1,v\}\) is not automatically equal to the \(\beta\)-value unless \(\beta(v)=1\), which is never shown.  
+   Therefore \(\eqref{eq:Dform}\) and the later conclusion that \(D(t'+(r+1)a_1)=0\) for large \(r\) are unsupported.
+
+7. **Location:** `Apply \eqref{eq:VAN} at $t'+(R_{\max}+2)a_1$ ... not lonely if ... after possibly increasing the starting index by at most $n$ steps ...` and `By the same argument at $t'+(R_{\min}-1)a_1$ ...`  
+   **Type:** Critical Error  
+   **Description:** These VAN applications are not justified. The proof does not actually prove that the points \(t'+(R_{\max}+2)a_1\), \(t'+(R_{\min}-1)a_1\), or \(t'+(R_{\min}-2)a_1\) lie outside \(\mathrm{supp}(\tilde\sigma)\). The “possibly increasing the starting index” remark is not a valid fix, because changing the start changes the meaning of \(R_{\max}\)/\(R_{\min}\), and there is no separate leftward lonely-point case analyzed.
+
+8. **Location:** `The $j_0$-term in $D(t'+(R_{\max}+2)a_1)$ is ... $\ne0$ ... In particular, $|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1$` and `The $j_0'$-term in $D(t'+(R_{\min}-2)a_1)$ is ... $\ne0$. So $\sigma_T(t'+(R_{\min}-2)a_1)\ne0$`  
+   **Type:** Critical Error  
+   **Description:** A sum can contain a nonzero displayed term and still equal zero by cancellation with the other terms. The proof gives no argument that the remaining contributions to the \(D\)-sum cannot cancel the exhibited nonzero term. Both contradiction steps are invalid.
+
+9. **Location:** `This forces the $j$'s contributing to both D-sums to be the same vertex $j_0=j_0'$ ...` and later `by assumption ($j_0$ is the unique index with $c_j=h_0$ contributing to the D-sums ...)` and `\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1$ from \eqref{eq:Dleft}`  
+   **Type:** Critical Error  
+   **Description:** None of these assertions is proved.  
+   - The proof does not show the rightward and leftward contributing indices must coincide.  
+   - It does not show uniqueness of a contributor with \(c_j=h_0\).  
+   - \(\eqref{eq:Dleft}\) only yields \(D=-\sigma_T(\cdot)\neq0\), not the exact value \(-\varepsilon_1\).  
+   - The later use of `\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1` also implicitly assumes \(m_1\ge1\), which was never proved in the general \(n\ge4\) case.  
+   The final contradiction in Sub-case B2 rests on unsupported assumptions.
+
+10. **Location:** `By the same analysis as Sub-cases A, B1, B2 applied with $R_{\max}$ replaced by $R_{\max}+1$ (or the next non-lonely step), we obtain the same contradiction.`  
+    **Type:** Critical Error  
+    **Description:** This does not work. Replacing \(R_{\max}\) by \(R_{\max}+1\) or by a later step loses the defining property that \(R_{\max}\) is the last index with \(t'+ra_1\in T\). The earlier maximality-based equations no longer apply verbatim. So Sub-case L is not actually resolved.
+
+Because of these issues, the proof does **not** verify the statement.

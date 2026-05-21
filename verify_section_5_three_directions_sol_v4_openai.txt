@@ -1,0 +1,45 @@
+The solution is **not correct** under the stated grading rules. I found these issues:
+
+1. **Location:**  
+   “### Lemma 6  
+   If \(P\) has at least three edge-direction classes, then there exists an index \(i\) such that …”  
+   and  
+   “I now use Lemma 6 and continue with the local argument.”
+
+   **Description — Justification Gap:**  
+   Lemma 6 is the key existence statement needed to choose the index \(i\), but it is never proved. The paragraph “Why this is the right repair” is only heuristic. Since the later construction of \(u,v,q\) depends on this lemma, the main contradiction is not established.
+
+2. **Location:**  
+   “because \(\Delta_i\) is no larger than the ear at \(A\), every other vertex \(X=(x,y)\) satisfies  
+   \[
+   \operatorname{area}(\triangle OAX)\ge \operatorname{area}(\triangle OAB)=\frac12,
+   \]
+   hence \(y\ge 1\). Similarly, comparing with the ear at \(B\), \(x\ge 1\).”
+
+   **Description — Justification Gap:**  
+   The local-minimum hypothesis only compares \(\Delta_i\) with the two adjacent ears \(\Delta_{i-1}\) and \(\Delta_{i+1}\). It does **not** directly imply the stated inequality for **every** other vertex \(X\). To extend the inequality from the neighboring ear(s) to all vertices, an additional convex-chain/monotonicity argument is required, but none is given. Therefore the later conclusion that all other vertices satisfy \(x\ge1\) and \(y\ge1\) is unsupported.
+
+3. **Location:**  
+   “Because \(A^+\neq A,R\) and the polygon has no collinear consecutive vertices, these inequalities are strict in the second coordinate:
+   \[
+   0<y(A^+)<1.
+   \]”
+
+   **Description — Justification Gap:**  
+   From the previously obtained bounds \(x(A^+)\ge1\) and \(y(A^+)\le1\), the proof does not justify the strict upper bound \(y(A^+)<1\). The stated reason about non-collinear consecutive vertices is insufficient as written. Hence the contradiction used to rule out extra vertices on the arc \(A\to R\) is incomplete.
+
+4. **Location:**  
+   “The inclusion \(P\subset s_i+C_i\) is the usual tangent-cone inclusion at a vertex of a convex polygon.”  
+   and  
+   “Hence \(t-t_i\) lies in the polar cone of \(N_P(s_i)\), which is exactly \(C_i\).”
+
+   **Description — Justification Gap:**  
+   These are additional convex-geometry facts, not among the allowed imported results, and they are not proved here. In particular, the identification of the polar of \(N_P(s_i)\) with \(\operatorname{cone}(a_i,-a_{i-1})\) is essential for the restriction on representations of \(q\), but it is only asserted.
+
+5. **Location:**  
+   “Now let \(c\) rotate once around the circle. The exposed point of \(Q\) maximizing \(c\cdot t\) changes only when \(c\) crosses a normal ray of \(Q\), so the exposed vertices are visited in cyclic order. Since on each cone \(N_P(s_i)\) the exposed vertex is exactly \(t_i\), the consecutive distinct values among the \(t_i\)'s are precisely those vertices, in their cyclic order.”
+
+   **Description — Justification Gap:**  
+   This uses unstated support-function/normal-fan facts about \(Q\) and their relation to the cones \(N_P(s_i)\). The proof does not explicitly justify that the rotating-direction argument yields exactly the claimed cyclic block structure of the distinct \(t_i\)'s.
+
+Because of these gaps, the proof does not verify the theorem.

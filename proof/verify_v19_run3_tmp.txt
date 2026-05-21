@@ -1,0 +1,58 @@
+The solution is **not correct**. Here is the bug report.
+
+1. **Justification Gap**  
+   **Location:** “Since the \(p_i\) are distinct (the \(s_i\) are distinct and the \(t_i\) come from disjoint normal cones) and \(|\mathrm{supp}(\tilde\sigma)|=n\):  
+   \[
+   \mathrm{supp}(\tilde\sigma)=\{p_i=t_i+s_i:1\le i\le n\}.
+   \]”  
+   **Description:** The stated reason does not prove that the \(p_i\) are distinct. From \(s_i\neq s_j\) and different associated translates \(t_i,t_j\), it does **not** follow that \(t_i+s_i\neq t_j+s_j\). The preceding claim that all off-diagonal terms vanish at \(p_i\) is also only sketched. Since later applications of (VAN) rely on the identification \(\mathrm{supp}(\tilde\sigma)=\{p_i\}\), this is a foundational gap.
+
+2. **Critical Error**  
+   **Location:** “If \(m=0\): \(t_1=t_2=t_3\), so \(T\subseteq\{t_1\}\), contradicting both signs present.”  
+   **Description:** From \(m_1=m_2=m_3=0\) one only gets \(t_1=t_2=t_3\). The allowed facts do **not** imply that \(T\) has no other elements besides these exposed translates. Therefore the deduction \(m\ge1\) (and then \(m\ge2\)) is invalid, and Step 3 of the triangle case is unsupported.
+
+3. **Justification Gap**  
+   **Location:** “Relabel so that \([a_1],[a_2],[a_3]\) are pairwise distinct direction classes ... by cyclic relabeling we may take them to include edges \(1,2,3\).”  
+   **Description:** Cyclic relabeling alone does not make arbitrary chosen edges consecutive. An additional argument is needed to show that a polygon with at least three direction classes has some consecutive triple of edges with pairwise distinct classes. That argument is not given.
+
+4. **Critical Error**  
+   **Location:** “By (F1), \(t_1\) is the unique maximiser of \(\langle\cdot,-v\rangle=-\beta(\cdot)\) over \(T\).”  
+   **Description:** This is not justified by (F1), and it is generally false when \(m_1>0\). Since \(\langle a_1,v\rangle=0\), every point of
+   \[
+   F_1=\{t_1,t_1+a_1,\dots,t_1+m_1a_1\}
+   \]
+   has the same \(\langle\cdot,-v\rangle\)-value. So \(t_1\) is not unique unless \(m_1=0\). Lemma “betamin” is therefore not proved.
+
+5. **Critical Error**  
+   **Location:** “The closure \eqref{eq:closure} then reduces to \(m_1 a_1+\sum_{[a_i]=[a_1],i\ne1}m_i a_i=0\), i.e. \(\bigl(\sum_{[a_i]=[a_1]}m_i\bigr)a_1=0\), forcing all \(m_i=0\).”  
+   **Description:** From \([a_i]=[a_1]\) one only gets \(a_i=\lambda_i a_1\) for some nonzero scalar \(\lambda_i\), not \(a_i=a_1\). Opposite or differently scaled multiples are possible. So the closure equation does **not** simplify to \((\sum m_i)a_1=0\). The contradiction used to prove that \(T\) contains a point with \(h>0\) therefore fails.
+
+6. **Critical Error**  
+   **Location:** “For each \(j\) with \(c_j=h_0\), write \(t'-s_j=\lambda_j a_1+h_0v\) ... Then \(t'+ra_1-s_j=(r+\lambda_j)a_1+h_0v\), which lies in \(F_1=\{t_1+ka_1:0\le k\le m_1\}\) iff \((r+\lambda_j)=k\).”  
+   **Description:** This is an affine-coordinate mistake. \(F_1\) is an affine set through \(t_1\), but \(t_1\) disappears from the representation. Also, if \(c_j=h_0\), then \(t'+ra_1-s_j\) has height \(0\), whereas the displayed formula keeps an \(h_0v\)-component. Consequently \eqref{eq:Dform} and the later claim that \(D(t'+(r+1)a_1)=0\) for large \(r\) are unsupported.
+
+7. **Justification Gap**  
+   **Location:** “Let \(R^*=m_1+\max_j(|\lambda_j|+1)\).”  
+   **Description:** The proof never handles the case where there is **no** \(j\) with \(c_j=h_0\). Then the index set for the \(\lambda_j\) is empty, \(R^*\) is undefined, and the whole \(D\)-argument has no stated branch.
+
+8. **Critical Error**  
+   **Location:** “The \(j_0\)-term in \(D(t'+(R_{\max}+2)a_1)\) is ... \(\ne0\) ... In particular, \(|\sigma_T(t'+(R_{\max}+2)a_1)|\ge1\).”  
+   **Description:** A sum can contain a nonzero summand and still equal \(0\). The proof ignores possible cancellation among different \(j\)-contributions. The same defect appears again in the leftward subcase “If \(k_0'\ge1\)”. So the claimed existence of a new translate is not established.
+
+9. **Critical Error**  
+   **Location:** “Apply \eqref{eq:VAN} at \(t'+(R_{\max}+2)a_1\) ... not lonely ... after possibly increasing the starting index by at most \(n\) steps, a finite adjustment” and “By the same argument at \(t'+(R_{\min}-1)a_1\) ...”  
+   **Description:** The proof never validly handles the possibility that these shifted points are lonely. Moving to a later step changes the extremal quantities \(R_{\max}\) or \(R_{\min}\) and destroys the setup used to derive the recurrence. One cannot simply reuse the same argument after a “finite adjustment.” These VAN applications are therefore unjustified.
+
+10. **Critical Error**  
+    **Location:** “This forces the \(j\)'s contributing to both D-sums to be the same vertex \(j_0=j_0'\)” and later “\(j_0\) is the unique index with \(c_j=h_0\) contributing to the D-sums.”  
+    **Description:** No proof is given that the rightward and leftward contributors must coincide, or that there is a unique relevant vertex at height \(h_0\). Multiple vertices may satisfy \(c_j=h_0\). The subsequent computations of \(\tilde\sigma(q^*)\) and \(\tilde\sigma(q^*+a_1)\) therefore omit potentially nonzero terms.
+
+11. **Critical Error**  
+    **Location:** “\(\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1\) (chain element; \(\sigma_T(t'+R_{\min}a_1)=-\varepsilon_1\) from \eqref{eq:Dleft})” and “\(\sigma_T(t_1+a_1)=(-1)^1\varepsilon_1=-\varepsilon_1\) (position \(1\) on \(F_1\)).”  
+    **Description:** \eqref{eq:Dleft} only gives a total sum \(D(...)= -\sigma_T(t'+R_{\min}a_1)\); it does **not** identify that value as \(-\varepsilon_1\). Also, the use of \(t_1+a_1\) as “position 1 on \(F_1\)” presupposes \(m_1\ge1\), which was never proved in the \(n\ge4\) argument.
+
+12. **Critical Error**  
+    **Location:** “By the same analysis as Sub-cases~A, B1, B2 applied with \(R_{\max}\) replaced by \(R_{\max}+1\) (or the next non-lonely step), we obtain the same contradiction.”  
+    **Description:** This does not follow. Once one moves beyond \(R_{\max}+1\), the earlier equations no longer apply because the new index is not maximal among points of the form \(t'+ra_1\) lying in \(T\). The recurrence changes, so Sub-case L is not actually resolved.
+
+Because of these critical errors, the solution does **not** verify the statement.

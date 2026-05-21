@@ -1,0 +1,39 @@
+The solution is **not correct**. I found the following issues.
+
+1. **Location:**  
+   “*As requested, I do **not** add \(T\neq\varnothing\) as a new hypothesis: in the ambient problem, both signs occur in \(T\), so \(T\neq\varnothing\) is already guaranteed. That is the only consequence we use.*”
+
+   **Description — Critical Error:**  
+   This imports an assumption from an “ambient problem” that is **not part of the stated problem**. In the stated setup, \(T\) is only said to be a finite signed set; \(T=\varnothing\) is allowed. But if \(T=\varnothing\), then \(\sigma(p)=0\) for all \(p\), so
+   \[
+   |\{p:\sigma(p)\neq 0\}|=0<n,
+   \]
+   contradicting the claimed lower bound. So the proof is not a proof of the statement as written.
+
+2. **Location:**  
+   “*If \(n=1\), then \(S=\{s\}\), and this step is unnecessary.*”  
+   followed by  
+   “*Because \(T\neq\varnothing\) and \(T\) is finite, there exists \(t_s\in T\) such that
+   \[
+   u_s\cdot t_s=\max_{t\in T} u_s\cdot t.
+   \]*”
+
+   **Description — Justification Gap:**  
+   For \(n=1\), Step 1 is skipped, so \(u_s\) is never defined. But Step 2 still uses \(u_s\). No separate argument is given for the \(n=1\) case to produce a lonely point. Thus the claim is not actually proved for all \(n\ge 1\).
+
+3. **Location:**  
+   “*Interchanging the finite sums gives
+   \[
+   \sum_{p\in S+T}\sigma(p)
+   =
+   \sum_{t\in T}\ \sum_{s\in S}\sigma(t)
+   =
+   n\sum_{t\in T}\sigma(t).
+   \]*”
+
+   **Description — Justification Gap:**  
+   A mere interchange of summation order gives
+   \[
+   \sum_{t\in T}\ \sum_{\substack{p\in S+T\\ p-t\in S}}\sigma(t),
+   \]
+   not immediately \(\sum_{t\in T}\sum_{s\in S}\sigma(t)\). The proof omits the needed reindexing argument \(p=s+t\) (for fixed \(t\)) and the justification that this correspondence is bijective. The displayed equality is therefore not explicitly justified.

@@ -1,0 +1,399 @@
+CONSOLIDATED PESSIMISTIC VERIFICATION REPORT
+Solution: proof/section_5_three_directions_sol_v19.tex
+Problem:  proof/section_5_three_directions.tex
+Mode:     pessimistic (3 independent runs)
+Verdict:  ISSUES_FOUND
+
+All three verifier runs independently flagged critical errors. Under pessimistic rules,
+ANY run flagging an issue yields ISSUES_FOUND. Here every run found multiple critical errors.
+
+===========================================================================
+CONSOLIDATED ISSUE LIST  (all runs agree; run attribution noted per issue)
+===========================================================================
+
+ISSUE 1 — Critical Error [Run1, Run2, Run3]
+  Location: "Direction classes. [a]=[b] iff b = lambda*a for some lambda != 0."
+  Description: The proof silently redefines "direction class" from positive scalar multiples
+  (as in the problem statement) to equivalence under arbitrary nonzero scalars. Every
+  subsequent deduction about the number of classes rests on this altered definition.
+  The proof therefore addresses a different statement than the one given.
+
+ISSUE 2 — Critical Error [Run1, Run2, Run3]
+  Location: "Since the p_i are distinct (the s_i are distinct and the t_i come from
+  disjoint normal cones) ... supp(sigma_tilde) = {p_i = t_i + s_i : 1 <= i <= n}."
+  Description: Distinctness of s_i and the t_i does not imply distinctness of the sums
+  t_i + s_i. The vanishing of the non-i summands at p_i is only asserted ("by
+  linear-functional separation") without proof from the allowed facts (F1)-(F2).
+  The identification of the full support, used throughout via (VAN), is not established.
+
+ISSUE 3 — Critical Error [Run1, Run2, Run3]
+  Location: "If m = 0: t_1 = t_2 = t_3, so T ⊆ {t_1}, contradicting both signs present."
+  Description: From m_1 = m_2 = m_3 = 0 one can only conclude F_i = {t_i}; extra
+  translates in T outside the three edge chains are not excluded. The case m = 0 is
+  dismissed without proof.
+
+ISSUE 4 — Justification Gap [Run1, Run2, Run3]
+  Location: "Relabel so that [a_1],[a_2],[a_3] are pairwise distinct ... by cyclic
+  relabeling we may take them to include edges 1, 2, 3."
+  Description: Cyclic relabeling cannot in general make three arbitrarily chosen edges
+  consecutive. The proof does not justify that three distinct direction classes can be
+  arranged as three consecutive edges, nor that the polygon is then oriented CCW. Both
+  facts are subsequently used in the height construction.
+
+ISSUE 5 — Critical Error [Run1, Run2, Run3]
+  Location: Lemma betamin: "By (F1), t_1 is the unique maximiser of <·, -v> = -beta(·)
+  over T, i.e. t_1 minimises beta over T."
+  Description: The vector -v is an outward normal to edge 1, not an interior normal of
+  the vertex cone. Every point of F_1 = {t_1, t_1 + a_1, ..., t_2} shares the same
+  beta-value, so t_1 is not a unique minimiser when m_1 > 0. Lemma betamin is unproved,
+  and the non-negativity h >= 0 relied upon later is unsupported.
+
+ISSUE 6 — Critical Error [Run1, Run2, Run3]
+  Location: "The closure eq:closure then reduces to (sum_{[a_i]=[a_1]} m_i) a_1 = 0,
+  forcing all m_i = 0."
+  Description: Edges parallel to a_1 satisfy a_i = lambda_i * a_1 for some scalar
+  lambda_i, not necessarily 1. The closure equation becomes (m_1 + sum m_i*lambda_i) a_1
+  = 0, not (sum m_i) a_1 = 0. The scalar multiples are discarded without justification,
+  so the conclusion does not follow.
+
+ISSUE 7 — Critical Error [Run1, Run2, Run3]
+  Location: "For each j with c_j = h_0, write t' - s_j = lambda_j a_1 + h_0 v ...
+  which lies in F_1 iff ..." and formula eq:Dform.
+  Description: If c_j = h_0 then h(t' - s_j) = h(t') - c_j = h_0 - h_0 = 0, so
+  t' - s_j lies on the height-0 line, not on a translate by h_0*v. The membership
+  criterion for F_1 and all of eq:Dform are therefore invalid.
+
+ISSUE 8 — Critical Error [Run1, Run2, Run3]
+  Location: "The j_0-term in D(t' + (R_max+2) a_1) is nonzero ... In particular
+  |sigma_T(t' + (R_max+2) a_1)| >= 1."
+  and: "The j_0'-term in D(t' + (R_min-2) a_1) is ... != 0. So sigma_T(...) != 0."
+  Description: A single nonzero summand in D does not prevent cancellation among the
+  remaining terms. In both sub-cases the proof treats "one nonzero term appears" as
+  "the entire sum is nonzero", which is invalid. The conclusions that these points lie
+  in T are unsupported.
+
+ISSUE 9 — Critical Error [Run3]
+  Location: "By the same argument at t' + (R_min - 1) a_1 ...
+  D(t' + (R_min-1) a_1) = -sigma_T(t' + R_min a_1) != 0."
+  Description: For p = t' + (R_min-1) a_1 the (VAN) equation involves
+  sigma_T(t' + (R_min-1) a_1) and sigma_T(t' + (R_min-2) a_1), not
+  sigma_T(t' + R_min a_1). The equation cited is not what (VAN) actually gives at
+  that point.
+
+ISSUE 10 — Critical Error [Run1, Run2, Run3]
+  Location: "This forces the j's contributing to both D-sums to be the same vertex
+  j_0 = j_0'."
+  Description: It is never established that right-side and left-side contributors are
+  the same vertex of S. Uniqueness of the contributing index is assumed without proof.
+  The subsequent construction of q* and the identities used in the final contradiction
+  all depend on this unsupported claim.
+
+ISSUE 11 — Critical Error [Run1, Run2, Run3]
+  Location: "j = j_0: sigma_T(t_1 + a_1) = (-1)^1 * epsilon_1 = -epsilon_1
+  (position 1 on F_1)."
+  Description: This requires m_1 >= 1, i.e. t_1 + a_1 in F_1. The n >= 4 branch of
+  the argument never proves m_1 >= 1; the term may not exist.
+
+ISSUE 12 — Critical Error [Run1, Run2, Run3]
+  Location: "But lonely points at height h_0 must satisfy h(t_i) + c_i = h_0 ...
+  So the only candidate is p_{j_0} = q*."
+  Description: This ignores lonely points where 0 < c_i < h_0 and h(t_i) = h_0 - c_i
+  > 0, which also satisfy h(t_i) + c_i = h_0. Uniqueness of the index with c_j = h_0
+  is assumed but never proved. The claimed contradiction is therefore invalid.
+
+ISSUE 13 — Critical Error [Run1, Run2, Run3]
+  Location: "Sub-case L ... By the same analysis as Sub-cases A, B1, B2 applied with
+  R_max replaced by R_max + 1 (or the next non-lonely step), we obtain the same
+  contradiction."
+  Description: Shifting to the "next non-lonely step" changes the equations; the
+  maximality/minimality hypotheses and the nonzero boundary terms used in the generic
+  sub-cases are not re-established for the shifted index. This is an unproved appeal to
+  analogy, not a valid argument.
+
+===========================================================================
+SUMMARY
+===========================================================================
+Total distinct issues:     13
+Critical Errors:           12
+Justification Gaps:         1 (Issue 4)
+
+Most critical issue: ISSUE 1 — The proof redefines direction classes from
+positive-scalar to any-nonzero-scalar equivalence, meaning the entire argument
+addresses a statement different from the one in the problem file.
+
+===========================================================================
+APPENDIX A — Full output of Run 1
+===========================================================================
+The solution is **not correct**. Bug report:
+
+1. **Location:**
+   *"[a]=[b] iff b=lambda a for some lambda!=0. (A parallelogram has edges a_1,a_2,-a_1,-a_2
+   giving exactly 2 classes.)"*
+   **Description:** **Critical Error.** This changes the problem's stated notion of direction
+   class. The problem defines classes using **positive** scalar multiples; the solution switches
+   to equivalence up to **any nonzero** scalar. The proof therefore addresses a different statement,
+   and later deductions rely on this altered definition.
+
+2. **Location:**
+   *"the maximality of t_i over its normal cone forces all other terms sigma_T(p_i-s_j)=0 for
+   j!=i by linear-functional separation ... Since the p_i are distinct (the s_i are distinct and
+   the t_i come from disjoint normal cones) ... supp(sigma_tilde)={p_i=t_i+s_i:1<=i<=n}."*
+   **Description:** **Justification Gap.** Neither the vanishing of the other terms nor the
+   distinctness of the p_i is established from the allowed facts (F1)-(F2). The cited
+   "linear-functional separation" and "disjoint normal cones" are unstated. Since
+   supp(sigma_tilde)={p_i} is not proved, later uses of (VAN) based only on "this point is not
+   one of the lonely points" are not fully justified.
+
+3. **Location:**
+   *"Relabel so that [a_1],[a_2],[a_3] are pairwise distinct ... by cyclic relabeling we may take
+   them to include edges 1,2,3 ... For a CCW convex polygon <a_2,v_0>>0 ... For j>=3: s_j lies
+   strictly on the interior side of the line s_1s_2, so c_j>0."*
+   **Description:** **Justification Gap.** Several geometric setup claims are asserted without proof:
+   that one may relabel so the first three **consecutive** edges have three distinct classes, that
+   the chosen cyclic order is CCW, and that this implies the sign conditions <a_2,v_0>>0 and c_j>0
+   for j>=3.
+
+4. **Location:**
+   *"By (F1), t_1 is the unique maximiser of <·,-v>=-beta(·) over T, i.e. t_1 minimises beta
+   over T."*
+   **Description:** **Critical Error.** This misapplies (F1). The vector -v is an outward normal
+   to **edge** 1, i.e. a boundary direction of the normal cone, and the argument gives no
+   justification that t_1 is the unique maximizer for that functional. In fact, since beta(a_1)=0,
+   every point of F_1={t_1+ka_1} has the same beta-value as t_1, so the claimed uniqueness is
+   false when m_1>0. Lemma betamin is therefore not proved.
+
+5. **Location:**
+   *"If m=0: t_1=t_2=t_3, so T⊆{t_1}, contradicting both signs present."*
+   **Description:** **Critical Error.** From t_1=t_2=t_3 it does **not** follow that T⊆{t_1}.
+   Facts (F1)-(F2) only describe T∩[t_i,t_{i+1}], not all of T. Thus the proof does not actually
+   exclude the case m=0.
+
+6. **Location:**
+   *"The closure eq:closure then reduces to m_1 a_1 + sum_{[a_i]=[a_1],i!=1} m_i a_i = 0, i.e.
+   (sum_{[a_i]=[a_1]} m_i) a_1 = 0, forcing all m_i=0."*
+   **Description:** **Critical Error.** From a_i in R*a_1 one only gets a_i=lambda_i*a_1 for some
+   scalars lambda_i. The closure equation becomes (m_1 + sum m_i*lambda_i) a_1 = 0, not
+   (sum m_i) a_1 = 0. The scalar multipliers/signs are ignored, so the conclusion "forcing all
+   m_i=0" does not follow.
+
+7. **Location:**
+   *"For each j with c_j=h_0, write t'-s_j=lambda_j a_1 + h_0 v ... Then t'+r*a_1-s_j =
+   (r+lambda_j)a_1 + h_0*v, which lies in F_1={t_1+k*a_1:0<=k<=m_1} iff ..."*
+   **Description:** **Critical Error.** This coordinate decomposition is inconsistent with the
+   preceding height definitions. If c_j=h_0, then h(t'-s_j)=h(t')-c_j=0, so t'-s_j lies on the
+   height-0 line through t_1; the displayed form omits the translation by t_1, and the coefficient
+   h_0 is used as though it were a v-coordinate without any normalization proving that. Therefore
+   the membership test for F_1 and formula eq:Dform are unsupported.
+
+8. **Location:**
+   *"Apply eq:VAN at t'+(R_max+2)a_1 ... not lonely ... after possibly increasing the starting
+   index by at most n steps, a finite adjustment"* and *"apply eq:VAN at t'+(R_max+2)a_1 ...
+   provided we choose the next non-lonely step ... By the same analysis ... we obtain the same
+   contradiction."*
+   **Description:** **Justification Gap.** The proof repeatedly shifts to a "later non-lonely step"
+   or "increases the starting index" without redefining R_max, R_min, or re-establishing the
+   hypotheses needed for the subcase analysis. This is hand-wavy and not a valid application of
+   the previously defined maximal/minimal indices.
+
+9. **Location:**
+   *"Hence sigma_T(t'+(R_max+2)a_1)=-D(t'+(R_max+2)a_1) contains the nonzero summand ... In
+   particular, |sigma_T(t'+(R_max+2)a_1)|>=1"* and *"The j_0'-term in D(t'+(R_min-2)a_1) is ...
+   !=0. So sigma_T(t'+(R_min-2)a_1)!=0"*
+   **Description:** **Critical Error.** In both places, the proof infers that a whole sum is
+   nonzero because one summand is nonzero. Cancellation among the other D-terms is not ruled out.
+   The conclusions that these points lie in T do not follow.
+
+10. **Location:**
+    *"This forces the j's contributing to both D-sums to be the same vertex j_0=j_0' ... equating
+    gives R_max-R_min=m_1-2 and s_{j_0}=s_{j_0'}, so j_0=j_0'."*
+    **Description:** **Critical Error.** The stated reason is invalid. From the displayed formulas
+    one gets two vertices of height h_0, but it does not follow that they are equal merely because
+    they lie in the same height set. The later construction of q*=t_1+s_{j_0} and the identities
+    that use j_0=j_0' are therefore unsupported.
+
+11. **Location:**
+    *"j=1: sigma_T(t_1+s_{j_0}+a_1)=sigma_T(t'+R_min*a_1)=-epsilon_1 (chain element;
+    sigma_T(t'+R_min*a_1)=-epsilon_1 from eq:Dleft)"* and *"j=j_0: sigma_T(t_1+a_1)=(-1)^1
+    *epsilon_1=-epsilon_1"*
+    **Description:** **Critical Error.** Neither equality is established. Equation eq:Dleft only
+    says D(t'+(R_min-1)a_1)=-sigma_T(t'+R_min*a_1)!=0; it does not give the exact value
+    -epsilon_1. Also, sigma_T(t_1+a_1) assumes t_1+a_1 in F_1, i.e. m_1>=1, which was never
+    proved in the n>=4 case. Thus the computation sigma_tilde(q*+a_1)=-2*epsilon_1 is invalid.
+
+12. **Location:**
+    *"But lonely points at height h_0 must satisfy h(t_i)+c_i=h_0. Since h(t_i)>=0 and c_i=0
+    only for i=1,2 ... we need c_i=h_0 for h(t_i)=0: only c_{j_0}=h_0 by assumption. So the
+    only candidate is p_{j_0}=q*."*
+    **Description:** **Critical Error.** This excludes possibilities without justification. A lonely
+    point can have height h_0 with 0<c_i<h_0 and h(t_i)=h_0-c_i>0. The argument also invokes an
+    "assumption" that only c_{j_0}=h_0, but no such assumption was established. So the claimed
+    uniqueness of the candidate lonely point is false.
+
+Because of these critical errors and justification gaps, the solution is **not verified**.
+
+===========================================================================
+APPENDIX B — Full output of Run 2
+===========================================================================
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:** "Direction classes. [a]=[b] iff b=lambda*a for some lambda!=0."
+   **Description — Justification Gap:** The proof silently changes the notion of "direction class"
+   from the statement's version (positive scalar multiples) to classes modulo arbitrary nonzero
+   scalars. Unless this change is justified, the proof is addressing a different claim.
+
+2. **Location:** "Since the p_i are distinct (the s_i are distinct and the t_i come from disjoint
+   normal cones) and |supp(sigma_tilde)|=n: supp(sigma_tilde)={p_i=t_i+s_i:1<=i<=n}."
+   **Description — Critical Error:** The stated reason does **not** imply the points p_i=t_i+s_i
+   are distinct. Distinct s_i and the origin of the t_i do not prevent t_i+s_i=t_j+s_j. Also,
+   the vanishing of the other summands at p_i is only asserted vaguely ("by linear-functional
+   separation"). Therefore eq:lonely is not established, yet it is used throughout to decide when
+   (VAN) applies.
+
+3. **Location:** "If m=0: t_1=t_2=t_3, so T⊆{t_1}, contradicting both signs present."
+   **Description — Critical Error:** From t_1=t_2=t_3 it does **not** follow that all of T equals
+   {t_1}. There could be additional translates in T. Thus the exclusion of m=0 in the triangle case
+   is unsupported.
+
+4. **Location:** "Relabel so that [a_1],[a_2],[a_3] are pairwise distinct direction classes ... by
+   cyclic relabeling we may take them to include edges 1,2,3" and later "For a CCW convex polygon..."
+   **Description — Justification Gap:** The proof does not justify that three distinct direction
+   classes can be arranged as three **consecutive** edges 1,2,3, nor that the polygon has been
+   reoriented CCW. The later height construction uses both facts.
+
+5. **Location:** "By (F1), t_1 is the unique maximiser of <·,-v>=-beta(·) over T, i.e. t_1
+   minimises beta over T."
+   **Description — Critical Error:** Here -v is an outward normal to **edge** 1, not an interior
+   normal of the vertex cone. Along this direction, every point of F_1={t_1,t_1+a_1,...,t_2} has
+   the same beta-value, so t_1 is not a unique maximizer when m_1>0. Nothing in the allowed facts
+   quoted here shows that all of T lies in {h>=0}. Thus Lemma betamin is not proved, and the later
+   use of h>=0 is unsupported.
+
+6. **Location:** "The closure eq:closure then reduces to m_1*a_1 + sum_{[a_i]=[a_1],i!=1} m_i*a_i
+   = 0, i.e. (sum_{[a_i]=[a_1]} m_i) a_1 = 0, forcing all m_i=0."
+   **Description — Critical Error:** If a_i is parallel to a_1, one only knows a_i=lambda_i*a_1
+   for some scalar lambda_i; it need not equal a_1, and it may even point in the opposite direction.
+   So the sum is not (sum m_i)*a_1. The claimed contradiction proving that some translate has h>0
+   does not follow.
+
+7. **Location:** "For each j with c_j=h_0, write t'-s_j=lambda_j*a_1+h_0*v ... Then
+   t'+r*a_1-s_j=(r+lambda_j)*a_1+h_0*v, which lies in F_1 iff ..." and the derived formula eq:Dform.
+   **Description — Critical Error:** If c_j=h_0, then h(t'-s_j)=h(t')-c_j=h_0-h_0=0, so t'-s_j
+   has height 0, not h_0. The decomposition is wrong, and it also ignores the necessary translation
+   by t_1. Therefore the criterion for when t'+r*a_1-s_j in F_1 is invalid, so eq:Dform and the
+   later claim that D vanishes for large r are unsupported.
+
+8. **Location:** "Hence sigma_T(t'+(R_max+2)a_1)=-D(t'+(R_max+2)a_1) contains the nonzero summand
+   (-1)^{k_0}*epsilon_1 ... In particular, |sigma_T(t'+(R_max+2)a_1)|>=1."
+   **Description — Critical Error:** A sum can contain a nonzero summand and still cancel to 0.
+   No argument is given that the other terms in D have the same sign or cannot cancel the j_0-term.
+   So the conclusion that t'+(R_max+2)a_1 in T is unsupported.
+
+9. **Location:** "The j_0'-term in D(t'+(R_min-2)a_1) is (-1)^{k_0'-1}*epsilon_1!=0 ... So
+   sigma_T(t'+(R_min-2)a_1)!=0."
+   **Description — Critical Error:** This repeats the same cancellation mistake as in Sub-case B1:
+   one nonzero term in the sum D does not imply the entire sum is nonzero.
+
+10. **Location:** "This forces the j's contributing to both D-sums to be the same vertex j_0=j_0'"
+    and later "by assumption (j_0 is the unique index with c_j=h_0 contributing to the D-sums ...)"
+    **Description — Critical Error:** None of this is proved. Even if there is a contributor on the
+    right and one on the left, it does not follow that they are the **same** vertex of S. The later
+    computation of q* also assumes uniqueness of contributors and a specific sign
+    sigma_T(t'+R_min*a_1)=-epsilon_1 without establishing them. In the same subcase, the line
+    "sigma_T(t_1+a_1)=(-1)^1*epsilon_1" also presumes m_1>=1, which is not shown.
+
+11. **Location:** "So the only candidate is p_{j_0}=q*."
+    **Description — Critical Error:** This ignores lonely points with h(t_i)>0 and 0<c_i<h_0,
+    which can also satisfy h(t_i)+c_i=h_0. Therefore the claim that q*+a_1 can only equal p_{j_0}
+    does not follow.
+
+12. **Location:** "Apply (VAN) at t'+(R_max+2)a_1 ... not lonely ... after possibly increasing the
+    starting index by at most n steps" and "By the same analysis as Sub-cases A, B1, B2 applied with
+    R_max replaced by R_max+1 (or the next non-lonely step), we obtain the same contradiction."
+    **Description — Critical Error:** The proof repeatedly shifts to a "next non-lonely step" without
+    re-establishing the maximality/minimality properties or re-deriving the relevant equations for the
+    shifted index. The special lonely-point case is therefore not actually proved; it is only asserted.
+
+Because the argument contains multiple **Critical Errors**, the solution is **incorrect**.
+
+===========================================================================
+APPENDIX C — Full output of Run 3
+===========================================================================
+The solution is **not correct**. Bug report:
+
+1. **Location:** "Direction classes. [a]=[b] iff b=lambda*a for some lambda!=0. (A parallelogram
+   has edges a_1,a_2,-a_1,-a_2 giving exactly 2 classes.)"
+   **Description:** **Critical Error.** The proof changes the problem's formal notion of direction
+   class. The statement defined classes using **positive** scalar multiples; the solution switches to
+   arbitrary nonzero scalar multiples. The later argument, including the "parallelogram has 2 classes"
+   remark, is then proving a different claim.
+
+2. **Location:** "By (F1)--(F2), each p_i=t_i+s_i satisfies sigma_tilde(p_i)!=0 ... Since the
+   p_i are distinct ... supp(sigma_tilde)={p_i=t_i+s_i:1<=i<=n}."
+   **Description:** **Justification Gap.** The allowed facts do not explicitly give the separation
+   argument used to show all non-i terms vanish, nor do they state that the p_i are distinct. The
+   phrase "the t_i come from disjoint normal cones" is not among the allowed facts and does not by
+   itself justify distinctness of the sums t_i+s_i. Many later contradictions rely on this unsupported
+   identification of the full support.
+
+3. **Location:** "If m=0: t_1=t_2=t_3, so T⊆{t_1}, contradicting both signs present."
+   **Description:** **Critical Error.** From m_1=m_2=m_3=0 one gets F_i={t_i}, not T⊆{t_1}.
+   Extra elements of T outside those three edge chains are not ruled out. The case m=0 is excluded
+   without proof.
+
+4. **Location:** "Relabel so that [a_1],[a_2],[a_3] are pairwise distinct ... by cyclic relabeling
+   we may take them to include edges 1,2,3."
+   **Description:** **Justification Gap.** Cyclic relabeling cannot in general make arbitrary three
+   chosen edges consecutive. The proof does not justify that one may assume the specific consecutive
+   edges a_1,a_2,a_3 represent three distinct classes.
+
+5. **Location:** "The closure then reduces to (sum_{[a_i]=[a_1]} m_i) a_1 = 0, forcing all m_i=0."
+   **Description:** **Critical Error.** Even if all relevant a_i are collinear with a_1, they need
+   not equal a_1; they may be different positive/negative scalar multiples. Replacing sum m_i*a_i by
+   (sum m_i)*a_1 is invalid. Therefore the argument that T not⊆F_1, hence that a positive height h_0
+   exists, is not established.
+
+6. **Location:** "For each j with c_j=h_0, write t'-s_j=lambda_j*a_1+h_0*v ... which lies in
+   F_1={t_1+k*a_1:0<=k<=m_1} iff ..." and equation eq:Dform.
+   **Description:** **Critical Error.** If c_j=h_0 then h(t'-s_j)=h_0-c_j=0, so t'-s_j lies on the
+   height-zero line t_1+R*a_1, not on a translate by h_0*v. Also, the coefficient of v is not the
+   height unless beta(v)=1, which was never shown. Thus the membership test for F_1 and formula
+   eq:Dform do not follow.
+
+7. **Location:** "The j_0-term in D(t'+(R_max+2)a_1) is nonzero ... In particular
+   |sigma_T(t'+(R_max+2)a_1)|>=1" and "The j_0'-term in D(t'+(R_min-2)a_1) is ... != 0. So
+   sigma_T(...)!=0."
+   **Description:** **Critical Error.** A single nonzero summand in D does not prevent cancellation
+   with other D-terms. The proof treats "one nonzero term appears" as "the whole sum is nonzero",
+   which is false. These steps do not establish the new point lies in T.
+
+8. **Location:** "By the same argument at t'+(R_min-1)a_1 ... D(t'+(R_min-1)a_1)=
+   -sigma_T(t'+R_min*a_1)!=0."
+   **Description:** **Critical Error.** This equation does not come from (VAN) at the stated point.
+   For p=t'+(R_min-1)a_1, the (VAN) equation involves sigma_T(t'+(R_min-1)a_1) and
+   sigma_T(t'+(R_min-2)a_1), not sigma_T(t'+R_min*a_1).
+
+9. **Location:** "This forces the j's contributing to both D-sums to be the same vertex j_0=j_0'..."
+   together with "j other, c_j=h_0: by assumption (j_0 is the unique index ...) ... hence =0."
+   **Description:** **Critical Error.** The proof never establishes that the right-side and left-side
+   contributors are the same vertex, nor that there is a unique contributing index. It also does not
+   justify using integrality information about lambda_j defined from t'-s_j to determine whether
+   q*-s_j in F_1. The subsequent computations of sigma_tilde(q*) and sigma_tilde(q*+a_1) are
+   therefore unsupported.
+
+10. **Location:** "j=j_0: sigma_T(t_1+a_1)=(-1)^1*epsilon_1=-epsilon_1 (position 1 on F_1)."
+    **Description:** **Critical Error.** This requires m_1>=1, i.e. that t_1+a_1 in F_1. The n>=4
+    argument never proves m_1>=1, so this term may not exist.
+
+11. **Location:** "But lonely points at height h_0 must satisfy h(t_i)+c_i=h_0 ... So the only
+    candidate is p_{j_0}=q*."
+    **Description:** **Critical Error.** This ignores the possibility that some p_i has height h_0
+    with 0<c_i<h_0 and h(t_i)=h_0-c_i>0. It also assumes uniqueness of the index with c_i=h_0,
+    which was never proved. So the contradiction q*+a_1 != p_{j_0} does not rule out q*+a_1=p_i
+    for some other i.
+
+12. **Location:** "Sub-case L ... By the same analysis as Sub-cases A, B1, B2 applied with R_max
+    replaced by R_max+1 (or the next non-lonely step), we obtain the same contradiction."
+    **Description:** **Critical Error.** The lonely-point case is not actually handled. Passing to a
+    later non-lonely step changes the equation and removes the nonzero boundary term used in the
+    generic case, so the earlier contradiction does not automatically persist. This is a hand-wave,
+    not a proof.

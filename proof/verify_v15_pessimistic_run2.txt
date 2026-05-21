@@ -1,0 +1,71 @@
+The solution is **not correct**. Bug report:
+
+1. **Location:**  
+   “*Fix \(n \geq 3\) and a convex \(n\)-gon \(x_1,\ldots,x_n\) (CCW) with sign function \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) supported on \(T = \{x_1,\ldots,x_n\}\) having both signs.*”  
+   and later  
+   “*\begin{theorem} If \(T\) has \(\geq 3\) edge-direction classes and both signs, then the nonlonely equations are contradicted.*”
+   
+   **Description:** **Critical Error.** The original problem fixes **\(S\)** as the convex \(n\)-point set and leaves **\(T\)** arbitrary. This proof instead assumes **\(T\)** itself is a convex \(n\)-gon with \(n\) points, and proves a statement about edge directions of \(T\), not about \(P=\operatorname{conv}(S)\). It also replaces the original \(\sigma(p)=\sum_{t\in T,\ p-t\in S}\sigma(t)\) with a different object \(\sigma_T\) supported on \(T\). This is a different problem.
+
+2. **Location:**  
+   “*Here \([u] = [v]\) iff \(u = \lambda v\) for some \(\lambda \neq 0\) (same unoriented line through 0).*”
+   
+   **Description:** **Critical Error.** The problem defines direction classes using **positive** scalar multiples. The proof changes this to **arbitrary nonzero** scalar multiples, merging opposite directions into one class. That changes the hypothesis and case analysis.
+
+3. **Location:**  
+   “*The key equations are:
+   \[
+   \text{(NL): For } p\notin T:\ \sum_{j=1}^n \sigma_T(p-s_j)=0,
+   \qquad
+   \text{(S0): For } t\in T,\ t\neq t_k:\ \sum_{j=1}^n \sigma_T(t+s_k-s_j)=0.
+   \]*”
+   
+   **Description:** **Justification Gap.** These equations are not stated in the problem and are not among the two allowed facts from Subproblems 1–4. No derivation is provided. The rest of the proof relies heavily on them.
+
+4. **Location:**  
+   “*Choose \(\beta\) to be the linear functional making \(t_1\) the height-\(0\) vertex and all other \(T\)-elements at height \(\ge 0\). This is possible: \(t_1\) is a vertex of \(\mathrm{conv}(T)\)...*”
+   
+   **Description:** **Justification Gap.** The proof assumes extra geometric facts about \(T\) (for example, that \(t_1\) is a vertex of \(\operatorname{conv}(T)\), and that one can choose a support functional with the required normalizations). None of this is established from the given hypotheses.
+
+5. **Location:**  
+   Setup: “*\(T=\{x_1,\ldots,x_n\}\)*”  
+   versus later  
+   “*\(F_1\) ... has all elements of the form \(t_1+ka_1\) (\(0\le k\le m_1\))*”  
+   and  
+   “*\(t_2=t_1+m_1a_1\in F_1\)*”.
+   
+   **Description:** **Critical Error.** The notation is internally inconsistent. \(T\) is first declared to be exactly the \(n\) points \(x_i\), then later treated as a larger set containing whole arithmetic progressions \(F_i\). The relationships among \(x_i\), \(t_i\), \(a_i\), \(s_j\), and \(F_i\) are never coherently defined.
+
+6. **Location:**  
+   “*If \(m=0\): \(T = F_1 = F_2 = F_3 = \{t_1\}\), a single point.*”  
+   and  
+   “*We check whether \(t'-a_1 \in T\). For \(T = F_1 \cup F_2 \cup F_3\):*”
+   
+   **Description:** **Critical Error.** The \(n=3\) argument assumes, without proof, that \(T\) consists only of the face chains \(F_i\). That is not one of the allowed facts. The conclusion about whether \(t'-a_1\) lies in \(T\) is therefore unsupported, and the contradiction in the triangle case does not follow.
+
+7. **Location:**  
+   “*Iterating: \(\{\ldots, q-2a_1, q-a_1, q, q+a_1, q+2a_1, \ldots\} \subseteq T\) with alternating nonzero signs. Contradicts \(T\) finite.*”
+   
+   **Description:** **Justification Gap.** Only the first neighbors \(q\pm a_1\) were obtained. Extending this to all integers requires repeated valid applications of \((S0)\) at each new point and handling possible endpoint cases; none of that is shown.
+
+8. **Location:**  
+   “*So in all cases, there exists \(t' \in T\) with \(h(t') > 0\), unless \(T = \{t_1\}\) (impossible).*”
+   
+   **Description:** **Justification Gap.** This existence claim is not rigorously established. The preceding discussion again uses unsupported statements such as “if all \(m_j=0\), then \(T=\{t_1\}\)” and unproved assertions like “\(h(t_j+a_j)=c_{j+1}>0\)”. The later minimum-height argument depends on this step.
+
+9. **Location:**  
+   “*If \(m_1=0\): \(F_1=\{t_1\}\) is a single point. Then \(J_0=\emptyset\) ... actually \(|J_0|\) can be \(\geq 2\), but the key point is ... If \(=1\): ... propagate. In all cases, chain or contradiction.)*”
+   
+   **Description:** **Critical Error.** This subcase is not completed. The proof explicitly retracts its own claim (“actually \(|J_0|\) can be \(\ge 2\)”), then switches to heuristic remarks and never gives a valid contradiction. The \(m_1=0\) branch is unresolved.
+
+10. **Location:**  
+    “*So \(D_2\) for \(t'+a_1\) is \(-D_2\) (signs flipped from before).*”
+    
+    **Description:** **Justification Gap.** This sign-flip claim is not justified. It assumes that every height-\(0\) contributing term survives a shift by \(a_1\), remains in \(F_1\), and simply changes sign. Endpoint losses or missing terms are ignored.
+
+11. **Location:**  
+    “*If \(D_2=\pm 1\): \(\sigma_T(t'+2a_1)=\sigma_T(t')\pm 2\): outside \(\{-1,0,+1\}\) if \(\sigma_T(t')=\pm 1\). Contradiction!*”
+    
+    **Description:** **Critical Error.** This calculation is false. For example, if \(\sigma_T(t')=-1\) and \(D_2=1\), then \(-1+2=1\), which is still in \(\{-1,0,+1\}\). The claimed contradiction does not follow.
+
+Because of these critical errors and justification gaps, the solution is **not verified**.

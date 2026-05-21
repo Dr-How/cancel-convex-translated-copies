@@ -1,0 +1,56 @@
+**Bug report**
+
+I found **no Critical Errors**, but under the stated rubric the solution is **not correct** because it still contains the following **Justification Gaps**.
+
+1. **Location:**  
+   “Since \(P=\operatorname{conv}(S)\) and \(Q=\operatorname{conv}(T)\),  
+   \[
+   R=P+Q=\operatorname{conv}(S+T),
+   \]
+   so \(R\) is a convex polygon.”
+
+   **Description:** **Justification Gap.**  
+   The identity
+   \[
+   \operatorname{conv}(S)+\operatorname{conv}(T)=\operatorname{conv}(S+T)
+   \]
+   is used without proof. Also, the deduction that this makes \(R\) a genuine 2-dimensional polygon is not justified here.
+
+2. **Location:**  
+   “Hence by Lemma 2,
+   \[
+   F_R(u)=F_P(u)+F_Q(u)=\{s_i+t_i\}=\{x_i\}.
+   \]
+   Therefore \(x_i\) is a vertex of \(R\).”
+
+   and later
+
+   “Since \(1+\lambda_i>0\) and \(a_i\neq 0\), this is a nondegenerate edge of \(R\).”
+
+   **Description:** **Justification Gap.**  
+   The proof silently uses the facts that:
+   - a singleton exposed face is a **vertex**, and
+   - a nondegenerate exposed face is an **edge**.  
+   These identifications are not stated or justified.
+
+3. **Location:**  
+   “Because \(P\) is a convex polygon, \(F_P(u)\) is either a vertex \(\{s_i\}\) or an edge \(E_i\).”
+
+   **Description:** **Justification Gap.**  
+   This structural classification of exposed faces of a polygon is invoked without proof. It is essential for the case split in Part (1), Step 3.
+
+4. **Location:**  
+   “Therefore the boundary of \(R\) is precisely the closed chain
+   \[
+   x_1,x_2,\dots,x_n,x_1.
+   \]
+   Hence the vertices of \(R\) are exactly
+   \[
+   x_1,x_2,\dots,x_n,
+   \]
+   they are pairwise distinct, and they occur in that cyclic order.”
+
+   **Description:** **Justification Gap.**  
+   The preceding argument identifies a collection of edge segments, but it does not explicitly justify that these segments run around the boundary in the claimed order, nor that nonadjacent \(x_i\) cannot coincide. Additional argument is needed to conclude pairwise distinctness and cyclic order.
+
+Because the rubric requires **zero** Justification Gaps, the solution does **not** pass verification.

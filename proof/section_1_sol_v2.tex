@@ -1,0 +1,334 @@
+The bug report is correct: the original proof used an “every vertex is exposed” theorem without checking its hypotheses. The cleanest fix is to avoid that theorem entirely and prove the needed exposure statement directly for convex hulls of finite sets.
+
+I will therefore give a self-contained proof.
+
+(Also, part \(1\) asks us to choose \(t_s\in T\), so we tacitly assume \(T\neq\varnothing\).)
+
+---
+
+## Preliminary lemma 1: vertices of a finite convex hull are exposed
+
+Let \(U\subset\mathbb R^2\) be finite, and let \(u\) be a vertex of
+\(\operatorname{conv}(U)\). Then there exists a linear functional
+\(\phi:\mathbb R^2\to\mathbb R\) such that
+\[
+\phi(u)>\phi(x)\qquad\text{for every }x\in \operatorname{conv}(U)\setminus\{u\}.
+\]
+
+### Proof
+If \(\operatorname{conv}(U)=\{u\}\), then any linear functional works, so assume otherwise.
+
+Set
+\[
+C:=\operatorname{conv}(U\setminus\{u\}).
+\]
+Because \(u\) is a vertex of \(\operatorname{conv}(U)\), we have \(u\notin C\): otherwise \(u\) would be a convex combination of other points of \(\operatorname{conv}(U)\), contradicting extremality.
+
+Since \(U\setminus\{u\}\) is finite, \(C\) is compact. Choose \(y\in C\) minimizing the distance to \(u\), and define
+\[
+w:=u-y,\qquad \phi(x):=w\cdot x.
+\]
+
+Now fix any \(x\in C\). For \(0<\tau\le 1\), the point
+\[
+y_\tau:=y+\tau(x-y)
+\]
+lies in \(C\) by convexity. Since \(y\) is the closest point of \(C\) to \(u\),
+\[
+\|u-y_\tau\|^2-\|u-y\|^2\ge 0.
+\]
+Expanding,
+\[
+\|w-\tau(x-y)\|^2-\|w\|^2
+=
+-2\tau\, w\cdot(x-y)+\tau^2\|x-y\|^2
+\ge 0.
+\]
+Divide by \(\tau>0\) and let \(\tau\downarrow 0\). We obtain
+\[
+w\cdot(x-y)\le 0,
+\]
+hence
+\[
+\phi(x)=w\cdot x\le w\cdot y=\phi(y).
+\]
+Also,
+\[
+\phi(u)-\phi(y)=w\cdot(u-y)=\|w\|^2>0,
+\]
+so
+\[
+\phi(x)\le \phi(y)<\phi(u)\qquad\text{for every }x\in C.
+\]
+
+Finally,
+\[
+\operatorname{conv}(U)=\operatorname{conv}\bigl(C\cup\{u\}\bigr),
+\]
+and \(\phi\) is strictly smaller than \(\phi(u)\) on \(C\). Therefore \(\phi\) is uniquely maximized at \(u\) on \(\operatorname{conv}(U)\). ∎
+
+---
+
+## Preliminary lemma 2: Minkowski sum of finite convex hulls
+
+For finite \(A,B\subset\mathbb R^2\),
+\[
+\operatorname{conv}(A)+\operatorname{conv}(B)=\operatorname{conv}(A+B),
+\]
+where
+\[
+A+B:=\{a+b:a\in A,\ b\in B\}.
+\]
+
+### Proof
+If
+\[
+p=\sum_i \alpha_i a_i\in \operatorname{conv}(A),\qquad
+q=\sum_j \beta_j b_j\in \operatorname{conv}(B),
+\]
+then
+\[
+p+q=\sum_{i,j}\alpha_i\beta_j(a_i+b_j),
+\]
+and the coefficients \(\alpha_i\beta_j\) are nonnegative and sum to \(1\). Hence
+\[
+p+q\in \operatorname{conv}(A+B).
+\]
+So
+\[
+\operatorname{conv}(A)+\operatorname{conv}(B)\subseteq \operatorname{conv}(A+B).
+\]
+
+Conversely, every point \(a+b\in A+B\) lies in
+\(\operatorname{conv}(A)+\operatorname{conv}(B)\), and the latter set is convex, so
+\[
+\operatorname{conv}(A+B)\subseteq \operatorname{conv}(A)+\operatorname{conv}(B).
+\]
+Thus equality holds. ∎
+
+---
+
+Now let
+\[
+P=\operatorname{conv}(S),\qquad Q=\operatorname{conv}(T).
+\]
+
+For each \(s\in S\), since \(s\) is a vertex of \(P\), Lemma 1 gives a linear functional \(\phi_s\) uniquely maximized at \(s\) on \(P\), hence also on \(S\). Choose any \(t_s\in T\) such that
+\[
+\phi_s(t_s)=\max_{t\in T}\phi_s(t),
+\]
+and define
+\[
+\ell_s:=s+t_s.
+\]
+No uniqueness of \(t_s\) on \(T\) is required.
+
+---
+
+## 1. Lonely points exist
+
+Fix \(s\in S\). Suppose
+\[
+\ell_s=s'+t'
+\qquad\text{with }s'\in S,\ t'\in T.
+\]
+Applying \(\phi_s\),
+\[
+\phi_s(s)+\phi_s(t_s)=\phi_s(\ell_s)=\phi_s(s')+\phi_s(t').
+\]
+Therefore
+\[
+\bigl(\phi_s(s)-\phi_s(s')\bigr)+\bigl(\phi_s(t_s)-\phi_s(t')\bigr)=0.
+\]
+Each bracket is \(\ge 0\): the first because \(s\) maximizes \(\phi_s\) on \(S\), the second because \(t_s\) maximizes \(\phi_s\) on \(T\). Hence both brackets are \(0\).
+
+Since \(s\) is the **unique** maximizer of \(\phi_s\) on \(S\), the first equality implies
+\[
+s'=s.
+\]
+Then
+\[
+t'=\ell_s-s=t_s.
+\]
+So there is a unique \(t\in T\) such that \(\ell_s-t\in S\). Thus \(\ell_s\) is lonely.
+
+---
+
+## 2. Distinctness
+
+Suppose
+\[
+\ell_{s_1}=\ell_{s_2}.
+\]
+This common point is lonely by part \(1\) (applied to \(s_1\)). But
+\[
+\ell_{s_1}-t_{s_1}=s_1\in S
+\quad\text{and}\quad
+\ell_{s_1}-t_{s_2}=s_2\in S.
+\]
+By loneliness, the translation vector is unique, so
+\[
+t_{s_1}=t_{s_2}.
+\]
+Subtracting from \(\ell_{s_1}=\ell_{s_2}\), we get
+\[
+s_1=s_2.
+\]
+Hence the points \(\ell_s\) are pairwise distinct.
+
+Since \(|S|=n\), the set
+\[
+L:=\{\ell_s:s\in S\}
+\]
+has exactly \(n\) elements.
+
+---
+
+## 3. Non-vanishing
+
+By part \(1\), the only \(t\in T\) for which \(\ell_s-t\in S\) is \(t=t_s\). Therefore
+\[
+F(\ell_s)
+=
+\sum_{\substack{t\in T\\ \ell_s-t\in S}}\varepsilon(t)
+=
+\varepsilon(t_s).
+\]
+Since \(\varepsilon(t_s)\in\{+1,-1\}\),
+\[
+F(\ell_s)\neq 0.
+\]
+
+---
+
+## 4. Lower bound
+
+Let
+\[
+N:=\{p\in\mathbb R^2:F(p)\neq 0\}.
+\]
+By part \(3\),
+\[
+L\subseteq N.
+\]
+By part \(2\),
+\[
+|L|=n.
+\]
+Hence
+\[
+|N|\ge n.
+\]
+
+So
+\[
+\bigl|\{p\in\mathbb R^2:F(p)\neq 0\}\bigr|\ge n.
+\]
+
+---
+
+## 5. Rigidity in the equality case
+
+Assume
+\[
+|N|=n.
+\]
+From part \(4\), \(L\subseteq N\), and from part \(2\), \(|L|=n\). Therefore
+\[
+N=L.
+\]
+Equivalently,
+\[
+\{p\in\mathbb R^2:F(p)\neq 0\}
+=
+\{\ell_s:s\in S\}.
+\]
+
+In particular, if \(p\in S+T\) is not of the form \(\ell_s\), then \(p\notin N\), so
+\[
+F(p)=0.
+\]
+
+---
+
+## 6. Vertices survive
+
+In fact, we prove the stronger statement that **every** vertex \(v\) of \(P+Q\) satisfies \(F(v)\neq 0\), even without assuming \(|N|=n\).
+
+By Lemma 2,
+\[
+P+Q=\operatorname{conv}(S+T).
+\]
+Thus Lemma 1 applies to the finite set \(S+T\): since \(v\) is a vertex of \(P+Q\), there exists a linear functional \(\psi\) uniquely maximized at \(v\) on \(P+Q\).
+
+Now let
+\[
+M_S:=\max_{s\in S}\psi(s),\qquad M_T:=\max_{t\in T}\psi(t),
+\]
+and choose \(s^\ast\in S\), \(t^\ast\in T\) such that
+\[
+\psi(s^\ast)=M_S,\qquad \psi(t^\ast)=M_T.
+\]
+
+Take any \(x\in P+Q\). Then \(x=p+q\) for some \(p\in P\), \(q\in Q\). Since \(p\in\operatorname{conv}(S)\), writing \(p\) as a convex combination of points of \(S\) gives
+\[
+\psi(p)\le M_S.
+\]
+Similarly,
+\[
+\psi(q)\le M_T.
+\]
+Hence
+\[
+\psi(x)=\psi(p)+\psi(q)\le M_S+M_T=\psi(s^\ast+t^\ast).
+\]
+So \(s^\ast+t^\ast\) is a maximizer of \(\psi\) on \(P+Q\). By uniqueness of the maximizer,
+\[
+v=s^\ast+t^\ast.
+\]
+
+Next, \(s^\ast\) is the unique maximizer of \(\psi\) on \(S\). Indeed, if some \(s'\neq s^\ast\) also satisfied \(\psi(s')=M_S\), then
+\[
+\psi(s'+t^\ast)=M_S+M_T=\psi(v),
+\]
+so \(s'+t^\ast\) would be another maximizer of \(\psi\) on \(P+Q\), contradicting uniqueness. Thus \(s^\ast\) is unique. The same argument shows that \(t^\ast\) is the unique maximizer of \(\psi\) on \(T\).
+
+Now suppose
+\[
+v=s'+t'
+\qquad\text{with }s'\in S,\ t'\in T.
+\]
+Then
+\[
+\psi(s')\le M_S,\qquad \psi(t')\le M_T,
+\]
+and
+\[
+\psi(v)=\psi(s')+\psi(t')=M_S+M_T.
+\]
+Therefore both inequalities must be equalities:
+\[
+\psi(s')=M_S,\qquad \psi(t')=M_T.
+\]
+By uniqueness of the maximizers on \(S\) and \(T\),
+\[
+s'=s^\ast,\qquad t'=t^\ast.
+\]
+So \(v\) is lonely. Consequently,
+\[
+F(v)=\varepsilon(t^\ast)\neq 0.
+\]
+
+Thus every vertex of \(P+Q\) belongs to
+\[
+N=\{p:F(p)\neq 0\}.
+\]
+Under the additional hypothesis \(|N|=n\), part \(5\) gives
+\[
+N=\{\ell_s:s\in S\},
+\]
+so every vertex of \(P+Q\) lies in \(\{p:F(p)\neq 0\}\), exactly as required.
+
+---
+
+This proves all six statements, and it fixes the gap identified in the bug report by providing the exposing functionals directly rather than appealing to a theorem whose hypotheses had not been checked.

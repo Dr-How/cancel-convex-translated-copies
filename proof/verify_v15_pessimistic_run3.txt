@@ -1,0 +1,37 @@
+The solution is **not correct**. Bug report:
+
+1. **Location:** “Fix \(n \ge 3\) and a convex \(n\)-gon \(x_1,\ldots,x_n\) (CCW) with sign function \(\sigma_T\) supported on \(T=\{x_1,\ldots,x_n\}\) having both signs. Write \(a_i=x_{i+1}-x_i\)…”  
+   **Description — Critical Error:** This changes the problem’s setup. In the problem, **\(S\)** is the convex \(n\)-point set, while **\(T\)** is an arbitrary finite signed translate set. The proof instead assumes \(T\) itself is a convex \(n\)-gon with exactly \(n\) points, and then defines the edge vectors \(a_i\) from that new polygon. So the proof is arguing about a different object than the one in the statement.
+
+2. **Location:** “The key equations are:
+   \((\mathrm{NL})\): For \(p\notin T\): \(\sum_{j=1}^n \sigma_T(p-s_j)=0\).
+   \((\mathrm{S0})\): For \(t\in T\), \(t\neq t_k\): \(\sum_{j=1}^n \sigma_T(t+s_k-s_j)=0\).”  
+   **Description — Critical Error:** These equations are not among the facts the problem allows from Subproblems 1–4, and they are not derived here. In particular, the extremal equality does **not** by itself imply that every \(p\notin T\) has zero sum, nor that every \(t+s_k\) with \(t\neq t_k\) is a canceling point. Since nearly every contradiction in the proof uses \((\mathrm{NL})\) or \((\mathrm{S0})\), the logical chain breaks here.
+
+3. **Location:** “Choose \(\beta\) to be the linear functional making \(t_1\) the height-\(0\) vertex and all other \(T\)-elements at height \(\ge 0\). This is possible: \(t_1\) is a vertex of \(\mathrm{conv}(T)\), so there exists a half-plane containing \(T\) with \(t_1\) on its boundary; take \(\beta\) normal to this boundary with \(\beta(a_2)=1>0\).”  
+   **Description — Justification Gap:** None of the following is established from the allowed facts: that \(t_1\) is a vertex of \(\mathrm{conv}(T)\), that there is a supporting line in the needed direction, or that one can choose the same supporting functional with \(\beta(a_1)=0\) and \(\beta(a_2)=1\). This support-functional construction is used crucially later, but its hypotheses are not proved.
+
+4. **Location:** “since \(c_j>0\) for all \(j\ge 3\): the polygon vertex \(x_j\) lies strictly above the \(h=0\) baseline…” and the subsequent “Remark” beginning “In the above proof we used \(c_j>0\) for all \(j\ge 3\). This holds because…”  
+   **Description — Justification Gap:** The proof repeatedly uses \(c_j>0\) for all \(j\ge 3\) to kill all lower-height terms, but the justification is hand-wavy and internally inconsistent. It mixes \(x_j\), \(s_j\), and \(h(x_j)\), and even says all \(j\ge2\) are strictly positive before immediately stating \(c_2=0\). This crucial positivity claim is not rigorously established.
+
+5. **Location:** “Here \([u]=[v]\) iff \(u=\lambda v\) for some \(\lambda\neq 0\) (same unoriented line through \(0\)).”  
+   **Description — Critical Error:** The proof silently changes the definition of “direction class.” The problem statement defines it using **positive** scalar multiples; the proof replaces that by **all nonzero** scalar multiples. That is a different equivalence relation, so the proof is not proving the stated theorem.
+
+6. **Location:** “We check whether \(t'-a_1\in T\). For \(T=F_1\cup F_2\cup F_3\): …” and later “If all \(m_j=0\): \(T=\{t_1\}\), single point…”  
+   **Description — Critical Error:** The proof repeatedly assumes that \(T\) is exactly the union of the edge chains \(F_i\). But the given facts only describe \(T\cap[t_i,t_{i+1}]\); they do **not** state that \(T\) has no other points. So these membership checks and cardinality conclusions are invalid.
+
+7. **Location:** “If some \(m_j\ge 1\): by the above, \(h(t_j+a_j)=c_{j+1}>0\) for \(j\ge 3\)…”  
+   **Description — Critical Error:** This identity is not established and mixes unrelated quantities. \(h(t_j+a_j)\) depends on the translate \(t_j\), while \(c_{j+1}=\beta(s_{j+1})\) depends on the polygon \(S\). The proof never proves \(h(t_j+a_j)=c_{j+1}\), yet it uses this to produce the first positive-height point.
+
+8. **Location:** “Iterating: \(\{\ldots,q-2a_1,q-a_1,q,q+a_1,q+2a_1,\ldots\}\subseteq T\) with alternating nonzero signs. Contradicts \(T\) finite.”  
+   **Description — Justification Gap:** The iteration is not justified. The proof only shows one-step consequences from \(q\); it does not verify that the same argument can be reapplied at every new point, nor does it handle the possibility that a new point equals \(t_1\) or \(t_2\), where the chosen equation may no longer be valid.
+
+9. **Location:** The Case B discussion in Lemma \([min-height contradiction]\), especially
+   “\(\textbf{(Edge case }m_1=0,\ t_1=t_2\textbf{):}\) … actually \(|J_0|\) can be \(\ge 2\)…” and  
+   “If \(|J_0'|\ge 2\) or \(|J_0''|\ge 2\): magnitude … \(\ge 2-1=...\) hmm. Actually if …”  
+   **Description — Justification Gap:** This case analysis is unfinished. The proof explicitly backs away from claims (“actually…”, “hmm.”) and never resolves the \(m_1=0\), \(J_0\neq\emptyset\) subcase rigorously. Therefore Lemma \([min-height contradiction]\) is not proved.
+
+10. **Location:** “So \(D_2\) for \(t'+a_1\) is \(-D_2\) (signs flipped from before).”  
+    **Description — Justification Gap:** This transformation is not justified. Shifting the height-\(0\) contributing points by \(a_1\) can change which terms remain in \(F_1\) or drop endpoint terms entirely, so the new height-\(0\) contribution need not simply be \(-D_2\). The later contradiction derived from this formula therefore lacks support.
+
+Because the proof contains multiple **Critical Errors** and additional **Justification Gaps**, it does **not** verify the statement.

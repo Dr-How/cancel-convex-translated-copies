@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 2 --- Opposite-sign endpoints and boundary-chain decomposition.}
+
+\medskip
+\textbf{Context.}
+Use the same setup as Subproblem~1.  Assume the \emph{equality case}:
+$|\{p:F(p)\neq 0\}|=n$.  By Subproblem~1 (whose results may be freely used),
+the support of $F$ is exactly $\{\ell_s:s\in S\}$, all $n$ points are lonely,
+and $F(\ell_s)=\varepsilon(t_s)\in\{\pm1\}$.
+
+Assume additionally:
+\begin{itemize}
+  \item $|S|\ge 3$,
+  \item $T$ contains at least one vector with $\varepsilon(t)=+1$ and at least one
+        with $\varepsilon(t)=-1$.
+\end{itemize}
+
+\medskip
+\textbf{Statement.}  Under the above hypotheses prove:
+\begin{enumerate}
+  \item The signs of the lonely points are not all the same: there exist
+        $s_a, s_b\in S$ with $F(\ell_{s_a})=+1$ and $F(\ell_{s_b})=-1$.
+  \item After an affine change of coordinates (without loss of generality) one
+        may place $s_a$ at the leftmost and $s_b$ at the rightmost vertex of
+        $\operatorname{conv}(S)$.  The boundary of $\operatorname{conv}(S)$ then
+        decomposes into an \emph{upper chain} $U$ and a \emph{lower chain} $L$,
+        each a strictly $x$-monotone convex arc from $s_a$ to $s_b$, with
+        $|U|+|L|=n+2$.
+  \item The sign assignment $s\mapsto \varepsilon(t_s)$ is not constant on
+        either chain: each chain contains at least one vertex with sign $+1$
+        and at least one with sign $-1$.
+\end{enumerate}
+
+\medskip
+\textbf{Hint.}
+For~(1): if all signs were equal, say all $+1$, then every translate used
+would have sign $+1$ (since $\varepsilon(t_s)=+1$ for all $s$, and $t_s$ is
+the only translate covering $\ell_s$).  But then every point in $S+T$ has
+$F(p)\ge 0$, with equality only at uncovered points; in particular there are
+no $-1$ contributions, contradicting the assumption that $\varepsilon$ attains
+the value $-1$.
+
+For~(2): choose the affine direction $x$ to be generic (not parallel to any
+chord of $S$); then the leftmost and rightmost vertices are unique.
+
+For~(3): $s_a$ has sign $+1$ (with $s_a$ itself on both chains as an endpoint)
+and $s_b$ has sign $-1$, so the sign changes along each chain.
+
+\end{document}

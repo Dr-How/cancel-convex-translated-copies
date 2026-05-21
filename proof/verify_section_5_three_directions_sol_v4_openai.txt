@@ -1,0 +1,386 @@
+CONSOLIDATED BUG REPORT
+Solution: proof/section_5_three_directions_sol_v4_openai.tex
+Problem:  proof/section_5_three_directions.tex
+Verifier runs: 3 (pessimistic mode)
+Verdict: ISSUES_FOUND — all three runs flagged Critical Errors and/or Justification Gaps.
+
+================================================================================
+DISTINCT ISSUES (union of all three runs)
+================================================================================
+
+--- CRITICAL ERRORS ---
+
+CE-1  [Runs 1, 2, 3] Lemma 5.1 — omission of the vertex R=(1,1)
+      Location: "But any other vertex of S has y≥1, hence within [0,1]² it must lie
+      on the top edge y=1. For a point X=(x,1), … If x<1, this lies on the forbidden
+      ray … Therefore the only possible vertices in a representation of q are A and O."
+      Description: The case X=(1,1)=R is never excluded. Under the one-sided
+      hypothesis E_i ≤ E_{i+1}, Lemma 2.3 (the two-sided bound) is not available, so R
+      may belong to S. If R∈S then q=R+t_i is an additional valid representation; the
+      uniqueness conclusion and hence σ(q)=ε(u)≠0 do not follow. Lemma 5.1 is
+      therefore broken.
+
+CE-2  [Runs 1, 2, 3] Lemma 5.2 — induction step invalid after stripping block endpoints
+      Location: "Stripping such ends and repeating the same argument gives an inward
+      induction along the block."
+      Description: In a constant block t_b=⋯=t_c one has m_b=⋯=m_{c-1}=0. After
+      stripping the outermost endpoints the new endpoint still sits inside the same
+      constant block, so the hypothesis of Lemma 5.1 (requiring m_{j-1}>0 or m_j>0 at
+      the stripped boundary) is violated. The "same argument" cannot be reapplied.
+
+CE-3  [Runs 1, 2, 3] Lemma 5.2 — central-index contradiction unsupported
+      Location: "At that central index the full empty-parallelogram lemma applies, and
+      the same point-construction as in Lemma 5.1 forces the diagonal translate
+      t_i+a_i-a_{i-1} to lie simultaneously in two incompatible adjacent tangent cones;
+      this is impossible."
+      Description: At an interior index of a constant block one has m_{i-1}=m_i=0, so
+      the neighbouring translates u=t_i-a_{i-1} and v=t_i+a_i used in Lemma 5.1 are not
+      known to exist in T. The construction cannot be executed, and the claimed
+      contradiction is unsupported.
+
+CE-4  [Run 1] Section 6 — propagation argument starts from a false claim
+      Location: "Now suppose the block is not singleton. Then at least one of m_{i-1},
+      m_i is 0. The cancellation of q_0 can then only happen by forcing the 'diagonal'
+      translate τ+a_i−a_{i-1} to exist."
+      Description: When m_{i-1}=m_i=0 (possible when i lies inside a constant block of
+      length ≥3) both side translates are absent, so q_0 can have σ(q_0)=0 without any
+      diagonal translate being forced to exist. The propagation argument is therefore
+      built on a false premise.
+
+CE-5  [Run 2] Lemma 5.1 — adjacent tangent cones C_i and C_{i+1} need not be disjoint
+      Location: "w−t_i=a_i−a_{i-1} lies in the interior of C_i, and it does not lie in
+      C_{i+1}, because these two cones occupy disjoint angular sectors for a convex
+      polygon with at least three edge-direction classes."
+      Description: Adjacent tangent cones C_i=cone(a_i,−a_{i-1}) and
+      C_{i+1}=cone(a_{i+1},−a_i) can overlap. The claimed disjointness is false in
+      general, so the exclusion of the translate w from T is invalid.
+
+CE-6  [Run 2] Section 7 — algebraic mistake in the coordinate derivation
+      Location: "Then t−t_i = q−s_j−t_i = r_i−s_j+s_i." and the next displayed
+      equation "r_i−s_j+s_i = (1−α)a_i−(1−β)a_{i-1}."
+      Description: From q=t_i+r_i one obtains t−t_i = r_i−s_j, not r_i−s_j+s_i. The
+      subsequent coordinate expression is therefore also incorrect, and the deduction
+      that s_j∈K_i does not follow from the written algebra.
+
+CE-7  [Run 2] Direction-class definition mismatch
+      Location: "S={O,A,R,B}, so P is the quadrilateral OARB, i.e. a parallelogram.
+      But the theorem assumes at least three edge-direction classes, so this is
+      impossible." and "Hence the only surviving case is n=4 and P has exactly two
+      edge-direction classes, i.e. P is a parallelogram."
+      Description: The proof counts opposite sides as one "direction class," but the
+      stated formal definition takes classes up to positive scalar multiples only, not
+      up to sign. Under the literal definition a parallelogram has four direction classes,
+      not two. The contradiction/exclusion of the parallelogram case is therefore invalid
+      as written.
+
+CE-8  [Runs 2, 3] Lemma 5.2 result relied upon before being validly proved
+      Location: "By Lemma 5.2, m_{i-1}≥1, m_i≥1. Hence u:=t_i−a_{i-1}∈F_{i-1},
+      v:=t_i+a_i∈F_i."
+      Description: This is the critical input for Sections 6–8. Because Lemma 5.2 itself
+      contains Critical Errors (CE-2, CE-3), the existence of u and v, and therefore the
+      entire final extra-point construction, are unsupported.
+
+--- JUSTIFICATION GAPS ---
+
+JG-1  [Runs 1, 2, 3] Lemma 3.1 — tangent-cone containment and polar-cone identity invoked
+      without proof
+      Location: "The inclusion P⊂s_i+C_i is the usual tangent-cone statement at a vertex
+      of a convex polygon." and "Hence t−t_i lies in the polar cone of N_P(s_i), which
+      is exactly C_i=cone(a_i,−a_{i-1})."
+      Description: Both the containment P⊂s_i+C_i and the identification of the dual
+      of N_P(s_i) with C_i are nontrivial convex-geometric facts invoked as obvious.
+      Neither is proved nor cited.
+
+JG-2  [Runs 1, 2, 3] Lemma 2.1 — four-point boundary intersection argument unjustified
+      Location: "If some vertex z had smaller distance, a line parallel to L strictly
+      between z and both x⁻,y⁺ would meet the boundary in at least four points,
+      impossible for a convex polygon unless the line contained an edge."
+      Description: The claim that the parallel line meets the boundary in four points is
+      asserted but not proved, and the exception ("unless the line contained an edge") is
+      left unhandled. Lemma 2.1 is therefore incomplete.
+
+JG-3  [Runs 1, 2] Cyclic-boundary-order and support-face facts asserted without proof
+      Location: "As the direction c rotates once around the circle, exposed vertices of
+      a convex polygon are visited in boundary order; therefore the distinct t_i occur in
+      the cyclic boundary order of Q." and "the exposed face of Q for the boundary
+      direction c is exactly the segment [t_i,t_{i+1}]."
+      Description: These are nontrivial convex-geometry facts stated without proof or
+      citation. Moreover Q=conv(T) is never shown to be 2-dimensional, making the
+      "cyclic boundary order of a polygon" language unjustified.
+
+JG-4  [Run 1] Uniqueness of exposed translate only established for interior normal-cone
+      directions, but boundary directions are also used
+      Location: "choose c∈int N_Q(v). Since the cones N_P(s_i) cover the plane,
+      c∈N_P(s_i) for some i; then the unique exposed translate for that i is t_i=v."
+      Description: Uniqueness was established only for directions in int N_P(s_i). The
+      chosen c is not shown to avoid the boundaries of these cones, so t_i=v is
+      unsupported.
+
+JG-5  [Run 1] Lemma 5 — "standard convex-polygon fact" about minimum-area triangles
+      neither proved nor cited
+      Location: "For the base OA, by the standard convex-polygon fact that among all
+      triangles on a fixed edge the minimum area is attained at one of the two adjacent
+      vertices…"
+      Description: This fact is used to deduce y≥1 and x≥1. It is neither proved in
+      the solution nor cited to a reference.
+
+JG-6  [Run 1] Consecutive-edge vectors of a convex polygon cannot be parallel — unstated
+      Location: "If k=i, then … a_i=a_{i-1}, impossible for consecutive edges of a
+      convex polygon." "If k=i−1, then … a_i=−m_{i-1}a_{i-1}, impossible." "If
+      k=i+1, then … −a_{i-1}=m_i a_i, impossible."
+      Description: Each "impossible" relies on the fact that consecutive edge vectors of
+      a strictly convex polygon are non-parallel and non-antiparallel. This geometric
+      fact is never stated or proved.
+
+JG-7  [Run 1] "Next corner point" undefined; Lemma 5 not re-verified at subsequent corners
+      Location: "Repeating the same argument at the next corner point forces either the
+      next diagonal translate in the same staircase, or continuation of the constant block
+      of exposed translates."
+      Description: "Corner point" is not defined. Lemma 5 was proved only for a specific
+      local-minimum ear; no argument is given that the hypotheses are satisfied at
+      subsequent corners.
+
+JG-8  [Run 1] Propagation process not formally specified; no guarantee it terminates without
+      extra points
+      Location: "Iterating, one gets a finite 'checkerboard propagation' along the
+      boundary of P: … The only way the propagation can terminate without creating an
+      extra nonzero point is that after some step the boundary of P uses only the two
+      directions a_i and a_{i-1}."
+      Description: No precise propagation rule, no sign bookkeeping, no induction
+      statement, and no argument against cycling or alternative termination modes is
+      supplied. The key conclusion that the local-minimum ear index must be a singleton
+      block is not established.
+
+JG-9  [Run 2] Lemma 4.1 — strict inequality c·(−a_i)<0 asserted without justification
+      Location: "Since −a_i is one of the two edge directions at s_{i+1}, we have
+      c·(−a_i)<0."
+      Description: The strict inequality requires using uniqueness of the maximizer
+      s_{i+1} on S, applied to the point s_i=s_{i+1}−a_i. This argument is not supplied.
+
+JG-10 [Run 3] Lemma 2.2 — signed-area formulas assume all vertices lie in supporting
+      half-planes, which is not verified
+      Location: "area(OAX)=y/2" and "area(BOX)=x/2" in Lemma 2.2.
+      Description: The formulas give signed areas. Without verifying that every vertex
+      lies in the relevant supporting half-planes (y≥0 for edge [O,A], x≥0 for edge
+      [B,O]), only |y|/2 and |x|/2 are immediate.
+
+JG-11 [Runs 2, 3] Disjointness of adjacent tangent cones C_i and C_{i+1} — asserted
+      without proof (see also CE-5)
+      Location: "w−t_i=a_i−a_{i-1} lies in the interior of C_i, and it does not lie in
+      C_{i+1}, because these two cones occupy disjoint angular sectors…"
+      Description: Even setting aside the factual error (CE-5), the proof offers no
+      derivation of the angular-separation claim.
+
+================================================================================
+SUMMARY
+================================================================================
+
+Total distinct Critical Errors:    8  (CE-1 through CE-8)
+Total distinct Justification Gaps: 11 (JG-1 through JG-11)
+
+Most critical issue: CE-1 (Lemma 5.1 omits vertex R=(1,1), breaking uniqueness of q
+and invalidating the core non-cancellation step that the rest of the proof depends on).
+
+The solution is NOT VERIFIED.
+
+================================================================================
+APPENDIX A — Full output of Run 1
+================================================================================
+
+The solution is **not correct as written**. Bug report:
+
+1. **Location:**
+   "If \(v\) is a vertex of \(Q\), choose \(c\in \operatorname{int}N_Q(v)\). Since the cones \(N_P(s_i)\) cover the plane, \(c\in N_P(s_i)\) for some \(i\); then the unique exposed translate for that \(i\) is \(t_i=v\)."
+
+   **Description:** **Justification Gap.**
+   The proof only established uniqueness of the exposed translate for directions in \(\operatorname{int}N_P(s_i)\), not for arbitrary \(c\in N_P(s_i)\). The chosen \(c\) is not shown to avoid the boundaries of the normal cones of \(P\), so the inference \(t_i=v\) is unsupported.
+
+2. **Location:**
+   "As the direction \(c\) rotates once around the circle, exposed vertices of a convex polygon are visited in boundary order; therefore the distinct \(t_i\) occur in the cyclic boundary order of \(Q\)."
+   and
+   "Therefore the exposed face of \(Q\) for the boundary direction \(c\) is exactly the segment \([t_i,t_{i+1}]\)."
+
+   **Description:** **Justification Gap.**
+   These are nontrivial convex-geometry facts, but they are asserted without proof or citation. In particular, the proof never establishes that \(t_i\) and \(t_{i+1}\) are support points for the boundary direction \(c\), nor that the support face at \(c\) has endpoints exactly \(t_i,t_{i+1}\). Also, \(Q=\operatorname{conv}(T)\) is never shown to be 2-dimensional, so the "cyclic boundary order of a polygon" language is not justified as stated.
+
+3. **Location:**
+   "For the base \(OA\), by the standard convex-polygon fact that among all triangles on a fixed edge the minimum area is attained at one of the two adjacent vertices..."
+
+   **Description:** **Justification Gap.**
+   This is an unstated theorem. It is used crucially to deduce \(y\ge 1\) and, by the analogous argument for \(BO\), \(x\ge 1\). Since it is neither proved nor cited, Lemma 5 is incomplete.
+
+4. **Location:**
+   "The first inclusion is the usual tangent-cone inclusion for a convex polygon at the vertex \(s_i\)."
+   and
+   "Hence \(t-t_i\in N_P(s_i)^\circ=C_i\), where \(N_P(s_i)^\circ\) denotes the dual cone, which is exactly the tangent cone \(C_i\)."
+
+   **Description:** **Justification Gap.**
+   Both the tangent-cone containment and the identification of the dual/polar of the normal cone with \(C_i\) are invoked without proof. These facts are later used to restrict representations of \(q\), so this is a substantive gap.
+
+5. **Location:**
+   "Now suppose the block is not singleton. Then at least one of \(m_{i-1},m_i\) is \(0\). The cancellation of \(q_0\) can then only happen by forcing the 'diagonal' translate \(\tau+a_i-a_{i-1}\) to exist."
+
+   **Description:** **Critical Error.**
+   This statement is false. If \(m_{i-1}=m_i=0\) (which can happen when \(i\) lies inside a constant block of length at least \(3\)), then the two side translates are absent, so \(q_0\) can have \(\sigma(q_0)=0\) without any diagonal translate existing. Even when exactly one side translate is present, cancellation would require a specific sign for the diagonal translate, not merely its existence. The propagation argument starts from a false claim.
+
+6. **Location:**
+   Same passage: "The cancellation of \(q_0\)..."
+
+   **Description:** **Justification Gap.**
+   The proof never shows that \(q_0\) must be a cancellation point at all. It is not proved that \(q_0\notin\{p_1,\dots,p_n\}\). Without excluding the possibility that \(q_0\) is one of the already-known \(n\) nonzero points, there is no reason to require \(\sigma(q_0)=0\).
+
+7. **Location:**
+   "Repeating the same argument at the next corner point forces either
+   - the next diagonal translate in the same staircase, or
+   - continuation of the constant block of exposed translates."
+
+   **Description:** **Justification Gap.**
+   The "same argument" is not actually available. Earlier, the restriction to three vertices used Lemma 5, but Lemma 5 was proved only for the chosen local-minimum ear \(i\). No justification is given that any later "corner point" satisfies the same empty-ear property. Also, "next corner point" is not defined.
+
+8. **Location:**
+   "Iterating, one gets a finite 'checkerboard propagation' along the boundary of \(P\): ... The only way the propagation can terminate without creating an extra nonzero point is that after some step the boundary of \(P\) uses only the two directions \(a_i\) and \(a_{i-1}\)."
+
+   **Description:** **Justification Gap.**
+   This is only a sketch, not a proof. No precise propagation rule is stated, no sign bookkeeping is carried out, no induction is given, and no argument is provided that the process cannot cycle or terminate in some other way. Therefore the key conclusion that the local-minimum ear index must be a singleton block is not established, and the later use of \(m_{i-1},m_i\ge1\) is unsupported.
+
+9. **Location:**
+   "If \(k=i\), then ... \(a_i=a_{i-1}\), impossible for consecutive edges of a convex polygon."
+   "If \(k=i-1\), then ... \(a_i=-m_{i-1}a_{i-1}\), impossible."
+   "If \(k=i+1\), then ... \(-a_{i-1}=m_i a_i\), impossible."
+
+   **Description:** **Justification Gap.**
+   Each "impossible" conclusion relies on an unstated geometric fact that consecutive edge vectors of a convex polygon cannot be parallel or antiparallel. That fact is not explicitly established in the proof.
+
+Because of the **Critical Error** in Section 6 and the additional justification gaps, the solution is **not verified**.
+
+================================================================================
+APPENDIX B — Full output of Run 2
+================================================================================
+
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:**
+   "*then \(S=\{O,A,R,B\}\), so \(P\) is the quadrilateral \(OARB\), i.e. a parallelogram. But the theorem assumes at least three edge-direction classes, so this is impossible.*"
+   and later
+   "*Hence the only surviving case is \(n=4\) and \(P\) has exactly two edge-direction classes, i.e. \(P\) is a parallelogram.*"
+
+   **Description — Critical Error:**
+   The proof is treating opposite sides as the same "direction class." But the statement's formal definition says direction classes are taken **up to positive scalar multiples only**. Under that literal definition, a parallelogram does **not** have "exactly two" classes. So the proof is using a notion of direction class that does not match the stated definition, and the contradiction/exclusion of the parallelogram case is not valid relative to the formal statement.
+
+2. **Location:**
+   Lemma 2.1:
+   "*If some vertex \(z\) had smaller distance, a line parallel to \(L\) strictly between \(z\) and both \(x^{-},y^{+}\) would meet the boundary in at least four points, impossible for a convex polygon unless the line contained an edge.*"
+
+   **Description — Justification Gap:**
+   The key geometric claim is asserted but not proved. The argument does not establish why that parallel line must intersect the boundary in four points, nor why this yields the desired contradiction in all cases. Since Lemma 2.1 is then used to prove Lemma 2.2, this is a real gap in the geometric part of the proof.
+
+3. **Location:**
+   Lemma 3.1:
+   "*The inclusion \(P\subset s_i+C_i\) is the usual tangent-cone statement at a vertex of a convex polygon.*"
+   and
+   "*Hence \(t-t_i\) lies in the polar cone of \(N_P(s_i)\), which is exactly \(C_i=\operatorname{cone}(a_i,-a_{i-1})\).*"
+
+   **Description — Justification Gap:**
+   These are nontrivial convex-geometric facts invoked without proof or prior statement. The proof does not justify either the tangent-cone containment for \(P\) or the identity between the polar cone of \(N_P(s_i)\) and \(C_i\). Under the stated grading rules, this is an unstated-theorem gap.
+
+4. **Location:**
+   Lemma 4.1:
+   "*Since \(-a_i\) is one of the two edge directions at \(s_{i+1}\), we have \(c\cdot(-a_i)<0\).*"
+
+   **Description — Justification Gap:**
+   This strict inequality is not justified. It requires an explicit use of the earlier fact that \(s_{i+1}\) is the unique maximizer of \(c\cdot s\) on \(S\), applied to \(s_i=s_{i+1}-a_i\). As written, the implication is asserted without argument.
+
+5. **Location:**
+   Lemma 5.1:
+   "*But any other vertex of \(S\) has \(y\ge 1\), hence within \([0,1]^2\) it must lie on the top edge \(y=1\). For a point \(X=(x,1)\), the required translate is \(t=t_i+(1-x)a_i\). If \(x<1\), this lies on the forbidden ray … Therefore the only possible vertices in a representation of \(q\) are \(A\) and \(O\).*"
+
+   **Description — Critical Error:**
+   The case \(X=(1,1)=R\) is not excluded. Under the one-sided hypothesis \(E_i\le E_{i+1}\), Lemma 2.2 does **not** rule out \(R\in S\). If \(R\in S\), then \(q=R+t_i\) is another representation. So the conclusion that only \(A\) and \(O\) are possible is false as written, and the later uniqueness/noncancellation conclusion for \(q\) does not follow.
+
+6. **Location:**
+   Lemma 5.1:
+   "*\(w-t_i=a_i-a_{i-1}\) lies in the interior of \(C_i\), and it does **not** lie in \(C_{i+1}\), because these two cones occupy disjoint angular sectors for a convex polygon with at least three edge-direction classes.*"
+
+   **Description — Critical Error:**
+   This claim is false in general. Adjacent cones \(C_i=\operatorname{cone}(a_i,-a_{i-1})\) and \(C_{i+1}=\operatorname{cone}(a_{i+1},-a_i)\) need not be disjoint; they can overlap. Therefore the exclusion of \(w\in T\) is not valid.
+
+7. **Location:**
+   Lemma 5.2:
+   "*Stripping such ends and repeating the same argument gives an inward induction along the block.*"
+
+   **Description — Critical Error:**
+   This induction step is invalid. After stripping an endpoint from a constant block, the new endpoint generally has both neighboring \(m\)-values equal to \(0\), so the hypotheses of Lemma 5.1 (\(m_{j-1}>0,m_j=0\) or \(m_{j-1}=0,m_j>0\)) no longer hold. The "same argument" cannot be reapplied as claimed.
+
+8. **Location:**
+   Lemma 5.2:
+   "*At that central index the full empty-parallelogram lemma applies, and the same point-construction as in Lemma 5.1 forces the diagonal translate \(t_i+a_i-a_{i-1}\) to lie simultaneously in two incompatible adjacent tangent cones; this is impossible.*"
+
+   **Description — Critical Error:**
+   This uses Lemma 5.1 outside its hypotheses. At a central index of a nontrivial constant block, one has \(m_{i-1}=m_i=0\), so the neighbouring translates used in Lemma 5.1 are not known to exist. Also, "incompatible adjacent tangent cones" is not established and is false in general. So the contradiction claimed here is unsupported.
+
+9. **Location:**
+   Section 7:
+   "*Then \(t-t_i=q-s_j-t_i=r_i-s_j+s_i.\)*"
+   and
+   "*Then \(r_i-s_j+s_i=(1-\alpha)a_i-(1-\beta)a_{i-1}.\)*"
+
+   **Description — Critical Error:**
+   This is an algebraic mistake. From \(q=t_i+r_i\), one gets \(t-t_i=q-s_j-t_i=r_i-s_j\), not \(r_i-s_j+s_i\). With the stated definition \(r_i=s_i+a_i-a_{i-1}\), the next displayed equation is also false as written. Therefore the deduction that \(s_j\in K_i\) does not follow from the written argument.
+
+Because of the critical errors in Lemma 5.1, Lemma 5.2, and Section 7, plus the earlier justification gaps, the solution does **not** verify the theorem.
+
+================================================================================
+APPENDIX C — Full output of Run 3
+================================================================================
+
+**Bug report**
+
+**Overall verdict:** The solution is **not correct**. It contains multiple **Critical Errors** and **Justification Gaps**.
+
+---
+
+1. **Location:**
+   "*If some vertex \(z\) had smaller distance, a line parallel to \(L\) strictly between \(z\) and both \(x^{-},y^{+}\) would meet the boundary in at least four points, impossible for a convex polygon unless the line contained an edge.*"
+
+   **Description:** **Justification Gap.**
+   This does not rigorously prove Lemma 2.1. The argument does not justify why such a line must intersect the boundary in four points, nor why the stated exception ("unless the line contained an edge") cannot occur. So the claimed minimum-area property is not fully established.
+
+2. **Location:**
+   "*\(\operatorname{area}(OAX)=\frac y2\)*" and "*\(\operatorname{area}(BOX)=\frac x2\)*" in Lemma 2.2.
+
+   **Description:** **Justification Gap.**
+   These are signed-area formulas. The proof does not explicitly establish that every vertex lies in the relevant supporting half-planes (\(y\ge 0\) for edge \([O,A]\), \(x\ge 0\) for edge \([B,O]\)). Without that, only \(|y|/2\) and \(|x|/2\) are immediate.
+
+3. **Location:**
+   "*But any other vertex of \(S\) has \(y\ge 1\), hence within \([0,1]^2\) it must lie on the top edge \(y=1\). For a point \(X=(x,1)\), … If \(x<1\), this lies on the forbidden ray … Therefore the only possible vertices in a representation of \(q\) are \(A\) and \(O\).*"
+
+   **Description:** **Critical Error.**
+   The case \(X=(1,1)\) is omitted. Under the hypotheses of Lemma 5.1, only the one-sided inequality \(E_i\le E_{i+1}\) is assumed, so Lemma 2.3 cannot be used to exclude the vertex \(R=(1,1)\). If \(R\in S\), then \(q = R + t_i\) is an additional representation. The claimed uniqueness of \(q\), and hence the conclusion \(\sigma(q)=\varepsilon(u)\neq 0\), do not follow. This breaks Lemma 5.1.
+
+4. **Location:**
+   "*\(w\notin T\): indeed … \(w-t_i=a_i-a_{i-1}\) lies in the interior of \(C_i\), and it does **not** lie in \(C_{i+1}\), because these two cones occupy disjoint angular sectors for a convex polygon with at least three edge-direction classes.*"
+
+   **Description:** **Justification Gap.**
+   The proof never establishes the claimed angular-separation fact for \(C_i\) and \(C_{i+1}\), nor directly proves that \(a_i-a_{i-1}\notin C_{i+1}\). So the exclusion of the \(s_i\)-representation is not justified here.
+
+5. **Location:**
+   "*Stripping such ends and repeating the same argument gives an inward induction along the block.*"
+
+   **Description:** **Critical Error.**
+   This induction cannot be carried out. For a constant block \(t_b=\cdots=t_c\), one has \(m_b=\cdots=m_{c-1}=0\). After "stripping" the endpoints, the new endpoints are still inside the same constant block, so the hypotheses needed for Lemma 5.1 fail there. For example, at the new left endpoint \(b+1\), one needs \(m_b>0\) to apply Lemma 5.1, but in fact \(m_b=0\).
+
+6. **Location:**
+   "*At that central index the full empty-parallelogram lemma applies, and the same point-construction as in Lemma 5.1 forces the diagonal translate \(t_i+a_i-a_{i-1}\) to lie simultaneously in two incompatible adjacent tangent cones; this is impossible.*"
+
+   **Description:** **Critical Error.**
+   This is asserted without proof, and the cited construction is not available at an interior point of a constant block. There one has \(m_{i-1}=m_i=0\), so the translates \(u=t_i-a_{i-1}\) and \(v=t_i+a_i\) used in Lemma 5.1 need not belong to \(T\). The claimed contradiction at the "central local minimum" is therefore unsupported.
+
+7. **Location:**
+   "*By Lemma 5.2, \(m_{i-1}\ge 1,\quad m_i\ge 1.\) Hence \(u:=t_i-a_{i-1}\in F_{i-1},\quad v:=t_i+a_i\in F_i.\)*"
+
+   **Description:** **Critical Error.**
+   This is the key input for Sections 6–8, but it relies entirely on Lemma 5.2, which has not been validly proved. So the existence of \(u\) and \(v\), and therefore the final extra-point construction, are unsupported.
+
+---
+
+Because the proof contains **Critical Errors** (especially in Lemma 5.1 and Lemma 5.2), the solution is **not correct**.

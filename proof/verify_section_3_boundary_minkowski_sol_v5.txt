@@ -1,0 +1,10 @@
+The solution is **not fully correct**. I found this issue:
+
+1. **Location:**  
+   “**By Lemma §1.6 applied in the reverse direction (or directly, since a convex polygon's edges appear in the same cyclic order as their outer normals), the edges
+   \(e_1,e_2,\dots,e_n\)
+   occur on the boundary of \(R\) in that same cyclic order. Therefore the vertices of \(R\) are
+   \(e_n\cap e_1,\ e_1\cap e_2,\ \dots,\ e_{n-1}\cap e_n\).**”
+
+   **Description:** **Justification Gap.**  
+   Lemma §1.6 only proves one direction: **if** the edges/vertices of a convex polygon are already listed in boundary order, **then** their outer normals occur in the corresponding cyclic order. Here the proof uses the converse without proving it. The phrases “applied in the reverse direction” and “since a convex polygon's edges appear in the same cyclic order as their outer normals” introduce a new claim that is not established earlier. As a result, the crucial conclusion that the edges \(e_1,\dots,e_n\) occur on \(\partial R\) in index order—and therefore that the boundary vertices are \(e_{i-1}\cap e_i=\{x_i\}\), so \(x_1,\dots,x_n\) are the vertices in cyclic order—is not justified.

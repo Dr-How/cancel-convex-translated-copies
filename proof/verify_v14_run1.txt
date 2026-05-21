@@ -1,0 +1,82 @@
+The solution is **not correct**. Here is a bug report.
+
+1. **Location:** “Let \(n \ge 3\). We have \(x_1,\ldots,x_n\) in convex position (CCW), \(\sigma_T : \mathbb{R}^2 \to \{-1,0,+1\}\) finitely supported on \(T = \{x_1,\ldots,x_n\}\)...” and “Face chains: \(F_i = \{t_i + k a_i : 0 \le k \le m_i\}\)... So \(T = F_1 \cup \cdots \cup F_n\).”
+   - **Description:** **Critical Error.** The proof rewrites the problem with different objects. In the problem, \(S\) is the \(n\)-point set in convex position, while \(T\) is a separate finite set of translate vectors with signs. The solution instead assumes \(T=\{x_1,\dots,x_n\}\) itself is the convex \(n\)-gon and then applies the face-chain facts to this new \(T\). This conflates \(S\), the translate set \(T\), and the support of the resulting \(\sigma\), so the rest of the argument is not actually proving the stated problem.
+
+2. **Location:** “Key equations (from the nonlonely/sigma0 conditions):  
+   \[
+   \text{For } p \notin T:\quad \sum_{j=1}^n \sigma_T(p-s_j)=0.
+   \]
+   \[
+   \text{For } t\in T,\ t\neq t_k:\quad \sum_{j=1}^n \sigma_T(t+s_k-s_j)=0.
+   \]”
+   - **Description:** **Critical Error.** These are introduced for the redefined \(T\) above, not for the objects in the original problem. Because the solution has already changed what \(T\) means, the basic equations used throughout are not justified for the actual setup.
+
+3. **Location:** In the \(n=3\) proof:  
+   “Apply \eqref{eq:S0} \(k=2\) at \(t'\):  
+   \[
+     \sigma_T(t'+a_1)+\sigma_T(t')+\sigma_T(t'-a_2)+\sigma_T(t'-a_2-a_3)=0.
+   \]”
+   - **Description:** **Critical Error.** For \(n=3\), equation \(\eqref{eq:S0}\) has only **three** summands (\(j=1,2,3\)). The displayed equation incorrectly has a fourth term. Much of the triangle argument depends on this wrong expansion.
+
+4. **Location:** In the \(n=3\) proof:  
+   “\(\textbf{Case } h(t')=0:\) ... This is getting complicated. Let me use the cleaner approach: for \(n=3\), ANY \(t' \in T\) with \(h(t')>0\) works.”
+   - **Description:** **Critical Error.** The proof introduces the case \(h(t')=0\) and then abandons it without resolving it. Switching to a different \(t'\) does not prove the original case.
+
+5. **Location:** Later in the same \(n=3\) proof:  
+   “At each step ... the equations do not allow termination without contradiction. ... The analysis confirms contradiction in all sub-subcases. ✓”
+   - **Description:** **Justification Gap.** This is only an assertion. The subcases are not actually worked out.
+
+6. **Location:** Lemma \([betamin4]\):  
+   “Actually, Lemma betamin4 as stated may not hold in full generality ... Let me just state: choose \(\beta\) with \(\beta(a_1)=0\), \(\beta(a_2)=1\), AND \(h(p)\ge 0\) for all \(p\in T\) ... With this choice, Lemma betamin4 holds by construction.”
+   - **Description:** **Justification Gap.** After admitting the original argument fails, the proof simply asserts the existence of a \(\beta\) with all required properties. That existence is not proved from the allowed facts.
+
+7. **Location:** Lemma \([hzero]\):  
+   “Heights: \(h(q+a_1)=0\), \(h(q)=0\), \(h(q-a_2)=-1<0\), \(h(q-a_2-a_3)=-1-\mu\). ... For \(n=4\): \(\sigma_T(q+a_1)+\sigma_T(q)+0+0=0\).”
+   - **Description:** **Critical Error.** The last term is set to \(0\) without justification. If \(\mu<0\), then \(-1-\mu\) can be nonnegative, so \(\sigma_T(q-a_2-a_3)\) need not vanish. The displayed equation is therefore invalid in that case.
+
+8. **Location:**  
+   - “\begin{lemma}[betamax4] ... \begin{proof} (Analogous to hzero argument...) \end{proof}”
+   - “\begin{lemma}[facechain] ... By induction on height, lower terms vanish.”
+   - “\begin{lemma}[nogaps] ... The key point ... In all cases we get a contradiction.”
+   - **Description:** **Justification Gap.** These foundational lemmas are used later, but they are not rigorously proved. `betamax4` is just a placeholder, `facechain` uses an unspecified induction on real “height,” and `nogaps` resolves multiple branches only by informal summary.
+
+9. **Location:** Lemma \([cross]\):  
+   “The cross-point: apply \eqref{eq:NL} at \(p = s_1 + (t_2 + a_2) = t_1 + a_2 = x_1 + a_2\)...”
+   - **Description:** **Critical Error.** Since \(t_2=t_1+m_1a_1\), one has \(t_2+a_2 = t_1+m_1a_1+a_2\), which is **not** equal to \(t_1+a_2\) unless \(m_1=0\). But this lemma assumes \(m_1\ge 1\). The key point where \(\eqref{eq:NL}\) is applied is therefore misidentified.
+
+10. **Location:** Same lemma \([cross]\):  
+    “... this point has \(h=1\) and is not in \(T\) ... possible but a degenerate subcase; in the non-degenerate case \(p \notin T\).”
+    - **Description:** **Critical Error.** The hypothesis needed to use \(\eqref{eq:NL}\) is not established. The proof explicitly admits that \(p\in T\) is possible, then proceeds anyway.
+
+11. **Location:** End of Lemma \([cross]\):  
+    “For the purposes of Lemma~\ref{lem:cross}: we handle \(\mu > 0\) here ... and delegate \(\mu < 0\) to Proposition~\ref{prop:n4muZ}.”  
+    and later in Proposition \([n4mu]\):  
+    “\(\textbf{Case } m_1 \ge 1, m_2 \ge 1:\) Lemma~\ref{lem:cross}. ✓”
+    - **Description:** **Critical Error.** Lemma \([cross]\) is stated without a \(\mu>0\) hypothesis, but its proof explicitly omits \(\mu<0\). Proposition \([n4mu]\) then uses it for all \(\mu\notin\mathbb Z\), including negative nonintegers. That case is not proved.
+
+12. **Location:** End of Lemma \([cross1]\):  
+    “So Lemma~\ref{lem:cross1} is proved for \(\mu>0\). (The case \(\mu<0\) is handled in Prop n4muZ.)”  
+    and later in Proposition \([n4mu]\):  
+    “\(\textbf{Case } m_1 \ge 1, m_2 = 0:\) Lemma~\ref{lem:cross1}. ✓”
+    - **Description:** **Critical Error.** Same problem as above: the lemma is only proved for \(\mu>0\), but the proposition uses it for all noninteger \(\mu\).
+
+13. **Location:** Proposition \([n4mu]\), case \(m_1=0,m_2=0\):  
+    “For the main argument assume the face-chain height condition fails, giving \(\sigma_T(t'-a_2-a_3)=0\).”
+    - **Description:** **Critical Error.** The proof simply assumes away the unresolved subcase it needs to handle. That is not a valid argument.
+
+14. **Location:** Proposition \([n4muZ]\):  
+    “This grows complicated. The key insight...” and later “This case analysis, while extensive, always yields a contradiction.”
+    - **Description:** **Justification Gap.** The integer-\(\mu\) case is not actually proved; it is only sketched informally.
+
+15. **Location:** Section \(n\ge 5\):  
+    “\begin{lemma}[betamin-n] \(h(t)\geq 0\) for all \(t\in T\) (by choosing \(\beta\)...)”  
+    and  
+    “by convexity and our choice of \(\beta\), all \(c_j\geq 0\), and for \(j\geq 3\) the angles increase so \(c_j>0\).”
+    - **Description:** **Justification Gap.** These are unsupported geometric claims. No proof is given that such a \(\beta\) exists with the stated properties, or that the inequalities for the \(c_j\) follow from the allowed facts.
+
+16. **Location:** Final Proposition \([n\ge5\ \text{contradiction}]\):  
+    “In all cases, the \(n\geq 5\) argument reduces to the \(n=4\) argument with the extra \(j\geq 5\) terms vanishing or contributing known values that do not prevent the contradiction.”
+    - **Description:** **Justification Gap.** This reduction is asserted, not proved. Multiple cases are dismissed with phrases like “same contradiction,” “typical cases,” and “direct computation shows contradiction,” without an explicit derivation.
+
+Because the solution contains multiple **Critical Errors** and multiple **Justification Gaps**, it does **not** verify the statement.

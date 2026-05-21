@@ -1,0 +1,98 @@
+The solution is **not correct**. I found the following issues.
+
+## General / setup
+
+1. **Location:** “For \(p\notin T\) we set \(\sigma_T(p)=0\).”  
+   **Description:** **Justification Gap.** \(\sigma_T\) is never defined on points of \(T\) itself, even though later equations use \(\sigma_T\) on arbitrary arguments and rely on \(\sigma_T(t)=\sigma(t)\in\{\pm1\}\) for \(t\in T\).
+
+2. **Location:** “and \([a_4]=[a_2]\Leftrightarrow a_4\parallel a_2\Leftrightarrow\beta(a_4)=0\)”  
+   **Description:** **Critical Error.** With \(\beta(a_1)=0\) and \(\beta(a_2)=1\), the condition \(\beta(v)=0\) characterizes vectors parallel to \(a_1\), not to \(a_2\). This equivalence is false.
+
+3. **Location:** “The condition \(\ge 3\) direction classes means \(P\) is not a parallelogram...” and later “the parallelogram condition in terms of \(\beta\) is \(\mu=0\) and \(a_3\) is exactly anti-parallel to \(a_1\), together with \(a_4\) anti-parallel to \(a_2\).”  
+   **Description:** **Critical Error.** The proof changes the meaning of “direction class” midstream. The problem statement defined classes via **positive** scalar multiples; the solution then reasons with anti-parallel vectors as if they were the same class. This is not the stated hypothesis.
+
+---
+
+## Section 1 (\(n=3\))
+
+4. **Location:** “Check that \(p:=s_3+(t^*-a_2)\notin\{x_j\}\): for each \(j\), \(p=x_j\) forces \(h(t^*)>h^*\) (verified by direct substitution)”  
+   **Description:** **Justification Gap.** The needed substitutions are not actually carried out. The proof of non-loneliness of \(p\) is asserted, not shown.
+
+---
+
+## Section 2 (\(n=4\))
+
+5. **Location:**  
+   - “Heights: \(h(t_1)=h(t_2)=0\), \(h(t_3)=m_2=h(t_4)\) (since \(\mu=0\)).”  
+   - “By Lemma~\ref{lem:betamax4neg}: \(h_{\max}=m_2\), achieved uniquely at \(t_3\).”  
+   - In Lemma~\ref{lem:betamax4neg}: “For \(\mu=0\): ... apply the \(k=4\)-equation at \(t_*\)...”  
+   **Description:** **Critical Error.** The solution itself computes \(h(t_4)=m_2\), so uniqueness at \(t_3\) is not established unless \(t_4=t_3\), which is never proved. Worse, the proof tries to apply the \(k=4\) equation to \(t_*\), but \(t_*=t_4\) is exactly the case that must be excluded.
+
+6. **Location:** “Since \(\mu\) is not a non-negative integer and \(h_0\) is not an integer, \(h_0-1-\mu\) is not an integer.”  
+   **Description:** **Critical Error.** This claim is false. Example: \(h_0=\tfrac12\), \(\mu=-\tfrac12\) satisfies the hypotheses, but \(h_0-1-\mu=0\in\mathbb Z\). The vanishing argument for those terms is therefore invalid.
+
+7. **Location:**  
+   - “apply the \(k=4\) equation at \(t+a_2\) ... and \(t+a_2\ne t_4\) since \(h(t_4)=m_2+m_3\mu\ne m_2+1\) for \(\mu\) non-integer and \(m_3\ge1\)”  
+   - “\(m_2+k\mu=m_2+1\) would require \(k=1/\mu\notin\mathbb Z\)”  
+   **Description:** **Critical Error.** Both assertions are false. For example, \(\mu=\tfrac12\) and \(m_3=2\) give \(h(t_4)=m_2+1\), and \(1/\mu=2\in\mathbb Z\). So the argument excluding height-\((m_2+1)\) points breaks down.
+
+8. **Location:** “By induction on \(m_3\) (or by the descending chain via the \(k=3\) equation ...): the \(k=4\) equation at any element at height \(m_2+1\) yields \(\sigma_T=0\) there...”  
+   **Description:** **Justification Gap.** No induction is performed, and no descending-chain lemma is stated or proved. This is the key step used to kill the \(m_2+1\) terms, but it is only sketched.
+
+9. **Location:**  
+   - “for \(j=4\): height argument shows \(s_1+(t_1+2a_2)\ne x_4\) ... (height \(h(x_4)=m_2+m_3\mu+\cdots\) ...)”  
+   - “\(j=4\): ... these are equal iff \(m_2=0\). So for \(m_2\ge1\): \(p\ne x_4\).”  
+   **Description:** **Justification Gap.** These cross-point exclusions are not proved. In particular, \(h\) was defined for translates, not for points \(x_j=s_j+t_j\), so expressions like \(h(x_4)\) are not justified.
+
+10. **Location:** “for \(\mu>1\): ... by the \(s_1,s_2\) equations at any element at height \(\mu\) (similar argument to Lemma~\ref{lem:nogaps} ...): \(\sigma_T(t-a_2)=0\).”  
+    **Description:** **Justification Gap.** This is only an appeal to a “similar argument”; no proof is supplied that the height-\(\mu\) term vanishes.
+
+11. **Location:** “Sub-case \(m_2=0\): ... With all \(m_i=0\): \(\varepsilon_i=\varepsilon_1\) for all \(i\), ... since all \(m_i=0\), \(m_3=m_4=0\), \(h_{\max}=0\).”  
+    **Description:** **Critical Error.** In this branch only \(m_1=0\) and \(m_2=0\) were assumed. The closure relation does **not** force \(m_3=m_4=0\) when \(\mu>0\). The argument’s deduction that all heights are \(0\) is invalid.
+
+---
+
+## Sub-case \(\mu=0\)
+
+12. **Location:** “Apply \(k=1\) and \(k=2\) equations at \(t_1-a_3\) ... From \(k=2\): \(\sigma_T(t_1)+\sigma_T(t_1-a_3)=0\Rightarrow \sigma_T(t_1-a_3)=-\varepsilon_1\).”  
+    **Description:** **Critical Error.** The \(k=2\) equation at \(r=t_1-a_3\) contains \(\sigma_T(r+a_1)=\sigma_T(t_1-a_3+a_1)\), not \(\sigma_T(t_1)\). The displayed equation is not the \(k=2\) equation at that point.
+
+13. **Location:** “Now apply \(k=2\) at \(t_1+a_1+a_2\) ... heights \(1,1,0,-1-\mu=0-1=-1<0\)...”  
+    **Description:** **Critical Error.** When \(\mu=0\), the fourth term in the \(k=2\) equation has height \(1-1-0=0\), not \(-1\). The proof incorrectly discards a height-\(0\) term.
+
+14. **Location:** “this gets involved. We use instead: ... A detailed case analysis shows ... the argument goes through unchanged...”  
+    **Description:** **Justification Gap.** The proof explicitly abandons the calculation and replaces it with an informal promise of a later case analysis. The \(\mu=0\) case is not actually proved.
+
+15. **Location:** “Sub-case \(m_2=0\): All \(m_i=0\) ... similarly \(m_3=0\) ... but \(h_{\max}=0\) forces \(m_3=0\).”  
+    **Description:** **Critical Error.** The closure equation with \(\mu=0\) gives \(m_4=0\), but it does not imply \(m_3=0\). The extra deduction from \(h_{\max}=0\) is unsupported and depends on the earlier flawed height-max argument.
+
+---
+
+## Sub-case \(\mu\in\mathbb Z_{>0}\)
+
+16. **Location:** “In all sub-cases of \(\mu\in\mathbb{Z}_{>0}\), a magnitude-\(2\) or sign contradiction is derived.”  
+    **Description:** **Justification Gap.** No full derivation is given for this entire case; the section is only a sketch.
+
+---
+
+## Section 3 (\(n\ge 5\))
+
+17. **Location:** “For \(j\ge 5\): \(c_j\ge c_4+\beta(a_4)>c_4\) (since the polygon is strictly convex...)”  
+    **Description:** **Critical Error.** This monotonicity claim is not proved and is generally false: for a convex polygon, the \(\beta\)-heights need not keep increasing for all later vertices. The subsequent height estimates for the \(j\ge5\) terms are therefore invalid.
+
+18. **Location:**  
+    - “By the same No-Gaps argument ... the \(j\ge 4\) terms all vanish.”  
+    - “Lemma~\ref{lem:betamin4} ... and the height-maximum lemma ... still guarantee \(h_{\min}=0\) and a well-defined \(h_{\max}\).”  
+    **Description:** **Critical Error.** These are \(n=4\) lemmas being used in the \(n\ge5\) section without proof that their hypotheses or conclusions still hold. The reduction to the three-term staircase is therefore not justified.
+
+19. **Location:** “the uniqueness of \(t_3\) at height \(m_2\) ... follows from the three-term equation at height \(m_2-1\) combined with \(h_{\max}\) considerations.”  
+    **Description:** **Justification Gap.** This is a key step in the staircase argument, but it is only asserted and not proved.
+
+---
+
+## Conclusion
+
+20. **Location:** “For any \(n\ge 3\) ... the extremal equality ... leads to a contradiction: ... \(n=4,\mu\in\mathbb Z_{>0}\): the modified cross-point argument described above. \(n\ge 5\): Section 3 reduction ...”  
+    **Description:** **Justification Gap.** The final conclusion claims cases that were only sketched, not proved. So the theorem does not follow from the written argument.
+
+Because there are multiple **Critical Errors** and several major **Justification Gaps**, the submitted solution does **not** verify the statement.

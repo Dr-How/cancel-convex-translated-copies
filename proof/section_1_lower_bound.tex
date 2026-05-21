@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+
+\textbf{Subproblem 1 --- Lower bound and rigidity in the equality case.}
+
+\medskip
+\textbf{Context.}
+Let $S\subset\mathbb{R}^2$ be a finite set of $n$ points in \emph{convex position} (every
+point of $S$ is a vertex of $\operatorname{conv}(S)$).
+Let $T\subset\mathbb{R}^2$ be a finite set of translation vectors, and let
+$\varepsilon:T\to\{+1,-1\}$.
+Define
+\[
+  F(p) = \sum_{\substack{t\in T\\ p-t\in S}} \varepsilon(t), \qquad p\in\mathbb{R}^2.
+\]
+Write $P=\operatorname{conv}(S)$ and $Q=\operatorname{conv}(T)$.
+A point $x\in S+T$ is called \emph{lonely} if there is a unique $t\in T$ with
+$x-t\in S$.
+
+\medskip
+\textbf{Statement.}  Prove each of the following.
+\begin{enumerate}
+  \item \emph{(Lonely points exist.)} For every $s\in S$ there exists $t_s\in T$ such
+        that $\ell_s := s + t_s$ is lonely.
+  \item \emph{(Distinctness.)} The $n$ points $\ell_{s_1},\ldots,\ell_{s_n}$ are
+        pairwise distinct.
+  \item \emph{(Non-vanishing.)} $F(\ell_s)=\varepsilon(t_s)\neq 0$ for every $s\in S$.
+  \item \emph{(Lower bound.)} $|\{p\in\mathbb{R}^2:F(p)\neq 0\}|\ge n$.
+  \item \emph{(Rigidity.)} If $|\{p:F(p)\neq 0\}|=n$, then
+        $\{p:F(p)\neq 0\}=\{\ell_s:s\in S\}$ and every point in $S+T$
+        not of the form $\ell_s$ satisfies $F(p)=0$.
+  \item \emph{(Vertices survive.)} If $|\{p:F(p)\neq 0\}|=n$, then every vertex of
+        $P+Q$ belongs to $\{p:F(p)\neq 0\}$.
+\end{enumerate}
+
+\medskip
+\textbf{Hint.}
+For each $s\in S$, choose a linear functional $\phi_s:\mathbb{R}^2\to\mathbb{R}$
+that is uniquely maximized at $s$ over $S$ (possible since $s$ is a vertex of
+$\operatorname{conv}(S)$).  Maximize $\phi_s$ over $S+T$: the maximizer is
+$s+t_s$ where $t_s=\arg\max_{t\in T}\phi_s(t)$.  If $t_s$ is not the unique
+maximizer of $\phi_s$ over $T$, note that the argument still gives a point
+uniquely covered by $S$: if $\ell_s = s+t_s \in S+t'$ for some $t'\neq t_s$,
+then $\phi_s(\ell_s-t')=\phi_s(s+(t_s-t'))\le \phi_s(s)=\phi_s(\ell_s)-\phi_s(t_s)$
+unless $\ell_s-t'=s$, i.e.\ $t'=t_s$.  For~(6), expose each vertex of $P+Q$
+by a supporting linear functional and observe that the maximizer in $S+T$
+is uniquely represented.
+
+\end{document}

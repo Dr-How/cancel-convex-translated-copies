@@ -1,0 +1,99 @@
+The solution is **not correct**.
+
+## Bug report
+
+1. **Location:**  
+   “If \(x_i=x_j\) for \(i\ne j\), then \((s_j,t_j)\) also maximises \(\langle\cdot,u_i\rangle\), contradicting the uniqueness of \((s_i,t_i)\). Hence the \(x_i\) are pairwise distinct.”
+
+   **Description:** **Justification Gap.**  
+   The proof only established uniqueness of the maximising **point** \(s_i+t_i\) in \(S+T\), not uniqueness of the representing pair \((s_i,t_i)\). If \(x_i=x_j\), then \((s_j,t_j)\) gives the same point, so no contradiction has been shown.
+
+2. **Location:**  
+   “if \(m=0\) all chains reduce to a single point with sign \(\varepsilon_1\), so \(T\subseteq\{t_1,t_2,t_3\}\) and \(\sigma(t)=\varepsilon_1\) for all \(t\in T\)”
+
+   **Description:** **Justification Gap.**  
+   From the allowed prior facts, one knows only that \(F_i=T\cap [t_i,t_{i+1}]\). Nothing stated implies \(T=\bigcup_i F_i\). So \(m=0\) does **not** justify \(T\subseteq\{t_1,t_2,t_3\}\), and the deduction \(m\ge2\) is unsupported.
+
+3. **Location:**  
+   “for \(i\ne 3\) this forces \(\beta(t)\le 0\), but if \(\beta(t)=0\) then one still checks the individual \(\alpha\)-coordinates and finds no match for generic \(t\)”
+
+   **Description:** **Justification Gap.**  
+   “Generic \(t\)” is not a proof. The lemma is stated for **all** \(t\) with \(0\le \beta(t)<m\), but the crucial claim \(s_3+t\notin\{x_i\}\) is not proved for the \(\beta(t)=0\) case.
+
+4. **Location:**  
+   “Choose any index \(k\) that maximises \(\beta(t_k)\) … (using the height function … in the basis \(\{a_{k-1},a_k\}\) …). Then \(t_k\) is the unique element of \(T\) with maximal height.”
+
+   **Description:** **Justification Gap.**  
+   The height function \(\beta\) depends on the chosen basis, which itself depends on \(k\), so the instruction “choose \(k\) that maximises \(\beta(t_k)\)” is ill-defined. The proof also invokes “the analogue of Lemma~\ref{lem:betamax} … proved below,” making the argument circular.
+
+5. **Location:**  
+   “Choose a linear functional \(\ell\)… take \(\ell\) in the interior of the normal cone of \(s_k\). … Claim 1: \(t_k\) achieves \(h(t_k)=M^T\)”
+
+   **Description:** **Justification Gap.**  
+   Earlier facts only guarantee that there exists some exposing direction \(u_k\) for which \(t_k\) is the unique maximiser over \(T\). Here \(\ell\) is chosen arbitrarily in the normal cone, and no reason is given that this \(\ell\) is one of those exposing directions. Thus \(h(t_k)=M^T\) is not established.
+
+6. **Location:**  
+   “but \(s_k+t\ne x_i\) for any \(i\) (same argument as Lemma~\ref{lem:topunique})”
+
+   **Description:** **Justification Gap.**  
+   This needed exclusion is not proved here, and it relies on the earlier flawed Lemma~\ref{lem:topunique}. The contradiction in Claim 1 therefore rests on an unproved assertion.
+
+7. **Location:**  
+   “Case A: Some \(m_i\ge 2\). … Case B: All \(m_i=1\).”
+
+   **Description:** **Justification Gap.**  
+   This is not an exhaustive case split. The setup allows \(m_i=0\), and no prior argument in the \(n\ge4\) section rules out having some \(m_i=0\) (possibly mixed with some \(m_j=1\)). The proof does not cover those cases.
+
+8. **Location:**  
+   “Consider the equation at vertex \(s_k\):
+   \[
+   \sigma(s_k+t^*)=\sum_j \sigma_T(t^*+(s_k-s_j))=0.
+   \]”
+
+   **Description:** **Justification Gap.**  
+   The equality \(\sigma(s_k+t^*)=0\) is used without proving that \(s_k+t^*\notin\{x_i\}\). Since \(t^*=t_i+a_i\) is only known to be an interior point of one edge-chain, it could a priori coincide with some exposed translate \(t_r\).
+
+9. **Location:**  
+   “each application of the \(\sigma(s_k+\cdot)=0\) equation either directly gives \(\sigma(t^*)=0\) … or forces a ‘successor’ element in \(T\) with higher \(h\)-value. Since \(h\) is bounded above by \(M^T\), after finitely many steps the staircase reaches \(t_k\)”
+
+   **Description:** **Critical Error.**  
+   This is the core of Case A, but no such inductive argument is actually supplied. The equation for \(\sigma(s_k+t)\) has many terms; it does not identify a unique successor, nor even guarantee a controlled successor that can be iterated to reach \(t_k\).
+
+10. **Location:**  
+    “starting from sign \(-\varepsilon_i\), after an even number of alternations, the terminus \(t_k\) must have sign \(-\varepsilon_i\)”  
+    and  
+    “the number of steps from \(t^*\) to \(t_k\) in the chain-walk is odd exactly when the sign at \(t_k\) is \(-\varepsilon_i\)”
+
+    **Description:** **Critical Error.**  
+    These parity claims contradict each other, and the second one is arithmetically wrong: after an odd number of sign flips starting from \(-\varepsilon_i\), the sign would be \(+\varepsilon_i\), not \(-\varepsilon_i\).
+
+11. **Location:**  
+    “This belongs to \(T\) (equals \(t_l\)) iff \(s_1+s_{n/2+1}=s_j+s_l\) for some \(j,l\).”
+
+    **Description:** **Critical Error.**  
+    The computation of \(\sigma(x^*)\) only considers terms that equal one of the exposed translates \(t_l\). But nothing proved earlier shows that \(T=\{t_1,\dots,t_n\}\) when all \(m_i=1\). Extra elements of \(T\) could contribute to \(\sigma(x^*)\), so the sum is not correctly computed.
+
+12. **Location:**  
+    “The key step: \(t_3+s_1-s_2=t_1+(s_3-s_2)+(s_1-s_2)=t_1+(a_2-a_1)\notin T\)”
+
+    **Description:** **Critical Error.**  
+    This is a calculation error. Since \(t_3=t_1+(s_3-s_1)\), one gets
+    \[
+    t_3+s_1-s_2=t_1+s_3-s_2=t_1+a_2,
+    \]
+    not \(t_1+(a_2-a_1)\).
+
+13. **Location:**  
+    “So \(x^*=s_1+t_3\) is a nonzero-\(\sigma\) point not in \(\{x_i\}\)”  
+    (and similarly later for \(x^*=s_1+t_{n/2+1}\))
+
+    **Description:** **Justification Gap.**  
+    The proof never checks that this \(x^*\) is distinct from all lonely points \(x_i\). Even if \(\sigma(x^*)\neq0\) were established, the contradiction with \(|\operatorname{supp}(\sigma)|=n\) requires \(x^*\notin\{x_i\}\), which is not shown.
+
+14. **Location:**  
+    “For \(n\ge 5\) … there is no ‘parallelogram’ \(s_j+s_l=s_1+s_{n/2+1}\) … and the surviving contributions \(\varepsilon_1+\varepsilon_{n/2+1}\) do not cancel … those terms are absent by the convex-position general-position property.”
+
+    **Description:** **Critical Error.**  
+    No such “general-position property” was assumed or proved, and the claim is false in general: convex polygons can have multiple equal vertex-sum relations (for example, centrally symmetric polygons such as a regular hexagon). Also, when \(n/2\) is odd, the two displayed contributions already cancel because \(\varepsilon_{n/2+1}=-\varepsilon_1\).
+
+Because of these errors and gaps, the solution does **not** verify the statement.

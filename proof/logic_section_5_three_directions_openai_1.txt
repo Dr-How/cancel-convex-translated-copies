@@ -1,0 +1,47 @@
+**Verdict: the proof structure is not fully valid as written.**
+
+The high-level strategy is sensible —  
+global translate-cycle structure \(\to\) extract a local three-direction block \(\to\) derive a local obstruction \(\to\) classify the remaining polygons —  
+but there are logical gaps in how the contradiction is obtained.
+
+### Issues
+
+1. **Missing identification of the \(n\) “already counted” nonzero points.**  
+   Subproblem 3 ends with an alternative of the form
+   \[
+   \exists p\notin \{q_1,\dots,q_n\}\text{ with }\sigma(p)\neq 0,
+   \quad q_r=s_r+t_r.
+   \]
+   For this to contradict \(|\{p:\sigma(p)\neq 0\}|=n\), the outline needs a prior fact that:
+   - the \(q_r\) are \(n\) distinct points, and
+   - each \(q_r\) already satisfies \(\sigma(q_r)\neq 0\).
+   
+   That fact is not among the listed prior results and is not proved in the outline.
+
+2. **The overlap outcomes in Subproblem 3 are not yet shown to be contradictory.**  
+   Subproblem 4 says that any nontrivial chain overlap “violates the boundary geometry,” but no earlier subproblem actually establishes the needed geometric property of the translate cycle \(Q=(t_i)\) — e.g. that it is simple/convex, or that a translate cannot lie on two different chains except at the expected shared endpoint.
+
+   In particular, the branch
+   \[
+   F_i\cap F_{i+2}\neq\varnothing
+   \]
+   is **not** automatically a contradiction from the stated earlier lemmas alone.
+
+3. **Because of (2), Subproblem 3 is too weak for Subproblem 4 as stated.**  
+   The conclusion of Subproblem 3 is a disjunction:
+   - some branches are immediate geometric impossibilities only if extra facts about \(Q\) are available,
+   - one branch gives an extra nonzero point.
+
+   But Subproblem 4 needs **every** branch to force a contradiction. As written, that bridge is missing.  
+   So either:
+   - Subproblem 3 must be strengthened to conclude directly “extra nonzero point” or “impossible repeated translate,” or
+   - an additional lemma is needed converting each overlap case into such a contradiction.
+
+4. **Minor relevance/dependency issue: the parity conclusion from Subproblem 1 is not explicitly used later.**  
+   Subproblem 1 proves the evenness of \(\sum_i m_i\), but the later subproblems do not clearly invoke it. This is not fatal, but as written it looks partly unused.
+
+---
+
+### Bottom line
+
+The decomposition has the **right overall shape**, but it is **not logically complete** with the currently stated subproblems. The main missing piece is an intermediate lemma connecting the overlap alternatives in Subproblem 3 to an actual contradiction with the extremal equality.

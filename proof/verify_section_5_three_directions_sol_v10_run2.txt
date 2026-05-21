@@ -1,0 +1,84 @@
+The solution is **not correct**. I found the following issues.
+
+1. **Location:**  
+   “Check that \(p:=s_3+(t^*-a_2)\notin\{x_j\}\): for each \(j\), \(p=x_j\) forces \(h(t^*)>h^*\) (verified by direct substitution), contradiction.”  
+   **Type:** Justification Gap  
+   **Description:** The proof never actually performs the case check \(j=1,2,3\). This non-loneliness verification is required before applying \eqref{eq:nonlonely}.
+
+2. **Location:**  
+   “Since \([a_3]=[a_1]\Leftrightarrow\mu=\beta(a_3)=0\) ...”  
+   **Type:** Justification Gap  
+   **Description:** From \(\mu=0\) one only gets that \(a_3\) is collinear with \(a_1\). The claimed equivalence with the edge-direction-class condition is not justified; the needed sign/orientation information is missing.
+
+3. **Location:**  
+   “\begin{lemma}[Height maximum for \(\mu\le 0\)] ... For \(\mu\le 0\): \(h_{\max}=m_2\), achieved uniquely at \(t_3\).”  
+   **Type:** Critical Error  
+   **Description:** When \(\mu=0\), the proof itself computed \(h(t_4)=m_2+m_3\mu=m_2\). So \(t_4\) also has height \(m_2\) unless extra conditions force \(t_4=t_3\), which are not shown. The lemma is false as stated.
+
+4. **Location:**  
+   “Since \(\mu\) is not a non-negative integer and \(h_0\) is not an integer, \(h_0-1-\mu\) is not an integer.”  
+   **Type:** Critical Error  
+   **Description:** This implication is false. For example, \(\mu=-\tfrac12\) and \(h_0=\tfrac32\) give \(h_0-1-\mu=1\). The vanishing argument for the \(h_0-1-\mu\) terms therefore breaks.
+
+5. **Location:**  
+   “Apply~\eqref{eq:sigma0} with \(k=1\) at \(v\) (height~\(0\), \(v\ne t_1\) unless \(v=t_1\)) ... Apply \(k=2\) at \(v\): similarly ...”  
+   **Type:** Justification Gap  
+   **Description:** \eqref{eq:sigma0} may only be applied when the point is different from the exceptional translate \(t_k\). The proof does not establish \(v\neq t_1\) or \(v\neq t_2\).
+
+6. **Location:**  
+   “\(t+a_2\ne t_4\) since \(h(t_4)=m_2+m_3\mu\ne m_2+1\) for \(\mu\) non-integer and \(m_3\ge 1\).”  
+   **Type:** Critical Error  
+   **Description:** This is false in general. Example: \(m_3=2\), \(\mu=\tfrac12\) gives \(h(t_4)=m_2+1\). So the subsequent use of the \(k=4\) equation at \(t+a_2\) is not justified.
+
+7. **Location:**  
+   “... the \(k=4\) equation at any element at height \(m_2+1\) yields \(\sigma_T=0\) there, since all three higher-height terms exceed \(h_{\max}\) ...”  
+   **Type:** Critical Error  
+   **Description:** The stated inequality is false for many parameter choices. For example, if \(m_3=3\) and \(\mu=0.6\), then \(h_{\max}=m_2+1.8\) but one of those “higher” terms has height \(m_2+1.6<h_{\max}\). The vanishing argument fails.
+
+8. **Location:**  
+   “\(p_1\ne x_4\) for \(\mu\ne 0\) ... \(m_3\mu=0\), impossible for \(\mu\ne 0\) and \(m_3\ge 0\).”  
+   **Type:** Critical Error  
+   **Description:** \(m_3\ge 0\) does not exclude \(m_3=0\). So \(m_3\mu=0\) is not impossible. The proof does not establish \(p_1\notin\{x_j\}\).
+
+9. **Location:**  
+   “(last term ... has height \(1-\mu\); ... for \(\mu<0\) and \(|\mu|<1\): same ...)”  
+   **Type:** Critical Error  
+   **Description:** If \(\mu<0\) and \(|\mu|<1\), then \(1-\mu\in(1,2)\), not in the previously treated interval. The claimed vanishing of that term is not justified, so \eqref{eq:cross1} is unsupported.
+
+10. **Location:**  
+    “for \(\mu>1\): ... by the \(s_1,s_2\) equations at any element at height \(\mu\) (similar argument to Lemma~\ref{lem:nogaps} ...): \(\sigma_T(t-a_2)=0\).”  
+    **Type:** Justification Gap  
+    **Description:** No such argument is actually given. The proof only gestures at a “similar argument,” so this subcase is incomplete.
+
+11. **Location:**  
+    “By Lemma~\ref{lem:betamax4neg}: \(h_{\max}=m_2\), unique at \(t_3\).”  
+    and later  
+    “Wait---we need to check \(t_1-a_3\ne t_2\). ...”  
+    “this gets involved. We use instead: ...”  
+    “Continue the staircase upward; the argument is the same ...”  
+    **Type:** Justification Gap  
+    **Description:** The \(\mu=0\) case relies on the already false uniqueness claim from Lemma~\ref{lem:betamax4neg}, and the proof itself explicitly leaves branches unresolved and replaces them with informal remarks instead of complete derivations.
+
+12. **Location:**  
+    “For \(\mu\in\mathbb{Z}_{>0}\) ... We handle this by a modified cross-point argument. ... In all sub-cases of \(\mu\in\mathbb{Z}_{>0}\), a magnitude-\(2\) or sign contradiction is derived.”  
+    **Type:** Justification Gap  
+    **Description:** This is only a sketch. No complete proof is provided for the entire positive-integer \(\mu\) case.
+
+13. **Location:**  
+    “For \(j\ge 5\): \(c_j\ge c_4+\beta(a_4)>c_4\) ...”  
+    **Type:** Critical Error  
+    **Description:** In a convex polygon, the \(\beta\)-heights of later vertices do not have to keep increasing after \(s_4\). This inequality is not generally true, so the later height estimates for the \(j\ge 5\) terms are invalid.
+
+14. **Location:**  
+    “For \(\mu\le 0\): heights \(h+1-c_j\) for \(j\ge 4\) satisfy \(h+1-c_j\le h-\mu\le h\) (since \(-\mu\ge 0\) ...)”  
+    **Type:** Critical Error  
+    **Description:** If \(\mu\le 0\), then \(h-\mu\ge h\), not \(\le h\). The inequality used to force vanishing is backwards.
+
+15. **Location:**  
+    “By the same No-Gaps argument ... the \(j\ge 4\) terms all vanish.”  
+    and  
+    “the uniqueness of \(t_3\) at height \(m_2\) ... follows ...”  
+    **Type:** Justification Gap  
+    **Description:** No analogue of the no-gaps lemma, height-maximum lemma, or uniqueness statement is actually proved for \(n\ge 5\). The reduction to the three-term staircase is asserted, not established.
+
+Because of these Critical Errors and Justification Gaps, the solution is **not verified**.
