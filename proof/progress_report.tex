@@ -1,0 +1,427 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{hyperref}
+\usepackage{framed}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{array}
+\usepackage{booktabs}
+
+\hypersetup{colorlinks=true,linkcolor=NavyBlue,urlcolor=NavyBlue}
+
+% Define named colors for boxes
+\definecolor{cleanbg}{RGB}{235,248,235}
+\definecolor{cleanborder}{RGB}{50,140,50}
+\definecolor{openbg}{RGB}{252,235,235}
+\definecolor{openborder}{RGB}{180,50,50}
+\definecolor{notebg}{RGB}{235,242,252}
+\definecolor{noteborder}{RGB}{60,100,180}
+
+% Clean / Open status boxes using mdframed
+\newmdenv[
+  backgroundcolor=cleanbg,
+  linecolor=cleanborder,
+  linewidth=1.5pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt,
+  skipabove=8pt,
+  skipbelow=8pt
+]{cleanenv}
+
+\newmdenv[
+  backgroundcolor=openbg,
+  linecolor=openborder,
+  linewidth=1.5pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt,
+  skipabove=8pt,
+  skipbelow=8pt
+]{openenv}
+
+\newmdenv[
+  backgroundcolor=notebg,
+  linecolor=noteborder,
+  linewidth=1pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt,
+  skipabove=8pt,
+  skipbelow=8pt
+]{notebox}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem{subproblem}{Subproblem}
+
+\title{\textbf{Cancelling Translated Copies of Points in Convex Position}\\[6pt]
+\large Progress Report}
+\author{}
+\date{May 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{definition}
+A finite set $S$ of points in $\mathbb{R}^2$ is in \emph{convex position} if every point of $S$
+is a vertex of its convex hull $\operatorname{conv}(S)$.
+\end{definition}
+
+\begin{definition}[Setup]
+Let $S$ be a finite set of $n \geq 1$ points in $\mathbb{R}^2$ in convex position.
+Let $T$ be a finite set of vectors in $\mathbb{R}^2$, each assigned a sign $\sigma(t)\in\{+1,-1\}$.
+For every $p\in\mathbb{R}^2$ define
+\[
+  \sigma(p) \;=\; \sum_{\substack{t\in T\\ p-t\in S}} \sigma(t).
+\]
+Write $\operatorname{supp}(\sigma):=\{p\in\mathbb{R}^2:\sigma(p)\neq 0\}$, and set
+$T_\pm:=\{t\in T:\sigma(t)=\pm1\}$.
+\end{definition}
+
+\begin{theorem}[Lower Bound --- proved]
+$|\operatorname{supp}(\sigma)|\ge n$.
+\end{theorem}
+
+\begin{theorem}[Main Theorem --- partially proved]\label{thm:main}
+Assume $n\ge 3$ and $T$ contains at least one positive and one negative vector.
+If $|\operatorname{supp}(\sigma)|=n$ then $n=4$ and $S$ is the vertex set of a parallelogram.
+\end{theorem}
+
+\begin{remark}
+The condition ``both signs present'' is necessary: a single translate gives $|\operatorname{supp}(\sigma)|=n$
+for any $S$.  The theorem says: once genuine cancellation occurs but the support is still minimal,
+$S$ is forced to be a parallelogram (and in particular $n=4$).
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proof Strategy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The proof is decomposed into six subproblems.  Write $P:=\operatorname{conv}(S)$,
+$Q:=\operatorname{conv}(T)$.  Label the vertices of $P$ as $s_1,\ldots,s_n$
+counterclockwise (indices mod $n$), with edge vectors $a_i:=s_{i+1}-s_i$.
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{clc}
+\toprule
+\textbf{SP} & \textbf{Content} & \textbf{Status}\\
+\midrule
+1 & Lonely Points Lemma + equality rigidity & \textcolor{green!60!black}{\textbf{clean}}\\
+2 & Exposed-translate theorem & \textcolor{green!60!black}{\textbf{clean}}\\
+3 & Boundary Minkowski structure & \textcolor{green!60!black}{\textbf{clean}}\\
+4 & Alternating-chain structure on each face & \textcolor{green!60!black}{\textbf{clean}}\\
+5 & No three independent edge directions & \textcolor{red!70!black}{\textbf{open}}\\
+6 & Two-direction case forces parallelogram & \textcolor{green!60!black}{\textbf{clean}}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bigskip
+\noindent\textbf{How they combine.}
+Subproblems 1--4 establish the rigid algebraic--geometric structure of any equality
+configuration.  Subproblem 5 rules out three or more independent edge directions
+(the hard case).  Subproblem 6 shows the remaining two-direction case forces
+$n=4$ and a parallelogram.  Everything is proved \emph{except} Subproblem 5.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subproblem 1: Lonely Points Lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cleanenv}
+\textbf{Status: VERIFIED CLEAN} --- adversarial checker found no errors (3/3 independent runs).
+\end{cleanenv}
+
+\begin{subproblem}[Lonely Points + Equality Rigidity]\label{sp:1}
+Under the general setup (no equality hypothesis yet):
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Lower bound:} $|\operatorname{supp}(\sigma)|\ge n$.
+\item \textbf{Equality rigidity:} If $|\operatorname{supp}(\sigma)|=n$, then:
+  \begin{enumerate}[label=(\roman*)]
+  \item For each $s\in S$ there is a \emph{unique} $t_s\in T$ such that
+        $\ell_s:=s+t_s$ is lonely (has a unique representation in $S+T$).
+  \item The lonely points $\ell_s$ are pairwise distinct and
+        $\operatorname{supp}(\sigma)=\{\ell_s:s\in S\}$.
+  \item $\sigma(\ell_s)=\sigma(t_s)\in\{\pm1\}$.
+  \item $\bigl||T_+|-|T_-|\bigr|\le 1$.
+  \end{enumerate}
+\end{enumerate}
+\end{subproblem}
+
+\subsection*{Proof sketch}
+
+A point $p\in S+T$ is \emph{lonely} if it has a unique representation $p=s+t$.
+For each $s\in S$, find a vector $u_s$ that strictly exposes $s$ in $S$
+(i.e.\ $\langle u_s,s\rangle > \langle u_s,s'\rangle$ for all $s'\ne s$; constructed by
+taking the nearest point in $\operatorname{conv}(S\setminus\{s\})$).
+Let $t_s$ maximise $\langle u_s,\cdot\rangle$ on $T$.
+Then $\ell_s:=s+t_s$ is lonely: any other representation $s'+t'=\ell_s$
+would require $\langle u_s,s'\rangle+\langle u_s,t'\rangle=\langle u_s,s\rangle+\langle u_s,t_s\rangle$,
+forcing $s'=s$ and $t'=t_s$ by strict maximality.
+Since $\sigma(\ell_s)=\sigma(t_s)\ne 0$, we get $n$ distinct support points.
+
+For equality rigidity: if $s$ had two lonely points $s+t$ and $s+t'$ with $t\ne t'$,
+we get $(n-1)+2=n+1$ distinct support points, a contradiction.
+The balance estimate follows from $\sum_p\sigma(p)=n(|T_+|-|T_-|)$
+combined with $|\sum_p\sigma(p)|\le n$. $\square$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subproblem 2: Exposed-Translate Theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cleanenv}
+\textbf{Status: VERIFIED CLEAN} --- adversarial checker found no errors.
+\end{cleanenv}
+
+Under the equality hypothesis, write $t_i:=t_{s_i}$ for the unique translate from SP~1
+attached to vertex $s_i$.  Define the normal cone
+\[
+  C_i := \{u\in\mathbb{R}^2 : \text{$s_i$ is the unique maximiser of $\langle u,\cdot\rangle$ on $S$}\}.
+\]
+
+\begin{subproblem}[Exposed-Translate Theorem]\label{sp:2}
+For every $u\in C_i$, $t_i$ is the unique maximiser of $\langle u,\cdot\rangle$ on $T$.
+\end{subproblem}
+
+\subsection*{Proof sketch}
+
+If $u\in C_i$ and $t\in T$ maximises $\langle u,\cdot\rangle$ on $T$, the same exposed-maximum
+argument as in SP~1 shows $s_i+t$ is lonely.
+By SP~1 uniqueness, $t=t_i$.
+So $\operatorname{argmax}_T\langle u,\cdot\rangle=\{t_i\}$ for every $u\in C_i$. $\square$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subproblem 3: Boundary Minkowski Structure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cleanenv}
+\textbf{Status: VERIFIED CLEAN} --- adversarial checker found no errors (3 runs).
+\end{cleanenv}
+
+\begin{subproblem}[Boundary Minkowski Structure]\label{sp:3}
+Under the equality hypothesis:
+\begin{enumerate}[label=(\arabic*)]
+\item The points $x_i:=s_i+t_i$ are exactly the vertices of $R:=P+Q$, in cyclic order.
+\item For each $i$, the exposed face of $Q$ in the direction normal to the edge $[s_i,s_{i+1}]$
+      of $P$ is the segment $[t_i,t_{i+1}]$, and
+      \[
+        t_{i+1}-t_i = \lambda_i\,a_i \quad\text{for some }\lambda_i\ge 0.
+      \]
+\end{enumerate}
+\end{subproblem}
+
+\subsection*{Proof sketch}
+
+Let $u_i$ be an outer normal to $[s_i,s_{i+1}]$.  Small perturbations
+$u_i\pm\varepsilon a_i$ (for small $\varepsilon>0$) enter cones $C_i$ and $C_{i+1}$
+respectively; by SP~2, $t_i$ and $t_{i+1}$ are the unique maximisers of those
+perturbed directions on $T$.  Letting $\varepsilon\to 0$, both $t_i$ and $t_{i+1}$
+maximise $\langle u_i,\cdot\rangle$ on $T$, so both lie in the exposed face
+$G_i:=F_Q(u_i)$.  Since $G_i$ is a compact convex segment parallel to $a_i$,
+and $t_i$, $t_{i+1}$ are respectively the minimum and maximum of $\langle a_i,\cdot\rangle$
+on $G_i$, we get $G_i=[t_i,t_{i+1}]$ by the interval structure of compact convex
+subsets of a line.  That $\lambda_i\ge 0$ follows because $x_i$ must be an endpoint
+(not interior) of the corresponding edge of $R$.
+
+For part (1): the Minkowski-sum face formula $F_{P+Q}(u)=F_P(u)+F_Q(u)$
+gives $F_R(u)=\{x_i\}$ for $u\in C_i$ (a vertex), and $F_R(u_i)=[x_i,x_{i+1}]$
+(an edge).  A cyclic-normal-order lemma (exterior angles sum to $2\pi$) shows these
+are exactly all vertices and edges of $R$. $\square$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subproblem 4: Alternating Chains on Faces}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cleanenv}
+\textbf{Status: VERIFIED CLEAN} --- adversarial checker found no errors.
+\end{cleanenv}
+
+For each $i$, let $F_i:=[t_i,t_{i+1}]\cap T$ be the translates on the $i$-th face.
+
+\begin{subproblem}[Alternating-Chain Structure]\label{sp:4}
+Under the equality hypothesis, for each $i$:
+\begin{enumerate}[label=(\arabic*)]
+\item There exists a non-negative integer $m_i$ such that $t_{i+1}=t_i+m_i\,a_i$ and
+\[
+  F_i = \{t_i,\; t_i+a_i,\; t_i+2a_i,\;\ldots,\; t_i+m_i\,a_i\}.
+\]
+\item The signs alternate along the chain:
+      $\sigma(t_i+k\,a_i)=(-1)^k\,\sigma(t_i)$ for $0\le k\le m_i$.
+\end{enumerate}
+\end{subproblem}
+
+\subsection*{Proof sketch}
+
+Any interior point of edge $[x_i,x_{i+1}]$ of $R$ has $\sigma=0$
+(by SP~1, the support equals $\{x_1,\ldots,x_n\}$, the vertex set of $R$).
+For $t=t_i+\lambda a_i\in F_i$ with $\lambda<m_i$, the point $p=s_{i+1}+t$
+is interior to that edge and must cancel.  The convex-position of $S$ forces
+the only representations of $p$ in $S+T$ to use translates $t$ or $t+a_i$;
+since $\sigma(t)\ne 0$, the translate $t+a_i$ must also lie in $T$ with
+opposite sign.  This gives a successor rule $\lambda\in\Lambda\Rightarrow\lambda+1\in\Lambda$,
+and a predecessor rule $\lambda>0\Rightarrow\lambda-1\in\Lambda$.
+No fractional parameter can lie in $\Lambda$ (it would give a lonely interior
+point with $\sigma\ne 0$), so $\Lambda\subset\mathbb{Z}$, and we conclude
+$\Lambda=\{0,1,\ldots,m_i\}$ with alternating signs. $\square$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subproblem 5: No Three Independent Directions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{openenv}
+\textbf{Status: OPEN} --- This is the remaining hard case.  Multiple attempts
+(versions v1--v19) have all contained critical errors.  The problem is unsolved.
+\end{openenv}
+
+\begin{subproblem}[No Three Independent Directions]\label{sp:5}
+Under the equality hypothesis with the structure of SP~1--4, the edge vectors
+$a_1,\ldots,a_n$ of $P$ span at most two unoriented directions
+(i.e.\ every $a_i$ is a real multiple of one of two fixed vectors).
+\end{subproblem}
+
+\subsection*{What is known}
+
+The following are proved and available.
+
+\begin{enumerate}
+\item \textbf{L$^2$-norm identity.}  Since $\sigma(\ell_s)^2=1$:
+\[
+  n(|T|-1) \;=\; \underbrace{\sum_{\substack{t_1\ne t_2\\\sigma(t_1)\sigma(t_2)=-1}}
+  |S\cap(S+(t_1-t_2))|}_{\text{opp-sign sum}}
+  \;-\;
+  \underbrace{\sum_{\substack{t_1\ne t_2\\\sigma(t_1)\sigma(t_2)=+1}}
+  |S\cap(S+(t_1-t_2))|}_{\text{same-sign sum}}.
+\]
+
+\item \textbf{Overlap bound.}  For any $v\ne 0$, $|S\cap(S+v)|\le 2$
+(since $S$ is in convex position).
+
+\item \textbf{Coarse L$^2$ bound.}  From (1) and (2):
+\[
+  n(|T|-1) \;\le\; 4\,|T_+|\,|T_-|.
+\]
+This gives $n\le 4$ when $|T_+|=1$ or $|T_-|=1$, but \emph{fails} for
+$|T_+|=|T_-|=k\ge 2$.
+
+\item \textbf{Alternating chains} (SP~4): each face of $P$ carries an arithmetic
+progression of translates with alternating signs.
+\end{enumerate}
+
+\subsection*{Known dead-ends}
+
+\begin{itemize}
+\item Assuming $|T|=2$ is unjustified; explicit equality configurations with $|T_+|=|T_-|=2$ exist (e.g.\ $S$ a parallelogram, $T=\{0,a+b,-a,-b\}$).
+\item The support need not equal the vertex set of $\operatorname{conv}(S+T)$.
+\item Polynomial/lattice arguments do not apply in $\mathbb{R}^2$.
+\item No ``opposite-sign lonely point'' is guaranteed when all lonely signs are equal.
+\end{itemize}
+
+\subsection*{Most promising open approach}
+
+Lower-bound the same-sign sum to tighten the L$^2$ estimate.
+For $|T_+|=|T_-|=k\ge 2$ there are $2k(k-1)$ same-sign ordered pairs.
+If each contributes $\ge 1$ to the same-sign sum, then
+\[
+  n(2k-1) \;\le\; 4k^2 - 2k(k-1) \;=\; 2k^2+2k,
+\]
+giving $n\le 4$ for all $k\ge 2$.  The needed ingredient is a proof that
+$|S\cap(S+(t_1-t_2))|\ge 1$ for same-sign pairs $(t_1,t_2)$, or an alternative
+argument using the alternating-chain structure from SP~4.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subproblem 6: Two Directions Forces a Parallelogram}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cleanenv}
+\textbf{Status: VERIFIED CLEAN} --- adversarial checker found no errors (3/3 independent runs).
+\end{cleanenv}
+
+\begin{subproblem}[Two Directions Forces a Parallelogram]\label{sp:6}
+If $S$ is in convex position with $n\ge 3$ and the edge vectors of $\operatorname{conv}(S)$
+span at most two unoriented directions, then $n=4$ and $S$ is the vertex set of a parallelogram.
+\end{subproblem}
+
+\subsection*{Proof}
+
+\textbf{Step 1: Adjacent edges are non-parallel.}
+If $e_i\parallel e_{i+1}$, then $v_i,v_{i+1},v_{i+2}$ are collinear, one being a strict
+convex combination of the other two.  This contradicts convex position.
+So the two direction classes alternate around the polygon: $[u],[w],[u],[w],\ldots$,
+forcing $n$ even.
+
+\textbf{Step 2: $n\le 4$.}
+The exterior angles $\varepsilon_i>0$ sum to $2\pi$, so the $n$ directed edge directions
+$e_1,\ldots,e_n$ are pairwise distinct (their lifted arguments
+$\theta_1<\cdots<\theta_n<\theta_1+2\pi$ are all in the same period).
+Since there are only two unoriented directions, there are at most four possible
+oriented directions $u,w,-u,-w$.  Hence $n\le 4$.
+
+\textbf{Step 3: $n=4$, parallelogram.}
+With $n$ even, $n\ge 3$, $n\le 4$, we get $n=4$.
+Write the four edges as $B-A=au$, $C-B=bw$, $D-C=\sigma cu$, $A-D=\tau dw$
+(with $a,b,c,d>0$, $\sigma,\tau\in\{\pm1\}$).
+The closure condition $(a+\sigma c)u+(b+\tau d)w=0$ and linear independence of
+$u,w$ force $\sigma=\tau=-1$, $a=c$, $b=d$.
+So opposite sides are parallel and equal: $ABCD$ is a parallelogram. $\square$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Summary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The main theorem reduces entirely to Subproblem~5.  All other ingredients are proved
+and verified.
+
+\begin{theorem}[Conditional]\label{thm:cond}
+If Subproblem~\ref{sp:5} holds, then Theorem~\ref{thm:main} holds in full:
+every equality configuration with $n\ge 3$ and both signs in $T$ forces $n=4$
+and $S$ a parallelogram.
+\end{theorem}
+
+\begin{proof}
+SP~5 provides at most two edge directions; SP~6 then gives $n=4$ and a parallelogram.
+\end{proof}
+
+\bigskip
+\begin{notebox}
+\textbf{What remains.}
+\begin{itemize}
+\item Prove Subproblem~5.
+\item The key gap is the case $|T_+|=|T_-|=k\ge 2$;
+      the L$^2$ bound alone is insufficient here.
+\item A lower bound $|S\cap(S+(t_1-t_2))|\ge 1$ for same-sign pairs,
+      combined with the L$^2$ identity, would complete the proof.
+\item See \texttt{proof/feedback\_round5.txt} for a full account of failed approaches
+      and a precise statement of the key missing lemma.
+\end{itemize}
+\end{notebox}
+
+\bigskip
+\noindent\textbf{File guide.}
+
+\medskip
+\noindent
+\begin{tabular}{@{}ll@{}}
+\texttt{proof/section\_1\_lonely\_rigidity\_sol\_v3.tex} & SP~1 (clean)\\
+\texttt{proof/section\_2\_exposed\_translate\_sol\_v1.tex} & SP~2 (clean)\\
+\texttt{proof/section\_3\_boundary\_minkowski\_sol\_v5.tex} & SP~3 (clean)\\
+\texttt{proof/section\_4\_alternating\_chains\_sol\_v2.tex} & SP~4 (clean)\\
+\texttt{proof/section\_5\_three\_directions.tex} & SP~5 problem statement\\
+\texttt{proof/feedback\_round5.txt} & SP~5 failure diagnosis\\
+\texttt{proof/section\_6\_two\_directions\_sol\_v3.tex} & SP~6 (clean)\\
+\end{tabular}
+
+\end{document}
