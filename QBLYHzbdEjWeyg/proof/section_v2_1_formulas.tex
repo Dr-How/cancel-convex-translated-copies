@@ -1,0 +1,47 @@
+% Subproblem 1: Explicit formulas for G_A, G_B, and partial_phi-derivatives
+%
+% CONTEXT: We prove the T_{2g} irrep is positive definite for the Hessian of log J_8
+% at the cubic configuration, using the new cube orientation where:
+%   A-vertices (in xz-plane, y=0): p_1=(1/sqrt(3),0,sqrt(2/3)), p_2=(-1/sqrt(3),0,sqrt(2/3)),
+%                                   p_3=(1/sqrt(3),0,-sqrt(2/3)), p_4=(-1/sqrt(3),0,-sqrt(2/3))
+%   B-vertices (at equator, z=0):  p_5=(1/sqrt(3),sqrt(2/3),0), p_6=(-1/sqrt(3),sqrt(2/3),0),
+%                                   p_7=(-1/sqrt(3),-sqrt(2/3),0), p_8=(1/sqrt(3),-sqrt(2/3),0)
+%
+% Green function: G_p(q) = -(1/(4pi)) log(1 - q.p) + const on S^2.
+% G_A = sum_{i in A} G_i, G_B = sum_{j in B} G_j.
+%
+% PROBLEM: Let a = sqrt(2/3), b = 1/sqrt(3). Let q=(x,y,z) in S^2 \ {p_1,...,p_8}. Define:
+%   P_A(x,z) = ((1-az)^2 - b^2*x^2) * ((1+az)^2 - b^2*x^2),
+%   P_B(x,y) = ((1-ay)^2 - b^2*x^2) * ((1+ay)^2 - b^2*x^2).
+%
+% (1) Prove:
+%   G_A(q) = -(1/(4pi)) * log P_A(x,z) + C_A,
+%   G_B(q) = -(1/(4pi)) * log P_B(x,y) + C_B.
+%
+% (2) Prove:
+%   partial_phi G_A(q) = -xy(3 + 2z^2 - x^2) / (9pi * P_A(x,z)),
+%   partial_phi G_B(q) = xy(1 + x^2 - 2y^2) / (3pi * P_B(x,y)),
+% where partial_phi = -y*partial_x + x*partial_y (azimuthal derivative on S^2).
+%
+% (3) Prove that the density w = d(mu^+ + mu^-)/dA_{sph} is strictly positive and
+%   invariant under R_x: (x,y,z) |-> (x, z, -y) (quarter-turn about x-axis).
+%
+% HINT FOR (1): G_A = sum of G at p_1,...,p_4. Since p_1.q = x/sqrt(3) + z*sqrt(2/3),
+% p_2.q = -x/sqrt(3) + z*sqrt(2/3), p_3.q = x/sqrt(3) - z*sqrt(2/3), p_4.q = -x/sqrt(3) - z*sqrt(2/3),
+% we get G_A = -(1/(4pi))*log[(1-p_1.q)(1-p_2.q)(1-p_3.q)(1-p_4.q)] + const
+% = -(1/(4pi))*log[((1-az)^2-b^2x^2)((1+az)^2-b^2x^2)] + const = -(1/(4pi))*log P_A + const.
+%
+% HINT FOR (2): Since G_A depends only on (x,z), partial_y G_A = 0, so
+% partial_phi G_A = -y*partial_x G_A + x*partial_y G_A = -y * partial_x G_A.
+% Compute partial_x P_A = -4b^2 x (1+a^2z^2-b^2x^2).
+% Then partial_x G_A = b^2 x(1+a^2z^2-b^2x^2)/(pi*P_A) = x(3+2z^2-x^2)/(9pi*P_A).
+% So partial_phi G_A = -xy(3+2z^2-x^2)/(9pi*P_A).
+%
+% For partial_phi G_B: G_B depends on (x,y) only. Both partial_x G_B and partial_y G_B contribute.
+% partial_x P_B = -4b^2 x(1+a^2y^2-b^2x^2), partial_y P_B = -4a^2 y(1-a^2y^2+b^2x^2).
+% partial_x G_B = x(3+2y^2-x^2)/(9pi*P_B), partial_y G_B = 2y(3+x^2-2y^2)/(9pi*P_B).
+% partial_phi G_B = -y*partial_x G_B + x*partial_y G_B = xy[-(3+2y^2-x^2)+2(3+x^2-2y^2)]/(9pi*P_B)
+%                 = xy(3+3x^2-6y^2)/(9pi*P_B) = xy(1+x^2-2y^2)/(3pi*P_B).
+%
+% Please produce a complete LaTeX proof of all three parts.
+\end{document}

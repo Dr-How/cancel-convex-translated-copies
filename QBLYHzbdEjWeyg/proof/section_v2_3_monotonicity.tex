@@ -1,0 +1,98 @@
+% Subproblem 3: Monotonicity and sign structure of the profile F(x,psi)
+%
+% SETUP (from Subproblems 1 and 2):
+%   F(x,psi) = G_A(q(x,psi)) = -(1/(4pi)) * log P_A(x, sqrt(1-x^2)*cos(psi)) + C_A,
+%   P_A(x,z) = ((1-az)^2 - b^2*x^2)((1+az)^2 - b^2*x^2), a=sqrt(2/3), b=1/sqrt(3).
+%   q(x,psi) = (x, sqrt(1-x^2)*sin(psi), sqrt(1-x^2)*cos(psi)), x in (-1,1), psi in R/2piZ.
+%
+% From SP1 (partial derivatives of G_A):
+%   partial_x G_A = x(3+2z^2-x^2)/(9pi*P_A),
+%   partial_z G_A = 2z(3+x^2-2z^2)/(9pi*P_A).
+%   partial_z P_A = -4a^2 z (1 - a^2z^2 + b^2x^2)  [follows from expanding P_A].
+%
+% PROBLEM: For each fixed x in (0,1), prove the following about psi |-> F(x,psi):
+%
+% PART (a): F is even in psi:
+%   F(x, -psi) = F(x, psi).
+%
+% PART (b): F is pi-periodic in psi:
+%   F(x, psi + pi) = F(x, psi).
+%
+% PART (c): F is strictly decreasing on (0, pi/2):
+%   F_psi(x, psi) < 0 for all x in (0,1) and psi in (0, pi/2).
+%
+% PART (d): F_x(x, psi) > 0 for x in (0,1) and psi in (0, pi/2).
+%
+% HINTS FOR (a):
+%   In F(x,psi), z = sqrt(1-x^2)*cos(psi). Under psi -> -psi, cos(-psi) = cos(psi),
+%   so z is unchanged, hence P_A(x,z) is unchanged, hence F(x,-psi) = F(x,psi). Done.
+%
+% HINTS FOR (b):
+%   Under psi -> psi+pi: cos(psi+pi) = -cos(psi), so z -> -z.
+%   P_A(x,-z) = ((1-a(-z))^2 - b^2x^2)((1+a(-z))^2 - b^2x^2)
+%              = ((1+az)^2 - b^2x^2)((1-az)^2 - b^2x^2) = P_A(x,z).
+%   So F(x, psi+pi) = F(x,psi). Done.
+%
+% HINTS FOR (c):
+%   F_psi = (partial_psi F) = -(1/(4pi)) * (partial_psi P_A) / P_A.
+%   Chain rule: partial_psi z = -sqrt(1-x^2)*sin(psi), so
+%   partial_psi P_A = (partial_z P_A)(partial_psi z) = (partial_z P_A)*(-sqrt(1-x^2)*sin(psi)).
+%   From computation (expanding P_A = (1-az)^2(1+az)^2 - b^2x^2[(1-az)^2+(1+az)^2] + b^4x^4):
+%     partial_z P_A = -4a^2 z (1 - a^2z^2 + b^2x^2).
+%   Hence:
+%     partial_psi P_A = (-4a^2 z)(1 - a^2z^2 + b^2x^2)*(-sqrt(1-x^2)*sin(psi))
+%                     = 4a^2 z * sqrt(1-x^2) * sin(psi) * (1 - a^2z^2 + b^2x^2).
+%   With z = sqrt(1-x^2)*cos(psi), this becomes:
+%     partial_psi P_A = 4a^2(1-x^2)*cos(psi)*sin(psi)*(1 - a^2(1-x^2)cos^2(psi) + b^2x^2).
+%   Sign analysis for psi in (0,pi/2): sin(psi)>0, cos(psi)>0.
+%   Factor: 1 - a^2z^2 + b^2x^2. Since a^2 = 2/3 and z^2 <= 1-x^2 < 1,
+%     a^2z^2 = (2/3)z^2 <= 2/3 < 1, so 1 - a^2z^2 > 1/3 > 0, and adding b^2x^2 > 0 gives the factor > 0.
+%   Also P_A > 0 away from the vertices (SP1).
+%   So partial_psi P_A > 0, hence F_psi = -(partial_psi P_A)/(4pi*P_A) < 0. Done.
+%
+% HINTS FOR (d):
+%   From SP1: partial_x G_A = x(3+2z^2-x^2)/(9pi*P_A), partial_z G_A = 2z(3+x^2-2z^2)/(9pi*P_A).
+%   Chain rule (z = sqrt(1-x^2)*cos(psi), partial_x z = -x*cos(psi)/sqrt(1-x^2)):
+%   F_x = partial_x G_A + (partial_z G_A)*(partial_x z)
+%       = [x(3+2z^2-x^2) + 2z*(3+x^2-2z^2)*(-x*cos(psi)/sqrt(1-x^2))] / (9pi*P_A)
+%       = (x/(9pi*P_A)) * [(3+2z^2-x^2) - 2*(z*cos(psi)/sqrt(1-x^2))*(3+x^2-2z^2)].
+%   Substitute z = sqrt(1-x^2)*cos(psi), so z*cos(psi)/sqrt(1-x^2) = cos^2(psi):
+%   F_x = (x/(9pi*P_A)) * [(3+2z^2-x^2) - 2*cos^2(psi)*(3+x^2-2z^2)].
+%   Let A = 3+2z^2-x^2 and B = 3+x^2-2z^2, so A+B = 6 and we need A - 2cos^2(psi)*B > 0.
+%   Substitute z^2 = (1-x^2)cos^2(psi) and let c = cos^2(psi) in [0,1]:
+%     A = 3 + 2(1-x^2)c - x^2 = (3-x^2) + 2(1-x^2)c.
+%     B = 3 + x^2 - 2(1-x^2)c.
+%   A - 2c*B = [(3-x^2) + 2(1-x^2)c] - 2c*[3+x^2-2(1-x^2)c]
+%            = (3-x^2) + 2(1-x^2)c - 6c - 2cx^2 + 4(1-x^2)c^2
+%            = (3-x^2) + 2c[(1-x^2) - 3 - x^2] + 4(1-x^2)c^2
+%            = (3-x^2) + 2c(1-x^2-3-x^2) + 4(1-x^2)c^2
+%            = (3-x^2) - 2c(2+2x^2) + 4(1-x^2)c^2
+%            = (3-x^2) - 4c(1+x^2) + 4(1-x^2)c^2.
+%   Consider this as a quadratic in c: f(c) = 4(1-x^2)c^2 - 4(1+x^2)c + (3-x^2).
+%   Discriminant: 16(1+x^2)^2 - 16(1-x^2)(3-x^2).
+%   = 16[(1+x^2)^2 - (1-x^2)(3-x^2)]
+%   = 16[1+2x^2+x^4 - (3-x^2-3x^2+x^4)]
+%   = 16[1+2x^2+x^4 - 3+4x^2-x^4]
+%   = 16[6x^2 - 2] = 32(3x^2 - 1).
+%   For x^2 < 1/3: discriminant < 0, leading coefficient positive, so f(c) > 0 for all c. Done.
+%   For x^2 >= 1/3: roots at c = [4(1+x^2) +/- sqrt(32(3x^2-1))] / (8(1-x^2)).
+%   We need to verify f(c) >= 0 for c in [0,1] and x in (0,1).
+%   At c=0: f(0) = 3-x^2 > 0 (since x < 1).
+%   At c=1: f(1) = 4(1-x^2) - 4(1+x^2) + (3-x^2) = 4-4x^2-4-4x^2+3-x^2 = 3-9x^2.
+%   So at c=1 (psi=0): f = 3-9x^2, which is negative for x > 1/sqrt(3).
+%   BUT psi=0 means cos(psi)=1 and sin(psi)=0, which is the boundary; the sign issue at psi=0 is ok
+%   since we need the result for psi in (0,pi/2) and F_x >= 0 at psi=0 only if x <= 1/sqrt(3).
+%   Actually, looking at this more carefully:
+%   At psi -> 0 (c -> 1): F_x -> (x/(9pi*P_A))*(3-9x^2)/(1) which changes sign at x=1/sqrt(3).
+%   This means F_x > 0 does NOT hold for all psi in (0,pi/2) and all x in (0,1)!
+%   Perhaps (d) only holds on an appropriate range, or maybe this subproblem's conclusion (d)
+%   is not actually needed for the main proof.
+%   [NOTE: The main proof (SP5) uses only the direct formula h = -xy(...) < 0, bypassing (d).]
+%
+% REMARK: Parts (a)-(c) are needed. Part (d) was included for a parallel proof approach via SP4
+% but may need the additional restriction psi in (pi/4, pi/2) or similar. The main proof proceeds
+% through SP5 which avoids needing (d).
+%
+% Please produce a complete LaTeX proof of Parts (a), (b), and (c), and discuss Part (d)
+% (noting its sign may change near psi=0 for x > 1/sqrt(3)).
+\end{document}

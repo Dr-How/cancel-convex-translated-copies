@@ -1,0 +1,26 @@
+The proof structure is **not valid as stated**.
+
+### Issues
+
+1. **The key reduction in Subproblem 1 is not well-posed.**  
+   It rewrites the finite mixed integral
+   \[
+   \int (\partial_\phi G_A)(\partial_\phi G_B)\,d\mu
+   \]
+   as
+   \[
+   \tfrac14\bigl(q(\mathbf1)-q(\sigma_{T_{2g}})\bigr),
+   \qquad
+   q(a)=\int |f_a|^2\,d\mu.
+   \]
+   But the individual “energies” \(q(\mathbf1)\) and \(q(\sigma_{T_{2g}})\) are not legitimate \(L^2(\mu)\) quantities: each \(f_a\) still has Green-derivative singularities at vertices, and the \(\mu^+\) weight is too singular for \(|f_a|^2\) to be integrable there. So the rest of the plan is built on norms/inner products that are not defined unless a cutoff or renormalization is added.
+
+2. **Because of Issue 1, Subproblems 2–5 do not currently rest on a valid finite inner-product space.**  
+   The \(C_4\)-character decomposition is relevant, but it has to be applied to a finite bilinear form (for example a renormalized/cutoff version of the mixed Hessian pairing), not to the raw \(L^2(\mu)\)-norms introduced here.
+
+3. **The final step to “positive definite on all of \(T_{2g}\)” is missing a representation-theoretic justification.**  
+   Showing negativity for the chosen generating deformation does not by itself imply positive definiteness on the whole \(3\)-dimensional irreducible summand. One needs an explicit argument such as: the Hessian is \(G\)-equivariant, \(T_{2g}\) occurs with multiplicity one, and hence by Schur’s lemma its restriction to \(T_{2g}\) is a scalar multiple of the invariant inner product.
+
+### Relevance / dependencies
+- Aside from the above, the proposed \(C_4\)-character decomposition is **relevant**, and the ordering of Subproblems 2–5 is **basically coherent**.
+- The main problem is that the plan’s central objects \(q(\mathbf1)\), \(q(\sigma_{T_{2g}})\), and the associated \(L^2\)-norms are not valid as introduced.

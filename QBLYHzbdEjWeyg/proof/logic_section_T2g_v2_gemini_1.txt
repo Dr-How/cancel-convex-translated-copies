@@ -1,0 +1,42 @@
+The proof structure is **not valid as stated**.
+
+### Issues
+
+1. **The reduction ignores the actual measure \(d\mu\).**  
+   The target integral is
+   \[
+   \int_{S^2} (\partial_\phi G_A)(\partial_\phi G_B)\, d(\mu^+ + \mu^-),
+   \]
+   not an unweighted area integral.  
+   In Subproblem 3, the plan evaluates \(\int_0^{2\pi} (VG_A)(VG_B)\,d\psi\) by Fourier orthogonality, which only works directly for the **unweighted** \(\psi\)-integral.  
+   Subproblem 1 gives only \(\psi \mapsto \psi+\pi/2\) invariance of \(d\mu\), not that the density is independent of \(\psi\). So the claimed factorization of the 2D integral is missing a necessary step.
+
+2. **The “adapted lemma from the paper” is invoked but not structurally incorporated.**  
+   The outline says the proof will use the paper’s lemma for shifted functions, but no subproblem:
+   - states the exact version being used,
+   - verifies its hypotheses in the new \((\alpha,\psi)\) coordinates, or
+   - explains why it applies after inserting the nontrivial operator
+     \[
+     V=\cos\psi\,\partial_\alpha-\cot\alpha\sin\psi\,\partial_\psi.
+     \]
+   So a central dependency is missing.
+
+3. **The final sign step does not follow from the preceding subproblems.**  
+   Subproblem 4 appeals to “monotonic decay” of the Fourier coefficients \(g_k(\alpha)\), but Subproblem 3 produces coefficients \(a_m(\alpha), b_m(\alpha)\) built from combinations of \(g_k'(\alpha)\) and \(g_k(\alpha)\cot\alpha\), not just \(g_k\) themselves.  
+   The outline does not include any lemma showing that the needed inequalities for these derived quantities follow from decay/monotonicity of \(g_k\). So the strict negativity conclusion is not actually supported by the decomposition.
+
+4. **Strict negativity is not separately secured.**  
+   Even if the alternating-sum reduction were obtained, the outline does not isolate a step ensuring the result is **strictly** negative rather than merely nonpositive. That strictness is needed for positive definiteness of the Hessian.
+
+### Dependencies
+
+The dependency structure is therefore also incomplete:
+
+- **Subproblem 3** depends on stronger information about the measure than Subproblem 1 provides.
+- **Subproblem 4** depends on an additional coefficient-comparison lemma that is not proved earlier.
+
+### Relevance
+
+There are **no obviously irrelevant or redundant subproblems**; the problem is not redundancy, but missing necessary steps.
+
+If you want, I can also help rewrite the outline into a structurally sound proof plan.

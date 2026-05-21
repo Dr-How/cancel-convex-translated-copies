@@ -1,0 +1,213 @@
+```latex
+\subsection{The mixed term as a quarter-turn defect}
+
+Recall that
+\[
+\rho(\theta,\psi)=\rho^+(\theta,\psi)+\rho^-(\theta,\psi)
+=
+\frac{e^{u(\theta,\psi)}}{I^+}
++
+\frac{e^{-u(\theta,\psi)}}{I^-},
+\]
+and define
+\[
+\Xi(\theta,\psi)
+:=
+\frac{1}{2}D(\theta,\psi)^2
++
+\frac{1}{2}D\!\left(\theta,\psi+\frac{\pi}{2}\right)^2
+-
+C(\theta,\psi)^2.
+\]
+Let
+\[
+I:=\int_{S^2} F_A(\theta,\psi)\,F_A(\theta,\psi+\pi)\,d(\mu^++\mu^-).
+\]
+All functions are understood as \(2\pi\)-periodic in the \(\psi\)-variable. 
+All pointwise identities below are used only where the displayed quantities are defined; this is sufficient for the integral identity, since any exceptional set has surface measure zero.
+
+\medskip
+\noindent\textbf{(a) Quarter-turn invariance of \(\rho\).}
+By the \(C_4\)-symmetry of the full cube,
+\[
+u\!\left(\theta,\psi+\frac{\pi}{2}\right)=u(\theta,\psi).
+\]
+Since \(I^\pm\) are constants, it follows that
+\[
+\rho\!\left(\theta,\psi+\frac{\pi}{2}\right)
+=
+\frac{e^{u(\theta,\psi+\frac{\pi}{2})}}{I^+}
++
+\frac{e^{-u(\theta,\psi+\frac{\pi}{2})}}{I^-}
+=
+\frac{e^{u(\theta,\psi)}}{I^+}
++
+\frac{e^{-u(\theta,\psi)}}{I^-}
+=
+\rho(\theta,\psi).
+\]
+
+\medskip
+\noindent\textbf{(b) Quarter-turn invariance of \(C\).}
+Because \(F_A=\partial_\psi G_A\) and, by the same definition, \(F_B=\partial_\psi G_B\), we have
+\[
+u(\theta,\psi)=2\pi\bigl(G_A(\theta,\psi)+G_B(\theta,\psi)\bigr),
+\]
+hence
+\[
+\partial_\psi u
+=
+2\pi\bigl(\partial_\psi G_A+\partial_\psi G_B\bigr)
+=
+2\pi(F_A+F_B)
+=
+2\pi C.
+\]
+Differentiating the identity
+\[
+u\!\left(\theta,\psi+\frac{\pi}{2}\right)=u(\theta,\psi)
+\]
+with respect to \(\psi\) yields
+\[
+\partial_\psi u\!\left(\theta,\psi+\frac{\pi}{2}\right)
+=
+\partial_\psi u(\theta,\psi),
+\]
+and therefore
+\[
+C\!\left(\theta,\psi+\frac{\pi}{2}\right)
+=
+\frac{1}{2\pi}\partial_\psi u\!\left(\theta,\psi+\frac{\pi}{2}\right)
+=
+\frac{1}{2\pi}\partial_\psi u(\theta,\psi)
+=
+C(\theta,\psi).
+\]
+
+\medskip
+\noindent\textbf{(c) Folding the \(\psi\)-integral.}
+Since \(d(\mu^++\mu^-)=\rho(\theta,\psi)\sin\theta\,d\psi\,d\theta\) in spherical coordinates and
+\[
+F_B(\theta,\psi)=F_A(\theta,\psi+\pi),
+\]
+we can rewrite \(I\) as
+\[
+I
+=
+\int_0^\pi\int_0^{2\pi}
+F_A(\theta,\psi)\,F_B(\theta,\psi)\,\rho(\theta,\psi)\sin\theta\,d\psi\,d\theta.
+\]
+Using
+\[
+F_A=\frac{C+D}{2},
+\qquad
+F_B=\frac{C-D}{2},
+\]
+we obtain
+\[
+F_A F_B=\frac{1}{4}(C^2-D^2),
+\]
+and therefore
+\[
+I
+=
+\frac{1}{4}\int_0^\pi
+\left(
+\int_0^{2\pi}
+\bigl(C(\theta,\psi)^2-D(\theta,\psi)^2\bigr)\rho(\theta,\psi)\,d\psi
+\right)
+\sin\theta\,d\theta.
+\]
+
+Now fix \(\theta\in(0,\pi)\), and for the next few lines suppress the \(\theta\)-dependence from the notation. 
+From
+\[
+D(\psi)=F_A(\psi)-F_A(\psi+\pi)
+\]
+and the \(2\pi\)-periodicity of \(F_A\), we get
+\[
+D(\psi+\pi)
+=
+F_A(\psi+\pi)-F_A(\psi+2\pi)
+=
+F_A(\psi+\pi)-F_A(\psi)
+=
+-D(\psi).
+\]
+Hence also
+\[
+D\!\left(\psi+\frac{3\pi}{2}\right)
+=
+D\!\left(\psi+\frac{\pi}{2}+\pi\right)
+=
+-D\!\left(\psi+\frac{\pi}{2}\right).
+\]
+
+We now split the interval \([0,2\pi)\) into the four quarter-turn sectors. 
+Using parts \textbf{(a)} and \textbf{(b)},
+\[
+\int_0^{2\pi} C(\psi)^2\rho(\psi)\,d\psi
+=
+\sum_{k=0}^{3}
+\int_0^{\pi/2}
+C\!\left(\psi+\frac{k\pi}{2}\right)^2
+\rho\!\left(\psi+\frac{k\pi}{2}\right)\,d\psi
+=
+4\int_0^{\pi/2} C(\psi)^2\rho(\psi)\,d\psi.
+\]
+Similarly, using part \textbf{(a)},
+\[
+\int_0^{2\pi} D(\psi)^2\rho(\psi)\,d\psi
+=
+\sum_{k=0}^{3}
+\int_0^{\pi/2}
+D\!\left(\psi+\frac{k\pi}{2}\right)^2
+\rho\!\left(\psi+\frac{k\pi}{2}\right)\,d\psi
+\]
+\[
+=
+\int_0^{\pi/2}
+\left[
+D(\psi)^2
++
+D\!\left(\psi+\frac{\pi}{2}\right)^2
++
+D(\psi+\pi)^2
++
+D\!\left(\psi+\frac{3\pi}{2}\right)^2
+\right]
+\rho(\psi)\,d\psi
+\]
+\[
+=
+2\int_0^{\pi/2}
+\left[
+D(\psi)^2
++
+D\!\left(\psi+\frac{\pi}{2}\right)^2
+\right]
+\rho(\psi)\,d\psi.
+\]
+
+Substituting these two folded formulas back into the expression for \(I\), and then restoring the \(\theta\)-dependence, we find
+\[
+I
+=
+\int_0^\pi\int_0^{\pi/2}
+\left[
+C(\theta,\psi)^2
+-\frac{1}{2}D(\theta,\psi)^2
+-\frac{1}{2}D\!\left(\theta,\psi+\frac{\pi}{2}\right)^2
+\right]
+\rho(\theta,\psi)\sin\theta\,d\psi\,d\theta.
+\]
+By the definition of \(\Xi\), this is exactly
+\[
+I
+=
+-\int_0^\pi\int_0^{\pi/2}
+\Xi(\theta,\psi)\,\rho(\theta,\psi)\sin\theta\,d\psi\,d\theta.
+\]
+
+This proves \textbf{(a)}, \textbf{(b)}, and \textbf{(c)}.
+```

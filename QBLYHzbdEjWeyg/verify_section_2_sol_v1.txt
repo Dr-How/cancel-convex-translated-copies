@@ -1,0 +1,30 @@
+**Bug report**
+
+1. **Location:**  
+   “*All pointwise identities below are used only where the displayed quantities are defined; this is sufficient for the integral identity, since any exceptional set has surface measure zero.*”
+
+   **Description — Justification Gap:**  
+   This introduces an unspecified exceptional set and asserts, without proof, that it has surface measure zero. It also weakens the claims from pointwise statements to at-best almost-everywhere statements. Parts **(a)** and **(b)** were stated to hold **for all** \((\theta,\psi)\), so this caveat does not establish the claims as stated.
+
+2. **Location:**  
+   “*Because \(F_A=\partial_\psi G_A\) and, by the same definition, \(F_B=\partial_\psi G_B\), we have … hence \(\partial_\psi u = 2\pi(F_A+F_B)=2\pi C\).*”
+
+   **Description — Justification Gap:**  
+   The identity \(F_B=\partial_\psi G_B\) is used here, but it is not one of the stated givens in this subproblem. Without explicitly establishing that relation, the step \(\partial_\psi u=2\pi C\) is unsupported.
+
+3. **Location:**  
+   “*Differentiating the identity
+   \[
+   u\!\left(\theta,\psi+\frac{\pi}{2}\right)=u(\theta,\psi)
+   \]
+   with respect to \(\psi\) yields
+   \[
+   \partial_\psi u\!\left(\theta,\psi+\frac{\pi}{2}\right)
+   =
+   \partial_\psi u(\theta,\psi).
+   \]*”
+
+   **Description — Justification Gap:**  
+   No regularity argument is given to justify differentiating this symmetry identity. This is especially problematic after the proof has already acknowledged possible points where the quantities may be undefined. Thus the derivation of \(C(\theta,\psi+\pi/2)=C(\theta,\psi)\) is incomplete, and the later folding of the \(C^2\)-term in part **(c)** inherits this gap.
+
+Because of these justification gaps, the solution is **not fully correct** under the stated grading standard.

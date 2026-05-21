@@ -1,0 +1,35 @@
+**Verdict:** The proof structure is **not valid as written**.
+
+### Issues
+
+1. **Main completeness gap: weighted vs. unweighted analysis**
+   - The target Hessian integral is with respect to the **weighted measures** \(d\mu^\pm\), but Subproblem 3 is organized around ordinary Fourier/Parseval calculations for the **unweighted** \(\phi\)-integral.
+   - So the outline does not actually reduce the original problem to the quantities computed in Subproblem 2.
+
+2. **Missing dependency: no lemma justifying the passage to \(d\mu^\pm\)**
+   - Subproblem 3 says one should first prove an inequality with \(\sin\theta\,d\theta\), and then “incorporate bounds on the oscillation of the density” to get the result for \(d\mu^\pm\).
+   - That is a new, essential lemma, but it is not one of the listed subproblems. So Subproblem 3 depends on an unproved ingredient.
+
+3. **Fourier decomposition is not matched to the actual weighted inner product**
+   - Because \(\mu^\pm\) is only \(C_4\)-symmetric in \(\phi\), not \(\phi\)-independent, ordinary Fourier modes are **not fully diagonal** for the weighted integral.
+   - Thus the slogan “the \(m=1\) odd mode dominates the \(m=4\) even mode” is not by itself enough structurally; a weighted Fourier analysis or another argument is still needed.
+
+4. **The hardest global step is not really decomposed**
+   - Subproblem 3 mixes:
+     - a local/series argument near singularities, and
+     - the global strict inequality on the whole sphere.
+   - There is no separate subproblem controlling the complement of the singular regions or handling possible weighted mode-coupling. So the key global estimate is still bundled into one unresolved step.
+
+5. **If the intended conclusion is positivity on all of \(T_{2g}\), one final step is missing**
+   - The outline proves negativity for one generating deformation, but does not explicitly include the representation-theoretic step:
+     - \( \text{Hess} \) is \(G\)-invariant,
+     - \(T_{2g}\) is irreducible,
+     - therefore it suffices to test one nonzero vector.
+   - If that equivalence is being used implicitly, it should be made explicit.
+
+### Minor note on relevance
+- Subproblem 1 is a good and relevant first reduction.
+- Subproblem 2 is potentially useful.
+- But Subproblem 3 tries to prove a **stronger statement than necessary** (separately for each \(\mu^\pm\), rather than just for \(\mu^+ + \mu^-\)), which makes the hardest part harder without being needed.
+
+So the outline has a promising first step, but **the central weighted inequality is not properly decomposed or supported by the stated dependencies**.

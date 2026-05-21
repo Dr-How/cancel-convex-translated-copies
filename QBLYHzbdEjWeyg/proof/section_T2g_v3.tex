@@ -1,0 +1,127 @@
+% T2g positive definiteness — Version 3 (new cube orientation)
+%
+% BACKGROUND (from problem.tex):
+%   J_8 = I^+ x I^-,  I^pm = int exp(pm u) dA,  u = 2pi sum_i G_i.
+%   At the cubic configuration the cube is a critical point.
+%   Hess log J_8 (v,v) = Hess log I^+ + Hess log I^-.
+%
+%   For a "partitioned Killing field" deformation with A/B partition (+partial_phi / -partial_phi):
+%     Hess log I^pm (v,v) = -16pi^2 int partial_phi G_A  partial_phi G_B  dmu^pm,
+%   where G_A = sum_{i in A} G_i, G_B = sum_{j in B} G_j.
+%   So Hess log J_8 = -16pi^2 int partial_phi G_A partial_phi G_B d(mu^+ + mu^-).
+%   Positive definiteness <=> this integral is negative.
+%
+% CUBE ORIENTATION FOR T2g (user suggestion):
+%   Theta0 = arccos(sqrt(2/3)),   t = arcsin(1/sqrt(3)) = pi/2 - Theta0.
+%   In (theta, phi) spherical coordinates:
+%     A-vertices (xz-plane, y=0):
+%       p1 = (Theta0, 0),   p2 = (Theta0, pi),
+%       p3 = (pi-Theta0,0), p4 = (pi-Theta0, pi).
+%     B-vertices (equatorial, z=0):
+%       p5 = (pi/2, pi/2-t),   p6 = (pi/2, pi/2+t),
+%       p7 = (pi/2,-pi/2-t),   p8 = (pi/2,-pi/2+t).
+%   In Cartesian (X,Y,Z) with X^2+Y^2+Z^2=1, a=sqrt(2/3), b=1/sqrt(3):
+%     A: (+-b,0,+-a) (all four sign combinations with Y=0).
+%     B: (+-b,+-a,0) (all four sign combinations with Z=0).
+%
+%   Key symmetry: R_x = quarter-turn about X-axis, R_x(X,Y,Z)=(X,Z,-Y).
+%     R_x maps A-vertices to B-vertices bijectively (e.g. R_x(b,0,a)=(b,a,0)).
+%   The T2g generator is +partial_phi on A and -partial_phi on B.
+%
+% EXPLICIT FORMULAS (derived from G_i = -(1/2pi) log sin(d(p,p_i)/2)):
+%
+%   G_A(X,Y,Z) = -(1/4pi) log P_A(X,Z) + C_A,  depends only on X,Z.
+%   G_B(X,Y,Z) = -(1/4pi) log P_B(X,Y) + C_B,  depends only on X,Y.
+%
+%   P_A(X,Z) = ((1-aZ)^2 - b^2 X^2)((1+aZ)^2 - b^2 X^2)
+%             = (1 - a^2 Z^2)^2 - 2b^2 X^2(1+a^2Z^2) + b^4 X^4
+%   P_B(X,Y) = P_A(X,Y)   [same formula with Z -> Y]
+%   Both satisfy P_A, P_B > 0 away from {p1,...,p8}.
+%   Factored form (using X^2+Y^2+Z^2=1):
+%     P_A = ((Z-a)^2 + b^2 Y^2)((Z+a)^2 + b^2 Y^2)  -- manifestly positive.
+%
+%   partial_phi = X partial_Y - Y partial_X  (Killing field, rotation around Z-axis).
+%   Since G_A depends only on X,Z:  partial_Y G_A = 0, so
+%     partial_phi G_A = -Y partial_X G_A = -XY(3+2Z^2-X^2)/(9pi P_A(X,Z)).
+%   Since G_B depends only on X,Y:
+%     partial_phi G_B = X partial_Y G_B - Y partial_X G_B = XY(1+X^2-2Y^2)/(3pi P_B(X,Y)).
+%   [These formulas hold for the SUMS G_A, G_B.]
+%
+%   COMBINED INTEGRAND:
+%     partial_phi G_A * partial_phi G_B
+%       = -X^2 Y^2 (3+2Z^2-X^2)(1+X^2-2Y^2) / (27 pi^2 P_A(X,Z) P_B(X,Y)).
+%
+%   Sign analysis:
+%     Factor (3+2Z^2-X^2) = 2 + Y^2 + 3Z^2 > 0 always (on S^2, X^2+Y^2+Z^2=1).
+%     Factor (1+X^2-2Y^2): positive when Y^2 < (1+X^2)/2, i.e., 3X^2+2Z^2 > 1.
+%       - At A-branch-points (Y=0, Z=+-a, X=+-b): 1+X^2-2Y^2 = 4/3 > 0. (Integrand negative.)
+%       - At B-branch-points (Z=0, Y=+-a, X=+-b): 1+X^2-2Y^2 = 0.    (Integrand vanishes.)
+%       - Sign-indefinite in general: at (X,Y,Z)=(0,0,1), 1+X^2-2Y^2=1>0 but weight is finite.
+%
+% SYMMETRY REDUCTION (user insight):
+%   By the symmetry group of the A/B partition acting on the cube,
+%   all A-B edge pairs are equivalent and all A-B face-diagonal pairs are equivalent:
+%     edge pairs: (1,5),(1,8),(2,6),(2,7),(3,5),(3,8),(4,6),(4,7)  [8 pairs, all = H_edge = H_{15}]
+%     face-diag pairs: (1,6),(1,7),(2,5),(2,8),(3,6),(3,7),(4,5),(4,8) [8 pairs, all = H_face = H_{25}]
+%   So: int partial_phi G_A * partial_phi G_B d(mu^+ + mu^-)
+%       = sum_{i in A, j in B} H_{ij} = 8*(H_{15} + H_{25}).
+%   Therefore: Hess_T2g = -16pi^2 * 8 * (H_{15} + H_{25}).
+%   Positive definiteness <=> H_{15} + H_{25} < 0.
+%
+%   Equivalently, writing f = partial_phi G_1 (single vertex p1=(Theta0,0)):
+%     H_{15} = int (partial_phi G_1)(partial_phi G_5) d(mu^++mu^-)
+%     H_{25} = int (partial_phi G_2)(partial_phi G_5) d(mu^++mu^-)
+%           = int (partial_phi G_1)(theta,phi-pi) * (partial_phi G_5)(theta,phi) d(mu^++mu^-)
+%   since G_2(theta,phi) = G_1(theta,phi-pi).
+%
+% R_x SYMMETRY:
+%   Since R_x maps A->B and B->A, and G_A o R_x^{-1} = G_B, G_B o R_x^{-1} = G_A,
+%   and dmu is R_x-invariant:
+%   Under the substitution (X,Y,Z) -> R_x^{-1}(X,Y,Z) = (X,-Z,Y):
+%     int partial_phi G_A * partial_phi G_B d(mu^++mu^-)
+%       = int -X^2 Z^2 (3+2Y^2-X^2)(1+X^2-2Z^2) / (27pi^2 P_A P_B) * w dA.
+%   Adding the two expressions:
+%     2*[the integral] = int -X^2 [Y^2(3+2Z^2-X^2)(1+X^2-2Y^2)
+%                                   + Z^2(3+2Y^2-X^2)(1+X^2-2Z^2)]
+%                              / (27pi^2 P_A P_B) * w dA.
+%
+% EXISTING LEMMA (problem.tex, already proved):
+%   Let f(theta,phi) be odd in phi, negative and strictly monotonically increasing in phi on (0,pi).
+%   Let rho be a positive function on S^2 with
+%     rho(theta,phi) = rho(theta,phi+pi/2) = rho(pi-theta,phi).
+%   Then:
+%     K_1 = int f(theta,phi) f(theta,phi-pi/2) rho dA < 0,
+%     K_2 = int f(theta,phi) f(pi-theta,phi-pi/2) rho dA < 0,
+%     K_1 < K_2 < 0  (if f(theta,phi)-f(pi-theta,phi) is also negative and increasing in phi on (0,pi)).
+%
+% TASK: Prove Hess_T2g > 0, i.e., H_{15} + H_{25} < 0,
+%   using the explicit formulas above, the Lemma, and whatever additional tools are needed.
+%
+%   Possible approaches:
+%   (A) Direct sign argument: Show Y^2(3+2Z^2-X^2)(1+X^2-2Y^2)+Z^2(3+2Y^2-X^2)(1+X^2-2Z^2)>0
+%       for (X,Y,Z) in the support of the measure w dA. (Pointwise: fails at (X=0,Y=0,Z=1).)
+%       But may hold as a weighted inequality using the weight concentrating near branch points.
+%   (B) Reduce to the Lemma: Express H_{15}+H_{25} in terms of K_1 or K_2 type integrals.
+%       Note that partial_phi G_1(theta,phi) satisfies the Lemma hypotheses for f:
+%       - Odd in phi: f(theta,-phi) = -f(theta,phi). [Clear from formula: Y -> -Y, f -> -f.]
+%       - Sign: f < 0 for phi in (0,pi). [Since X=sin(theta)cos(phi), Y=sin(theta)sin(phi),
+%         for phi in (0,pi), Y>0. And partial_phi G_1 proportional to -Y * (positive), so f < 0.]
+%       - Monotone in phi on (0,pi)? [Needs verification.]
+%       The weight w = d(mu^++mu^-)/dA satisfies:
+%         - w > 0 everywhere,
+%         - w(theta,phi+pi/2) = w(theta,phi): because the cube has 4-fold symmetry under pi/2-rotations,
+%         - w(pi-theta,phi) = w(theta,phi): equatorial symmetry.
+%   (C) Numerical verification + analytic structure: Use the explicit formulas to numerically
+%       verify the sign, then use monotonicity/convexity arguments to prove it rigorously.
+%   (D) Use the R_x symmetry more cleverly: The symmetrized form
+%       (A_1+A_2)/2 where A_1 = Y^2*(3+2Z^2-X^2)*(1+X^2-2Y^2) and A_2 = Z^2*(3+2Y^2-X^2)*(1+X^2-2Z^2)
+%       may be shown to integrate positively against the specific Weierstrass weight.
+%
+% Note on weight w:
+%   w dA = (exp(u)+exp(-u)) dA / (I^+ + I^-)
+%   where exp(u) proportional to (P_A * P_B)^{-1/2} near branch points,
+%   exp(-u) proportional to (P_A * P_B)^{1/2}.
+%   Near A-branch-points: exp(u) >> exp(-u), and integrand (partial_phi G_A)(partial_phi G_B) is negative.
+%   Near B-branch-points: integrand vanishes (factor 1+X^2-2Y^2 -> 0).
+%   This strongly suggests the integral is negative, dominated by A-branch-point contributions.
+\end{document}

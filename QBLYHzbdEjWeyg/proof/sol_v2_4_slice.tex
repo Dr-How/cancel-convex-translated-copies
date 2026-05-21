@@ -1,0 +1,259 @@
+\[
+\textbf{Proof.}
+\]
+
+Fix \(x\in(0,1)\). Throughout, \(F_x\) and \(F_\psi\) denote the partial derivatives of \(F\) with respect to its first and second arguments.
+
+For Part \(B\), it is convenient to suppress the fixed \(x\)-variable and write
+\[
+F_x(\psi):=F_x(x,\psi),\qquad F_\psi(\psi):=F_\psi(x,\psi),\qquad w(\psi):=w(x,\psi).
+\]
+
+From the assumptions
+\[
+F(x,-\psi)=F(x,\psi),\qquad F(x,\psi+\pi)=F(x,\psi),
+\]
+we may differentiate to obtain
+\[
+F_x(-\psi)=F_x(\psi),\qquad F_x(\psi+\pi)=F_x(\psi),
+\]
+and
+\[
+F_\psi(-\psi)=-F_\psi(\psi),\qquad F_\psi(\psi+\pi)=F_\psi(\psi).
+\]
+In particular,
+\[
+F_x\!\left(\psi+\frac{\pi}{2}\right)=F_x\!\left(\psi-\frac{\pi}{2}\right),
+\qquad
+F_\psi\!\left(\psi+\frac{\pi}{2}\right)=F_\psi\!\left(\psi-\frac{\pi}{2}\right),
+\]
+because adding or subtracting \(\pi\) does not change either derivative. Also,
+\[
+w\!\left(\psi+\frac{\pi}{2}\right)=w(\psi),
+\]
+so \(w\) is also \(2\pi\)-periodic.
+
+---
+
+### Part \(A\)
+
+By \(F(x,\psi)=G_A(q(x,\psi))\) and the coordinate formula from \(SP2(iv)\),
+\[
+\partial_\phi
+=
+-\sqrt{1-x^2}\sin\psi\,\partial_x
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,\partial_\psi,
+\]
+we get
+\[
+\begin{aligned}
+(\partial_\phi G_A)(q(x,\psi))
+&=
+\left(
+-\sqrt{1-x^2}\sin\psi\,\partial_x
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,\partial_\psi
+\right)F(x,\psi)\\
+&=
+-\sqrt{1-x^2}\sin\psi\,F_x(x,\psi)
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,F_\psi(x,\psi).
+\end{aligned}
+\]
+
+For \(G_B\), we use
+\[
+G_B(q(x,\psi))=F\!\left(x,\psi-\frac{\pi}{2}\right).
+\]
+Hence
+\[
+\begin{aligned}
+(\partial_\phi G_B)(q(x,\psi))
+&=
+\left(
+-\sqrt{1-x^2}\sin\psi\,\partial_x
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,\partial_\psi
+\right)
+F\!\left(x,\psi-\frac{\pi}{2}\right)\\
+&=
+-\sqrt{1-x^2}\sin\psi\,F_x\!\left(x,\psi-\frac{\pi}{2}\right)
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,F_\psi\!\left(x,\psi-\frac{\pi}{2}\right),
+\end{aligned}
+\]
+since
+\[
+\partial_x F\!\left(x,\psi-\frac{\pi}{2}\right)=F_x\!\left(x,\psi-\frac{\pi}{2}\right),
+\qquad
+\partial_\psi F\!\left(x,\psi-\frac{\pi}{2}\right)=F_\psi\!\left(x,\psi-\frac{\pi}{2}\right).
+\]
+
+This is exactly the desired expansion.
+
+---
+
+### Part \(B\)
+
+Let
+\[
+I_1:=\int_0^{2\pi}\sin\psi\cos\psi\,F_x(\psi)\,F_\psi\!\left(\psi-\frac{\pi}{2}\right)\,w(\psi)\,d\psi,
+\]
+and
+\[
+I_2:=\int_0^{2\pi}\sin\psi\cos\psi\,F_\psi(\psi)\,F_x\!\left(\psi-\frac{\pi}{2}\right)\,w(\psi)\,d\psi.
+\]
+Then the cross-term integral to be shown equal to \(0\) is exactly \(I_1+I_2\).
+
+We compute \(I_1\) by the change of variables
+\[
+\psi=u+\frac{\pi}{2}.
+\]
+Then \(d\psi=du\), and
+\[
+\psi-\frac{\pi}{2}=u.
+\]
+So
+\[
+\begin{aligned}
+I_1
+&=
+\int_{\pi/2}^{5\pi/2}
+\sin\!\left(u+\frac{\pi}{2}\right)\cos\!\left(u+\frac{\pi}{2}\right)
+F_x\!\left(u+\frac{\pi}{2}\right)
+F_\psi(u)\,
+w\!\left(u+\frac{\pi}{2}\right)\,du.
+\end{aligned}
+\]
+Using
+\[
+\sin\!\left(u+\frac{\pi}{2}\right)=\cos u,\qquad
+\cos\!\left(u+\frac{\pi}{2}\right)=-\sin u,
+\qquad
+w\!\left(u+\frac{\pi}{2}\right)=w(u),
+\]
+this becomes
+\[
+I_1
+=
+-\int_{\pi/2}^{5\pi/2}
+\sin u\cos u\,
+F_x\!\left(u+\frac{\pi}{2}\right)
+F_\psi(u)\,
+w(u)\,du.
+\]
+The integrand is \(2\pi\)-periodic in \(u\), so we may replace the interval \([\pi/2,5\pi/2]\) by \([0,2\pi]\):
+\[
+I_1
+=
+-\int_0^{2\pi}
+\sin u\cos u\,
+F_x\!\left(u+\frac{\pi}{2}\right)
+F_\psi(u)\,
+w(u)\,du.
+\]
+Now use the \(\pi\)-periodicity of \(F_x\):
+\[
+F_x\!\left(u+\frac{\pi}{2}\right)=F_x\!\left(u-\frac{\pi}{2}\right).
+\]
+Therefore
+\[
+\begin{aligned}
+I_1
+&=
+-\int_0^{2\pi}
+\sin u\cos u\,
+F_\psi(u)\,
+F_x\!\left(u-\frac{\pi}{2}\right)
+w(u)\,du\\
+&=-I_2.
+\end{aligned}
+\]
+Hence
+\[
+I_1+I_2=0.
+\]
+
+This is exactly
+\[
+\int_0^{2\pi}\sin\psi\cos\psi
+\left[
+F_x(x,\psi)\,F_\psi\!\left(x,\psi-\frac{\pi}{2}\right)
++
+F_\psi(x,\psi)\,F_x\!\left(x,\psi-\frac{\pi}{2}\right)
+\right]
+w(x,\psi)\,d\psi
+=0.
+\]
+
+---
+
+### Part \(C\)
+
+Now multiply the two formulas from Part \(A\). Using the shorthand from Part \(B\),
+\[
+\begin{aligned}
+(\partial_\phi G_A)(q(x,\psi))(\partial_\phi G_B)(q(x,\psi))
+&=
+\Bigl(
+-\sqrt{1-x^2}\sin\psi\,F_x(\psi)
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,F_\psi(\psi)
+\Bigr)\\
+&\quad\times
+\Bigl(
+-\sqrt{1-x^2}\sin\psi\,F_x\!\left(\psi-\frac{\pi}{2}\right)
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,F_\psi\!\left(\psi-\frac{\pi}{2}\right)
+\Bigr).
+\end{aligned}
+\]
+Expanding gives
+\[
+\begin{aligned}
+(\partial_\phi G_A)(q(x,\psi))(\partial_\phi G_B)(q(x,\psi))
+&=
+(1-x^2)\sin^2\psi\,F_x(\psi)\,F_x\!\left(\psi-\frac{\pi}{2}\right)\\
+&\quad
+-x\sin\psi\cos\psi
+\left[
+F_x(\psi)\,F_\psi\!\left(\psi-\frac{\pi}{2}\right)
++
+F_\psi(\psi)\,F_x\!\left(\psi-\frac{\pi}{2}\right)
+\right]\\
+&\quad
++\frac{x^2\cos^2\psi}{1-x^2}\,
+F_\psi(\psi)\,F_\psi\!\left(\psi-\frac{\pi}{2}\right).
+\end{aligned}
+\]
+Integrating against \(w(\psi)\,d\psi\) over \([0,2\pi]\), the middle term vanishes by Part \(B\). Therefore
+\[
+\begin{aligned}
+J(x)
+&=
+\int_0^{2\pi}
+\Biggl[
+(1-x^2)\sin^2\psi\,F_x(\psi)\,F_x\!\left(\psi-\frac{\pi}{2}\right)
++
+\frac{x^2\cos^2\psi}{1-x^2}\,
+F_\psi(\psi)\,F_\psi\!\left(\psi-\frac{\pi}{2}\right)
+\Biggr]
+w(\psi)\,d\psi.
+\end{aligned}
+\]
+Restoring the suppressed \(x\)-dependence, this is
+\[
+J(x)
+=
+\int_0^{2\pi}
+\left[
+(1-x^2)\sin^2\psi\,F_x(x,\psi)\,F_x\!\left(x,\psi-\frac{\pi}{2}\right)
++
+\frac{x^2\cos^2\psi}{1-x^2}\,
+F_\psi(x,\psi)\,F_\psi\!\left(x,\psi-\frac{\pi}{2}\right)
+\right]
+w(x,\psi)\,d\psi.
+\]
+
+This proves Part \(C\), and hence all three parts.

@@ -1,0 +1,59 @@
+**Bug report:** The solution is **not correct under the stated grading standard**. I did not find a decisive calculation/logical contradiction, but there are multiple **Justification Gaps**.
+
+1. **Location:**  
+   “Differentiating twice at \(p\) gives
+   \[
+   Q(gx,gy)=Q(x,y)\qquad (g\in G,\;x,y\in V).
+   \]”
+
+   **Description:** **Justification Gap.**  
+   This step uses a Hessian transformation rule without stating it or verifying its hypotheses. In particular, the proof does not explain why differentiating \((\log J_8)\circ g=\log J_8\) at the fixed point \(p\) yields exactly \(Q(gx,gy)=Q(x,y)\) on the tangent representation \(V\). As written, the \(G\)-equivariance of \(Q\) is asserted rather than justified.
+
+2. **Location:**  
+   “Then \(\langle\cdot,\cdot\rangle\) is positive definite and \(G\)-invariant.”
+
+   **Description:** **Justification Gap.**  
+   No proof is given for either claim. To show positive definiteness, one must use that each \(g\) acts invertibly, so \(gx\neq 0\) when \(x\neq 0\). To show \(G\)-invariance, one must compute \(\langle hx,hy\rangle\) and reindex the sum using that multiplication by \(h\) permutes the finite group \(G\).
+
+3. **Location:**  
+   “Hence there is a unique linear map \(L:W\to W\) such that
+   \[
+   Q(x,y)=\langle Lx,y\rangle\qquad (x,y\in W).
+   \]”
+
+   **Description:** **Justification Gap.**  
+   This invokes the finite-dimensional Riesz representation theorem / the identification \(W\simeq W^*\) induced by the inner product, but that theorem is not stated or justified.
+
+4. **Location:**  
+   The computation
+   \[
+   \langle L(gx),gy\rangle
+   =
+   Q(gx,gy)
+   =
+   Q(x,y)
+   =
+   \langle Lx,y\rangle
+   =
+   \langle gLx,gy\rangle,
+   \]
+   followed by “so \(L(gx)=gLx\).”
+
+   **Description:** **Justification Gap.**  
+   The conclusion does not formally follow from the displayed equality alone. One must explicitly use that \(g\) is invertible, so \(gy\) ranges over all vectors in \(W\), and then use nondegeneracy of the inner product to deduce \(L(gx)=gLx\).
+
+5. **Location:**  
+   Commented citation:  
+   “see, e.g., Proposition \(5.3(a)\) in Ziller's notes.”
+
+   **Description:** **Justification Gap.**  
+   The linked Ziller PDF does not verify this citation as written: “5.3” is the section title “Representations of semisimple Lie algebras,” not an identifiable proposition supporting the averaging argument. So the external citation is incorrect/unverifiable in the supplied form. ([www2.math.upenn.edu](https://www2.math.upenn.edu/~wziller/math650/LieGroupsReps.pdf))
+
+6. **Location:**  
+   Commented citation:  
+   “see Lemma \(5.1(c)\) in Ziller's notes”
+
+   **Description:** **Justification Gap.**  
+   In the linked notes, Lemma 5.1 only has parts (a) and (b); there is no part (c). Thus this external citation is incorrect. ([www2.math.upenn.edu](https://www2.math.upenn.edu/~wziller/math650/LieGroupsReps.pdf))
+
+**Verdict:** The proof is **not fully justified**; therefore, under the stated rules, it is **not correct as written**.

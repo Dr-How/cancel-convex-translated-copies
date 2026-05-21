@@ -1,0 +1,37 @@
+**Bug report**
+
+The solution is **not correct as a complete proof**. I found the following issues:
+
+1. **Location:**  
+   > “For \((3)\), the excerpt you gave does **not** define the measures \(\mu^\pm\), so a completely rigorous proof … is impossible … I will prove \((1)\) and \((2)\) completely…”  
+   > …  
+   > “If you send that definition, I can complete \((3)\) in the same style.”
+
+   **Description:** **Critical Error** — Part **(3)** is not proved. The submission explicitly stops short of proving the required statement about  
+   \[
+   w=\frac{d(\mu^++\mu^-)}{dA_{\mathrm{sph}}}
+   \]
+   and only gives auxiliary observations about \(P_A,P_B,G_A,G_B\). That does not establish either the **strict positivity** or the **\(R_x\)-invariance** of \(w\).
+
+2. **Location:**  
+   > “Since both \(p\) and \(q\) are unit vectors and \(q\neq p\), one has \(p\cdot q<1\), hence \(1-p\cdot q>0\).”
+
+   **Description:** **Justification Gap** — The strict inequality \(p\cdot q<1\) is used without explicit justification. This requires a stated argument (for example, Cauchy–Schwarz together with the equality case, or an equivalent computation). The proof relies on this step to justify that the logarithms are well-defined and later that \(P_A(q),P_B(q)>0\).
+
+3. **Location:**  
+   > “Write the Green function in the form
+   > \[
+   > G_p(q)=-\frac1{4\pi}\log(1-p\cdot q)+c_0,
+   > \]
+   > where \(c_0\) is the fixed additive constant coming from the chosen normalization.”
+
+   **Description:** **Justification Gap** — The problem statement only gives \(G_p(q)=-(1/(4\pi))\log(1-p\cdot q)+\text{const}\). The solution assumes, without establishing it, that there is a **single** additive constant \(c_0\) independent of the pole \(p\). This matters later when the argument compares \(G_A\) and \(G_B\) via their constants.
+
+4. **Location:**  
+   > “and similarly
+   > \[
+   > P_B(R_x q)=P_A(q).
+   > \]
+   > Hence \(R_x\) swaps the \(A\)- and \(B\)-polynomials.”
+
+   **Description:** **Justification Gap** — The second identity is asserted with “similarly” but not actually shown. Under the stated grading rules, this is not a complete justification for the claim that \(R_x\) swaps the two polynomials.

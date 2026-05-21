@@ -1,0 +1,97 @@
+% Subproblem 3 (HARD): Prove Xi >= 0 on the fundamental sector
+%
+% CONTEXT: This is the core algebraic step in the proof that Hess_p log J_8 > 0 on T_{2g}.
+% Working directory: /data/projects/3eacb340-027e-4b71-8de4-67574ba54ea2/QBLYHzbdEjWeyg/proof/
+%
+% GIVEN (from Subproblems 1-2):
+%   - x = sin(theta)cos(psi), y = sin(theta)sin(psi), z = cos(theta) with x^2+y^2+z^2=1.
+%   - C(theta,psi) = (1/(4*pi*sqrt(3))) * sum_{eps in {+/-1}^3}
+%       (eps_2 * x - eps_1 * y) / (1 - (eps_1*x + eps_2*y + eps_3*z)/sqrt(3)).
+%   - D(theta,psi) = (1/(4*pi*sqrt(3))) * sum_{eps in {+/-1}^3}
+%       eps_1*eps_3 * (eps_2*x - eps_1*y) / (1 - (eps_1*x + eps_2*y + eps_3*z)/sqrt(3)).
+%   - Xi(theta,psi) = (1/2)*D(theta,psi)^2 + (1/2)*D(theta,psi+pi/2)^2 - C(theta,psi)^2.
+%   - In the fundamental sector: x > 0, y > 0 (i.e., psi in (0, pi/2)) and theta in (0,pi),
+%     so z can be anything in (-1,1).
+%   - Note: D(theta, psi+pi/2) is D evaluated at the quarter-turn-rotated point, i.e., at
+%     (x', y') = (-y, x) and z' = z (since psi->psi+pi/2 sends cos(psi)->-sin(psi), sin(psi)->cos(psi)).
+%
+% STATEMENT TO PROVE:
+%
+% For (x,y,z) with x > 0, y > 0, x^2+y^2+z^2=1, and away from the cube vertices
+% (i.e., (x,y,z) != q_eps for any eps in {+/-1}^3), we have:
+%
+%   Xi(theta,psi) >= 0.
+%
+% Moreover, Xi is strictly positive on a set of positive measure in this sector.
+%
+% PROOF STRATEGY:
+%
+% Step 1: Compute C and D explicitly.
+%   In the fundamental sector, the 8-term sums for C and D simplify.
+%   The sum for C is over all 8 eps, while D has the eps_1*eps_3 sign factor.
+%   Group the terms by the sign of (eps_1, eps_3):
+%     - eps_1*eps_3 = +1: (eps_1,eps_3) in {(+,+),(-,-)}  -- these terms get +1 in D
+%     - eps_1*eps_3 = -1: (eps_1,eps_3) in {(+,-),(-,+)}  -- these terms get -1 in D
+%
+%   C = P + Q  where P = sum_{eps_1*eps_3=+1} ... and Q = sum_{eps_1*eps_3=-1} ...
+%   D = P - Q.
+%
+% Step 2: Compute D(theta, psi+pi/2).
+%   Under psi -> psi+pi/2: x -> -y, y -> x, z -> z.
+%   So D(theta,psi+pi/2) = (1/(4*pi*sqrt(3))) * sum_{eps}
+%     eps_1*eps_3 * (eps_2*(-y) - eps_1*x) / (1 - (eps_1*(-y) + eps_2*x + eps_3*z)/sqrt(3)).
+%   After re-labeling (eps_1,eps_2) -> (-eps_2, eps_1), etc., simplify this.
+%
+% Step 3: Write Xi = (1/2)*D^2 + (1/2)*D(psi+pi/2)^2 - C^2 and clear denominators.
+%   Let the common denominator be:
+%     Delta = product_{eps in {+/-1}^3} (1 - (eps_1*x + eps_2*y + eps_3*z)/sqrt(3)).
+%   Multiply through by Delta^2 to get a polynomial inequality.
+%
+% Step 4: Prove the polynomial is nonneg.
+%   Look for an algebraic identity of the form:
+%     Delta^2 * Xi = (some sum of squares) or (nonneg explicit expression).
+%   This can be discovered using a computer algebra system (SageMath, Mathematica, etc.),
+%   but the final written proof should record the exact factorization.
+%
+%   Key simplification: In the fundamental sector, x > 0, y > 0.
+%   The denominators 1 - (eps_1*x + eps_2*y + eps_3*z)/sqrt(3) are all positive
+%   (since |eps_1*x + eps_2*y + eps_3*z| <= sqrt(x^2+y^2+z^2) = 1 < sqrt(3) < sqrt(3),
+%    actually the denominator is 1 - (z.q)/|q|... wait, |q| = 1 already for q on S^2,
+%    so z.q in [-1,1], meaning 1 - z.q in [0,2], with 0 only when z=q).
+%   So denominators are nonneg, vanishing only at cube vertices.
+%
+% Alternative approach (if direct factorization is hard):
+%   Use the Cauchy-Schwarz inequality. Note that:
+%     C^2 = ((P+Q))^2 <= 2(P^2 + Q^2) (not quite what we need)
+%   Or use the AM-GM idea:
+%     (1/2)*D^2 + (1/2)*(D')^2 >= (D^2 + (D')^2)/2 >= (something involving C^2)?
+%
+%   Better: think of D and D(psi+pi/2) as two quarter-turn phases of the same function.
+%   C is the sum C = (F_A+F_B) which is the "even" part under R_pi.
+%   The key inequality is (D^2 + D'^2)/2 >= C^2 where D' = D(psi+pi/2).
+%   This is NOT a simple AM-GM -- it requires using the specific symmetry of the cube.
+%
+%   Fourier approach: The cube has C_4 symmetry. Decompose into Fourier modes in psi.
+%   The C_4 symmetry means C has only modes m = 0, 4, 8,... in psi.
+%   D has modes m = 2, 6, 10,... (the "m=2 mod 4" modes).
+%   Then:
+%     D^2 + D(psi+pi/2)^2 = D^2 + D*e^{i*2*(pi/2)} ...
+%   Actually since D has modes m = 2 mod 4:
+%     D(psi+pi/2) = sum_m d_m e^{im(psi+pi/2)} = sum_m d_m e^{ipi*m/2} e^{impsi}.
+%   For m = 2 mod 4: e^{ipi*m/2} = e^{ipi} = -1 (if m=2), or e^{3i*pi/2} = -i (if m=6)...
+%   Hmm this needs more careful analysis.
+%
+%   Key insight from the brainstorm: The inequality Xi >= 0 should follow from
+%   an algebraic identity after substituting the explicit rational formulas.
+%   The singular terms (near the cube vertices) cancel in Xi, making it integrable.
+%   The residual, after clearing singularities, should be a manifestly nonneg expression.
+%
+% SPECIFIC TASK:
+%   Please compute C, D, D(psi+pi/2) explicitly as rational functions of (x,y,z)
+%   with x^2+y^2+z^2=1, then compute Delta^2 * Xi and prove it is nonneg.
+%   Use a CAS if needed to find the factorization, but record the exact algebraic identity.
+%
+% DELIVERABLE: A clean LaTeX proof that Xi >= 0 in the fundamental sector x>0, y>0,
+% with Xi not identically zero. The output should be a self-contained LaTeX section
+% (no \documentclass) ready for \input{} into the main paper.
+\end{document}

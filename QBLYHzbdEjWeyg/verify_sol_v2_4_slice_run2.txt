@@ -1,0 +1,29 @@
+**Bug report**
+
+1. **Location:**  
+   “We compute \(I_1\) by the change of variables
+   \[
+   \psi=u+\frac{\pi}{2}.
+   \]
+   Then \(d\psi=du\), and
+   \[
+   \psi-\frac{\pi}{2}=u.
+   \]
+   So
+   \[
+   \begin{aligned}
+   I_1
+   &=
+   \int_{\pi/2}^{5\pi/2}
+   \sin\!\left(u+\frac{\pi}{2}\right)\cos\!\left(u+\frac{\pi}{2}\right)
+   F_x\!\left(u+\frac{\pi}{2}\right)
+   F_\psi(u)\,
+   w\!\left(u+\frac{\pi}{2}\right)\,du.
+   \end{aligned}
+   \]”
+
+   **Description:** **Critical Error.**  
+   The bounds are incorrect for the stated substitution. If \(\psi=u+\frac{\pi}{2}\), then \(u=\psi-\frac{\pi}{2}\), so as \(\psi\) runs from \(0\) to \(2\pi\), \(u\) runs from \(-\frac{\pi}{2}\) to \(\frac{3\pi}{2}\), not from \(\frac{\pi}{2}\) to \(\frac{5\pi}{2}\).  
+   Thus the displayed equality does **not** follow from the change of variables as written. To replace the correct interval by \([\frac{\pi}{2},\frac{5\pi}{2}]\), an additional periodicity argument would be needed, but that is not what is stated here. Since the proof of Part \(B\) depends on this step, the argument is not valid as written.
+
+Because of this critical error, the solution is **not correct as written**.

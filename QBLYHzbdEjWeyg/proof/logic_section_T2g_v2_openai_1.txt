@@ -1,0 +1,39 @@
+**Verdict: the proof structure is not fully valid as written.**
+
+It is **close**, and the overall symmetry-based strategy is sensible, but there are a few structural gaps.
+
+### Issues
+
+1. **Gap between Subproblems 4 and 5**
+   - Subproblem 4 rewrites \(J(x)\) as a sum of two shifted-correlation terms involving **different functions** (\(F_x\) and \(F_\psi\)) and **extra factors** \(\sin^2\psi\), \(\cos^2\psi\).
+   - The cited “quarter-shift monotonicity lemma” from the paper appears to apply to a function \(f\) against a \(\pi/2\)-periodic weight, but after Subproblem 4 the effective weights are
+     \[
+     \sin^2\psi\, w(x,\psi),\qquad \cos^2\psi\, w(x,\psi),
+     \]
+     which are **not** \(\pi/2\)-periodic.
+   - So the dependence “Subproblem 5 follows from Subproblems 3–4 + the paper’s lemma” is not justified yet. An **additional reduction lemma** is needed here.
+
+2. **Subproblem 3 gives the wrong type of information for Subproblem 5**
+   - Subproblem 3 proves monotonicity/sign information for \(F\), namely \(F_\psi<0\) and \(F_x>0\) on \((0,\pi/2)\).
+   - But Subproblem 5 needs control of the shifted products
+     \[
+     F_x(\psi)F_x(\psi-\pi/2),\qquad F_\psi(\psi)F_\psi(\psi-\pi/2),
+     \]
+     and the outline does **not** provide the symmetry/monotonicity facts about \(F_x\) and \(F_\psi\) that would make the quarter-shift comparison go through.
+   - So there is a missing intermediate lemma, unless Subproblem 5 is intended to be a completely new standalone result.
+
+3. **Singular-slice / Fubini issue is not explicitly handled**
+   - The Green potentials are singular at the cube vertices, and the slices \(x=\pm 1/\sqrt3\) pass through those singularities.
+   - The plan should explicitly justify that \(J(x)\) is well-defined (possibly as an improper integral), integrable in \(x\), and that the decomposition
+     \[
+     \int_{S^2}\cdots\, dA=\int_{-1}^1\int_0^{2\pi}\cdots\, d\psi\, dx
+     \]
+     is legitimate.
+   - This is a **completeness** gap, though a fixable one.
+
+### Relevance
+- I do **not** see any major redundant or irrelevant subproblems.
+- The problem is not extra lemmas; it is that one crucial bridge is missing.
+
+### Bottom line
+If you add a rigorous intermediate step bridging **Subproblem 4 \(\to\) Subproblem 5** (or replace Subproblem 5 by a lemma precisely tailored to the expression from Subproblem 4), and explicitly handle the singular/Fubini issue, then the structure would be sound.

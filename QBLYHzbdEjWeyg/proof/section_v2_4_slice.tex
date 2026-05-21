@@ -1,0 +1,84 @@
+% Subproblem 4: Reduce the x-slice integral J(x) to a quarter-shift correlator
+%
+% SETUP (from Subproblems 1-3):
+%   q(x,psi) = (x, sqrt(1-x^2)*sin(psi), sqrt(1-x^2)*cos(psi)).
+%   F(x,psi) = G_A(q(x,psi)),   G_B(q(x,psi)) = F(x, psi-pi/2)  [SP2(i)].
+%   dA = dx dpsi, w(x,psi+pi/2) = w(x,psi)  [SP2(ii),(iii)].
+%   partial_phi = -sqrt(1-x^2)*sin(psi)*partial_x + (x*cos(psi)/sqrt(1-x^2))*partial_psi  [SP2(iv)].
+%   F(x,-psi) = F(x,psi) and F(x,psi+pi) = F(x,psi)  [SP3(a),(b)].
+%   F_psi(x,psi) < 0 for psi in (0,pi/2) and x in (0,1)  [SP3(c)].
+%
+% PROBLEM: For x in (0,1), let
+%   J(x) = integral_0^{2pi} (partial_phi G_A)(q(x,psi)) * (partial_phi G_B)(q(x,psi)) * w(x,psi) dpsi.
+%
+% PART A: Expand (partial_phi G_A)*(partial_phi G_B) using the formula from SP2(iv) and show:
+%   (partial_phi G_A)(q(x,psi)) = -sqrt(1-x^2)*sin(psi)*F_x(x,psi) + (x*cos(psi)/sqrt(1-x^2))*F_psi(x,psi),
+%   (partial_phi G_B)(q(x,psi)) = -sqrt(1-x^2)*sin(psi)*F_x(x,psi-pi/2) + (x*cos(psi)/sqrt(1-x^2))*F_psi(x,psi-pi/2).
+%
+% PART B: Show that the cross terms in the product integrate to zero. That is:
+%   integral_0^{2pi} sin(psi)*cos(psi)*[F_x(x,psi)*F_psi(x,psi-pi/2) + F_psi(x,psi)*F_x(x,psi-pi/2)]*w(x,psi) dpsi = 0.
+%
+% PART C: Conclude:
+%   J(x) = integral_0^{2pi} [(1-x^2)*sin^2(psi)*F_x(x,psi)*F_x(x,psi-pi/2)
+%            + (x^2*cos^2(psi)/(1-x^2))*F_psi(x,psi)*F_psi(x,psi-pi/2)] * w(x,psi) dpsi.
+%
+% HINTS FOR PART A:
+%   For G_A: direct application of partial_phi = -sqrt(1-x^2)*sin(psi)*partial_x + (x*cos(psi)/sqrt(1-x^2))*partial_psi
+%   to F(x,psi) gives the first formula.
+%
+%   For G_B: at the point q(x,psi), G_B(q(x,psi)) = F(x,psi-pi/2). The operator partial_phi acts at
+%   q(x,psi) on G_B as a function on S^2. In (x,psi) coordinates:
+%   partial_phi G_B|_{q(x,psi)} = [-sqrt(1-x^2)*sin(psi)*partial_x + (x*cos(psi)/sqrt(1-x^2))*partial_psi] F(x,psi-pi/2)
+%   = -sqrt(1-x^2)*sin(psi)*F_x(x,psi-pi/2) + (x*cos(psi)/sqrt(1-x^2))*F_psi(x,psi-pi/2).
+%   (Here F_psi(x,psi-pi/2) means the psi-derivative of the second argument.)
+%
+% HINTS FOR PART B:
+%   The cross-term integral splits into:
+%   I_1 = integral_0^{2pi} sin(psi)*cos(psi)*F_x(x,psi)*F_psi(x,psi-pi/2)*w(x,psi) dpsi,
+%   I_2 = integral_0^{2pi} sin(psi)*cos(psi)*F_psi(x,psi)*F_x(x,psi-pi/2)*w(x,psi) dpsi.
+%
+%   For I_2: substitute psi -> psi + pi/2. Then:
+%     sin(psi+pi/2) = cos(psi), cos(psi+pi/2) = -sin(psi),
+%     F_psi(x, psi+pi/2) is the psi-shift of F_psi,
+%     F_x(x, psi+pi/2 - pi/2) = F_x(x, psi),
+%     w(x, psi+pi/2) = w(x,psi)  [pi/2-periodicity of w].
+%   So I_2 = integral_0^{2pi} cos(psi)*(-sin(psi))*F_psi(x,psi+pi/2)*F_x(x,psi)*w(x,psi) dpsi
+%           = -integral_0^{2pi} sin(psi)*cos(psi)*F_psi(x,psi+pi/2)*F_x(x,psi)*w(x,psi) dpsi.
+%
+%   For I_1: substitute psi -> psi + pi/2 similarly:
+%   I_1 = integral_0^{2pi} cos(psi)*(-sin(psi))*F_x(x,psi+pi/2)*F_psi(x,psi)*w(x,psi) dpsi
+%       = -integral_0^{2pi} sin(psi)*cos(psi)*F_x(x,psi+pi/2)*F_psi(x,psi)*w(x,psi) dpsi.
+%
+%   Now use that F is even and pi-periodic in psi (SP3(a),(b)), so F_x is also even and pi-periodic,
+%   and F_psi is odd and pi-anti-periodic... Actually F_psi is odd in psi (since F is even) and
+%   pi-periodic (since F is pi-periodic). So F_psi(x,psi+pi/2) = -F_psi(x,-(psi+pi/2))...
+%   This approach requires careful bookkeeping.
+%
+%   Alternative: Note that F is pi-periodic and even, so F_x is pi-periodic and even in psi,
+%   and F_psi is pi-periodic and odd in psi.
+%   Under psi -> -psi: sin*cos -> -sin*cos, F_x -> F_x (even), F_psi(psi-pi/2) -> F_psi(-psi-pi/2) = -F_psi(psi+pi/2)...
+%   Let us check I_1 + I_2 = 0 by showing the integrand is odd under psi -> psi + pi/2 combined with
+%   the pi/2-periodicity of w.
+%
+%   The simplest approach: write the cross-term as
+%   sin(psi)cos(psi)*[F_x*F_psi(psi-pi/2) + F_psi*F_x(psi-pi/2)]
+%   = sin(psi)cos(psi) * partial_psi[F(x,psi)*F_x(x,psi-pi/2)] + correction terms.
+%   This "integration by parts" approach may show the integral is a total derivative.
+%
+%   Actually the cleanest: I_1 + I_2 = integral sin(psi)cos(psi)*partial_psi[F_x(x,psi)*F(x,psi-pi/2)/something]...
+%   Let phi(psi) = F_x(x,psi)*F_x(x,psi-pi/2). Note phi is pi/2-periodic in psi (since both F_x(x,psi)
+%   and F_x(x,psi-pi/2) are pi-periodic, and indeed phi(psi+pi/2) = F_x(x,psi+pi/2)*F_x(x,psi)=phi(psi)).
+%   Then partial_psi phi = F_{x,psi}(x,psi)*F_x(x,psi-pi/2) + F_x(x,psi)*F_{x,psi}(x,psi-pi/2).
+%   This is related to the cross terms if F_x changes role with F_psi... Not quite.
+%
+%   Note: For the main proof we do not actually need Parts B and C. The key sign is established
+%   directly in SP5 via the explicit formula h = -xy(3+2z^2-x^2)/(9pi*P_A). Parts B and C
+%   represent an alternative algebraic path to the same conclusion J(x) < 0.
+%
+% REMARK: This subproblem provides an alternative algebraic proof route. The main proof in SP5
+% directly shows (partial_phi G_A)*(partial_phi G_B) = h(x,psi)*h(x,psi-pi/2) < 0 pointwise
+% for psi in (0,pi/2), without needing to expand into F_x and F_psi components.
+%
+% Please produce a complete LaTeX proof of Parts A, B, C, treating Part B with the substitution
+% argument using pi/2-periodicity of w and the symmetry properties of F from SP3.
+\end{document}

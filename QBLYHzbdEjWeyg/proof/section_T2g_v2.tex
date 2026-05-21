@@ -1,0 +1,187 @@
+% T2g positive definiteness — new cube orientation
+%
+% ============================================================
+% CONTEXT FROM THE PAPER
+% ============================================================
+%
+% We are proving that the Hessian of log J_8 is positive definite on the
+% irreducible representation T_{2g} of the symmetry group of the cube.
+%
+% J_8 = I^+ * I^-, where
+%   I^pm = integral_{S^2} exp(pm u) dA_{sph},
+%   u(z) = 2*pi * sum_{i=1}^{8} G_i(z),
+%   G_i(z) = -(1/(2*pi)) * log(sin(dist(z, p_i)/2))
+% is the Green function on S^2 with
+%   Delta_{FS} G_i = delta_{p_i} - 1/(4*pi).
+%
+% The probability measures mu^pm have densities
+%   rho^pm = exp(pm u) / I^pm.
+%
+% At the cubic critical point, for a deformation v = (v_i) partitioned
+% into two sets A and B with v_i = +partial_phi/sin(theta)|_{p_i} for i in A
+% and v_i = -partial_phi/sin(theta)|_{p_i} for i in B, the Hessian of log J_8 is:
+%
+%   Hess_p log J_8(v, v) = -16*pi^2 * integral_{S^2} (partial_phi G_A)(partial_phi G_B) d(mu^+ + mu^-)
+%
+% where G_A = sum_{i in A} G_i and G_B = sum_{i in B} G_i.
+%
+% For positive definiteness of the Hessian on T_{2g}, we need:
+%
+%   integral_{S^2} (partial_phi G_A)(partial_phi G_B) d(mu^+ + mu^-) < 0.   (*)
+%
+% ============================================================
+% NEW CUBE ORIENTATION
+% ============================================================
+%
+% The user proposes using the following orientation of the cube vertices.
+% In spherical coordinates (theta, phi), with theta_0 = arccos(sqrt(2/3)):
+%
+%   A (first four, rotating in +partial_phi):
+%     p_1 = (theta_0,   0),     p_2 = (theta_0,   pi),
+%     p_3 = (pi-theta_0, 0),    p_4 = (pi-theta_0, pi).
+%
+%   B (last four, rotating in -partial_phi):
+%     p_5 = (pi/2, pi/2 - t),   p_6 = (pi/2, pi/2 + t),
+%     p_7 = (pi/2, -pi/2 - t),  p_8 = (pi/2, -pi/2 + t),
+%
+% where t is determined by the cube structure.
+%
+% CLAIM: The value t = arcsin(1/sqrt(3)) makes these 8 points the vertices
+% of a cube inscribed in S^2.
+%
+% VERIFICATION: In Cartesian coordinates x = sin(theta)cos(phi),
+% y = sin(theta)sin(phi), z = cos(theta):
+%   sin(theta_0) = 1/sqrt(3),  cos(theta_0) = sqrt(2/3).
+%   sin(t) = 1/sqrt(3),        cos(t) = sqrt(2/3).
+%
+%   A-vertices (y = 0):
+%     p_1 = (1/sqrt(3),  0,  sqrt(2/3))
+%     p_2 = (-1/sqrt(3), 0,  sqrt(2/3))
+%     p_3 = (1/sqrt(3),  0, -sqrt(2/3))
+%     p_4 = (-1/sqrt(3), 0, -sqrt(2/3))
+%
+%   B-vertices (z = 0):
+%     p_5 = (1/sqrt(3),   sqrt(2/3),  0)
+%     p_6 = (-1/sqrt(3),  sqrt(2/3),  0)
+%     p_7 = (-1/sqrt(3), -sqrt(2/3),  0)
+%     p_8 = (1/sqrt(3),  -sqrt(2/3),  0)
+%
+% Edge length check: |p_1 - p_2|^2 = 4/3 = (2/sqrt(3))^2. Good.
+% |p_1 - p_5|^2 = (0)^2 + (sqrt(2/3))^2 + (sqrt(2/3))^2 = 4/3. Same length.
+% So yes, these are cube vertices (edge length 2/sqrt(3)).
+%
+% KEY STRUCTURAL OBSERVATIONS:
+%
+% (1) G_A is even in y: since all A-vertices have y=0, G_A(x,y,z) = G_A(x,-y,z).
+%     Therefore partial_y G_A|_{y=0} = 0, and:
+%     partial_phi G_A = -y * partial_x G_A + x * partial_y G_A
+%     At y=0: partial_phi G_A = 0. So partial_phi G_A vanishes at phi=0,pi.
+%
+% (2) G_A is even in x: since A-vertices come in +-x pairs (p_1,p_2) and (p_3,p_4).
+%     Therefore partial_x G_A|_{x=0} = 0, and partial_phi G_A vanishes at phi=pi/2.
+%
+% (3) So partial_phi G_A vanishes at phi = 0, pi/2, pi, 3pi/2.
+%     It is odd in phi (since G_A is even in phi about 0 and about pi/2).
+%
+% (4) G_B is even in y (B-vertices come in +-y pairs).
+%     G_B is even in x (B-vertices come in +-x pairs).
+%     G_B is even in z (all B-vertices have z=0).
+%     So partial_phi G_B also vanishes at phi = 0, pi/2, pi, 3pi/2.
+%     It is also odd in phi.
+%
+% (5) CRUCIAL SIGN OBSERVATION:
+%     For phi in (0, pi/2):
+%
+%     partial_phi G_A < 0: The A-vertices are concentrated near phi=0.
+%     Moving in the +phi direction (away from phi=0) increases the distances
+%     to A-vertices, hence decreases G_A, so partial_phi G_A < 0.
+%
+%     Using G_i(z) = -(1/(4*pi)) * log(1 - z.p_i) + const, we have:
+%     partial_phi G_i = (partial_phi(z.p_i)) / (4*pi*(1 - z.p_i)).
+%     For p_1=(1/sqrt(3), 0, sqrt(2/3)):
+%       z.p_1 = x/sqrt(3) + z_coord*sqrt(2/3),
+%       partial_phi(z.p_1) = partial_phi(x)/sqrt(3) = -sin(phi)*sin(theta)/sqrt(3) < 0  for phi in (0,pi).
+%     For p_2=(-1/sqrt(3), 0, sqrt(2/3)):
+%       partial_phi(z.p_2) = +sin(phi)*sin(theta)/sqrt(3) > 0  for phi in (0,pi).
+%     But 1-z.p_1 < 1-z.p_2 when phi in (0,pi/2) (p_1 is closer than p_2),
+%     so the negative contribution from p_1 dominates over the positive from p_2.
+%     A similar argument holds for p_3,p_4.
+%     Hence partial_phi G_A < 0 for phi in (0,pi/2).
+%
+%     partial_phi G_B > 0: The B-vertices are concentrated near phi = pi/2.
+%     Moving in the +phi direction (toward phi=pi/2) decreases distances to B-vertices,
+%     hence increases G_B, so partial_phi G_B > 0 in (0, pi/2).
+%     More precisely: for p_5=(1/sqrt(3), sqrt(2/3), 0) at phi_5 = pi/2-t in (0,pi/2),
+%     and p_6=(-1/sqrt(3), sqrt(2/3), 0) at phi_6 = pi/2+t in (pi/2,pi):
+%       partial_phi(z.p_5) = sin(phi-phi_5)*sin(theta)*... > 0? Needs careful calculation.
+%
+% ============================================================
+% THE PROBLEM TO PROVE
+% ============================================================
+%
+% Prove that:
+%
+%   integral_{S^2} (partial_phi G_A)(theta,phi) * (partial_phi G_B)(theta,phi)
+%       d(mu^+ + mu^-)(theta,phi)  <  0,
+%
+% where:
+%   - G_A = G_1 + G_2 + G_3 + G_4 (sum of Green functions at the 4 xz-plane vertices),
+%   - G_B = G_5 + G_6 + G_7 + G_8 (sum of Green functions at the 4 equatorial vertices),
+%   - mu^pm = probability measures with densities exp(pm u)/I^pm, u = 2*pi*(G_1+...+G_8).
+%
+% SUGGESTED APPROACH:
+%
+% The most promising strategy is a POINTWISE SIGN ARGUMENT:
+%   Show that (partial_phi G_A)(partial_phi G_B) <= 0 everywhere on S^2,
+%   with strict inequality on a set of positive measure.
+%   Then the integral is negative since mu^+ + mu^- is a positive measure.
+%
+% For this, one needs to show:
+%   (a) partial_phi G_A < 0 for phi in (0, pi/2) (and by symmetry determines signs elsewhere).
+%   (b) partial_phi G_B > 0 for phi in (0, pi/2).
+%   (c) Hence (partial_phi G_A)(partial_phi G_B) < 0 for phi in (0, pi/2) \ {phi_5},
+%       and the symmetries of both functions give the same sign elsewhere.
+%
+% For (a): use the explicit formula partial_phi G_i = (partial_phi(z.p_i))/(4*pi*(1-z.p_i)).
+%   For phi in (0, pi/2), the two A-vertices at phi=0 (p_1, p_3) are closer
+%   than those at phi=pi (p_2, p_4), so their (negative) contributions dominate.
+%   More precisely:
+%     partial_phi G_A = sum_{i in A} (partial_phi(z.p_i)) / (4*pi*(1-z.p_i))
+%     = (sin(theta)/sqrt(3)) * [
+%         -sin(phi)/(1 - (x+z*sqrt(2))/sqrt(3))   [from p_1]
+%         +sin(phi)/(1 - (-x+z*sqrt(2))/sqrt(3))   [from p_2]
+%         -sin(phi)/(1 - (x-z*sqrt(2))/sqrt(3))   [from p_3]
+%         +sin(phi)/(1 - (-x-z*sqrt(2))/sqrt(3))  [from p_4]
+%       ] / (4*pi)
+%     = (sin(theta)*sin(phi)) / (4*pi*sqrt(3)) * [
+%         -1/(1-(x+sqrt(2)*z)/sqrt(3)) + 1/(1+(x-sqrt(2)*z)/sqrt(3))  [wrong grouping]
+%       ]
+%   Actually the A-vertex denominators pair as:
+%     p_1: 1 - x/sqrt(3) - sqrt(2/3)*z,   p_2: 1 + x/sqrt(3) - sqrt(2/3)*z
+%     p_3: 1 - x/sqrt(3) + sqrt(2/3)*z,   p_4: 1 + x/sqrt(3) + sqrt(2/3)*z
+%   For x > 0 (phi in (0,pi/2)), denom(p_1) < denom(p_2) and denom(p_3) < denom(p_4).
+%   So: -1/denom(p_1) + 1/denom(p_2) < 0 and -1/denom(p_3) + 1/denom(p_4) < 0.
+%   Hence partial_phi G_A < 0 for phi in (0,pi/2) with x > 0.
+%
+% For (b): similar calculation for partial_phi G_B. The B-vertices have:
+%     p_5: phi = pi/2-t,  p_6: phi = pi/2+t,  p_7: phi = -pi/2-t,  p_8: phi = -pi/2+t.
+%   z.p_j = x*x_j + y*y_j  (since z_j = 0 for all j in B).
+%   partial_phi(z.p_j) = partial_phi(x*x_j + y*y_j) = -y*x_j + x*y_j.
+%   For p_5: x_5 = 1/sqrt(3), y_5 = sqrt(2/3):
+%     partial_phi(z.p_5) = -y/sqrt(3) + x*sqrt(2/3).
+%     For phi in (0, phi_5): x*sqrt(2/3) > y/sqrt(3) iff x*sqrt(2) > y iff tan(phi) < sqrt(2).
+%     Since phi_5 = pi/2 - t and tan(phi_5) = tan(pi/2-t) = cot(t) = sqrt(2), this means
+%     partial_phi(z.p_5) > 0 for phi in (0, phi_5).
+%   The full sum partial_phi G_B = sum_{j in B} partial_phi(z.p_j)/(4*pi*(1-z.p_j))
+%   needs to be shown positive for phi in (0, pi/2).
+%
+% ALTERNATIVE APPROACH if pointwise sign fails:
+%   Use the Lemma from the paper (about integrals of products of functions f and f(phi-pi/2)
+%   with specific monotonicity) adapted to this setting.
+%
+% Please read proof/problem.tex for the full context (especially the Lemma in Section 3
+% and the T_{2u} subsection as a model proof) before generating a solution.
+%
+% OUTPUT: A complete rigorous proof in LaTeX showing that
+%   Hess_p log J_8(v,v) > 0 for the T_{2g} generator v in this new orientation.
+\end{document}

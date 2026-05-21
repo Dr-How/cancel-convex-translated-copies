@@ -1,0 +1,274 @@
+```latex
+We pass to the rotated azimuthal variable
+\[
+\psi=\phi-\frac{\pi}{4}.
+\]
+By abuse of notation, we write \(p_i\) both for the listed spherical coordinate pairs and for the corresponding points of \(\uS^2\). Let
+\[
+z=z(\theta,\psi)=(x,y,z_{\mathrm c})\in \uS^2,
+\qquad
+x=\sin\theta\cos\psi,\quad y=\sin\theta\sin\psi,\quad z_{\mathrm c}=\cos\theta.
+\]
+Whenever \(G_q(\theta,\psi)\) appears below, it means \(G_q(z(\theta,\psi))\). If
+\[
+(X,Y,Z)=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)
+\]
+are the usual Cartesian coordinates, then
+\[
+(X,Y,Z)=\left(\frac{x-y}{\sqrt2},\,\frac{x+y}{\sqrt2},\,z_{\mathrm c}\right),
+\]
+so \((x,y,z_{\mathrm c})\) is the Cartesian frame obtained by rotating the equatorial plane by \(-\pi/4\). In particular,
+\[
+\partial_\psi x=-y,\qquad \partial_\psi y=x,\qquad \partial_\psi z_{\mathrm c}=0,
+\]
+and, since \(\psi=\phi-\pi/4\), one also has \(\partial_\psi=\partial_\phi\).
+
+\smallskip
+\noindent\emph{(a)} Let
+\[
+\theta_0=\arccos\!\frac{1}{\sqrt3},
+\qquad
+\sin\theta_0=\sqrt{1-\frac13}=\sqrt{\frac23}.
+\]
+For \(\phi\in\{0,\pi/2,\pi,3\pi/2\}\), the rotated angle is
+\[
+\psi\in\left\{-\frac{\pi}{4},\,\frac{\pi}{4},\,\frac{3\pi}{4},\,\frac{5\pi}{4}\right\},
+\]
+hence
+\[
+(\cos\psi,\sin\psi)\in
+\left\{
+\frac{1}{\sqrt2}(1,-1),\,
+\frac{1}{\sqrt2}(1,1),\,
+\frac{1}{\sqrt2}(-1,1),\,
+\frac{1}{\sqrt2}(-1,-1)
+\right\}.
+\]
+Therefore, when \(\theta=\theta_0\), the corresponding rotated Cartesian coordinates are
+\[
+(x,y,z_{\mathrm c})\in
+\left\{
+\frac{1}{\sqrt3}(1,-1,1),\,
+\frac{1}{\sqrt3}(1,1,1),\,
+\frac{1}{\sqrt3}(-1,1,1),\,
+\frac{1}{\sqrt3}(-1,-1,1)
+\right\},
+\]
+and when \(\theta=\pi-\theta_0\), the same four pairs \((x,y)\) occur, while \(z_{\mathrm c}=-1/\sqrt3\). Writing
+\[
+q_{\varepsilon_1,\varepsilon_2,\varepsilon_3}:=
+\frac{1}{\sqrt3}(\varepsilon_1,\varepsilon_2,\varepsilon_3),
+\qquad
+\varepsilon_j\in\{\pm1\},
+\]
+we obtain
+\[
+\begin{array}{llll}
+p_1=q_{+,-,+}, & p_2=q_{+,+,+}, & p_3=q_{-,+,+}, & p_4=q_{-,-,+},\\[0.3em]
+p_5=q_{+,-,-}, & p_6=q_{+,+,-}, & p_7=q_{-,+,-}, & p_8=q_{-,-,-}.
+\end{array}
+\]
+These are exactly the eight points \(\frac{1}{\sqrt3}(\pm1,\pm1,\pm1)\), i.e. the vertices of the inscribed cube.
+
+\smallskip
+\noindent\emph{(b)} From the list in \emph{(a)},
+\[
+A=\{p_1,p_2,p_7,p_8\}
+=\{q_{+,-,+},\,q_{+,+,+},\,q_{-,+,-},\,q_{-,-,-}\}.
+\]
+For each of these four sign triples one has \(\varepsilon_1\varepsilon_3=1\), and these are exactly the four sign triples with that property. Hence
+\[
+A=\{q_{\varepsilon_1,\varepsilon_2,\varepsilon_3}:\varepsilon_1\varepsilon_3=1\}.
+\]
+Likewise,
+\[
+B=\{p_3,p_4,p_5,p_6\}
+=\{q_{\varepsilon_1,\varepsilon_2,\varepsilon_3}:\varepsilon_1\varepsilon_3=-1\}.
+\]
+Thus the \(+\) and \(-\) index sets of the \(T_{2g}\) generator are distinguished exactly by the sign of \(\varepsilon_1\varepsilon_3\).
+
+\smallskip
+\noindent\emph{(c)} Fix
+\[
+q=q_{\varepsilon_1,\varepsilon_2,\varepsilon_3}
+=\frac{1}{\sqrt3}(\varepsilon_1,\varepsilon_2,\varepsilon_3),
+\qquad
+z=(x,y,z_{\mathrm c})\in \uS^2\setminus\{q\}.
+\]
+Since \(z\) and \(q\) are unit vectors,
+\[
+\cos(\dist(z,q))=z\cdot q
+=\frac{\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c}}{\sqrt3}.
+\]
+Therefore the half-angle identity gives
+\[
+\sin^2\!\frac{\dist(z,q)}{2}
+=\frac{1-\cos(\dist(z,q))}{2}
+=\frac{1-z\cdot q}{2}.
+\]
+Because \(0\le \dist(z,q)\le \pi\), one has \(\sin(\dist(z,q)/2)\ge 0\), so
+\[
+\log\!\sin\frac{\dist(z,q)}{2}
+=\frac12\log(1-z\cdot q)-\frac12\log 2.
+\]
+Substituting this into
+\[
+G_q(z)=-\frac{1}{2\pi}\log\!\sin\frac{\dist(z,q)}{2}
+\]
+yields
+\[
+G_q(z)
+=-\frac{1}{4\pi}\log(1-z\cdot q)+\frac{\log 2}{4\pi}.
+\]
+Thus
+\[
+G_q(z)=-\frac{1}{4\pi}\log(1-z\cdot q)+\mathrm{const},
+\]
+with \(\mathrm{const}=(\log 2)/(4\pi)\), independent of \(q\) and \(z\).
+
+Now
+\[
+z\cdot q=\frac{\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c}}{\sqrt3},
+\]
+hence
+\begin{align*}
+\partial_\psi G_q
+&=
+\partial_\psi\!\left[
+-\frac{1}{4\pi}
+\log\!\left(
+1-\frac{\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c}}{\sqrt3}
+\right)
+\right] \\
+&=
+\frac{1}{4\pi}
+\frac{\partial_\psi\!\left((\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3\right)}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3} \\
+&=
+\frac{1}{4\pi\sqrt3}
+\frac{\varepsilon_1\partial_\psi x+\varepsilon_2\partial_\psi y}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3} \\
+&=
+\frac{1}{4\pi\sqrt3}
+\frac{\varepsilon_1(-y)+\varepsilon_2 x}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3} \\
+&=
+\frac{1}{4\pi\sqrt3}
+\frac{\varepsilon_2 x-\varepsilon_1 y}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3}.
+\end{align*}
+Summing over the four vertices in \(A\), and using \emph{(b)}, we get
+\[
+F_A(\theta,\psi)
+:=
+\partial_\psi\!\left(\sum_{q\in A} G_q(\theta,\psi)\right)
+=
+\frac{1}{4\pi\sqrt3}
+\sum_{\substack{\varepsilon\in\{\pm1\}^3\\ \varepsilon_1\varepsilon_3=1}}
+\frac{\varepsilon_2 x-\varepsilon_1 y}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3}.
+\]
+
+\smallskip
+\noindent\emph{(d)} By the same computation, now summing over \(B\), one has
+\[
+F_B(\theta,\psi)
+=
+\frac{1}{4\pi\sqrt3}
+\sum_{\substack{\varepsilon\in\{\pm1\}^3\\ \varepsilon_1\varepsilon_3=-1}}
+\frac{\varepsilon_2 x-\varepsilon_1 y}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3}.
+\]
+On the other hand,
+\[
+x(\theta,\psi+\pi)=-x(\theta,\psi),\qquad
+y(\theta,\psi+\pi)=-y(\theta,\psi),\qquad
+z_{\mathrm c}(\theta,\psi+\pi)=z_{\mathrm c}(\theta,\psi).
+\]
+Hence
+\begin{align*}
+F_A(\theta,\psi+\pi)
+&=
+\frac{1}{4\pi\sqrt3}
+\sum_{\substack{\varepsilon\in\{\pm1\}^3\\ \varepsilon_1\varepsilon_3=1}}
+\frac{-\varepsilon_2 x+\varepsilon_1 y}
+{1-(-\varepsilon_1 x-\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3}.
+\end{align*}
+Now make the substitution
+\[
+(\widetilde\varepsilon_1,\widetilde\varepsilon_2,\widetilde\varepsilon_3)
+:=(-\varepsilon_1,-\varepsilon_2,\varepsilon_3).
+\]
+Then
+\[
+\widetilde\varepsilon_1\widetilde\varepsilon_3
+=(-\varepsilon_1)\varepsilon_3
+=-\varepsilon_1\varepsilon_3=-1,
+\]
+and the summand becomes
+\[
+\frac{\widetilde\varepsilon_2 x-\widetilde\varepsilon_1 y}
+{1-(\widetilde\varepsilon_1 x+\widetilde\varepsilon_2 y+\widetilde\varepsilon_3 z_{\mathrm c})/\sqrt3}.
+\]
+Therefore
+\[
+F_A(\theta,\psi+\pi)
+=
+\frac{1}{4\pi\sqrt3}
+\sum_{\substack{\widetilde\varepsilon\in\{\pm1\}^3\\ \widetilde\varepsilon_1\widetilde\varepsilon_3=-1}}
+\frac{\widetilde\varepsilon_2 x-\widetilde\varepsilon_1 y}
+{1-(\widetilde\varepsilon_1 x+\widetilde\varepsilon_2 y+\widetilde\varepsilon_3 z_{\mathrm c})/\sqrt3}
+=
+F_B(\theta,\psi).
+\]
+
+\smallskip
+\noindent\emph{(e)} Define
+\[
+C(\theta,\psi):=F_A(\theta,\psi)+F_A(\theta,\psi+\pi),
+\qquad
+D(\theta,\psi):=F_A(\theta,\psi)-F_A(\theta,\psi+\pi).
+\]
+By \emph{(d)},
+\[
+C=F_A+F_B,
+\qquad
+D=F_A-F_B.
+\]
+Since \(A\) and \(B\) partition the eight sign triples according to \(\varepsilon_1\varepsilon_3=\pm1\), we obtain
+\[
+C(\theta,\psi)
+=
+\frac{1}{4\pi\sqrt3}
+\sum_{\varepsilon\in\{\pm1\}^3}
+\frac{\varepsilon_2 x-\varepsilon_1 y}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3},
+\]
+and
+\begin{align*}
+D(\theta,\psi)
+&=
+\frac{1}{4\pi\sqrt3}
+\left(
+\sum_{\substack{\varepsilon\in\{\pm1\}^3\\ \varepsilon_1\varepsilon_3=1}}
+-
+\sum_{\substack{\varepsilon\in\{\pm1\}^3\\ \varepsilon_1\varepsilon_3=-1}}
+\right)
+\frac{\varepsilon_2 x-\varepsilon_1 y}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3} \\
+&=
+\frac{1}{4\pi\sqrt3}
+\sum_{\varepsilon\in\{\pm1\}^3}
+\varepsilon_1\varepsilon_3\,
+\frac{\varepsilon_2 x-\varepsilon_1 y}
+{1-(\varepsilon_1 x+\varepsilon_2 y+\varepsilon_3 z_{\mathrm c})/\sqrt3}.
+\end{align*}
+This is exactly the claimed pair of formulas. By construction,
+\[
+C(\theta,\psi+\pi)=C(\theta,\psi),
+\qquad
+D(\theta,\psi+\pi)=-D(\theta,\psi).
+\]
+
+All identities in \emph{(c)}--\emph{(e)} are understood pointwise away from the relevant singular vertices.
+```

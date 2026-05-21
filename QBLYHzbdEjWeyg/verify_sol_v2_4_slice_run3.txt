@@ -1,0 +1,35 @@
+**Bug Report**
+
+1. **Location**
+   > “We compute \(I_1\) by the change of variables
+   > \[
+   > \psi=u+\frac{\pi}{2}.
+   > \]
+   > Then \(d\psi=du\), and
+   > \[
+   > \psi-\frac{\pi}{2}=u.
+   > \]
+   > So
+   > \[
+   > \begin{aligned}
+   > I_1
+   > &=
+   > \int_{\pi/2}^{5\pi/2}
+   > \sin\!\left(u+\frac{\pi}{2}\right)\cos\!\left(u+\frac{\pi}{2}\right)
+   > F_x\!\left(u+\frac{\pi}{2}\right)
+   > F_\psi(u)\,
+   > w\!\left(u+\frac{\pi}{2}\right)\,du.
+   > \end{aligned}
+   > \]”
+
+   **Description — Critical Error**
+
+   Under the substitution \(\psi=u+\frac{\pi}{2}\), the original bounds \(\psi\in[0,2\pi]\) give
+   \[
+   u\in\left[-\frac{\pi}{2},\,\frac{3\pi}{2}\right],
+   \]
+   not \(\left[\frac{\pi}{2},\,\frac{5\pi}{2}\right]\). So the displayed equality is not a valid change-of-variables step as written.
+
+   To use \(\left[\frac{\pi}{2},\frac{5\pi}{2}\right]\) instead, the proof would need a separate periodicity argument justifying an interval shift. That justification is not given at this point. Since this substitution is the key step used to prove \(I_1=-I_2\), Part \(B\) is not rigorously established as written, and therefore the cancellation used in Part \(C\) is not fully justified either.
+
+Because of this critical error, the solution is **not fully verified**.

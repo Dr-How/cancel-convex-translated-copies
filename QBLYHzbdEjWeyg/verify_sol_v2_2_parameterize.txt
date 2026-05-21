@@ -1,0 +1,19 @@
+Bug report:
+
+The solution is **not fully correct** under the stated grading standard. I found these issues:
+
+1. **Location:**  
+   “Therefore the measures \(\mu^\pm\) canonically associated to \(u\) are also \(R_x\)-invariant. (If one views \(\mu^\pm\) as the Jordan parts of a signed measure determined by \(u\), this follows from uniqueness of the Jordan decomposition.)”
+
+   **Description:** **Justification Gap.**  
+   This does not actually prove \(R_x\)-invariance of \(\mu^\pm\). The parenthetical argument is conditional (“If one views…”), so the needed premise is not established. Also, even under that interpretation, the proof does not show that pushing forward by \(R_x\) gives another Jordan decomposition of the same signed measure.
+
+2. **Location:**  
+   “Since \(R_x\) is a rotation, it preserves the round area measure \(dA\) as well. Consequently the density
+   \[
+   W=\frac{d(\mu^++\mu^-)}{dA}
+   \]
+   is \(R_x\)-invariant.”
+
+   **Description:** **Justification Gap.**  
+   The passage from invariance of the measures to invariance of the Radon–Nikodym derivative is asserted without justification. This requires an explicit argument or theorem about how Radon–Nikodym derivatives behave under an area-preserving map. As written, the proof does not justify \(W\circ R_x = W\); absent extra regularity, one would at best get an almost-everywhere statement rather than the pointwise identity used later.

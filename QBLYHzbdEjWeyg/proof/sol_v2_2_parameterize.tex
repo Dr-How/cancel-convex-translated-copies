@@ -1,0 +1,260 @@
+Here is a complete LaTeX proof:
+
+```latex
+\begin{proof}
+Set
+\[
+r=r(x):=\sqrt{1-x^2}>0,
+\qquad
+q(x,\psi)=\bigl(x,r\sin\psi,r\cos\psi\bigr),
+\]
+for $x\in(-1,1)$ and $\psi\in\mathbb{R}/2\pi\mathbb{Z}$.
+Also write
+\[
+W(q):=\frac{d(\mu^++\mu^-)}{dA}(q),
+\qquad
+w(x,\psi)=W\bigl(q(x,\psi)\bigr).
+\]
+
+\begin{enumerate}
+\item[(i)] We first compute
+\[
+q\!\left(x,\psi-\frac{\pi}{2}\right)
+=
+\left(
+x,\,
+r\sin\!\left(\psi-\frac{\pi}{2}\right),\,
+r\cos\!\left(\psi-\frac{\pi}{2}\right)
+\right)
+=
+\bigl(x,-r\cos\psi,r\sin\psi\bigr).
+\]
+Since
+\[
+R_x(x,y,z)=(x,z,-y),
+\]
+its inverse is
+\[
+R_x^{-1}(x,y,z)=(x,-z,y).
+\]
+Therefore
+\[
+R_x^{-1}\bigl(q(x,\psi)\bigr)
+=
+R_x^{-1}\bigl(x,r\sin\psi,r\cos\psi\bigr)
+=
+\bigl(x,-r\cos\psi,r\sin\psi\bigr)
+=
+q\!\left(x,\psi-\frac{\pi}{2}\right).
+\]
+
+Now, because $B=R_x(A)$, the corresponding Green functions satisfy
+\[
+G_B(q)=G_A\!\bigl(R_x^{-1}(q)\bigr).
+\]
+Hence
+\[
+G_B\bigl(q(x,\psi)\bigr)
+=
+G_A\!\left(R_x^{-1}\bigl(q(x,\psi)\bigr)\right)
+=
+G_A\!\left(q\!\left(x,\psi-\frac{\pi}{2}\right)\right)
+=
+F\!\left(x,\psi-\frac{\pi}{2}\right).
+\]
+This proves
+\[
+G_B\bigl(q(x,\psi)\bigr)=F\!\left(x,\psi-\frac{\pi}{2}\right).
+\]
+
+\item[(ii)] The full cube configuration is invariant under the quarter-turn $R_x$. Hence the total potential
+\[
+u=2\pi\sum_i G_i
+\]
+is $R_x$-invariant:
+\[
+u\circ R_x=u.
+\]
+Therefore the measures $\mu^\pm$ canonically associated to $u$ are also $R_x$-invariant. (If one views $\mu^\pm$ as the Jordan parts of a signed measure determined by $u$, this follows from uniqueness of the Jordan decomposition.) Since $R_x$ is a rotation, it preserves the round area measure $dA$ as well. Consequently the density
+\[
+W=\frac{d(\mu^++\mu^-)}{dA}
+\]
+is $R_x$-invariant.
+
+Next,
+\[
+R_x\bigl(q(x,\psi)\bigr)
+=
+R_x\bigl(x,r\sin\psi,r\cos\psi\bigr)
+=
+\bigl(x,r\cos\psi,-r\sin\psi\bigr).
+\]
+On the other hand,
+\[
+q\!\left(x,\psi+\frac{\pi}{2}\right)
+=
+\left(
+x,\,
+r\sin\!\left(\psi+\frac{\pi}{2}\right),\,
+r\cos\!\left(\psi+\frac{\pi}{2}\right)
+\right)
+=
+\bigl(x,r\cos\psi,-r\sin\psi\bigr).
+\]
+Thus
+\[
+R_x\bigl(q(x,\psi)\bigr)=q\!\left(x,\psi+\frac{\pi}{2}\right).
+\]
+Using the $R_x$-invariance of $W$, we obtain
+\[
+w\!\left(x,\psi+\frac{\pi}{2}\right)
+=
+W\!\left(q\!\left(x,\psi+\frac{\pi}{2}\right)\right)
+=
+W\!\left(R_x\bigl(q(x,\psi)\bigr)\right)
+=
+W\bigl(q(x,\psi)\bigr)
+=
+w(x,\psi).
+\]
+Hence
+\[
+w\!\left(x,\psi+\frac{\pi}{2}\right)=w(x,\psi)
+\]
+for all $x$ and $\psi$.
+
+\item[(iii)] Differentiate $q(x,\psi)=\bigl(x,r\sin\psi,r\cos\psi\bigr)$, using
+\[
+r'(x)=\frac{d}{dx}\sqrt{1-x^2}=-\frac{x}{\sqrt{1-x^2}}=-\frac{x}{r}.
+\]
+Then
+\[
+\partial_x q
+=
+\left(
+1,\,
+-\frac{x\sin\psi}{r},\,
+-\frac{x\cos\psi}{r}
+\right),
+\qquad
+\partial_\psi q
+=
+\bigl(0,r\cos\psi,-r\sin\psi\bigr).
+\]
+Their cross product is
+\[
+\partial_x q\times \partial_\psi q
+=
+\begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k}\\[2pt]
+1 & -\dfrac{x\sin\psi}{r} & -\dfrac{x\cos\psi}{r}\\[6pt]
+0 & r\cos\psi & -r\sin\psi
+\end{vmatrix}.
+\]
+Computing the determinant gives
+\[
+\partial_x q\times \partial_\psi q
+=
+\left(
+x\sin^2\psi+x\cos^2\psi,\,
+r\sin\psi,\,
+r\cos\psi
+\right)
+=
+\bigl(x,r\sin\psi,r\cos\psi\bigr)
+=
+q(x,\psi).
+\]
+Since $q(x,\psi)\in S^2$, we have
+\[
+\bigl|\partial_x q\times \partial_\psi q\bigr|=|q(x,\psi)|=1.
+\]
+Therefore the surface area element is
+\[
+dA=\bigl|\partial_x q\times \partial_\psi q\bigr|\,dx\,d\psi=dx\,d\psi.
+\]
+So the Jacobian is $1$.
+
+\item[(iv)] To avoid confusing the parameter $x$ with an ambient coordinate derivative, let us denote the ambient Euclidean coordinates by $(X,Y,Z)$. The vector field corresponding to $\partial_\phi$ on $S^2$ is
+\[
+\partial_\phi=-Y\,\partial_X+X\,\partial_Y.
+\]
+At the point
+\[
+q(x,\psi)=\bigl(X,Y,Z\bigr)=\bigl(x,r\sin\psi,r\cos\psi\bigr),
+\]
+this tangent vector is
+\[
+(-Y,X,0)=(-r\sin\psi,x,0).
+\]
+
+Now the pushed-forward coordinate vector fields on the parameter domain are exactly
+\[
+\partial_x q
+=
+\left(
+1,\,
+-\frac{x\sin\psi}{r},\,
+-\frac{x\cos\psi}{r}
+\right),
+\qquad
+\partial_\psi q
+=
+\bigl(0,r\cos\psi,-r\sin\psi\bigr).
+\]
+We claim that
+\[
+(-r\sin\psi,x,0)
+=
+-r\sin\psi\,\partial_x q
++
+\frac{x\cos\psi}{r}\,\partial_\psi q.
+\]
+Indeed,
+\[
+-r\sin\psi\,\partial_x q
++
+\frac{x\cos\psi}{r}\,\partial_\psi q
+\]
+\[
+=
+-r\sin\psi
+\left(
+1,\,
+-\frac{x\sin\psi}{r},\,
+-\frac{x\cos\psi}{r}
+\right)
++
+\frac{x\cos\psi}{r}\,(0,r\cos\psi,-r\sin\psi)
+\]
+\[
+=
+\left(
+-r\sin\psi,\,
+x\sin^2\psi+x\cos^2\psi,\,
+x\sin\psi\cos\psi-x\sin\psi\cos\psi
+\right)
+=
+(-r\sin\psi,x,0).
+\]
+Thus, as an operator on functions of $(x,\psi)$,
+\[
+\partial_\phi
+=
+-r\sin\psi\,\partial_x+\frac{x\cos\psi}{r}\,\partial_\psi.
+\]
+Substituting back $r=\sqrt{1-x^2}$ yields
+\[
+\partial_\phi
+=
+-\sqrt{1-x^2}\,\sin\psi\,\partial_x
++
+\frac{x\cos\psi}{\sqrt{1-x^2}}\,\partial_\psi.
+\]
+
+This proves all four claims.
+\end{enumerate}
+\end{proof}
+```
+
+If you want, I can also reformat this into a more polished theorem-proof style matching the rest of your document.

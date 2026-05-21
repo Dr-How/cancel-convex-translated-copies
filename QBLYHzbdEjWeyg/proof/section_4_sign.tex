@@ -1,0 +1,29 @@
+% Subproblem 4 (EASY): Convert Xi >= 0 into I < 0
+%
+% CONTEXT: Part of the T_{2g} Hessian proof.
+% Working directory: /data/projects/3eacb340-027e-4b71-8de4-67574ba54ea2/QBLYHzbdEjWeyg/proof/
+%
+% GIVEN:
+%   - rho(theta, psi) = rho^+(theta,psi) + rho^-(theta,psi) where rho^pm = exp(+/-u)/I^pm,
+%     and u = 2*pi * (G_A + G_B) is the log-norm function. rho > 0 almost everywhere.
+%   - Xi(theta, psi) = (1/2)*D(theta,psi)^2 + (1/2)*D(theta,psi+pi/2)^2 - C(theta,psi)^2
+%     is locally integrable on S^2, nonneg for (theta, psi) in (0,pi) x (0,pi/2) away
+%     from the cube vertices (proved in Subproblem 3), and not identically zero on any
+%     open set.
+%   - By Subproblem 2:
+%       I = integral_{S^2} F_A * F_A(psi+pi) * d(mu^+ + mu^-)
+%         = - integral_0^pi integral_0^{pi/2} Xi(theta,psi) * rho(theta,psi) * sin(theta) d psi d theta.
+%
+% STATEMENT TO PROVE:
+%   I < 0.
+%
+% PROOF:
+%   Since Xi >= 0 a.e. in (0,pi) x (0,pi/2), and rho * sin(theta) is a positive measure
+%   on that domain (rho > 0 a.e.), the integral integral Xi * rho * sin(theta) dpsi dtheta >= 0.
+%   Since Xi is not identically zero (it is strictly positive on some open set of positive
+%   measure), and rho > 0 on a set of full measure, the integral is strictly positive.
+%   Therefore I = -(positive number) < 0.
+%
+% DELIVERABLE: A short, clean LaTeX proof (2-5 sentences) of I < 0, citing Subproblems 2 and 3.
+% Output should be a self-contained LaTeX fragment (no \documentclass).
+\end{document}

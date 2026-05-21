@@ -1,0 +1,59 @@
+\noindent\textbf{Proof.}
+Let $W=T_{2g}$. Since the cubic configuration $p$ is fixed by $G$ and $J_8$ is $G$-invariant, we have
+\[
+(\log J_8)\circ g=\log J_8,\qquad g\cdot p=p\qquad (g\in G).
+\]
+Differentiating twice at $p$ gives
+\[
+Q(gx,gy)=Q(x,y)\qquad (g\in G,\;x,y\in V),
+\]
+where
+\[
+Q(x,y):=\mathrm{Hess}_p(\log J_8)(x,y).
+\]
+Thus $Q|_W$ is a $G$-invariant symmetric bilinear form.
+
+Choose any Euclidean inner product $\langle\cdot,\cdot\rangle_0$ on $W$, and average it over $G$:
+\[
+\langle x,y\rangle:=\frac{1}{|G|}\sum_{g\in G}\langle gx,gy\rangle_0.
+\]
+Then $\langle\cdot,\cdot\rangle$ is positive definite and $G$-invariant.
+% Standard averaging trick for finite/compact groups; see, e.g., Proposition $5.3(a)$ in Ziller's notes. ([www2.math.upenn.edu](https://www2.math.upenn.edu/~wziller/math650/LieGroupsReps.pdf))
+Hence there is a unique linear map $L:W\to W$ such that
+\[
+Q(x,y)=\langle Lx,y\rangle\qquad (x,y\in W).
+\]
+Because $Q$ is symmetric, $L$ is self-adjoint. Also, for every $g\in G$ and $x,y\in W$,
+\[
+\langle L(gx),gy\rangle
+=
+Q(gx,gy)
+=
+Q(x,y)
+=
+\langle Lx,y\rangle
+=
+\langle gLx,gy\rangle,
+\]
+so $L(gx)=gLx$. Thus $L$ is $G$-equivariant.
+
+Now $W=T_{2g}$ is irreducible by hypothesis. Since $L$ is self-adjoint on the real inner-product space $W$, the spectral theorem gives a real eigenvalue $\lambda$ and a nonzero eigenspace
+\[
+E_\lambda:=\{w\in W:Lw=\lambda w\}.
+\]
+Because $L$ commutes with $G$, the space $E_\lambda$ is $G$-invariant. Irreducibility therefore forces $E_\lambda=W$, and hence
+\[
+L=\lambda\,\mathrm{Id}_W
+\]
+for some real scalar $\lambda$.
+% This is exactly the self-adjoint real form of Schur's lemma; see Lemma $5.1(c)$ in Ziller's notes, the Encyclopedia of Mathematics entry on Schur's lemma, and the spectral theorem reference from MIT OCW. ([www2.math.upenn.edu](https://www2.math.upenn.edu/~wziller/math650/LieGroupsReps.pdf))
+
+Finally, the previously constructed nonzero generator $v\in W$ satisfies $Q(v,v)>0$. Therefore
+\[
+\lambda=\frac{Q(v,v)}{\langle v,v\rangle}>0.
+\]
+Hence, for every nonzero $w\in W=T_{2g}$,
+\[
+Q(w,w)=\langle Lw,w\rangle=\lambda\,\langle w,w\rangle>0.
+\]
+Thus $Q$ is positive definite on all of $T_{2g}$.

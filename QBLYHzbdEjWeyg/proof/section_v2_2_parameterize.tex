@@ -1,0 +1,62 @@
+% Subproblem 2: Reparameterize by x-circles and expose the quarter-shift relation
+%
+% SETUP (from Subproblem 1):
+%   G_A(x,y,z) = -(1/(4pi))*log P_A(x,z) + C_A  [depends only on x,z]
+%   G_B(x,y,z) = -(1/(4pi))*log P_B(x,y) + C_B  [depends only on x,y]
+%   B = R_x(A) where R_x(x,y,z) = (x,z,-y) (quarter-turn about x-axis).
+%   partial_phi G_A(q) = -xy(3+2z^2-x^2)/(9pi*P_A(x,z))
+%   partial_phi G_B(q) = xy(1+x^2-2y^2)/(3pi*P_B(x,y))
+%
+% PROBLEM: Define the parameterization of S^2 \ {+/-(1,0,0)} by:
+%   q(x,psi) = (x, sqrt(1-x^2)*sin(psi), sqrt(1-x^2)*cos(psi)),
+%   x in (-1,1), psi in R/2piZ.
+%
+% Let F(x,psi) = G_A(q(x,psi)) and w(x,psi) = [d(mu^+ + mu^-)/dA](q(x,psi)).
+%
+% Prove:
+%   (i)  G_B(q(x,psi)) = F(x, psi - pi/2).
+%   (ii) w(x, psi + pi/2) = w(x, psi) for all x, psi.
+%   (iii) The area element satisfies dA = dx dpsi (the Jacobian is 1).
+%   (iv) partial_phi = -sqrt(1-x^2)*sin(psi)*partial_x + (x*cos(psi)/sqrt(1-x^2))*partial_psi
+%        as an operator on functions of (x,psi).
+%
+% HINT FOR (i):
+%   Compute q(x, psi-pi/2) = (x, sqrt(1-x^2)*sin(psi-pi/2), sqrt(1-x^2)*cos(psi-pi/2))
+%                           = (x, -sqrt(1-x^2)*cos(psi), sqrt(1-x^2)*sin(psi)).
+%   R_x^{-1}(x,y,z) = (x,-z,y) [inverse of R_x(x,y,z)=(x,z,-y)].
+%   R_x^{-1}(q(x,psi)) = (x, -sqrt(1-x^2)*cos(psi), sqrt(1-x^2)*sin(psi)) = q(x,psi-pi/2).
+%   Since B = R_x(A), we have G_B(q) = G_A(R_x^{-1}(q)).
+%   Therefore G_B(q(x,psi)) = G_A(R_x^{-1}(q(x,psi))) = G_A(q(x,psi-pi/2)) = F(x,psi-pi/2).
+%
+% HINT FOR (ii):
+%   The full 8-vertex cube is invariant under R_x (it permutes A among themselves and B among
+%   themselves). Hence u = 2pi*sum G_i is R_x-invariant, so mu^pm are R_x-invariant, and w is too.
+%   R_x(q(x,psi)) = q(x, psi+pi/2). So w(x,psi+pi/2) = w(q(x,psi+pi/2)) = w(R_x(q(x,psi))) = w(q(x,psi)) = w(x,psi).
+%
+% HINT FOR (iii):
+%   Compute the tangent vectors: q_x = (1, -x*sin(psi)/sqrt(1-x^2), -x*cos(psi)/sqrt(1-x^2)),
+%   q_psi = (0, sqrt(1-x^2)*cos(psi), -sqrt(1-x^2)*sin(psi)).
+%   The area element |q_x x q_psi| = 1 (compute the cross product and its magnitude).
+%   Therefore dA = |q_x x q_psi| dx dpsi = dx dpsi.
+%
+% HINT FOR (iv):
+%   In Cartesian: partial_phi = -y*partial_{x_coord} + x*partial_{y_coord} on S^2.
+%   Express this in (x,psi) coordinates by chain rule:
+%   partial_{x_coord} = partial_x - (x*sin(psi)/sqrt(1-x^2))*partial_psi/sqrt(1-x^2)*...
+%   [more careful]: partial_{x_coord}|_{S^2} = partial_x + (x/sqrt(1-x^2))*... need constraint.
+%   Direct approach: At q(x,psi), the vector field partial_phi moves in the y-z plane keeping x fixed.
+%   In (x,psi) coordinates, this is exactly partial_psi multiplied by sqrt(1-x^2)/(something)...
+%   Actually, partial_phi = d/dphi and partial_psi = d/dpsi. Since phi = phi(psi) (psi is the angle
+%   in the yz-plane counted from z-axis, phi is the standard azimuth from x-axis), we have
+%   the relationship between partial_phi and partial_psi via the change of variables.
+%   At q(x,psi) = (x, r*sin(psi), r*cos(psi)) where r = sqrt(1-x^2):
+%   Standard azimuth phi = arctan(y/x_coord)... no, phi is the angle from the x-axis in xz...
+%   Actually phi is the angle from x-axis: y = sin(theta)*sin(phi), z = cos(theta), x = sin(theta)*cos(phi).
+%   In (x,psi) coords: x = x, y = r*sin(psi), z = r*cos(psi). So x_coord = x, y = r*sin(psi), z = r*cos(psi).
+%   The vector field partial_phi = -y*partial_x + x*partial_y (in Cartesian) = -r*sin(psi)*partial_x + x*partial_y.
+%   partial_y = partial_y|_{x,z fixed on S^2}. In (x,psi): partial_y|_x = partial_y|_{x,z = r cos psi}.
+%   Since y = r*sin(psi) and z = r*cos(psi) are related by constraint, partial_psi = r*cos(psi)*partial_y - r*sin(psi)*partial_z = r*cos(psi)*partial_y + x*sin(psi)/r * partial_x (using constraint x^2+y^2+z^2=1 -> z*partial_z = -x*partial_x - y*partial_y on S^2).
+%   This gives the formula in (iv).
+%
+% Please produce a complete LaTeX proof of parts (i)-(iv).
+\end{document}

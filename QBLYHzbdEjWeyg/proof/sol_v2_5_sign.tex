@@ -1,0 +1,234 @@
+I can prove Parts A–C exactly as stated. For Part D, however, the displayed formula shows that the conclusion \(J(x)<0\) is false as written; the correct conclusion is \(J(x)=0\) whenever the integral is well-defined. I will prove this rigorously.
+
+The only external fact I use is Euler’s formula
+\[
+\cos u+i\sin u=e^{iu},
+\]
+from which, by replacing \(u\) with \(-u\) and \(u+\pi\), one gets
+\[
+\sin(-u)=-\sin u,\qquad \cos(-u)=\cos u,\qquad \sin(u+\pi)=-\sin u,\qquad \cos(u+\pi)=-\cos u.
+\]
+These are standard and are tabulated in DLMF. ([dlmf.nist.gov](https://dlmf.nist.gov/4.14.E9))
+
+Fix \(x\in(0,1)\), and write
+\[
+r:=\sqrt{1-x^2},\qquad y:=r\sin\psi,\qquad z:=r\cos\psi.
+\]
+Then
+\[
+x^2+y^2+z^2=1,
+\]
+and the given formula is
+\[
+h(x,\psi)= -\frac{x\,y\,(3+2z^2-x^2)}{9\pi\,P_A(x,z)},
+\]
+where
+\[
+P_A(x,z)=\bigl((1-az)^2-b^2x^2\bigr)\bigl((1+az)^2-b^2x^2\bigr),
+\qquad a=\sqrt{\tfrac23},\quad b=\tfrac1{\sqrt3}.
+\]
+
+## Part A: \(h(x,-\psi)=-h(x,\psi)\)
+
+Since
+\[
+y(x,-\psi)=r\sin(-\psi)=-r\sin\psi=-y(x,\psi),
+\]
+and
+\[
+z(x,-\psi)=r\cos(-\psi)=r\cos\psi=z(x,\psi),
+\]
+we have
+\[
+\begin{aligned}
+h(x,-\psi)
+&=-\frac{x\,y(x,-\psi)\,\bigl(3+2z(x,-\psi)^2-x^2\bigr)}
+{9\pi\,P_A\bigl(x,z(x,-\psi)\bigr)}\\
+&=-\frac{x(-y)\,(3+2z^2-x^2)}{9\pi P_A(x,z)}\\
+&=\frac{x\,y\,(3+2z^2-x^2)}{9\pi P_A(x,z)}\\
+&=-h(x,\psi).
+\end{aligned}
+\]
+Thus \(h(x,\cdot)\) is odd in \(\psi\).
+
+## Part B: \(h(x,\psi)<0\) for \(\psi\in(0,\pi/2)\)
+
+In fact, we prove the stronger statement
+\[
+h(x,\psi)<0\qquad\text{for all }\psi\in(0,\pi).
+\]
+
+First, write
+\[
+Q_-(x,\psi):=(1-az)^2-b^2x^2,\qquad Q_+(x,\psi):=(1+az)^2-b^2x^2.
+\]
+Using \(a^2=\tfrac23\), \(b^2=\tfrac13\), and \(x^2+y^2+z^2=1\), we get
+\[
+\begin{aligned}
+Q_-(x,\psi)
+&=1-2az+\frac23 z^2-\frac13 x^2\\
+&=1-2az+\frac23 z^2-\frac13(1-y^2-z^2)\\
+&=(z-a)^2+\frac13 y^2,
+\end{aligned}
+\]
+and similarly
+\[
+Q_+(x,\psi)=(z+a)^2+\frac13 y^2.
+\]
+Hence
+\[
+P_A(x,z)=Q_-(x,\psi)Q_+(x,\psi)>0
+\]
+whenever \(y\neq 0\). In particular, for \(\psi\in(0,\pi)\), we have \(y=r\sin\psi>0\), so \(P_A(x,z)>0\).
+
+Next,
+\[
+3+2z^2-x^2
+=2+(1-x^2)+2z^2
+=2+y^2+3z^2>0.
+\]
+
+Therefore, for \(\psi\in(0,\pi)\),
+\[
+x>0,\qquad y>0,\qquad 3+2z^2-x^2>0,\qquad P_A(x,z)>0.
+\]
+So
+\[
+h(x,\psi)= -\frac{\text{positive}}{\text{positive}}<0.
+\]
+In particular,
+\[
+h(x,\psi)<0\qquad\text{for all }\psi\in(0,\pi/2).
+\]
+
+## Part C: \(h(x,\psi)\,h(x,\psi-\pi/2)<0\) for \(\psi\in(0,\pi/2)\)
+
+Let \(\psi\in(0,\pi/2)\). Then
+\[
+\frac{\pi}{2}-\psi\in(0,\pi/2)
+\]
+and
+\[
+\psi-\frac{\pi}{2}=-\Bigl(\frac{\pi}{2}-\psi\Bigr).
+\]
+By Part A,
+\[
+h\Bigl(x,\psi-\frac{\pi}{2}\Bigr)
+=-h\Bigl(x,\frac{\pi}{2}-\psi\Bigr).
+\]
+By Part B,
+\[
+h(x,\psi)<0
+\qquad\text{and}\qquad
+h\Bigl(x,\frac{\pi}{2}-\psi\Bigr)<0.
+\]
+Hence
+\[
+h\Bigl(x,\psi-\frac{\pi}{2}\Bigr)>0.
+\]
+Therefore
+\[
+h(x,\psi)\,h\Bigl(x,\psi-\frac{\pi}{2}\Bigr)<0
+\qquad\text{for all }\psi\in(0,\pi/2).
+\]
+
+## Part D: the stated conclusion \(J(x)<0\) is not correct
+
+The issue is that the function
+\[
+H_x(\psi):=h(x,\psi)\,h\Bigl(x,\psi-\frac{\pi}{2}\Bigr)
+\]
+is **not** \(\pi/2\)-periodic. It is \(\pi/2\)-**anti**-periodic.
+
+Indeed, from
+\[
+\sin(\psi+\pi)=-\sin\psi,\qquad \cos(\psi+\pi)=-\cos\psi,
+\]
+we get
+\[
+y(\psi+\pi)=-y(\psi),\qquad z(\psi+\pi)=-z(\psi).
+\]
+Also,
+\[
+P_A(x,-z)=P_A(x,z),
+\]
+because the two factors in \(P_A\) are interchanged. Therefore
+\[
+\begin{aligned}
+h(x,\psi+\pi)
+&=-\frac{x(-y)(3+2z^2-x^2)}{9\pi P_A(x,-z)}\\
+&=\frac{x\,y\,(3+2z^2-x^2)}{9\pi P_A(x,z)}\\
+&=-h(x,\psi).
+\end{aligned}
+\]
+So \(h\) is \(\pi\)-anti-periodic.
+
+Now
+\[
+\begin{aligned}
+H_x\Bigl(\psi+\frac{\pi}{2}\Bigr)
+&=h\Bigl(x,\psi+\frac{\pi}{2}\Bigr)h(x,\psi)\\
+&=h\Bigl(x,\Bigl(\psi-\frac{\pi}{2}\Bigr)+\pi\Bigr)h(x,\psi)\\
+&=-h\Bigl(x,\psi-\frac{\pi}{2}\Bigr)h(x,\psi)\\
+&=-H_x(\psi).
+\end{aligned}
+\]
+Thus \(H_x\) is \(\pi/2\)-anti-periodic, not \(\pi/2\)-periodic.
+
+Since \(w(x,\psi+\pi/2)=w(x,\psi)\), the full integrand
+\[
+I_x(\psi):=H_x(\psi)\,w(x,\psi)
+\]
+also satisfies
+\[
+I_x\Bigl(\psi+\frac{\pi}{2}\Bigr)=-I_x(\psi).
+\]
+Hence, whenever the integral is well-defined,
+\[
+\int_0^{2\pi} I_x(\psi)\,d\psi
+=\int_0^{\pi/2}\sum_{k=0}^3 I_x\Bigl(\psi+k\frac{\pi}{2}\Bigr)\,d\psi
+=0.
+\]
+So the correct conclusion is
+\[
+J(x)=0,
+\]
+not \(J(x)<0\).
+
+Finally, from the factorization in Part B, \(P_A(x,z)=0\) can occur only if
+\[
+y=0\quad\text{and}\quad z=\pm a,
+\]
+which forces
+\[
+x^2=1-a^2=\frac13,\qquad x=\frac1{\sqrt3}=b.
+\]
+Thus for
+\[
+x\neq \frac1{\sqrt3},
+\]
+the integrand is continuous on \([0,2\pi]\), and the above cancellation is legitimate. At
+\[
+x=\frac1{\sqrt3},
+\]
+the denominator vanishes at \(\psi=0,\pi,2\pi\), so \(J(x)\) is not an ordinary integral without further interpretation.
+
+## Conclusion
+
+The rigorous conclusions from the explicit formula are:
+
+\[
+h(x,-\psi)=-h(x,\psi),
+\]
+\[
+h(x,\psi)<0\quad\text{for }\psi\in(0,\pi/2)\ \text{(indeed for all }\psi\in(0,\pi)\text{)},
+\]
+\[
+h(x,\psi)\,h\Bigl(x,\psi-\frac{\pi}{2}\Bigr)<0\quad\text{for }\psi\in(0,\pi/2).
+\]
+
+But Part D, as written, is false. The correct replacement is:
+\[
+J(x)=0
+\]
+whenever the integral is well-defined.

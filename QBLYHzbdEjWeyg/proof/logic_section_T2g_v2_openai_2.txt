@@ -1,0 +1,33 @@
+The proof structure is **not fully valid as written**.
+
+### Issues
+
+1. **Key missing identification of the actual deformation \(v\).**  
+   The whole reduction hinges on showing that the specific vector in the problem,
+   \[
+   v_i=\pm \frac{\partial_\phi}{\sin\theta}\Big|_{p_i},
+   \]
+   is the rotation of a canonical \(T_{2g}\)-vector. But Subproblem 1 replaces this by the model
+   \[
+   \sigma_\varepsilon (a\times q_\varepsilon),
+   \]
+   which is a different-looking class of tangent vectors.  
+   Structurally, you need an explicit lemma that the **given** \(v\) belongs to the transported \(T_{2g}\) subspace used in Subproblem 3. Without that, Subproblems 2–4 do not actually connect the canonical positivity statement to the exact Hessian formula for the stated \(v\).
+
+2. **Subproblem 3 may rely on an unstated identification.**  
+   If Subproblem 3 is meant to reuse the paper’s canonical \(T_{2g}\) positivity result, then the outline should explicitly state that the paper’s canonical realization of \(T_{2g}\) is the same as the \(T_{2g}^{\mathrm{std}}\) defined here.  
+   If instead Subproblem 3 is to be proved from scratch for this \(T_{2g}^{\mathrm{std}}\), then the plan is fine on this point — but as written, that dependency is a bit implicit.
+
+3. **Minor bookkeeping gap from “after relabeling.”**  
+   Since Subproblem 1 uses relabeling, the plan should either:
+   - fix the ordering of the standard cube to match the new one from the start, or
+   - explicitly note permutation invariance of \(J_8\) and its Hessian.  
+   This is minor, but currently implicit.
+
+### Overall assessment
+
+- **Completeness:** Almost, but not quite. The main gap is the missing bridge between the problem’s concrete generator \(v\) and the abstract transported \(T_{2g}\) vector used in the rotation argument.
+- **Dependencies:** Mostly well ordered: 1 and 2 feed into 4, and 3 is the analytic input. But 4 depends on a stronger conclusion from 1 than is currently justified.
+- **Relevance:** All four subproblems are relevant; there is no obvious redundancy.
+
+So the strategy is **conceptually promising**, but **not yet structurally complete** until the identification of the specific deformation \(v\) with the transported canonical \(T_{2g}\) direction is made explicit.

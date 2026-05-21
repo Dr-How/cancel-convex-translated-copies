@@ -1,0 +1,303 @@
+Below is a LaTeX-ready writeup of \((1)\) and \((2)\).  
+For \((3)\), the excerpt you gave does **not** define the measures \(\mu^\pm\), so a completely rigorous proof of the statement about
+\[
+w=\frac{d(\mu^++\mu^-)}{dA_{\mathrm{sph}}}
+\]
+is impossible without guessing what \(\mu^\pm\) are. In keeping with your instruction not to guess, I will prove \((1)\) and \((2)\) completely, and then state the exact positivity/symmetry facts that follow from them and are typically what one uses to finish \((3)\) once \(\mu^\pm\) are specified.
+
+---
+
+Let
+\[
+a=\sqrt{\frac23},\qquad b=\frac1{\sqrt3},
+\]
+and let
+\[
+q=(x,y,z)\in \mathbb S^2\setminus\{p_1,\dots,p_8\}.
+\]
+Write the Green function in the form
+\[
+G_p(q)=-\frac1{4\pi}\log(1-p\cdot q)+c_0,
+\]
+where \(c_0\) is the fixed additive constant coming from the chosen normalization.
+
+Since both \(p\) and \(q\) are unit vectors and \(q\neq p\), one has \(p\cdot q<1\), hence
+\[
+1-p\cdot q>0.
+\]
+Therefore all logarithms below are well-defined.
+
+## Proof of \((1)\)
+
+For the \(A\)-vertices we have
+\[
+p_1=(b,0,a),\quad p_2=(-b,0,a),\quad p_3=(b,0,-a),\quad p_4=(-b,0,-a).
+\]
+Hence
+\[
+p_1\cdot q=bx+az,\quad
+p_2\cdot q=-bx+az,\quad
+p_3\cdot q=bx-az,\quad
+p_4\cdot q=-bx-az.
+\]
+Therefore
+\[
+\begin{aligned}
+G_A(q)
+&=\sum_{i=1}^4 G_{p_i}(q) \\
+&=-\frac1{4\pi}\sum_{i=1}^4 \log(1-p_i\cdot q)+4c_0 \\
+&=-\frac1{4\pi}\log\!\Bigl(\prod_{i=1}^4 (1-p_i\cdot q)\Bigr)+C_A,
+\end{aligned}
+\]
+where \(C_A=4c_0\).
+
+Now
+\[
+\begin{aligned}
+\prod_{i=1}^4 (1-p_i\cdot q)
+&=(1-bx-az)(1+bx-az)(1-bx+az)(1+bx+az) \\
+&=\bigl((1-az)^2-b^2x^2\bigr)\bigl((1+az)^2-b^2x^2\bigr) \\
+&=P_A(x,z).
+\end{aligned}
+\]
+Thus
+\[
+G_A(q)=-\frac1{4\pi}\log P_A(x,z)+C_A.
+\]
+
+The \(B\)-vertices are
+\[
+p_5=(b,a,0),\quad p_6=(-b,a,0),\quad p_7=(-b,-a,0),\quad p_8=(b,-a,0),
+\]
+so
+\[
+p_5\cdot q=bx+ay,\quad
+p_6\cdot q=-bx+ay,\quad
+p_7\cdot q=-bx-ay,\quad
+p_8\cdot q=bx-ay.
+\]
+Exactly as above,
+\[
+\begin{aligned}
+G_B(q)
+&=\sum_{j=5}^8 G_{p_j}(q) \\
+&=-\frac1{4\pi}\log\!\Bigl(\prod_{j=5}^8 (1-p_j\cdot q)\Bigr)+C_B,
+\end{aligned}
+\]
+with \(C_B=4c_0\), and
+\[
+\begin{aligned}
+\prod_{j=5}^8 (1-p_j\cdot q)
+&=(1-bx-ay)(1+bx-ay)(1+bx+ay)(1-bx+ay) \\
+&=\bigl((1-ay)^2-b^2x^2\bigr)\bigl((1+ay)^2-b^2x^2\bigr) \\
+&=P_B(x,y).
+\end{aligned}
+\]
+Hence
+\[
+G_B(q)=-\frac1{4\pi}\log P_B(x,y)+C_B.
+\]
+
+This proves \((1)\).
+
+---
+
+## Proof of \((2)\)
+
+### The derivative of \(G_A\)
+
+Set
+\[
+U_A=(1-az)^2-b^2x^2,\qquad V_A=(1+az)^2-b^2x^2,
+\]
+so that
+\[
+P_A=U_A V_A.
+\]
+Since \(G_A\) depends only on \(x\) and \(z\), we have
+\[
+\partial_y G_A=0.
+\]
+Also
+\[
+\partial_x U_A=-2b^2x,\qquad \partial_x V_A=-2b^2x,
+\]
+hence
+\[
+\begin{aligned}
+\partial_x P_A
+&=(\partial_x U_A)V_A+U_A(\partial_x V_A) \\
+&=-2b^2x(U_A+V_A).
+\end{aligned}
+\]
+Now
+\[
+U_A+V_A
+=(1-az)^2+(1+az)^2-2b^2x^2
+=2\bigl(1+a^2z^2-b^2x^2\bigr),
+\]
+so
+\[
+\partial_x P_A=-4b^2x\bigl(1+a^2z^2-b^2x^2\bigr).
+\]
+Therefore
+\[
+\begin{aligned}
+\partial_x G_A
+&=-\frac1{4\pi}\frac{\partial_x P_A}{P_A} \\
+&=\frac{b^2x\bigl(1+a^2z^2-b^2x^2\bigr)}{\pi P_A}.
+\end{aligned}
+\]
+Using
+\[
+a^2=\frac23,\qquad b^2=\frac13,
+\]
+we obtain
+\[
+b^2\bigl(1+a^2z^2-b^2x^2\bigr)
+=\frac13\left(1+\frac23 z^2-\frac13 x^2\right)
+=\frac{3+2z^2-x^2}{9}.
+\]
+Thus
+\[
+\partial_x G_A(q)=\frac{x(3+2z^2-x^2)}{9\pi\,P_A(x,z)}.
+\]
+Since
+\[
+\partial_\phi=-y\,\partial_x+x\,\partial_y,
+\]
+and \(\partial_y G_A=0\), we get
+\[
+\partial_\phi G_A(q)
+=-y\,\partial_x G_A(q)
+=-\frac{xy(3+2z^2-x^2)}{9\pi\,P_A(x,z)}.
+\]
+
+### The derivative of \(G_B\)
+
+Write
+\[
+U_B=(1-ay)^2-b^2x^2,\qquad V_B=(1+ay)^2-b^2x^2,
+\]
+so that
+\[
+P_B=U_BV_B.
+\]
+It is convenient to note that
+\[
+P_B=(1+a^2y^2-b^2x^2)^2-4a^2y^2.
+\]
+
+First,
+\[
+\partial_x P_B=-4b^2x\bigl(1+a^2y^2-b^2x^2\bigr),
+\]
+so
+\[
+\begin{aligned}
+\partial_x G_B
+&=-\frac1{4\pi}\frac{\partial_x P_B}{P_B} \\
+&=\frac{b^2x\bigl(1+a^2y^2-b^2x^2\bigr)}{\pi P_B}.
+\end{aligned}
+\]
+Again using \(a^2=\frac23\) and \(b^2=\frac13\),
+\[
+b^2\bigl(1+a^2y^2-b^2x^2\bigr)
+=\frac13\left(1+\frac23 y^2-\frac13 x^2\right)
+=\frac{3+2y^2-x^2}{9},
+\]
+hence
+\[
+\partial_x G_B(q)=\frac{x(3+2y^2-x^2)}{9\pi\,P_B(x,y)}.
+\]
+
+Next,
+\[
+\begin{aligned}
+\partial_y P_B
+&=2(1+a^2y^2-b^2x^2)(2a^2y)-8a^2y \\
+&=4a^2y\bigl(a^2y^2-b^2x^2-1\bigr) \\
+&=-4a^2y\bigl(1-a^2y^2+b^2x^2\bigr).
+\end{aligned}
+\]
+Therefore
+\[
+\begin{aligned}
+\partial_y G_B
+&=-\frac1{4\pi}\frac{\partial_y P_B}{P_B} \\
+&=\frac{a^2y\bigl(1-a^2y^2+b^2x^2\bigr)}{\pi P_B}.
+\end{aligned}
+\]
+Substituting \(a^2=\frac23\) and \(b^2=\frac13\),
+\[
+a^2\bigl(1-a^2y^2+b^2x^2\bigr)
+=\frac23\left(1-\frac23 y^2+\frac13 x^2\right)
+=\frac{2(3+x^2-2y^2)}{9},
+\]
+so
+\[
+\partial_y G_B(q)=\frac{2y(3+x^2-2y^2)}{9\pi\,P_B(x,y)}.
+\]
+
+Now apply \(\partial_\phi=-y\,\partial_x+x\,\partial_y\):
+\[
+\begin{aligned}
+\partial_\phi G_B(q)
+&=-y\,\partial_x G_B(q)+x\,\partial_y G_B(q) \\
+&=\frac{xy}{9\pi\,P_B(x,y)}
+\Bigl(-(3+2y^2-x^2)+2(3+x^2-2y^2)\Bigr) \\
+&=\frac{xy}{9\pi\,P_B(x,y)}\bigl(3+3x^2-6y^2\bigr) \\
+&=\frac{xy(1+x^2-2y^2)}{3\pi\,P_B(x,y)}.
+\end{aligned}
+\]
+
+This proves \((2)\).
+
+---
+
+## What can be proved rigorously toward \((3)\) from the supplied data
+
+As written, \((3)\) is incomplete because \(\mu^\pm\) are not defined. Still, the key facts needed for that step are immediate.
+
+Define
+\[
+R_x(x,y,z)=(x,z,-y).
+\]
+Then
+\[
+\begin{aligned}
+P_A(R_x q)
+&=((1-a(-y))^2-b^2x^2)\,((1+a(-y))^2-b^2x^2) \\
+&=((1+ay)^2-b^2x^2)\,((1-ay)^2-b^2x^2) \\
+&=P_B(q),
+\end{aligned}
+\]
+and similarly
+\[
+P_B(R_x q)=P_A(q).
+\]
+Hence \(R_x\) swaps the \(A\)- and \(B\)-polynomials.
+
+Also,
+\[
+P_A(q)=\prod_{i=1}^4 (1-p_i\cdot q),\qquad
+P_B(q)=\prod_{j=5}^8 (1-p_j\cdot q),
+\]
+and each factor is strictly positive on
+\[
+\mathbb S^2\setminus\{p_1,\dots,p_8\}.
+\]
+Therefore
+\[
+P_A(q)>0,\qquad P_B(q)>0
+\quad\text{for all }q\in \mathbb S^2\setminus\{p_1,\dots,p_8\}.
+\]
+
+Moreover, with the same Green-function normalization for every \(G_p\), one has \(C_A=C_B\), and so
+\[
+G_A(R_x q)=G_B(q),\qquad G_B(R_x q)=G_A(q).
+\]
+
+These are exactly the symmetry/positivity inputs one normally uses to prove that a density \(w\) built symmetrically from the \(A\)- and \(B\)-contributions is strictly positive and \(R_x\)-invariant. But to finish the literal statement of \((3)\), I would need the explicit definition of \(\mu^\pm\).
+
+If you send that definition, I can complete \((3)\) in the same style.

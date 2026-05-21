@@ -1,0 +1,57 @@
+% Subproblem 5: The key sign lemma — h is odd and negative on (0,pi/2)
+%
+% SETUP: In (x,psi) coordinates on S^2, define:
+%   F(x,psi) = G_A(q(x,psi)) = -(1/(4pi))*log P_A(x, sqrt(1-x^2)*cos(psi)) + C_A,
+%   P_A(x,z) = ((1-az)^2 - b^2*x^2)((1+az)^2 - b^2*x^2), a=sqrt(2/3), b=1/sqrt(3).
+%   G_B(q(x,psi)) = F(x, psi - pi/2).
+%   partial_phi = -sqrt(1-x^2)*sin(psi)*partial_x + (x*cos(psi)/sqrt(1-x^2))*partial_psi.
+%   h(x,psi) := (partial_phi G_A)(q(x,psi)) = -sqrt(1-x^2)*sin(psi)*F_x(x,psi) + (x*cos(psi)/sqrt(1-x^2))*F_psi(x,psi).
+%   w(x,psi) = d(mu^+ + mu^-)/dA > 0, and w(x,psi+pi/2) = w(x,psi).
+%
+% From the explicit formula (Subproblem 1):
+%   h(x,psi) = partial_phi G_A(q(x,psi)) = -xy(3+2z^2-x^2)/(9pi*P_A(x,z))
+%   where y = sqrt(1-x^2)*sin(psi), z = sqrt(1-x^2)*cos(psi).
+%   So: h(x,psi) = -x*sqrt(1-x^2)*sin(psi)*(3+2(1-x^2)cos^2(psi)-x^2) / (9pi*P_A(x,sqrt(1-x^2)cos(psi))).
+%
+% PROBLEM: Prove the following for all x in (0,1):
+%
+% PART A (odd in psi):
+%   h(x, -psi) = -h(x, psi).
+%
+% PART B (sign on (0,pi/2)):
+%   h(x, psi) < 0 for all psi in (0, pi/2).
+%
+% PART C (sign of h(psi)*h(psi-pi/2)):
+%   Using Parts A and B: h(x,psi)*h(x,psi-pi/2) < 0 for psi in (0,pi/2).
+%   [Since h(psi-pi/2) = -h(pi/2-psi) by oddness and pi-periodicity, and pi/2-psi in (0,pi/2) so h(pi/2-psi) < 0, giving h(psi-pi/2) > 0. Product (negative)*(positive) < 0.]
+%
+% PART D (conclusion J(x) < 0):
+%   J(x) = integral_0^{2pi} h(x,psi)*h(x,psi-pi/2)*w(x,psi) dpsi.
+%   Since h*h(psi-pi/2) is pi/2-periodic (both factors are) and negative on (0,pi/2),
+%   and w > 0, we get J(x) < 0.
+%
+% HINTS FOR PART A:
+%   h(x,-psi): sin(-psi) = -sin(psi), z at -psi = sqrt(1-x^2)*cos(-psi) = sqrt(1-x^2)*cos(psi) = z at psi.
+%   So h(x,-psi) = -x*sqrt(1-x^2)*(-sin(psi))*(...)/(9pi*P_A) = +x*sqrt(1-x^2)*sin(psi)*(...) > 0 = -h(x,psi). ✓
+%   (Numerator flips sign, denominator stays the same.)
+%
+% HINTS FOR PART B:
+%   For psi in (0,pi/2): sin(psi) > 0, x > 0, sqrt(1-x^2) > 0.
+%   Numerator: 3 + 2z^2 - x^2 = 3 + 2(1-x^2)cos^2(psi) - x^2.
+%   Since 0 < x < 1 and 0 < cos(psi) < 1: 3+2z^2-x^2 >= 3 - 1 = 2 > 0.
+%   (More precisely: 3+2z^2-x^2 = 2+y^2+3z^2... use x^2+y^2+z^2=1: = 2 + (1-x^2-z^2) + 3z^2 + z^2 - z^2 = 2 + 1-x^2+2z^2.)
+%   Actually: 3+2z^2-x^2. With z^2 = (1-x^2)cos^2(psi) >= 0, we have 3+2z^2-x^2 >= 3-x^2 >= 3-1 = 2 > 0. ✓
+%   Denominator P_A(x,z) > 0: need to show no vertex singularity in the interior.
+%   P_A = (1-az-bx)(1-az+bx)(1+az-bx)(1+az+bx) > 0 when none of the factors is zero.
+%   The factors vanish only at the A-vertices p_i, which are excluded from S^2 \ {p_1,...,p_8}.
+%   So P_A > 0 away from A-vertices. ✓
+%   Therefore h(x,psi) = -(positive)*(positive)*sin(psi)/(positive) < 0 for sin(psi) > 0. ✓
+%
+% Note: The formula h = partial_phi G_A = -xy(3+2z^2-x^2)/(9pi*P_A) was established in Subproblem 1.
+% The key signs: -x*y*(positive)/(positive) with x > 0, y = sqrt(1-x^2)*sin(psi) > 0 for psi in (0,pi).
+% So h = -(positive) < 0 for psi in (0,pi) [not just (0,pi/2)].
+%
+% Please produce a complete LaTeX proof of Parts A, B, C, D.
+% The proof for Part B is simpler than indicated above: h = -xy*(positive)/(positive),
+% and for psi in (0,pi), both x > 0 (given) and y > 0 (since sin(psi) > 0), so h < 0.
+\end{document}

@@ -1,0 +1,8 @@
+The solution is **not correct as submitted**.
+
+| Location | Description |
+|---|---|
+| “**For (3), the excerpt you gave does not define the measures \(\mu^\pm\), so a completely rigorous proof … is impossible without guessing.**” | **Critical Error.** Part (3) is not proved. The problem asks for a proof that \(w=\frac{d(\mu^++\mu^-)}{dA_{\mathrm{sph}}}\) is strictly positive and \(R_x\)-invariant, but the solution explicitly declines to establish that statement. This leaves the requested argument incomplete. |
+| “**These are exactly the symmetry/positivity inputs one normally uses to prove that a density \(w\) built symmetrically from the \(A\)- and \(B\)-contributions is strictly positive and \(R_x\)-invariant.**” | **Justification Gap.** This is only a heuristic remark. The solution never defines \(\mu^\pm\) or \(w\), and never proves any formula connecting \(w\) to \(P_A,P_B,G_A,G_B\). So the claimed positivity/invariance of the actual \(w\) does not follow from the preceding computations. |
+
+So the writeup may validate parts (1) and (2), but it does **not** complete part (3), and therefore it is not a correct full solution to the stated problem.

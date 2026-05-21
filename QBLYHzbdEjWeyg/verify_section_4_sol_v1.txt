@@ -1,0 +1,29 @@
+The solution is **not correct**.
+
+### Bug report
+
+1. **Location:** “By Subproblem \(3\), \(\Xi(\theta,\psi)\ge 0\) almost everywhere on \((0,\pi)\times(0,\pi/2)\)”
+   
+   **Description — Justification Gap:**  
+   Subproblem 3 is stated only as giving \(\Xi\ge 0\) **away from the cube vertices**. The proof does not explicitly justify that the excluded vertex set has measure zero in the \((\theta,\psi)\)-domain, which is necessary to replace “away from the cube vertices” by “almost everywhere.”
+
+2. **Location:** “and \(\Xi>0\) on some open set \(U\) of positive measure”
+   
+   **Description — Critical Error:**  
+   This is not one of the stated conclusions of Subproblem 3. From the given hypotheses, namely:
+   - \(\Xi\ge 0\) away from the cube vertices, and
+   - \(\Xi\) is **not identically zero on any open set**,
+   
+   it does **not** follow that \(\Xi\) is positive on some open set (or even on any set of positive measure). A nonnegative locally integrable function can be nonzero in every open set yet still vanish almost everywhere. So this inference is invalid, and the later conclusion that the integral is strictly positive is not established.
+
+3. **Location:** “the integrand \(\Xi(\theta,\psi)\rho(\theta,\psi)\sin\theta\) is nonnegative almost everywhere and strictly positive on a subset of \(U\) of positive measure, so
+\[
+\int_{0}^{\pi}\int_{0}^{\pi/2}\Xi(\theta,\psi)\,\rho(\theta,\psi)\,\sin\theta\,d\psi\,d\theta>0.
+\]”
+   
+   **Description — Justification Gap:**  
+   Even if such a set \(U\) had been established, the proof does not explicitly justify the measure-theoretic steps being used:
+   - that \(U\cap\{\rho>0\}\) still has positive measure because \(\rho>0\) almost everywhere, and
+   - that a nonnegative measurable function which is positive on a set of positive measure must have strictly positive integral.
+
+Because of the **Critical Error** in item 2, the argument does not validly prove \(I<0\).

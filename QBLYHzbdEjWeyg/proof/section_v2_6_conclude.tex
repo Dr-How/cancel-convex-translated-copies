@@ -1,0 +1,144 @@
+% Subproblem 6: Integrate over x and conclude Hessian positivity
+%
+% SETUP: From Subproblems 1-5:
+%   - In (x,psi) coordinates: dA = dx dpsi.
+%   - G_B(q(x,psi)) = F(x, psi-pi/2).
+%   - w(x,psi) = d(mu^++mu^-)/dA > 0 and w(x,psi+pi/2) = w(x,psi).
+%   - h(x,psi) = (partial_phi G_A)(q(x,psi)) = -xy(3+2z^2-x^2)/(9pi*P_A(x,z)) [y,z in terms of x,psi].
+%   - (partial_phi G_B)(q(x,psi)) = h(x, psi-pi/2) [since G_B = F(x,psi-pi/2) and same partial_phi formula].
+%     Wait: need to verify (partial_phi G_B)(q(x,psi)) = h(x,psi-pi/2).
+%     From the explicit formula: partial_phi G_B = xy(1+x^2-2y^2)/(3pi*P_B(x,y)).
+%     And h(x,psi-pi/2): substitute psi -> psi-pi/2 in h(x,psi) = -x*sqrt(1-x^2)*sin(psi)*(...)/(9pi*P_A(x,sqrt(1-x^2)cos(psi))):
+%     h(x,psi-pi/2) = -x*sqrt(1-x^2)*sin(psi-pi/2)*(3+2(1-x^2)cos^2(psi-pi/2)-x^2)/(9pi*P_A(x,sqrt(1-x^2)cos(psi-pi/2))).
+%     sin(psi-pi/2) = -cos(psi), cos(psi-pi/2) = sin(psi).
+%     So P_A(x, sqrt(1-x^2)*sin(psi)): this involves z = sqrt(1-x^2)*sin(psi)... but wait P_A was defined with z, not y.
+%     Actually, h(x,psi-pi/2) = (partial_phi G_A)(q(x,psi-pi/2)). But q(x,psi-pi/2) is a DIFFERENT point.
+%     We need (partial_phi G_B) at q(x,psi), which equals partial_phi [G_A(R_x^{-1}(q))]|_{q=q(x,psi)}.
+%     By chain rule: = (partial_phi G_A)(R_x^{-1}(q)) composed with the derivative of R_x^{-1}.
+%     Actually, the Killing field partial_phi commutes with R_x (since R_x is a rotation about x-axis and partial_phi = -y*partial_x + x*partial_y = rotation about z-axis; these don't commute in general).
+%     A cleaner approach: use the explicit formula for partial_phi G_B from Subproblem 1:
+%     partial_phi G_B = xy(1+x^2-2y^2)/(3pi*P_B(x,y)).
+%     Evaluate at q(x,psi): x stays x, y = sqrt(1-x^2)sin(psi), P_B(x,y).
+%     Compare with partial_phi G_A at q(x,psi-pi/2): at that point, y' = sqrt(1-x^2)sin(psi-pi/2) = -sqrt(1-x^2)cos(psi) and z' = sqrt(1-x^2)cos(psi-pi/2) = sqrt(1-x^2)sin(psi).
+%     partial_phi G_A at (x, y', z') = -x*y'*(3+2z'^2-x^2)/(9pi*P_A(x,z')).
+%     = -x*(-sqrt(1-x^2)cos(psi))*(3+2(1-x^2)sin^2(psi)-x^2)/(9pi*P_A(x,sqrt(1-x^2)sin(psi))).
+%     = x*sqrt(1-x^2)*cos(psi)*(3+2(1-x^2)sin^2(psi)-x^2) / (9pi*((1-a*sqrt(1-x^2)sin(psi))^2-b^2x^2)((1+a*sqrt(1-x^2)sin(psi))^2-b^2x^2)).
+%     Note P_A(x,z') = P_A(x,sqrt(1-x^2)sin(psi)) = ((1-a*sqrt(1-x^2)sin(psi))^2-b^2x^2)... this equals P_B(x,y) with y = sqrt(1-x^2)sin(psi) [since P_B(x,y) = ((1-ay)^2-b^2x^2)((1+ay)^2-b^2x^2) with a=sqrt(2/3)].
+%     And 3+2z'^2-x^2 = 3+2(1-x^2)sin^2(psi)-x^2 = ... vs 1+x^2-2y^2 = 1+x^2-2(1-x^2)sin^2(psi).
+%     3+2(1-x^2)s^2-x^2 = 3 + 2s^2 - 2x^2s^2 - x^2 [with s=sin(psi)].
+%     3*(1+x^2-2(1-x^2)s^2) = 3 + 3x^2 - 6s^2 + 6x^2s^2. Different from above.
+%     So partial_phi G_A at q(x,psi-pi/2) ≠ partial_phi G_B at q(x,psi) in general.
+%     This means (partial_phi G_B)(q(x,psi)) ≠ h(x,psi-pi/2).
+%
+% CORRECTED PROBLEM:
+%   Show directly from the explicit formulas that:
+%   (partial_phi G_A)(q(x,psi)) * (partial_phi G_B)(q(x,psi))
+%   = [-xy(3+2z^2-x^2)/(9pi*P_A)] * [xy(1+x^2-2y^2)/(3pi*P_B)]
+%   = -x^2y^2*(3+2z^2-x^2)*(1+x^2-2y^2) / (27pi^2*P_A*P_B).
+%
+% For this product to be negative (as needed), we need:
+%   (3+2z^2-x^2)*(1+x^2-2y^2) > 0.
+%
+% We know 3+2z^2-x^2 > 0 always (= 2+y^2+3z^2 >= 2 with x^2+y^2+z^2=1, wait: 3+2z^2-x^2 = 3+2z^2-(1-y^2-z^2) = 2+y^2+3z^2 >= 2 > 0). ✓
+%
+% So the sign of the product equals the sign of (1+x^2-2y^2).
+% This changes sign when y^2 = (1+x^2)/2.
+%
+% HOWEVER: The integration over psi on each x-circle [0,2pi):
+%   J(x) = integral_0^{2pi} [-x^2y^2*(3+2z^2-x^2)*(1+x^2-2y^2)/(27pi^2*P_A*P_B)] * w dpsi.
+%
+% With y = sqrt(1-x^2)*sin(psi), z = sqrt(1-x^2)*cos(psi):
+%   J(x) = integral_0^{2pi} [-x^2*(1-x^2)*sin^2(psi)*(3+2(1-x^2)cos^2(psi)-x^2)*(1+x^2-2(1-x^2)sin^2(psi))/(27pi^2*P_A*P_B)] * w dpsi.
+%
+% The factor (1+x^2-2(1-x^2)sin^2(psi)) changes sign at sin^2(psi) = (1+x^2)/(2(1-x^2)).
+%
+% USE THE ANTI-CORRELATION ARGUMENT FROM SUBPROBLEM 5:
+%   The KEY insight (from Subproblem 5) is:
+%   J(x) = integral h(x,psi)*h_B(x,psi)*w dpsi
+%   where h(x,psi) = -xy(3+2z^2-x^2)/(9pi*P_A) < 0 for y > 0 (psi in (0,pi))
+%   and h_B(x,psi) = xy(1+x^2-2y^2)/(3pi*P_B).
+%
+%   Actually: we need to verify the SIGN of h_B(x,psi) for psi in (0,pi/2).
+%   h_B = xy(1+x^2-2y^2)/(3pi*P_B). For psi in (0,pi/2): x>0, y>0. Sign = sign(1+x^2-2y^2).
+%   At psi=0: y=0, sign = +. At psi=pi/2: y=sqrt(1-x^2), 1+x^2-2(1-x^2) = 3x^2-1, sign depends on x.
+%   For x > 1/sqrt(3): h_B > 0 throughout (0,pi/2).
+%   For x < 1/sqrt(3): h_B changes sign somewhere in (0,pi/2).
+%
+% SIMPLEST APPROACH for this subproblem:
+% Write J(x) = integral_0^{2pi} h(x,psi)*h_B(x,psi)*w(x,psi) dpsi and use the pi/2-periodicity
+% of w and the quarter-period ANTI-CORRELATION of h and h_B.
+%
+% PROBLEM STATEMENT:
+% Using h(x,psi) = -xy(3+2z^2-x^2)/(9pi*P_A) [negative for y>0] and
+% h_B(x,psi) = xy(1+x^2-2y^2)/(3pi*P_B), and the fact that h(x,psi) has period pi
+% (since y and z are pi-periodic in psi), show that:
+%   integral_0^{2pi} h(x,psi)*h_B(x,psi)*w(x,psi) dpsi < 0
+% for all x in (0,1).
+%
+% OBSERVATION: h(x,psi) = -x*sqrt(1-x^2)*sin(psi)*N(x,psi)/(9pi*P_A)
+%   where N = 3+2z^2-x^2 > 0. This is negative for psi in (0,pi) and positive for psi in (pi,2pi).
+% h_B(x,psi) = x*sqrt(1-x^2)*sin(psi)*M(x,psi)/(3pi*P_B)
+%   where M = 1+x^2-2y^2 = 1+x^2-2(1-x^2)sin^2(psi). This may change sign.
+%
+% Product h*h_B = -x^2*(1-x^2)*sin^2(psi)*N*M/(27pi^2*P_A*P_B).
+% The integral = -x^2*(1-x^2)/(27pi^2) * integral sin^2(psi)*N*M*w/(P_A*P_B) dpsi.
+% For this to be negative, need: integral sin^2(psi)*N*M*w/(P_A*P_B) dpsi > 0.
+%
+% ALTERNATIVE SIMPLE PROOF using odd/even decomposition:
+% Write M(x,psi) = 1+x^2-2(1-x^2)sin^2(psi). Note:
+% (a) N/(P_A) is pi-periodic and even in psi (since z=sqrt(1-x^2)cos(psi) is even and pi-periodic).
+% (b) M/(P_B) is pi-periodic and even in psi (since y=sqrt(1-x^2)sin(psi) enters as y^2).
+% (c) sin^2(psi) is pi-periodic and even.
+% (d) w(x,psi) is pi/2-periodic.
+% So the integrand sin^2(psi)*N*M*w/(P_A*P_B) is pi/2-periodic and even in psi.
+%
+% integral_0^{2pi} = 4 * integral_0^{pi/2}.
+% On (0,pi/2): sin^2 > 0, N > 0, 1/(P_A*P_B) > 0, w > 0.
+% Need: M = 1+x^2-2(1-x^2)sin^2(psi) > 0 on average... but M can be negative.
+%
+% This approach also struggles. Let me state the FULL problem clearly and let the generator find the right proof.
+%
+% FINAL STATEMENT OF THE PROBLEM TO PROVE:
+%
+% Given:
+%   - x in (0,1), y = sqrt(1-x^2)*sin(psi), z = sqrt(1-x^2)*cos(psi), psi in [0,2pi).
+%   - P_A(x,z) = ((1-az)^2-b^2x^2)((1+az)^2-b^2x^2) > 0 (away from A-vertices), a=sqrt(2/3), b=1/sqrt(3).
+%   - P_B(x,y) = ((1-ay)^2-b^2x^2)((1+ay)^2-b^2x^2) > 0 (away from B-vertices).
+%   - w(x,psi) > 0 and w(x,psi+pi/2) = w(x,psi) (pi/2-periodic in psi).
+%   - h_A(x,psi) = -xy(3+2z^2-x^2)/(9pi*P_A(x,z)).
+%   - h_B(x,psi) = xy(1+x^2-2y^2)/(3pi*P_B(x,y)).
+%
+% Prove that:
+%   J(x) = integral_0^{2pi} h_A(x,psi) * h_B(x,psi) * w(x,psi) dpsi < 0.
+%
+% APPROACH THAT SHOULD WORK: Note h_A(psi) = -sin(psi)*alpha(psi) and h_B(psi) = sin(psi)*beta(psi)
+% where alpha(psi) = x*sqrt(1-x^2)*(3+2z^2-x^2)/(9pi*P_A) > 0 and beta(psi) = x*sqrt(1-x^2)*(1+x^2-2y^2)/(3pi*P_B).
+% J(x) = -integral sin^2(psi)*alpha*beta*w dpsi = -integral_0^{2pi} sin^2(psi)*alpha(psi)*beta(psi)*w(psi) dpsi.
+%
+% Since w is pi/2-periodic, fold to [0,pi/2):
+%   = -4*integral_0^{pi/2} sin^2(psi)*w(psi)*[alpha(psi)*beta(psi)+alpha(psi+pi/2)*beta(psi+pi/2)+alpha(psi+pi)*beta(psi+pi)+alpha(psi+3pi/2)*beta(psi+3pi/2)] dpsi.
+%
+% Use: alpha(psi+pi) = alpha(psi) (pi-periodic, even). sin^2(psi+pi/2) = cos^2(psi). sin^2(psi+pi) = sin^2(psi). sin^2(psi+3pi/2) = cos^2(psi).
+%   = -4*integral_0^{pi/2} w(psi)*[sin^2(psi)*(alpha(psi)*beta(psi)+alpha(psi+pi)*beta(psi+pi))+cos^2(psi)*(alpha(psi+pi/2)*beta(psi+pi/2)+alpha(psi+3pi/2)*beta(psi+3pi/2))] dpsi.
+%
+% alpha(psi+pi) = alpha(psi), beta(psi+pi) = beta(psi) (both pi-periodic since z^2 and y^2 are pi-periodic).
+% And alpha(psi+pi/2): z at psi+pi/2 = sqrt(1-x^2)*cos(psi+pi/2) = -sqrt(1-x^2)*sin(psi) = -y_original.
+% So z^2 at psi+pi/2 = y^2 at psi. Alpha(psi+pi/2) = x*sqrt(1-x^2)*(3+2y^2-x^2)/(9pi*P_A(x,-y)) where P_A(x,-y)... hmm wait, at psi+pi/2: z' = -y_0 where y_0 = sqrt(1-x^2)*sin(psi). P_A(x,z') = P_A(x,-y_0) = P_A(x,y_0) (since P_A is even in z). And 3+2z'^2-x^2 = 3+2y_0^2-x^2. So alpha(psi+pi/2) = x*sqrt(1-x^2)*(3+2y^2-x^2)/(9pi*P_A(x,y)).
+% Beta(psi+pi/2): y' = sqrt(1-x^2)*sin(psi+pi/2) = sqrt(1-x^2)*cos(psi) = z_original. Beta(psi+pi/2) = x*z_0*sqrt(1-x^2)/... hmm. Actually beta depends on y and P_B.
+%
+% This is getting complicated. Please find a clean proof using any of the hints provided.
+% The most direct route may be the one from hint_v2_5.md: show that J(x) = integral h*h_B*w dpsi
+% is negative by the folding + anti-correlation argument.
+%
+% Actually the simplest proof: h_A has the SAME sign structure as -h_B, i.e.,:
+% h_A(psi) = -xy*(3+2z^2-x^2)/(9pi*P_A) and h_B(psi) = xy*(1+x^2-2y^2)/(3pi*P_B).
+% For the integral J = integral h_A*h_B*w dpsi, we can split into regions y>0 and y<0 by psi.
+% By symmetry psi -> pi-psi (sends y->y, z->-z, hence P_A is unchanged, h_A is unchanged, P_B unchanged, h_B unchanged, w unchanged by symmetry), integral over (0,pi) is same as integral over (pi,2pi) (after psi -> 2pi-psi sends h_A -> -h_A and h_B -> -h_B, so product unchanged). So J = 2*integral_0^{pi} h_A*h_B*w dpsi.
+%
+% On (0,pi): y > 0, so h_A < 0 (always) and h_B has sign(1+x^2-2y^2).
+% J/2 = integral_0^{pi} h_A*h_B*w dpsi = -integral_0^{pi} |h_A|*(sign h_B)*|h_B|*w dpsi.
+%
+% By pi/2-periodicity of w and parity: integral_0^pi = 2*integral_0^{pi/2} [... same argument as above].
+%
+% Please produce a COMPLETE, RIGOROUS LaTeX proof that J(x) < 0 for x in (0,1).
+\end{document}

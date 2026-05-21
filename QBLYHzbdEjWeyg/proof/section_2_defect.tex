@@ -1,0 +1,61 @@
+% Subproblem 2: Rewrite the target integral as a quarter-turn defect
+%
+% CONTEXT: Part of the proof that Hess_p log J_8 > 0 on T_{2g}.
+% Working directory: /data/projects/3eacb340-027e-4b71-8de4-67574ba54ea2/QBLYHzbdEjWeyg/proof/
+%
+% GIVEN (from Subproblem 1):
+%   - psi = phi - pi/4; in (theta, psi) coordinates, x=sin(theta)cos(psi), y=sin(theta)sin(psi).
+%   - F_A(theta,psi) = partial_psi G_A(theta,psi) where G_A = sum_{q in A} G_q.
+%   - F_B(theta,psi) = F_A(theta, psi+pi).
+%   - C(theta,psi) = F_A(theta,psi) + F_A(theta,psi+pi) = F_A + F_B.
+%   - D(theta,psi) = F_A(theta,psi) - F_A(theta,psi+pi) = F_A - F_B.
+%   - The full cube has C_4 rotational symmetry about the z-axis, i.e., it is invariant
+%     under the map R_{pi/2}: psi -> psi + pi/2.
+%   - u(theta,psi) = 2*pi*(G_A + G_B)(theta,psi) = 2*pi * sum_{all 8 cube vertices} G_q,
+%     which satisfies u(theta, psi + pi/2) = u(theta, psi) (C_4 symmetry of the full cube).
+%   - mu^pm are probability measures with densities rho^pm = exp(+/- u) / I^pm on S^2.
+%   - rho(theta,psi) := rho^+(theta,psi) + rho^-(theta,psi) (not normalized, but positive).
+%
+% STATEMENT TO PROVE:
+%
+% (a) Show that rho(theta, psi + pi/2) = rho(theta, psi) for all (theta, psi).
+%     (This follows from the C_4 symmetry u(theta, psi+pi/2) = u(theta, psi), which
+%      implies exp(+/-u(psi+pi/2)) = exp(+/-u(psi)), and I^pm are constants.)
+%
+% (b) Show that C(theta, psi + pi/2) = C(theta, psi).
+%     (This is a symmetry property of C under the quarter-turn.)
+%
+% (c) Define
+%       Xi(theta, psi) = (1/2)*D(theta,psi)^2 + (1/2)*D(theta, psi+pi/2)^2 - C(theta,psi)^2.
+%     Prove that the target integral
+%       I = integral_{S^2} F_A(theta,psi) * F_A(theta,psi+pi) * d(mu^+ + mu^-)
+%     satisfies
+%       I = - integral_0^pi integral_0^{pi/2} Xi(theta,psi) * rho(theta,psi) * sin(theta) d psi d theta.
+%
+% PROOF STRATEGY for (c):
+%   Use F_A * F_B = F_A * F_A(psi+pi) and the identities:
+%     F_A = (C + D)/2,   F_B = F_A(psi+pi) = (C - D)/2.
+%   So F_A * F_B = (C^2 - D^2)/4.
+%
+%   Partition the psi circle [0, 2*pi) into four quarter-turn sectors [0,pi/2), [pi/2,pi),
+%   [pi,3*pi/2), [3*pi/2,2*pi). Use the pi/2-periodicity of rho and the transformation
+%   behavior of C and D under psi -> psi + pi/2 to fold the integral over [0,2*pi)
+%   down to [0,pi/2).
+%
+%   Key: Compute how D transforms under psi -> psi + pi/2.
+%   Show that C(psi+pi/2) = C(psi) and D(psi+pi/2) can be expressed, then show
+%   integral_0^{2*pi} F_A * F_B * rho dpsi = integral_0^{pi/2} (something involving C,D) * rho dpsi.
+%   The formula Xi = (1/2)D^2 + (1/2)(D(psi+pi/2))^2 - C^2 should emerge naturally.
+%
+% Note: The identity F_A*F_B = (C^2 - D^2)/4 gives:
+%   4 * integral F_A*F_B * rho dpsi = integral (C^2 - D^2) * rho dpsi.
+%
+%   Over [0,2*pi], using pi/2-periodicity of rho and C:
+%   integral_0^{2*pi} C^2 * rho dpsi = 4 * integral_0^{pi/2} C^2 * rho dpsi.
+%   integral_0^{2*pi} D^2 * rho dpsi = integral_0^{pi/2} [D^2 + D(psi+pi/2)^2 + D(psi+pi)^2 + D(psi+3pi/2)^2] * rho dpsi.
+%   Use D(psi+pi) = -D(psi) (anti-symmetry) and D(psi+pi+pi/2) = -D(psi+pi/2) to get:
+%   integral_0^{2*pi} D^2 * rho dpsi = 2 * integral_0^{pi/2} [D^2 + D(psi+pi/2)^2] * rho dpsi.
+%
+% DELIVERABLE: A clean LaTeX proof of (a)-(c). The output should be a self-contained
+% LaTeX section (no \documentclass) ready for \input{} into the main paper.
+\end{document}

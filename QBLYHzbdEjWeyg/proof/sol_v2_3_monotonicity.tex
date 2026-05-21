@@ -1,0 +1,274 @@
+I will prove $(a)$–$(c)$ completely, and then I will state precisely what happens in $(d)$.
+
+Fix $x\in(0,1)$$, and set$
+\[
+y=\sqrt{1-x^2}\sin\psi,\qquad z=\sqrt{1-x^2}\cos\psi.
+\]
+Then
+\[
+x^2+y^2+z^2=1,
+\]
+and
+\[
+F(x,\psi)= -\frac{1}{4\pi}\log P_A(x,z)+C_A,
+\]
+where
+\[
+P_A(x,z)=\bigl((1-az)^2-b^2x^2\bigr)\bigl((1+az)^2-b^2x^2\bigr),
+\qquad
+a=\sqrt{\frac23},\quad b=\frac1{\sqrt3}.
+\]
+
+For later use, observe that on the sphere,
+\[
+(1-az)^2-b^2x^2
+=1-2az+\frac23 z^2-\frac13x^2
+=1-2az+\frac23 z^2-\frac13(1-y^2-z^2)
+=(z-a)^2+\frac{y^2}{3},
+\]
+and similarly
+\[
+(1+az)^2-b^2x^2=(z+a)^2+\frac{y^2}{3}.
+\]
+Hence
+\[
+P_A(x,z)=\left((z-a)^2+\frac{y^2}{3}\right)\left((z+a)^2+\frac{y^2}{3}\right).
+\]
+In particular, if $\psi\in(0,\pi/2)$, then $y>0$, so
+\[
+P_A(x,z)>0.
+\]
+Thus $F$ is smooth on $(0,\pi/2)$.
+
+---
+
+### Proof of $(a)$
+
+Since $\cos(-\psi)=\cos\psi$, we have
+\[
+z(x,-\psi)=\sqrt{1-x^2}\cos(-\psi)=\sqrt{1-x^2}\cos\psi=z(x,\psi).
+\]
+Therefore
+\[
+P_A\bigl(x,z(x,-\psi)\bigr)=P_A\bigl(x,z(x,\psi)\bigr),
+\]
+and hence
+\[
+F(x,-\psi)=F(x,\psi).
+\]
+
+So $\psi\mapsto F(x,\psi)$ is even.
+
+---
+
+### Proof of $(b)$
+
+Since $\cos(\psi+\pi)=-\cos\psi$, we have
+\[
+z(x,\psi+\pi)=-z(x,\psi).
+\]
+Now
+\[
+P_A(x,-z)
+=\bigl((1+a z)^2-b^2x^2\bigr)\bigl((1-a z)^2-b^2x^2\bigr)
+=P_A(x,z),
+\]
+because the two factors are merely exchanged.
+
+Therefore
+\[
+F(x,\psi+\pi)
+=-\frac{1}{4\pi}\log P_A\bigl(x,z(x,\psi+\pi)\bigr)+C_A
+=-\frac{1}{4\pi}\log P_A\bigl(x,z(x,\psi)\bigr)+C_A
+=F(x,\psi).
+\]
+
+So $\psi\mapsto F(x,\psi)$ is $\pi$-periodic.
+
+---
+
+### Proof of $(c)$
+
+For fixed $x$, the only $\psi$-dependence in $F(x,\psi)=G_A(x,z(x,\psi))$ comes from $z$. Hence, by the chain rule and the formula from the setup,
+\[
+\partial_\psi F(x,\psi)
+=\partial_z G_A(x,z)\,\partial_\psi z
+=\frac{2z(3+x^2-2z^2)}{9\pi P_A(x,z)}\cdot\bigl(-\sqrt{1-x^2}\sin\psi\bigr).
+\]
+So
+\[
+\partial_\psi F(x,\psi)
+=
+-\frac{2z\sqrt{1-x^2}\sin\psi\,(3+x^2-2z^2)}{9\pi P_A(x,z)}.
+\]
+
+Now let $\psi\in(0,\pi/2)$. Then
+
+- $\sqrt{1-x^2}>0$ because $x\in(0,1)$,
+- $\sin\psi>0$,
+- $\cos\psi>0$, hence
+  \[
+  z=\sqrt{1-x^2}\cos\psi>0,
+  \]
+- $P_A(x,z)>0$ by the preliminary factorization above.
+
+It remains to check that
+\[
+3+x^2-2z^2>0.
+\]
+Since
+\[
+z^2=(1-x^2)\cos^2\psi<1-x^2,
+\]
+we get
+\[
+3+x^2-2z^2
+>
+3+x^2-2(1-x^2)
+=
+1+3x^2
+>0.
+\]
+
+Thus every factor in the numerator is positive except for the leading minus sign, while the denominator is positive. Therefore
+\[
+\partial_\psi F(x,\psi)<0
+\qquad\text{for all }x\in(0,1),\ \psi\in(0,\pi/2).
+\]
+
+Hence, for each fixed $x\in(0,1)$, the map $\psi\mapsto F(x,\psi)$ is strictly decreasing on $(0,\pi/2)$.
+
+---
+
+## Discussion of $(d)$
+
+Part $(d)$ is **false as stated**.
+
+Indeed, using the formulas from the setup,
+\[
+\partial_x F(x,\psi)
+=\partial_x G_A(x,z)+\partial_z G_A(x,z)\,\partial_x z,
+\]
+with
+\[
+\partial_x z=-\frac{x\cos\psi}{\sqrt{1-x^2}}.
+\]
+Therefore
+\[
+\partial_x F(x,\psi)
+=
+\frac{x(3+2z^2-x^2)}{9\pi P_A(x,z)}
++
+\frac{2z(3+x^2-2z^2)}{9\pi P_A(x,z)}
+\left(-\frac{x\cos\psi}{\sqrt{1-x^2}}\right).
+\]
+Since $z=\sqrt{1-x^2}\cos\psi$, this simplifies to
+\[
+\partial_x F(x,\psi)
+=
+\frac{x}{9\pi P_A(x,z)}
+\Bigl[(3+2z^2-x^2)-2\cos^2\psi\,(3+x^2-2z^2)\Bigr].
+\]
+Now set
+\[
+c=\cos^2\psi\in(0,1),
+\qquad z^2=(1-x^2)c.
+\]
+Then
+\[
+\partial_x F(x,\psi)
+=
+\frac{x}{9\pi P_A(x,z)}\,f_x(c),
+\]
+where
+\[
+f_x(c)=4(1-x^2)c^2-4(1+x^2)c+(3-x^2).
+\]
+
+Since $x>0$ and $P_A(x,z)>0$ on $(0,\pi/2)$, the sign of $\partial_x F(x,\psi)$ is exactly the sign of $f_x(c)$.
+
+Now
+\[
+f_x(0)=3-x^2>0,
+\qquad
+f_x(1)=3-9x^2.
+\]
+
+So if
+\[
+x>\frac1{\sqrt3},
+\]
+then
+\[
+f_x(1)=3-9x^2<0.
+\]
+Because $f_x$ is continuous, this implies that
+\[
+f_x(c)<0
+\]
+for all $c$ sufficiently close to $1$, i.e. for all $\psi>0$ sufficiently small. Hence
+\[
+\partial_x F(x,\psi)<0
+\]
+for all sufficiently small $\psi\in(0,\pi/2)$.
+
+Therefore the claim
+\[
+\partial_x F(x,\psi)>0
+\qquad\text{for all }x\in(0,1),\ \psi\in(0,\pi/2)
+\]
+cannot be true.
+
+In fact, one can sharpen the discussion:
+
+- If $0<x<1/\sqrt3$, then the discriminant of $f_x$ is
+  \[
+  \Delta_x
+  =16(1+x^2)^2-16(1-x^2)(3-x^2)
+  =32(3x^2-1)<0.
+  \]
+  Since the leading coefficient $4(1-x^2)$ is positive, $f_x(c)>0$ for all $c\in\mathbb R$, hence
+  \[
+  \partial_x F(x,\psi)>0
+  \qquad\text{for all }\psi\in(0,\pi/2).
+  \]
+
+- If $x=1/\sqrt3$, then
+  \[
+  f_x(c)=\frac83(1-c)^2,
+  \]
+  so for $c\in(0,1)$,
+  \[
+  f_x(c)>0,
+  \]
+  and again
+  \[
+  \partial_x F(x,\psi)>0
+  \qquad\text{for all }\psi\in(0,\pi/2).
+  \]
+
+- If $x>1/\sqrt3$, then $\partial_x F(x,\psi)$ is negative for $\psi$ sufficiently close to $0$, while
+  \[
+  f_x(0)=3-x^2>0,
+  \]
+  so it is positive for $\psi$ sufficiently close to $\pi/2$. Thus the sign really does change.
+
+So the correct global statement is:
+\[
+\partial_x F(x,\psi)>0\ \text{for all }\psi\in(0,\pi/2)
+\quad\Longleftrightarrow\quad
+0<x\le \frac1{\sqrt3}.
+\]
+
+---
+
+Thus:
+
+- $(a)$ is true,
+- $(b)$ is true,
+- $(c)$ is true,
+- $(d)$ is false without an additional restriction; it becomes true if one assumes
+  \[
+  0<x\le \frac1{\sqrt3}.
+  \]
+
